@@ -13,7 +13,7 @@
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics-compat.js"></script>
   
   <style>
-    /* نفس الـ CSS الذي لديك - محتفظ به بالكامل */
+    /* نفس الـ CSS الذي لديك - محتفظ به بالكامل + تحسينات للزر الجديد */
     :root {
       --primary-red: #8B0000;
       --primary-red-light: #a52a2a;
@@ -405,6 +405,42 @@
       transform: translateY(0);
     }
     
+    /* ========== DASHBOARD BUTTON (صغير في الأخير) ========== */
+    .dashboard-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: #2c3e50;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow);
+      margin-top: 12px;
+      width: auto;
+      text-decoration: none;
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    .dashboard-btn i {
+      font-size: 0.85rem;
+    }
+    
+    .dashboard-btn:hover {
+      background: #1a2a3a;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .dashboard-btn:active {
+      transform: translateY(0);
+    }
+    
     /* Empty Cart */
     .empty-cart {
       text-align: center;
@@ -590,6 +626,13 @@
       font-size: 1.1rem;
     }
     
+    .footer-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    
     /* RESPONSIVE DESIGN */
     @media (max-width: 1024px) {
       .cart-container {
@@ -685,6 +728,10 @@
         text-align: center;
         max-width: 90%;
       }
+      .dashboard-btn {
+        padding: 6px 12px;
+        font-size: 0.75rem;
+      }
     }
   </style>
 </head>
@@ -766,9 +813,16 @@
           </div>
         </div>
         
-        <button class="checkout-btn" id="checkout-btn">
-          <i class="fab fa-whatsapp"></i> Complete Order via WhatsApp
-        </button>
+        <!-- مجموعة الأزرار: Checkout + Dashboard الصغير -->
+        <div class="footer-actions">
+          <button class="checkout-btn" id="checkout-btn">
+            <i class="fab fa-whatsapp"></i> Complete Order via WhatsApp
+          </button>
+          <!-- زر صغير في الأخير مكتوب فيه dashboard يفتح صفحة dashboard.html -->
+          <button class="dashboard-btn" id="dashboardBtn">
+            <i class="fas fa-chart-line"></i> Dashboard
+          </button>
+        </div>
         <p class="info-text">
           <i class="fas fa-info-circle"></i> We'll contact you via WhatsApp to confirm your order details and delivery charges.
         </p>
@@ -820,6 +874,7 @@
     const customerAddressInput = document.getElementById('customerAddress');
     const timeOptions = document.querySelectorAll('.time-option');
     const toastMessage = document.getElementById('toastMessage');
+    const dashboardBtn = document.getElementById('dashboardBtn');
     
     function showToast(message, isError = false) {
       toastMessage.innerHTML = `<i class="fas ${isError ? 'fa-exclamation-triangle' : 'fa-check-circle'}"></i> <span>${message}</span>`;
@@ -964,7 +1019,7 @@
         orderTime: new Date().toLocaleTimeString(),
         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
         customerName: customerInfo.name || "Guest Customer",
-        phone: "", // يمكن إضافة حقل للهاتف في checkout
+        phone: "",
         email: "",
         address: customerInfo.address || "",
         deliveryTime: customerInfo.deliveryTime,
@@ -1067,10 +1122,16 @@
       }
     }
     
+    // دالة فتح صفحة dashboard.html
+    function goToDashboard() {
+      window.location.href = 'dashboard.html';
+    }
+    
     function attachEventListeners() {
       clearCartBtn.addEventListener('click', clearCart);
       checkoutBtn.addEventListener('click', sendWhatsAppOrder);
       backButton.addEventListener('click', () => window.location.href = 'flowers.html');
+      dashboardBtn.addEventListener('click', goToDashboard);
       timeOptions.forEach(opt => {
         opt.addEventListener('click', function() {
           timeOptions.forEach(o => o.classList.remove('selected'));
@@ -1106,7 +1167,7 @@
       updateCartDisplay();
       loadCustomerInfo();
       attachEventListeners();
-      console.log("✅ Checkout page initialized with Firebase!");
+      console.log("✅ Checkout page initialized with Firebase + Dashboard Button!");
     }
     
     document.addEventListener('DOMContentLoaded', init);
