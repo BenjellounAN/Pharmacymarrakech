@@ -1,21 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Premium Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Dashboard flowers</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- شعار الموقع العادي (Favicon) -->
+    <link rel="icon" type="image/png" href="https://i.ibb.co/Z17ftSn3/94655-B30-C7-E3-459-E-8-DBD-83-D9632-C55-CC.png">
+    <link rel="shortcut icon" href="https://i.ibb.co/Z17ftSn3/94655-B30-C7-E3-459-E-8-DBD-83-D9632-C55-CC.png">
+    
+    <!-- شعار لآيفون (Apple Touch Icon) -->
+    <link rel="apple-touch-icon" href="https://i.ibb.co/Z17ftSn3/94655-B30-C7-E3-459-E-8-DBD-83-D9632-C55-CC.png">
+    <link rel="apple-touch-icon-precomposed" href="https://i.ibb.co/Z17ftSn3/94655-B30-C7-E3-459-E-8-DBD-83-D9632-C55-CC.png">
+    
+    <!-- شعار لأندرويد (عند إضافة الصفحة للشاشة الرئيسية) -->
+    <link rel="manifest" href="data:application/manifest+json,{
+        %22name%22:%22Dashboard%20flowers%22,
+        %22short_name%22:%22Flowers%22,
+        %22icons%22:[{
+            %22src%22:%22https://i.ibb.co/Z17ftSn3/94655-B30-C7-E3-459-E-8-DBD-83-D9632-C55-CC.png%22,
+            %22sizes%22:%22any%22,
+            %22type%22:%22image/png%22
+        }],
+        %22start_url%22:%22.%22,
+        %22display%22:%22standalone%22
+    }">
+    
+    <!-- شعار للأندرويد (طريقة بديلة) -->
+    <link rel="icon" sizes="192x192" href="https://i.ibb.co/Z17ftSn3/94655-B30-C7-E3-459-E-8-DBD-83-D9632-C55-CC.png">
+    <link rel="icon" sizes="512x512" href="https://i.ibb.co/Z17ftSn3/94655-B30-C7-E3-459-E-8-DBD-83-D9632-C55-CC.png">
+    
+    <!-- ألوان شريط الحالة للتطبيق على الهواتف -->
+    <meta name="theme-color" content="#667eea">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Flowers">
+    <meta name="mobile-web-app-capable" content="yes">
+    
+    <!-- باقي الروابط كما هي -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-<!-- Firebase SDKs -->
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-messaging-compat.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-messaging-compat.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <style>
 *{
   margin:0;
