@@ -12,6 +12,7 @@
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-messaging-compat.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
@@ -169,6 +170,33 @@ button:hover{
 .success h1{
   margin-bottom:10px;
 }
+
+/* Toast notification style */
+.toast-notification {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: linear-gradient(135deg, #8B0000, #b91c1c);
+  color: white;
+  padding: 15px 25px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 2000;
+  animation: slideIn 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  font-family: 'Poppins', sans-serif;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+.toast-notification i {
+  font-size: 24px;
+}
 </style>
 </head>
 
@@ -203,7 +231,7 @@ const firebaseConfig = {
   storageBucket: "flowers-products.firebasestorage.app",
   messagingSenderId: "107577839256",
   appId: "1:107577839256:web:922ffa87578f10d9088aed",
-  measurementId: "G-Z4SHZZ9SHB"
+  measurementId: "G-Z4ZZSH9SHB"
 };
 
 // Initialize Firebase
@@ -212,8 +240,14 @@ if (!firebase.apps.length) {
 }
 const auth = firebase.auth();
 const db = firebase.firestore();
+const messaging = firebase.messaging();
 
 const ALLOWED_EMAIL = "anasbenjelloun61@gmail.com";
+const VAPID_KEY = "BCud7QVArIBsv_ewdNkuY_b3HI60nKW9K0F_0ovJNYcrAu1lw9fY7AW7XtUTomI1bLb0S6ATxNYqlDCTS5PwtWw";
+
+// متغير لتتبع عدد الطلبات
+let lastOrderCount = 0;
+let lastOrderId = null;
 
 function togglePassword(){
   const pass = document.getElementById("pass");
@@ -226,6 +260,33 @@ function togglePassword(){
     pass.type = "password";
     icon.classList.remove("fa-eye-slash");
     icon.classList.add("fa-eye");
+  }
+}
+
+// عرض إشعار في الصفحة (toast)
+function showToast(message, icon = "fa-bell") {
+  const toast = document.createElement('div');
+  toast.className = 'toast-notification';
+  toast.innerHTML = `<i class="fas ${icon}"></i><span>${message}</span>`;
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 4000);
+}
+
+// تشغيل الصوت
+function playSound() {
+  const audio = new Audio('https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3');
+  audio.play().catch(e => console.log("صوت لم يعمل:", e));
+}
+
+// إظهار إشعار المتصفح
+function showBrowserNotification(title, body) {
+  if (Notification.permission === "granted") {
+    new Notification(title, { 
+      body: body, 
+      icon: "https://cdn-icons-png.flaticon.com/512/190/190411.png",
+      vibrate: [200, 100, 200]
+    });
+    playSound();
   }
 }
 
@@ -260,6 +321,91 @@ async function login(){
   }
 }
 
+// تفعيل Web Push Notifications
+async function setupPushNotifications() {
+  try {
+    // طلب إذن الإشعارات
+    const permission = await Notification.requestPermission();
+    
+    if (permission === 'granted') {
+      console.log('✅ إذن الإشعارات ممنوح');
+      
+      // تسجيل Service Worker
+      const registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js');
+      console.log('✅ Service Worker مسجل');
+      
+      // الحصول على FCM token
+      const token = await messaging.getToken({
+        vapidKey: VAPID_KEY,
+        serviceWorkerRegistration: registration
+      });
+      
+      console.log('✅ FCM Token:', token);
+      
+      // حفظ التوكن في Firestore (اختياري)
+      if (auth.currentUser) {
+        await db.collection('pushTokens').doc(auth.currentUser.uid).set({
+          token: token,
+          userId: auth.currentUser.uid,
+          email: auth.currentUser.email,
+          updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+      }
+      
+      // استقبال الإشعارات عندما تكون الصفحة مفتوحة
+      messaging.onMessage((payload) => {
+        console.log('📨 إشعار أثناء فتح الصفحة:', payload);
+        const title = payload.notification?.title || '🆕 طلب جديد!';
+        const body = payload.notification?.body || 'لديك طلب جديد في المتجر';
+        showBrowserNotification(title, body);
+        showToast(body, 'fa-shopping-cart');
+      });
+      
+    } else {
+      console.log('❌ لم يتم منح إذن الإشعارات');
+    }
+  } catch (error) {
+    console.error('خطأ في إعداد الإشعارات:', error);
+  }
+}
+
+// مراقبة الطلبات الجديدة
+function monitorNewOrders() {
+  let lastOrderCount = 0;
+  
+  db.collection('orders').orderBy('createdAt', 'desc').onSnapshot((snapshot) => {
+    const currentCount = snapshot.size;
+    
+    snapshot.docChanges().forEach((change) => {
+      if (change.type === 'added') {
+        const newOrder = change.doc.data();
+        const orderId = change.doc.id;
+        
+        // تجنب الإشعار المكرر
+        if (lastOrderId !== orderId) {
+          lastOrderId = orderId;
+          
+          const customerName = newOrder.customerName || newOrder.customer || "عميل جديد";
+          const total = newOrder.total || 0;
+          
+          // إشعار صوتي وتوست
+          playSound();
+          showToast(`🆕 طلب جديد من ${customerName} - ${total} MAD`, 'fa-shopping-cart');
+          
+          // إشعار المتصفح
+          if (Notification.permission === "granted") {
+            new Notification('🆕 طلب جديد!', {
+              body: `من: ${customerName} | المجموع: ${total} MAD`,
+              icon: "https://cdn-icons-png.flaticon.com/512/190/190411.png",
+              vibrate: [200, 100, 200]
+            });
+          }
+        }
+      }
+    });
+  });
+}
+
 function loadFullDashboard() {
   // Remove login styles and prepare body
   document.body.style.background = "#ffffff";
@@ -282,7 +428,6 @@ function loadFullDashboard() {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"><\/script>
     
-    <!-- Fixed Logout Button -->
     <div class="logout-btn-fixed" id="logoutBtn">
       <i class="fas fa-sign-out-alt"></i>
       <span>Logout</span>
@@ -357,7 +502,6 @@ function loadFullDashboard() {
       body { font-family: 'Inter', sans-serif; background: #ffffff; min-height: 100vh; color: #1e293b; }
       .dashboard-container { max-width: 1400px; margin: 0 auto; padding: 20px; }
       
-      /* Fixed Logout Button */
       .logout-btn-fixed {
         position: fixed;
         top: 20px;
@@ -386,20 +530,6 @@ function loadFullDashboard() {
         background: linear-gradient(135deg, #b91c1c, #dc2626);
       }
       
-      .logout-btn-fixed:active {
-        transform: translateY(1px);
-      }
-      
-      .logout-btn-fixed i {
-        font-size: 1.1rem;
-        transition: transform 0.3s;
-      }
-      
-      .logout-btn-fixed:hover i {
-        transform: translateX(3px);
-      }
-      
-      /* Logout Confirmation Modal */
       .logout-modal {
         position: fixed;
         top: 0;
@@ -474,18 +604,9 @@ function loadFullDashboard() {
         color: white;
       }
       
-      .logout-modal-btn.confirm:hover {
-        background: #b91c1c;
-        transform: scale(1.02);
-      }
-      
       .logout-modal-btn.cancel {
         background: #f1f5f9;
         color: #475569;
-      }
-      
-      .logout-modal-btn.cancel:hover {
-        background: #e2e8f0;
       }
       
       .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 20px; }
@@ -564,8 +685,14 @@ function loadFullDashboard() {
   `;
   document.body.appendChild(logoutModal);
   
-  // Initialize Firebase and Dashboard logic
+  // Initialize dashboard
   setTimeout(() => initDashboardFirebase(logoutModal), 100);
+  
+  // Setup Push Notifications after dashboard loads
+  setTimeout(() => {
+    setupPushNotifications();
+    monitorNewOrders();
+  }, 2000);
 }
 
 function initDashboardFirebase(logoutModal) {
@@ -601,7 +728,6 @@ function initDashboardFirebase(logoutModal) {
     });
   }
   
-  // Close modal when clicking outside
   logoutModal.addEventListener('click', (e) => {
     if (e.target === logoutModal) {
       logoutModal.classList.remove('active');
@@ -669,7 +795,7 @@ function initDashboardFirebase(logoutModal) {
       });
       renderCurrentPage();
     } catch(e) {
-      tbody.innerHTML = `</table><td colspan="10" class="empty-state">Error: ${e.message}<\/td><\/tr>`;
+      tbody.innerHTML = `<tr><td colspan="10" class="empty-state">Error: ${e.message}<\/td><\/tr>`;
     }
   }
   
@@ -750,7 +876,7 @@ function initDashboardFirebase(logoutModal) {
       <div class="stat-card"><div class="stat-info"><h3>Total Revenue</h3><div class="stat-number">${store.revenue.toLocaleString()} MAD</div></div><div class="stat-icon"><i class="fas fa-chart-bar"></i></div></div>
       <div class="stat-card"><div class="stat-info"><h3>Total Orders</h3><div class="stat-number">${store.orders}</div></div><div class="stat-icon"><i class="fas fa-box"></i></div></div>
     `;
-    document.getElementById('tableHeader').innerHTML = `<table><th>STORE NAME</th><th>TOTAL ORDERS</th><th>TOTAL REVENUE</th><\/tr>`;
+    document.getElementById('tableHeader').innerHTML = `<tr><th>STORE NAME</th><th>TOTAL ORDERS</th><th>TOTAL REVENUE</th><\/tr>`;
     document.getElementById('tableBody').innerHTML = `<tr><td><i class="fas fa-store"></i> ${store.name}<\/td><td>${store.orders}<\/td><td>${store.revenue.toLocaleString()} MAD<\/td><\/tr>`;
   }
   
@@ -826,7 +952,6 @@ function initDashboardFirebase(logoutModal) {
 // التحقق من حالة تسجيل الدخول عند تحميل الصفحة
 auth.onAuthStateChanged(async (user) => {
   if (user && user.email === ALLOWED_EMAIL) {
-    // مستخدم مسجل الدخول وهو المسموح له
     document.getElementById("loginCard").style.display = "none";
     document.getElementById("success").style.display = "block";
     setTimeout(() => {
@@ -834,11 +959,9 @@ auth.onAuthStateChanged(async (user) => {
       loadFullDashboard();
     }, 1200);
   } else if (user && user.email !== ALLOWED_EMAIL) {
-    // مستخدم مسجل الدخول لكن ليس مسموحاً له
     await auth.signOut();
     document.getElementById("error").innerText = "❌ هذا الحساب غير مصرح له بدخول لوحة التحكم";
   }
-  // else: لا يوجد مستخدم، يبقى نموذج تسجيل الدخول ظاهراً
 });
 </script>
 </body>
