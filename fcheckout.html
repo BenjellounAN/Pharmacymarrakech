@@ -279,7 +279,7 @@
           <i class="fab fa-whatsapp"></i> Complete Order via WhatsApp
         </button>
         <p style="text-align: center; font-size: 0.75rem; margin-top: 10px; color: var(--text-light);">
-          <i class="fas fa-info-circle"></i> سيتم فتح الواتساب لإرسال الطلب
+          <i class="fas fa-info-circle"></i> سيتم حفظ الطلب وإرساله عبر الواتساب بنفس رقم الطلب
         </p>
       </div>
     </div>
@@ -315,6 +315,21 @@
       setTimeout(() => {
         toast.classList.remove('show');
       }, 3000);
+    }
+    
+    // Generate unique order ID (مخصص ومرتب حسب التاريخ)
+    function generateOrderId() {
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = String(now.getMonth() + 1).padStart(2, '0');
+      const day = String(now.getDate()).padStart(2, '0');
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+      const random = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
+      
+      // مثال: ORD-20251204-143025-123
+      return `ORD-${year}${month}${day}-${hours}${minutes}${seconds}-${random}`;
     }
     
     // Get cart from localStorage
@@ -421,11 +436,12 @@
       }
     }
     
-    // Save order to Firebase
-    async function saveOrderToFirebase() {
+    // Save order to Firebase with CUSTOM ID (نفس الID الذي سيظهر في الواتساب)
+    async function saveOrderToFirebase(customOrderId) {
       const total = calculateTotal();
       
       const orderData = {
+        orderId: customOrderId,  // ✅ نفس الID المخصص
         orderDate: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
         orderTime: new Date().toLocaleTimeString(),
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
@@ -445,24 +461,26 @@
       };
       
       try {
-        const docRef = await db.collection('orders').add(orderData);
-        console.log("✅ Order saved! ID:", docRef.id);
-        return { success: true, firebaseId: docRef.id };
+        // استخدام set مع ID مخصص بدلاً من add
+        const docRef = db.collection('orders').doc(customOrderId);
+        await docRef.set(orderData);
+        console.log("✅ Order saved with custom ID:", customOrderId);
+        return { success: true, firebaseId: customOrderId };
       } catch (error) {
         console.error("❌ Firebase Error:", error);
         return { success: false, error: error.message };
       }
     }
     
-    // Generate WhatsApp message
-    function generateWhatsAppMessage(firebaseId) {
+    // Generate WhatsApp message with the SAME ID
+    function generateWhatsAppMessage(orderId) {
       const total = calculateTotal();
       const customerName = customerNameInput.value.trim() || "Guest";
       const customerPhone = customerPhoneInput.value.trim() || "N/A";
       const customerAddress = customerAddressInput.value.trim() || "N/A";
       
       let message = `🌸 *FLEURISTE MARRAKECH - NEW ORDER* 🌸\n\n`;
-      message += `*Order ID:* ${firebaseId}\n`;
+      message += `*Order ID:* ${orderId}\n`;
       message += `━━━━━━━━━━━━━━━━━━━━\n`;
       message += `*👤 Customer Details:*\n`;
       message += `Name: ${customerName}\n`;
@@ -489,19 +507,12 @@
     
     // Open WhatsApp function
     function openWhatsApp(message) {
-      // Try multiple methods to open WhatsApp
       const encodedMessage = encodeURIComponent(message);
-      
-      // Method 1: Standard wa.me link
       const waMeUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
-      
-      // Method 2: api.whatsapp.com (sometimes works better)
       const apiUrl = `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodedMessage}`;
       
-      // Try to open in a new tab
       const newWindow = window.open(waMeUrl, '_blank');
       
-      // If popup blocked, try the other method
       if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
         window.location.href = apiUrl;
       }
@@ -541,33 +552,31 @@
       checkoutBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Saving order...';
       
       try {
-        // Step 1: Save to Firebase
+        // Step 1: Generate unique order ID (هذا الID سيكون نفسه في Firebase وواتساب)
+        const orderId = generateOrderId();
+        console.log("Generated Order ID:", orderId);
+        
+        // Step 2: Save to Firebase with the custom ID
         showToast("Saving order to database...", 'info');
-        const saveResult = await saveOrderToFirebase();
+        const saveResult = await saveOrderToFirebase(orderId);
         
         if (!saveResult.success) {
           throw new Error(saveResult.error);
         }
         
-        const firebaseId = saveResult.firebaseId;
-        showToast(`Order saved! ID: ${firebaseId}`, 'success');
+        showToast(`Order saved! ID: ${orderId}`, 'success');
         
-        // Step 2: Generate message for WhatsApp
-        const whatsappMessage = generateWhatsAppMessage(firebaseId);
+        // Step 3: Generate message for WhatsApp with the SAME ID
+        const whatsappMessage = generateWhatsAppMessage(orderId);
         
-        // Step 3: Open WhatsApp
+        // Step 4: Open WhatsApp
         showToast("Opening WhatsApp...", 'info');
         openWhatsApp(whatsappMessage);
         
-        // Step 4: Clear cart
+        // Step 5: Clear cart
         cart = [];
         saveCart();
         renderCartItems();
-        
-        // Clear form (optional)
-        // customerNameInput.value = '';
-        // customerPhoneInput.value = '';
-        // customerAddressInput.value = '';
         
         // Reset button
         setTimeout(() => {
