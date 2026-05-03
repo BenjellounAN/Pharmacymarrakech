@@ -13,7 +13,6 @@
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics-compat.js"></script>
   
   <style>
-    /* نفس الـ CSS السابق - احتفظ به كما هو */
     :root {
       --primary-red: #8B0000;
       --primary-red-light: #a52a2a;
@@ -350,6 +349,92 @@
     .toast-message.error { background: #c0392b; }
     .toast-message.success { background: #27ae60; }
     
+    /* Success Modal Styles */
+    .success-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+      visibility: hidden;
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+    
+    .success-modal.show {
+      visibility: visible;
+      opacity: 1;
+    }
+    
+    .modal-content {
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      text-align: center;
+      max-width: 400px;
+      animation: modalPop 0.4s ease;
+    }
+    
+    @keyframes modalPop {
+      from {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+    
+    .modal-content i {
+      font-size: 70px;
+      color: #27ae60;
+      margin-bottom: 20px;
+    }
+    
+    .modal-content h2 {
+      color: var(--primary-red);
+      margin-bottom: 15px;
+      font-size: 1.8rem;
+    }
+    
+    .modal-content p {
+      color: var(--text-light);
+      margin-bottom: 10px;
+    }
+    
+    .order-id {
+      background: #f0f0f0;
+      padding: 10px;
+      border-radius: 10px;
+      margin: 15px 0;
+      font-weight: 600;
+      color: var(--primary-red);
+    }
+    
+    .modal-close-btn {
+      background: var(--primary-red);
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 25px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 15px;
+      transition: all 0.3s ease;
+    }
+    
+    .modal-close-btn:hover {
+      transform: translateY(-2px);
+      background: var(--primary-red-dark);
+    }
+    
     @keyframes fadeInUp {
       from { opacity: 0; transform: translateX(-50%) translateY(20px); }
       to { opacity: 1; transform: translateX(-50%) translateY(0); }
@@ -359,6 +444,7 @@
       .cart-container { flex-direction: column; }
       .cart-summary { width: 100%; }
       .time-options { flex-direction: column; }
+      .modal-content { margin: 20px; padding: 30px; }
     }
   </style>
 </head>
@@ -438,7 +524,7 @@
         </div>
         
         <button class="checkout-btn" id="checkout-btn">
-          <i class="fab fa-whatsapp"></i> Complete Order
+          <i class="fab fa-whatsapp"></i> Complete Order via WhatsApp
         </button>
         <p class="info-text">
           <i class="fas fa-info-circle"></i> We'll contact you via WhatsApp to confirm your order.
@@ -450,6 +536,19 @@
   <div id="toastMessage" class="toast-message">
     <i class="fas fa-spinner fa-pulse"></i>
     <span>Saving order...</span>
+  </div>
+  
+  <!-- Success Modal -->
+  <div id="successModal" class="success-modal">
+    <div class="modal-content">
+      <i class="fas fa-check-circle"></i>
+      <h2>ORDER SUCCESSFUL! ✅</h2>
+      <p>Your order has been placed successfully!</p>
+      <div class="order-id" id="modalOrderId">Order ID: Loading...</div>
+      <p>We have sent your order details to WhatsApp.</p>
+      <p style="font-size: 0.85rem; margin-top: 10px;">You will receive confirmation shortly.</p>
+      <button class="modal-close-btn" onclick="closeModalAndRedirect()">Continue Shopping</button>
+    </div>
   </div>
 
   <script>
@@ -472,6 +571,7 @@
     const WHATSAPP_NUMBER = "212642620325";
     
     let cart = [];
+    let lastOrderId = null;
     
     // DOM elements
     const cartItemsContainer = document.getElementById('cart-items-container');
@@ -486,6 +586,7 @@
     const customerAddressInput = document.getElementById('customerAddress');
     const timeOptions = document.querySelectorAll('.time-option');
     const toastMessage = document.getElementById('toastMessage');
+    const successModal = document.getElementById('successModal');
     
     function showToast(message, type = 'info') {
       toastMessage.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-triangle' : 'fa-spinner fa-pulse'}"></i> <span>${message}</span>`;
@@ -493,6 +594,16 @@
       setTimeout(() => {
         toastMessage.classList.remove('show');
       }, 4000);
+    }
+    
+    function showSuccessModal(orderId) {
+      document.getElementById('modalOrderId').innerHTML = `📋 Order ID: ${orderId}`;
+      successModal.classList.add('show');
+    }
+    
+    function closeModalAndRedirect() {
+      successModal.classList.remove('show');
+      window.location.href = 'flowers.html';
     }
     
     function getCart() {
@@ -539,7 +650,6 @@
         cartItemsContainer.appendChild(itemDiv);
       });
       
-      // Add event listeners
       document.querySelectorAll('.minus-btn').forEach(btn => {
         btn.addEventListener('click', () => updateQuantity(parseInt(btn.dataset.index), -1));
       });
@@ -600,12 +710,16 @@
       return selected ? selected.getAttribute('data-time') : 'asap';
     }
     
-    // =================== SAVE TO FIREBASE ===================
-    async function saveOrderToFirebase() {
+    function generateOrderId() {
+      return `ORD-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+    }
+    
+    // Save to Firebase
+    async function saveOrderToFirebase(orderId) {
       const totals = calculateTotals();
       
       const orderData = {
-        orderId: `#ORD-${Date.now()}`,
+        orderId: orderId,
         orderDate: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
         orderTime: new Date().toLocaleTimeString(),
         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
@@ -630,35 +744,44 @@
       
       try {
         const docRef = await db.collection('orders').add(orderData);
-        console.log("✅ Order saved! ID:", docRef.id);
-        return { success: true, orderId: docRef.id };
+        console.log("✅ Order saved! Firebase ID:", docRef.id);
+        return { success: true, firebaseId: docRef.id };
       } catch (error) {
         console.error("❌ Firebase Error:", error);
         return { success: false, error: error.message };
       }
     }
     
-    function generateWhatsAppMessage(totals) {
-      let msg = `🌸 *FLEURISTE MARRAKECH ORDER* 🌸\n\n`;
-      msg += `*Customer:* ${customerNameInput.value.trim() || "Guest"}\n`;
-      msg += `*Phone:* ${customerPhoneInput.value.trim() || "N/A"}\n`;
-      msg += `*Address:* ${customerAddressInput.value.trim() || "N/A"}\n`;
-      msg += `*Delivery:* ${getDeliveryTime() === 'asap' ? 'ASAP' : 'Schedule Later'}\n\n`;
+    // Generate WhatsApp message with Order ID
+    function generateWhatsAppMessage(totals, orderId) {
+      let msg = `🌸 *FLEURISTE MARRAKECH - NEW ORDER* 🌸\n\n`;
+      msg += `*Order ID:* ${orderId}\n`;
+      msg += `━━━━━━━━━━━━━━━━━━━━\n`;
+      msg += `*Customer Details:*\n`;
+      msg += `👤 Name: ${customerNameInput.value.trim() || "Guest"}\n`;
+      msg += `📱 Phone: ${customerPhoneInput.value.trim() || "N/A"}\n`;
+      msg += `📍 Address: ${customerAddressInput.value.trim() || "N/A"}\n`;
+      msg += `🚚 Delivery: ${getDeliveryTime() === 'asap' ? 'ASAP (45-60 min)' : 'Schedule Later'}\n\n`;
       msg += `*Order Details:*\n`;
+      msg += `━━━━━━━━━━━━━━━━━━━━\n`;
       cart.forEach((item, idx) => {
         const price = item.basePrice || item.price || 0;
         const qty = item.quantity || 1;
-        msg += `${idx+1}. ${qty}x ${item.name} - ${(price * qty).toFixed(2)} MAD\n`;
+        msg += `${idx+1}. ${item.name}\n`;
+        msg += `   ${qty} x ${price.toFixed(2)} MAD = ${(price * qty).toFixed(2)} MAD\n`;
       });
-      msg += `\n*Total: ${totals.total} MAD*\n`;
-      msg += `*Payment: Cash on Delivery*\n\n`;
-      msg += `Please confirm my order. Thank you! 💐`;
+      msg += `━━━━━━━━━━━━━━━━━━━━\n`;
+      msg += `💰 *Total Amount: ${totals.total} MAD*\n`;
+      msg += `💳 Payment: Cash on Delivery\n\n`;
+      msg += `✅ Please confirm this order. Thank you! 💐\n`;
+      msg += `━━━━━━━━━━━━━━━━━━━━\n`;
+      msg += `⏰ Order placed: ${new Date().toLocaleString()}`;
       return msg;
     }
     
     async function processOrder() {
       if (cart.length === 0) {
-        showToast("Your basket is empty!", 'error');
+        showToast("Your basket is empty! Please add items to your cart.", 'error');
         return;
       }
       
@@ -667,34 +790,54 @@
         return;
       }
       
+      if (!customerNameInput.value.trim()) {
+        showToast("Please enter your full name", 'error');
+        return;
+      }
+      
+      if (!customerAddressInput.value.trim()) {
+        showToast("Please enter your delivery address", 'error');
+        return;
+      }
+      
       checkoutBtn.disabled = true;
-      checkoutBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Saving to Database...';
-      showToast("Saving order to Firebase...", 'info');
+      checkoutBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Processing Order...';
+      showToast("Saving order to database...", 'info');
       
       const totals = calculateTotals();
-      const saveResult = await saveOrderToFirebase();
+      const orderId = generateOrderId();
+      
+      // Save to Firebase
+      const saveResult = await saveOrderToFirebase(orderId);
       
       if (saveResult.success) {
-        showToast(`Order saved! ID: ${saveResult.orderId}`, 'success');
+        showToast(`Order saved successfully!`, 'success');
         
-        const message = generateWhatsAppMessage(totals);
-        const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-        window.open(url, '_blank');
+        // Generate and send WhatsApp message
+        const message = generateWhatsAppMessage(totals, orderId);
+        const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
         
-        // Clear cart
+        // Open WhatsApp in new tab
+        window.open(whatsappUrl, '_blank');
+        
+        // Show success modal
+        showSuccessModal(orderId);
+        
+        // Clear cart after successful order
         cart = [];
         saveCart();
         renderCartItems();
         updateCartDisplay();
         
+        // Reset button after delay
         setTimeout(() => {
           checkoutBtn.disabled = false;
-          checkoutBtn.innerHTML = '<i class="fab fa-whatsapp"></i> Complete Order';
-        }, 2000);
+          checkoutBtn.innerHTML = '<i class="fab fa-whatsapp"></i> Complete Order via WhatsApp';
+        }, 3000);
       } else {
-        showToast(`Error: ${saveResult.error}`, 'error');
+        showToast(`Error: ${saveResult.error}. Please try again.`, 'error');
         checkoutBtn.disabled = false;
-        checkoutBtn.innerHTML = '<i class="fab fa-whatsapp"></i> Complete Order';
+        checkoutBtn.innerHTML = '<i class="fab fa-whatsapp"></i> Complete Order via WhatsApp';
       }
     }
     
@@ -723,7 +866,7 @@
       cart = getCart();
       renderCartItems();
       updateCartDisplay();
-      console.log("✅ Checkout ready!");
+      console.log("✅ Checkout page ready!");
     }
     
     document.addEventListener('DOMContentLoaded', init);
