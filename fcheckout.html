@@ -10,7 +10,6 @@
   <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics-compat.js"></script>
   
   <style>
     :root {
@@ -329,37 +328,10 @@
       display: inline-block;
     }
     
-    .toast-message {
-      position: fixed;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #333;
-      color: white;
-      padding: 12px 24px;
-      border-radius: 30px;
-      font-size: 0.9rem;
-      z-index: 1000;
-      display: none;
-      align-items: center;
-      gap: 10px;
-      white-space: nowrap;
-    }
-    
-    .toast-message.show { display: flex; animation: fadeInUp 0.3s ease; }
-    .toast-message.error { background: #c0392b; }
-    .toast-message.success { background: #27ae60; }
-    
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateX(-50%) translateY(20px); }
-      to { opacity: 1; transform: translateX(-50%) translateY(0); }
-    }
-    
     @media (max-width: 768px) {
       .cart-container { flex-direction: column; }
       .cart-summary { width: 100%; }
       .time-options { flex-direction: column; }
-      .toast-message { white-space: normal; text-align: center; max-width: 90%; }
     }
   </style>
 </head>
@@ -447,11 +419,6 @@
       </div>
     </div>
   </div>
-  
-  <div id="toastMessage" class="toast-message">
-    <i class="fas fa-spinner fa-pulse"></i>
-    <span>Saving order...</span>
-  </div>
 
   <script>
     // Firebase Configuration
@@ -486,15 +453,6 @@
     const customerPhoneInput = document.getElementById('customerPhone');
     const customerAddressInput = document.getElementById('customerAddress');
     const timeOptions = document.querySelectorAll('.time-option');
-    const toastMessage = document.getElementById('toastMessage');
-    
-    function showToast(message, type = 'info') {
-      toastMessage.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-triangle' : 'fa-spinner fa-pulse'}"></i> <span>${message}</span>`;
-      toastMessage.className = `toast-message show ${type}`;
-      setTimeout(() => {
-        toastMessage.classList.remove('show');
-      }, 4000);
-    }
     
     function getCart() {
       try {
@@ -591,7 +549,6 @@
         saveCart();
         renderCartItems();
         updateCartDisplay();
-        showToast("Basket cleared!", 'success');
       }
     }
     
@@ -606,12 +563,11 @@
       return selected.getAttribute('data-time') === 'asap' ? 'ASAP (45-60 min)' : 'Schedule Later';
     }
     
-    // Function to save order to Firebase
-    async function saveOrderToFirebase(orderId) {
+    // Save order to Firebase and get the document ID
+    async function saveOrderToFirebase() {
       const totals = calculateTotals();
       
       const orderData = {
-        orderId: orderId,
         orderDate: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
         orderTime: new Date().toLocaleTimeString(),
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
@@ -634,25 +590,23 @@
         totalItems: cart.reduce((sum, item) => sum + (item.quantity || 1), 0)
       };
       
-      console.log("Saving order to Firebase:", orderData);
-      
       try {
         const docRef = await db.collection('orders').add(orderData);
-        console.log("✅ Order saved to Firebase! ID:", docRef.id);
-        return { success: true, firebaseId: docRef.id, orderId: orderId };
+        console.log("Order saved! Firebase ID:", docRef.id);
+        return { success: true, firebaseId: docRef.id };
       } catch (error) {
-        console.error("❌ Firebase Error:", error);
+        console.error("Firebase Error:", error);
         return { success: false, error: error.message };
       }
     }
     
-    // Function to generate WhatsApp message
-    function generateWhatsAppMessage(orderId) {
+    // Generate WhatsApp message with Firebase ID
+    function generateWhatsAppMessage(firebaseId) {
       const totals = calculateTotals();
       const deliveryTimeText = getDeliveryTimeText();
       
       let message = `*🌸 FLEURISTE MARRAKECH - NEW ORDER 🌸*\n\n`;
-      message += `*Order ID:* ${orderId}\n`;
+      message += `*Order ID:* ${firebaseId}\n`;
       message += `*━━━━━━━━━━━━━━━━━━━━*\n`;
       message += `*👤 Customer Information:*\n`;
       message += `Name: ${customerNameInput.value.trim() || "Guest"}\n`;
@@ -685,24 +639,24 @@
     async function processOrder() {
       // Validation
       if (cart.length === 0) {
-        showToast("Your basket is empty! Please add items to your cart.", 'error');
+        alert("Your basket is empty! Please add items to your cart.");
         return;
       }
       
       if (!customerNameInput.value.trim()) {
-        showToast("Please enter your full name", 'error');
+        alert("Please enter your full name");
         customerNameInput.focus();
         return;
       }
       
       if (!customerPhoneInput.value.trim()) {
-        showToast("Please enter your phone number", 'error');
+        alert("Please enter your phone number");
         customerPhoneInput.focus();
         return;
       }
       
       if (!customerAddressInput.value.trim()) {
-        showToast("Please enter your delivery address", 'error');
+        alert("Please enter your delivery address");
         customerAddressInput.focus();
         return;
       }
@@ -711,30 +665,22 @@
       checkoutBtn.disabled = true;
       checkoutBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Processing Order...';
       
-      // Generate unique order ID
-      const orderId = `ORD-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
-      
       try {
-        // Step 1: Save to Firebase
-        showToast("Saving order to database...", 'info');
-        const saveResult = await saveOrderToFirebase(orderId);
+        // Step 1: Save to Firebase and get the ID
+        const saveResult = await saveOrderToFirebase();
         
         if (!saveResult.success) {
           throw new Error(saveResult.error);
         }
         
-        showToast("Order saved to database! ✓", 'success');
+        const firebaseId = saveResult.firebaseId;
         
-        // Step 2: Send to WhatsApp
-        showToast("Sending order via WhatsApp...", 'info');
-        const whatsappMessage = generateWhatsAppMessage(orderId);
+        // Step 2: Generate WhatsApp message with the Firebase ID
+        const whatsappMessage = generateWhatsAppMessage(firebaseId);
+        
+        // Step 3: Open WhatsApp with the message
         const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`;
-        
-        // Open WhatsApp in new tab
         window.open(whatsappUrl, '_blank');
-        
-        // Step 3: Show success message
-        showToast(`ORDER SUCCESSFUL! ✓ Order ID: ${orderId}`, 'success');
         
         // Step 4: Clear the cart
         cart = [];
@@ -742,20 +688,18 @@
         renderCartItems();
         updateCartDisplay();
         
-        // Step 5: Clear form fields (optional)
-        // customerNameInput.value = '';
-        // customerPhoneInput.value = '';
-        // customerAddressInput.value = '';
+        // Clear form fields
+        customerNameInput.value = '';
+        customerPhoneInput.value = '';
+        customerAddressInput.value = '';
         
-        // Reset button after 3 seconds
-        setTimeout(() => {
-          checkoutBtn.disabled = false;
-          checkoutBtn.innerHTML = '<i class="fab fa-whatsapp"></i> Complete Order via WhatsApp';
-        }, 3000);
+        // Reset button
+        checkoutBtn.disabled = false;
+        checkoutBtn.innerHTML = '<i class="fab fa-whatsapp"></i> Complete Order via WhatsApp';
         
       } catch (error) {
         console.error("Order processing error:", error);
-        showToast(`Error: ${error.message}`, 'error');
+        alert("Error: " + error.message);
         checkoutBtn.disabled = false;
         checkoutBtn.innerHTML = '<i class="fab fa-whatsapp"></i> Complete Order via WhatsApp';
       }
