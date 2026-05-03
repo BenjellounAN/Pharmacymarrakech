@@ -343,97 +343,12 @@
       display: none;
       align-items: center;
       gap: 10px;
+      white-space: nowrap;
     }
     
     .toast-message.show { display: flex; animation: fadeInUp 0.3s ease; }
     .toast-message.error { background: #c0392b; }
     .toast-message.success { background: #27ae60; }
-    
-    /* Success Modal Styles */
-    .success-modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 2000;
-      visibility: hidden;
-      opacity: 0;
-      transition: all 0.3s ease;
-    }
-    
-    .success-modal.show {
-      visibility: visible;
-      opacity: 1;
-    }
-    
-    .modal-content {
-      background: white;
-      border-radius: 20px;
-      padding: 40px;
-      text-align: center;
-      max-width: 400px;
-      animation: modalPop 0.4s ease;
-    }
-    
-    @keyframes modalPop {
-      from {
-        transform: scale(0.8);
-        opacity: 0;
-      }
-      to {
-        transform: scale(1);
-        opacity: 1;
-      }
-    }
-    
-    .modal-content i {
-      font-size: 70px;
-      color: #27ae60;
-      margin-bottom: 20px;
-    }
-    
-    .modal-content h2 {
-      color: var(--primary-red);
-      margin-bottom: 15px;
-      font-size: 1.8rem;
-    }
-    
-    .modal-content p {
-      color: var(--text-light);
-      margin-bottom: 10px;
-    }
-    
-    .order-id {
-      background: #f0f0f0;
-      padding: 10px;
-      border-radius: 10px;
-      margin: 15px 0;
-      font-weight: 600;
-      color: var(--primary-red);
-    }
-    
-    .modal-close-btn {
-      background: var(--primary-red);
-      color: white;
-      border: none;
-      padding: 12px 30px;
-      border-radius: 25px;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      margin-top: 15px;
-      transition: all 0.3s ease;
-    }
-    
-    .modal-close-btn:hover {
-      transform: translateY(-2px);
-      background: var(--primary-red-dark);
-    }
     
     @keyframes fadeInUp {
       from { opacity: 0; transform: translateX(-50%) translateY(20px); }
@@ -444,7 +359,7 @@
       .cart-container { flex-direction: column; }
       .cart-summary { width: 100%; }
       .time-options { flex-direction: column; }
-      .modal-content { margin: 20px; padding: 30px; }
+      .toast-message { white-space: normal; text-align: center; max-width: 90%; }
     }
   </style>
 </head>
@@ -527,7 +442,7 @@
           <i class="fab fa-whatsapp"></i> Complete Order via WhatsApp
         </button>
         <p class="info-text">
-          <i class="fas fa-info-circle"></i> We'll contact you via WhatsApp to confirm your order.
+          <i class="fas fa-info-circle"></i> Your order will be sent via WhatsApp and saved in our system.
         </p>
       </div>
     </div>
@@ -536,19 +451,6 @@
   <div id="toastMessage" class="toast-message">
     <i class="fas fa-spinner fa-pulse"></i>
     <span>Saving order...</span>
-  </div>
-  
-  <!-- Success Modal -->
-  <div id="successModal" class="success-modal">
-    <div class="modal-content">
-      <i class="fas fa-check-circle"></i>
-      <h2>ORDER SUCCESSFUL! ✅</h2>
-      <p>Your order has been placed successfully!</p>
-      <div class="order-id" id="modalOrderId">Order ID: Loading...</div>
-      <p>We have sent your order details to WhatsApp.</p>
-      <p style="font-size: 0.85rem; margin-top: 10px;">You will receive confirmation shortly.</p>
-      <button class="modal-close-btn" onclick="closeModalAndRedirect()">Continue Shopping</button>
-    </div>
   </div>
 
   <script>
@@ -571,7 +473,6 @@
     const WHATSAPP_NUMBER = "212642620325";
     
     let cart = [];
-    let lastOrderId = null;
     
     // DOM elements
     const cartItemsContainer = document.getElementById('cart-items-container');
@@ -586,7 +487,6 @@
     const customerAddressInput = document.getElementById('customerAddress');
     const timeOptions = document.querySelectorAll('.time-option');
     const toastMessage = document.getElementById('toastMessage');
-    const successModal = document.getElementById('successModal');
     
     function showToast(message, type = 'info') {
       toastMessage.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-triangle' : 'fa-spinner fa-pulse'}"></i> <span>${message}</span>`;
@@ -594,16 +494,6 @@
       setTimeout(() => {
         toastMessage.classList.remove('show');
       }, 4000);
-    }
-    
-    function showSuccessModal(orderId) {
-      document.getElementById('modalOrderId').innerHTML = `📋 Order ID: ${orderId}`;
-      successModal.classList.add('show');
-    }
-    
-    function closeModalAndRedirect() {
-      successModal.classList.remove('show');
-      window.location.href = 'flowers.html';
     }
     
     function getCart() {
@@ -710,11 +600,13 @@
       return selected ? selected.getAttribute('data-time') : 'asap';
     }
     
-    function generateOrderId() {
-      return `ORD-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+    function getDeliveryTimeText() {
+      const selected = document.querySelector('.time-option.selected');
+      if (!selected) return 'ASAP';
+      return selected.getAttribute('data-time') === 'asap' ? 'ASAP (45-60 min)' : 'Schedule Later';
     }
     
-    // Save to Firebase
+    // Function to save order to Firebase
     async function saveOrderToFirebase(orderId) {
       const totals = calculateTotals();
       
@@ -722,12 +614,14 @@
         orderId: orderId,
         orderDate: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
         orderTime: new Date().toLocaleTimeString(),
-        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         customerName: customerNameInput.value.trim() || "Guest",
         phone: customerPhoneInput.value.trim() || "N/A",
         address: customerAddressInput.value.trim() || "N/A",
         deliveryTime: getDeliveryTime(),
+        deliveryTimeText: getDeliveryTimeText(),
         store: "Fleuriste Marrakech",
+        subtotal: parseFloat(totals.subtotal),
         total: parseFloat(totals.total),
         orderStatus: "pending",
         paymentMethod: "Cash on Delivery",
@@ -735,107 +629,133 @@
           name: item.name,
           price: item.basePrice || item.price || 0,
           quantity: item.quantity || 1,
-          img: item.img || "https://via.placeholder.com/60/8B0000/ffffff?text=Flower"
+          img: item.img || ""
         })),
         totalItems: cart.reduce((sum, item) => sum + (item.quantity || 1), 0)
       };
       
-      console.log("Saving order:", orderData);
+      console.log("Saving order to Firebase:", orderData);
       
       try {
         const docRef = await db.collection('orders').add(orderData);
-        console.log("✅ Order saved! Firebase ID:", docRef.id);
-        return { success: true, firebaseId: docRef.id };
+        console.log("✅ Order saved to Firebase! ID:", docRef.id);
+        return { success: true, firebaseId: docRef.id, orderId: orderId };
       } catch (error) {
         console.error("❌ Firebase Error:", error);
         return { success: false, error: error.message };
       }
     }
     
-    // Generate WhatsApp message with Order ID
-    function generateWhatsAppMessage(totals, orderId) {
-      let msg = `🌸 *FLEURISTE MARRAKECH - NEW ORDER* 🌸\n\n`;
-      msg += `*Order ID:* ${orderId}\n`;
-      msg += `━━━━━━━━━━━━━━━━━━━━\n`;
-      msg += `*Customer Details:*\n`;
-      msg += `👤 Name: ${customerNameInput.value.trim() || "Guest"}\n`;
-      msg += `📱 Phone: ${customerPhoneInput.value.trim() || "N/A"}\n`;
-      msg += `📍 Address: ${customerAddressInput.value.trim() || "N/A"}\n`;
-      msg += `🚚 Delivery: ${getDeliveryTime() === 'asap' ? 'ASAP (45-60 min)' : 'Schedule Later'}\n\n`;
-      msg += `*Order Details:*\n`;
-      msg += `━━━━━━━━━━━━━━━━━━━━\n`;
-      cart.forEach((item, idx) => {
+    // Function to generate WhatsApp message
+    function generateWhatsAppMessage(orderId) {
+      const totals = calculateTotals();
+      const deliveryTimeText = getDeliveryTimeText();
+      
+      let message = `*🌸 FLEURISTE MARRAKECH - NEW ORDER 🌸*\n\n`;
+      message += `*Order ID:* ${orderId}\n`;
+      message += `*━━━━━━━━━━━━━━━━━━━━*\n`;
+      message += `*👤 Customer Information:*\n`;
+      message += `Name: ${customerNameInput.value.trim() || "Guest"}\n`;
+      message += `Phone: ${customerPhoneInput.value.trim() || "N/A"}\n`;
+      message += `Address: ${customerAddressInput.value.trim() || "N/A"}\n`;
+      message += `Delivery: ${deliveryTimeText}\n\n`;
+      message += `*━━━━━━━━━━━━━━━━━━━━*\n`;
+      message += `*🛍️ Order Details:*\n`;
+      
+      cart.forEach((item, index) => {
         const price = item.basePrice || item.price || 0;
-        const qty = item.quantity || 1;
-        msg += `${idx+1}. ${item.name}\n`;
-        msg += `   ${qty} x ${price.toFixed(2)} MAD = ${(price * qty).toFixed(2)} MAD\n`;
+        const quantity = item.quantity || 1;
+        const total = price * quantity;
+        message += `${index + 1}. ${item.name}\n`;
+        message += `   Quantity: ${quantity} x ${price.toFixed(2)} MAD = ${total.toFixed(2)} MAD\n`;
       });
-      msg += `━━━━━━━━━━━━━━━━━━━━\n`;
-      msg += `💰 *Total Amount: ${totals.total} MAD*\n`;
-      msg += `💳 Payment: Cash on Delivery\n\n`;
-      msg += `✅ Please confirm this order. Thank you! 💐\n`;
-      msg += `━━━━━━━━━━━━━━━━━━━━\n`;
-      msg += `⏰ Order placed: ${new Date().toLocaleString()}`;
-      return msg;
+      
+      message += `*━━━━━━━━━━━━━━━━━━━━*\n`;
+      message += `*💰 Total Amount: ${totals.total} MAD*\n`;
+      message += `*💳 Payment Method: Cash on Delivery*\n\n`;
+      message += `*✅ Please confirm this order.*\n`;
+      message += `*⏰ Order placed: ${new Date().toLocaleString()}*\n`;
+      message += `*━━━━━━━━━━━━━━━━━━━━*\n`;
+      message += `*Thank you! 💐*`;
+      
+      return message;
     }
     
+    // Main function to process order
     async function processOrder() {
+      // Validation
       if (cart.length === 0) {
         showToast("Your basket is empty! Please add items to your cart.", 'error');
         return;
       }
       
-      if (!customerPhoneInput.value.trim()) {
-        showToast("Please enter your phone number for WhatsApp confirmation", 'error');
+      if (!customerNameInput.value.trim()) {
+        showToast("Please enter your full name", 'error');
+        customerNameInput.focus();
         return;
       }
       
-      if (!customerNameInput.value.trim()) {
-        showToast("Please enter your full name", 'error');
+      if (!customerPhoneInput.value.trim()) {
+        showToast("Please enter your phone number", 'error');
+        customerPhoneInput.focus();
         return;
       }
       
       if (!customerAddressInput.value.trim()) {
         showToast("Please enter your delivery address", 'error');
+        customerAddressInput.focus();
         return;
       }
       
+      // Disable button and show loading
       checkoutBtn.disabled = true;
       checkoutBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Processing Order...';
-      showToast("Saving order to database...", 'info');
       
-      const totals = calculateTotals();
-      const orderId = generateOrderId();
+      // Generate unique order ID
+      const orderId = `ORD-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
       
-      // Save to Firebase
-      const saveResult = await saveOrderToFirebase(orderId);
-      
-      if (saveResult.success) {
-        showToast(`Order saved successfully!`, 'success');
+      try {
+        // Step 1: Save to Firebase
+        showToast("Saving order to database...", 'info');
+        const saveResult = await saveOrderToFirebase(orderId);
         
-        // Generate and send WhatsApp message
-        const message = generateWhatsAppMessage(totals, orderId);
-        const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+        if (!saveResult.success) {
+          throw new Error(saveResult.error);
+        }
+        
+        showToast("Order saved to database! ✓", 'success');
+        
+        // Step 2: Send to WhatsApp
+        showToast("Sending order via WhatsApp...", 'info');
+        const whatsappMessage = generateWhatsAppMessage(orderId);
+        const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`;
         
         // Open WhatsApp in new tab
         window.open(whatsappUrl, '_blank');
         
-        // Show success modal
-        showSuccessModal(orderId);
+        // Step 3: Show success message
+        showToast(`ORDER SUCCESSFUL! ✓ Order ID: ${orderId}`, 'success');
         
-        // Clear cart after successful order
+        // Step 4: Clear the cart
         cart = [];
         saveCart();
         renderCartItems();
         updateCartDisplay();
         
-        // Reset button after delay
+        // Step 5: Clear form fields (optional)
+        // customerNameInput.value = '';
+        // customerPhoneInput.value = '';
+        // customerAddressInput.value = '';
+        
+        // Reset button after 3 seconds
         setTimeout(() => {
           checkoutBtn.disabled = false;
           checkoutBtn.innerHTML = '<i class="fab fa-whatsapp"></i> Complete Order via WhatsApp';
         }, 3000);
-      } else {
-        showToast(`Error: ${saveResult.error}. Please try again.`, 'error');
+        
+      } catch (error) {
+        console.error("Order processing error:", error);
+        showToast(`Error: ${error.message}`, 'error');
         checkoutBtn.disabled = false;
         checkoutBtn.innerHTML = '<i class="fab fa-whatsapp"></i> Complete Order via WhatsApp';
       }
