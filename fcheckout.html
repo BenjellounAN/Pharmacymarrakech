@@ -14,12 +14,9 @@
   <style>
     :root {
       --primary-red: #8B0000;
-      --primary-red-light: #a52a2a;
       --primary-red-dark: #660000;
-      --accent-gold: #D4AF37;
       --text-dark: #2C3E50;
       --text-light: #7F8C8D;
-      --bg-light: #F9F9F9;
       --border-light: #ECF0F1;
       --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     }
@@ -31,7 +28,6 @@
       background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
       min-height: 100vh;
       padding: 20px;
-      color: var(--text-dark);
     }
     
     .container { max-width: 1000px; margin: 0 auto; }
@@ -49,12 +45,9 @@
       justify-content: center;
       align-items: center;
       cursor: pointer;
-      box-shadow: var(--shadow);
       z-index: 100;
-      transition: all 0.3s ease;
+      box-shadow: var(--shadow);
     }
-    
-    .back-btn:hover { background: var(--primary-red-dark); transform: translateX(-3px); }
     
     .header {
       text-align: center;
@@ -64,12 +57,8 @@
     
     .header h1 {
       font-size: 2rem;
-      font-weight: 700;
       color: var(--primary-red);
-      margin-bottom: 8px;
     }
-    
-    .header p { color: var(--text-light); font-size: 0.95rem; }
     
     .cart-container {
       display: flex;
@@ -80,7 +69,6 @@
     
     .cart-items {
       flex: 1;
-      min-width: 300px;
       background: white;
       border-radius: 16px;
       padding: 20px;
@@ -93,35 +81,7 @@
       border-radius: 16px;
       padding: 20px;
       box-shadow: var(--shadow);
-      align-self: flex-start;
     }
-    
-    .cart-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid var(--border-light);
-    }
-    
-    .cart-header h2 { font-size: 1.3rem; font-weight: 600; }
-    
-    .clear-cart {
-      color: var(--primary-red);
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 0.85rem;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      padding: 6px 10px;
-      border-radius: 8px;
-      transition: all 0.2s ease;
-    }
-    
-    .clear-cart:hover { background: rgba(139, 0, 0, 0.1); }
     
     .item-card {
       display: flex;
@@ -135,55 +95,34 @@
       width: 70px;
       height: 70px;
       border-radius: 12px;
-      overflow: hidden;
-      flex-shrink: 0;
+      background: #eee;
     }
     
     .item-image img { width: 100%; height: 100%; object-fit: cover; }
     
-    .item-details { flex: 1; min-width: 0; }
+    .item-details { flex: 1; }
     
-    .item-name { font-weight: 600; font-size: 0.95rem; margin-bottom: 4px; }
+    .item-name { font-weight: 600; }
     
-    .item-price { color: var(--primary-red); font-weight: 600; font-size: 0.95rem; }
+    .item-price { color: var(--primary-red); font-weight: 600; }
     
-    .item-controls { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
-    
-    .quantity-btn {
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      border: none;
-      background: var(--bg-light);
-      cursor: pointer;
-    }
-    
-    .quantity-btn:hover { background: var(--primary-red); color: white; }
-    
-    .item-quantity { font-weight: 600; min-width: 26px; text-align: center; }
-    
-    .remove-item {
-      color: #e74c3c;
-      background: none;
-      border: none;
-      cursor: pointer;
-      margin-left: 10px;
-      font-size: 0.8rem;
-    }
-    
-    .summary-title {
-      font-size: 1.3rem;
-      font-weight: 600;
-      margin-bottom: 18px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid var(--border-light);
-    }
-    
-    .summary-item {
+    .item-controls {
       display: flex;
-      justify-content: space-between;
-      margin-bottom: 12px;
-      font-size: 0.9rem;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    
+    .quantity-btn, .remove-item {
+      background: #f0f0f0;
+      border: none;
+      cursor: pointer;
+      padding: 5px 10px;
+      border-radius: 5px;
+    }
+    
+    .quantity-btn:hover, .remove-item:hover {
+      background: var(--primary-red);
+      color: white;
     }
     
     .summary-total {
@@ -192,40 +131,25 @@
       margin: 20px 0;
       padding: 15px 0;
       border-top: 2px solid var(--primary-red);
-      border-bottom: 2px solid var(--primary-red);
       font-size: 1.2rem;
       font-weight: 700;
-    }
-    
-    .total-price { color: var(--primary-red); }
-    
-    .delivery-note {
-      background: rgba(139, 0, 0, 0.05);
-      padding: 12px;
-      border-radius: 10px;
-      margin: 15px 0;
-      font-size: 0.85rem;
-      border-left: 3px solid var(--primary-red);
     }
     
     .customer-info {
       background: white;
       border-radius: 16px;
       padding: 20px;
-      box-shadow: var(--shadow);
       margin-bottom: 20px;
     }
     
     .customer-info h3 {
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin-bottom: 15px;
       color: var(--primary-red);
-      padding-bottom: 10px;
-      border-bottom: 1px solid var(--border-light);
+      margin-bottom: 15px;
     }
     
-    .form-group { margin-bottom: 15px; }
+    .form-group {
+      margin-bottom: 15px;
+    }
     
     .form-group label {
       display: block;
@@ -237,63 +161,20 @@
     .form-group input,
     .form-group textarea {
       width: 100%;
-      padding: 10px 12px;
-      border: 1px solid var(--border-light);
-      border-radius: 8px;
-      font-size: 0.9rem;
-      font-family: 'Poppins', sans-serif;
-    }
-    
-    .form-group input:focus,
-    .form-group textarea:focus {
-      outline: none;
-      border-color: var(--primary-red);
-    }
-    
-    .time-options {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-    
-    .time-option {
-      flex: 1;
-      min-width: 120px;
       padding: 10px;
       border: 1px solid var(--border-light);
       border-radius: 8px;
-      text-align: center;
-      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
     }
-    
-    .time-option.selected {
-      border-color: var(--primary-red);
-      background: rgba(139, 0, 0, 0.05);
-    }
-    
-    .payment-method { margin: 20px 0; }
-    
-    .payment-option {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 12px;
-      border: 1px solid var(--border-light);
-      border-radius: 10px;
-      margin-bottom: 8px;
-      cursor: pointer;
-    }
-    
-    .payment-option.selected { border-color: var(--primary-red); background: rgba(139, 0, 0, 0.05); }
     
     .checkout-btn {
       width: 100%;
-      background: linear-gradient(135deg, var(--primary-red) 0%, var(--primary-red-dark) 100%);
+      background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
       color: white;
       border: none;
       padding: 14px;
       border-radius: 12px;
-      font-size: 0.95rem;
+      font-size: 1rem;
       font-weight: 600;
       cursor: pointer;
       display: flex;
@@ -306,15 +187,7 @@
     .checkout-btn:hover { transform: translateY(-2px); }
     .checkout-btn:disabled { opacity: 0.6; cursor: not-allowed; }
     
-    .info-text {
-      text-align: center;
-      margin-top: 12px;
-      color: var(--text-light);
-      font-size: 0.8rem;
-    }
-    
     .empty-cart { text-align: center; padding: 30px 0; }
-    .empty-cart i { font-size: 4rem; color: var(--border-light); margin-bottom: 15px; }
     
     .browse-btn {
       background: var(--primary-red);
@@ -322,16 +195,38 @@
       border: none;
       padding: 10px 20px;
       border-radius: 25px;
-      font-weight: 600;
       cursor: pointer;
       text-decoration: none;
       display: inline-block;
     }
     
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 30px;
+      z-index: 1000;
+      display: none;
+      white-space: nowrap;
+    }
+    
+    .toast.show { display: block; animation: fadeInUp 0.3s ease; }
+    .toast.error { background: #c0392b; }
+    .toast.success { background: #27ae60; }
+    
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+      to { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+    
     @media (max-width: 768px) {
       .cart-container { flex-direction: column; }
       .cart-summary { width: 100%; }
-      .time-options { flex-direction: column; }
+      .toast { white-space: normal; text-align: center; max-width: 90%; }
     }
   </style>
 </head>
@@ -342,83 +237,55 @@
     </div>
     
     <div class="header">
-      <h1>Fleuriste Marrakech</h1>
-      <p>Review your flower order and complete your purchase</p>
+      <h1>🌸 Fleuriste Marrakech</h1>
+      <p>Complete your flower order</p>
     </div>
     
     <div class="cart-container">
       <div class="cart-items">
-        <div class="cart-header">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
           <h2 id="cart-count">Order Items (0)</h2>
-          <button class="clear-cart" id="clear-cart">
-            <i class="fas fa-trash-alt"></i> Clear All
+          <button class="clear-cart" id="clear-cart" style="background: none; border: none; color: var(--primary-red); cursor: pointer;">
+            <i class="fas fa-trash"></i> Clear All
           </button>
         </div>
         <div id="cart-items-container"></div>
       </div>
       
       <div class="cart-summary">
-        <h2 class="summary-title">Order Summary</h2>
-        <div class="summary-item">
-          <span class="summary-label">Subtotal</span>
-          <span class="summary-value" id="subtotal">0.00 MAD</span>
-        </div>
+        <h2>Order Summary</h2>
         <div class="summary-total">
-          <span class="total-label">Total Amount</span>
+          <span>Total Amount</span>
           <span class="total-price" id="total-price">0.00 MAD</span>
-        </div>
-        <div class="delivery-note">
-          <i class="fas fa-info-circle"></i>
-          <span>Delivery charges not included. Will be calculated based on location.</span>
         </div>
         
         <div class="customer-info">
-          <h3>Delivery Information</h3>
+          <h3><i class="fas fa-truck"></i> Delivery Information</h3>
           <div class="form-group">
-            <label for="customerName">Full Name</label>
+            <label>Full Name</label>
             <input type="text" id="customerName" placeholder="Enter your full name">
           </div>
           <div class="form-group">
-            <label for="customerPhone">Phone Number</label>
+            <label>Phone Number</label>
             <input type="tel" id="customerPhone" placeholder="Enter your phone number">
           </div>
           <div class="form-group">
-            <label for="customerAddress">Delivery Address</label>
-            <textarea id="customerAddress" placeholder="Enter your delivery address"></textarea>
-          </div>
-          <div class="delivery-time">
-            <label style="display: block; font-size: 0.85rem; font-weight: 500; margin-bottom: 10px;">Delivery Time</label>
-            <div class="time-options">
-              <div class="time-option selected" data-time="asap">
-                <i class="fas fa-bolt"></i>
-                <span>ASAP (45-60 min)</span>
-              </div>
-              <div class="time-option" data-time="later">
-                <i class="far fa-clock"></i>
-                <span>Schedule Later</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <div class="payment-method">
-          <h3 class="payment-title">Payment Method</h3>
-          <div class="payment-option selected">
-            <input type="radio" id="cash" name="payment" checked>
-            <label for="cash">Cash on Delivery</label>
-            <div class="payment-icon"><i class="fas fa-money-bill-wave"></i></div>
+            <label>Delivery Address</label>
+            <textarea id="customerAddress" rows="3" placeholder="Enter your delivery address"></textarea>
           </div>
         </div>
         
         <button class="checkout-btn" id="checkout-btn">
           <i class="fab fa-whatsapp"></i> Complete Order via WhatsApp
         </button>
-        <p class="info-text">
-          <i class="fas fa-info-circle"></i> Your order will be sent via WhatsApp and saved in our system.
+        <p style="text-align: center; font-size: 0.75rem; margin-top: 10px; color: var(--text-light);">
+          <i class="fas fa-info-circle"></i> سيتم حفظ الطلب وإرساله عبر الواتساب بنفس رقم الطلب
         </p>
       </div>
     </div>
   </div>
+  
+  <div id="toast" class="toast"></div>
 
   <script>
     // Firebase Configuration
@@ -428,8 +295,7 @@
       projectId: "flowers-products",
       storageBucket: "flowers-products.firebasestorage.app",
       messagingSenderId: "107577839256",
-      appId: "1:107577839256:web:922ffa87578f10d9088aed",
-      measurementId: "G-Z4SHZZ9SHB"
+      appId: "1:107577839256:web:922ffa87578f10d9088aed"
     };
 
     // Initialize Firebase
@@ -441,24 +307,39 @@
     
     let cart = [];
     
-    // DOM elements
-    const cartItemsContainer = document.getElementById('cart-items-container');
-    const cartCount = document.getElementById('cart-count');
-    const subtotalElement = document.getElementById('subtotal');
-    const totalPriceElement = document.getElementById('total-price');
-    const clearCartBtn = document.getElementById('clear-cart');
-    const checkoutBtn = document.getElementById('checkout-btn');
-    const backButton = document.getElementById('back-button');
-    const customerNameInput = document.getElementById('customerName');
-    const customerPhoneInput = document.getElementById('customerPhone');
-    const customerAddressInput = document.getElementById('customerAddress');
-    const timeOptions = document.querySelectorAll('.time-option');
+    // Toast function
+    function showToast(message, type = 'info') {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.className = `toast ${type} show`;
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
     
+    // Generate unique order ID (مخصص ومرتب حسب التاريخ)
+    function generateOrderId() {
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = String(now.getMonth() + 1).padStart(2, '0');
+      const day = String(now.getDate()).padStart(2, '0');
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+      const random = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
+      
+      // مثال: ORD-20251204-143025-123
+      return `ORD-${year}${month}${day}-${hours}${minutes}${seconds}-${random}`;
+    }
+    
+    // Get cart from localStorage
     function getCart() {
       try {
         const cartData = localStorage.getItem(CART_KEY);
         return cartData ? JSON.parse(cartData) : [];
-      } catch(e) { return []; }
+      } catch(e) { 
+        return []; 
+      }
     }
     
     function saveCart() {
@@ -466,38 +347,52 @@
     }
     
     function renderCartItems() {
-      cartItemsContainer.innerHTML = '';
+      const container = document.getElementById('cart-items-container');
+      const cartCount = document.getElementById('cart-count');
+      const totalPriceElement = document.getElementById('total-price');
+      
+      container.innerHTML = '';
+      
       if (cart.length === 0) {
-        cartItemsContainer.innerHTML = `
+        container.innerHTML = `
           <div class="empty-cart">
-            <i class="fas fa-shopping-basket"></i>
-            <p>Your flower basket is empty</p>
+            <i class="fas fa-shopping-basket" style="font-size: 4rem; color: #ccc;"></i>
+            <p>Your basket is empty</p>
             <a href="flowers.html" class="browse-btn">Browse Flowers</a>
           </div>
         `;
+        cartCount.textContent = 'Order Items (0)';
+        totalPriceElement.textContent = '0.00 MAD';
         return;
       }
+      
+      let total = 0;
       cart.forEach((item, index) => {
+        const price = item.basePrice || item.price || 0;
+        const qty = item.quantity || 1;
+        total += price * qty;
+        
         const itemDiv = document.createElement('div');
         itemDiv.className = 'item-card';
-        const pricePerUnit = item.basePrice || item.price || 0;
-        const imageUrl = item.img || 'https://via.placeholder.com/70x70/8B0000/ffffff?text=Flower';
         itemDiv.innerHTML = `
-          <div class="item-image"><img src="${imageUrl}" alt="${item.name}"></div>
           <div class="item-details">
             <div class="item-name">${item.name}</div>
-            <div class="item-price">${pricePerUnit.toFixed(2)} MAD x ${item.quantity || 1}</div>
+            <div class="item-price">${price.toFixed(2)} MAD</div>
             <div class="item-controls">
-              <button class="quantity-btn minus-btn" data-index="${index}"><i class="fas fa-minus"></i></button>
-              <span class="item-quantity">${item.quantity || 1}</span>
-              <button class="quantity-btn plus-btn" data-index="${index}"><i class="fas fa-plus"></i></button>
-              <button class="remove-item" data-index="${index}"><i class="fas fa-times"></i> Remove</button>
+              <button class="quantity-btn minus-btn" data-index="${index}">-</button>
+              <span style="min-width: 30px; text-align: center;">${qty}</span>
+              <button class="quantity-btn plus-btn" data-index="${index}">+</button>
+              <button class="remove-item" data-index="${index}"><i class="fas fa-trash"></i> Remove</button>
             </div>
           </div>
         `;
-        cartItemsContainer.appendChild(itemDiv);
+        container.appendChild(itemDiv);
       });
       
+      cartCount.textContent = `Order Items (${cart.reduce((sum, item) => sum + (item.quantity || 1), 0)})`;
+      totalPriceElement.textContent = total.toFixed(2) + ' MAD';
+      
+      // Add event listeners
       document.querySelectorAll('.minus-btn').forEach(btn => {
         btn.addEventListener('click', () => updateQuantity(parseInt(btn.dataset.index), -1));
       });
@@ -509,21 +404,12 @@
       });
     }
     
-    function calculateTotals() {
-      const subtotal = cart.reduce((sum, item) => {
+    function calculateTotal() {
+      return cart.reduce((sum, item) => {
         const price = item.basePrice || item.price || 0;
         const qty = item.quantity || 1;
         return sum + (price * qty);
       }, 0);
-      return { subtotal: subtotal.toFixed(2), total: subtotal.toFixed(2) };
-    }
-    
-    function updateCartDisplay() {
-      const totals = calculateTotals();
-      subtotalElement.textContent = `${totals.subtotal} MAD`;
-      totalPriceElement.textContent = `${totals.total} MAD`;
-      const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
-      cartCount.textContent = `Order Items (${totalItems})`;
     }
     
     function updateQuantity(idx, change) {
@@ -532,14 +418,12 @@
       if (cart[idx].quantity < 1) cart[idx].quantity = 1;
       saveCart();
       renderCartItems();
-      updateCartDisplay();
     }
     
     function removeItem(idx) {
       cart.splice(idx, 1);
       saveCart();
       renderCartItems();
-      updateCartDisplay();
     }
     
     function clearCart() {
@@ -548,38 +432,24 @@
         cart = [];
         saveCart();
         renderCartItems();
-        updateCartDisplay();
+        showToast("Basket cleared!", 'success');
       }
     }
     
-    function getDeliveryTime() {
-      const selected = document.querySelector('.time-option.selected');
-      return selected ? selected.getAttribute('data-time') : 'asap';
-    }
-    
-    function getDeliveryTimeText() {
-      const selected = document.querySelector('.time-option.selected');
-      if (!selected) return 'ASAP';
-      return selected.getAttribute('data-time') === 'asap' ? 'ASAP (45-60 min)' : 'Schedule Later';
-    }
-    
-    // Save order to Firebase and get the document ID
-    async function saveOrderToFirebase() {
-      const totals = calculateTotals();
+    // Save order to Firebase with CUSTOM ID (نفس الID الذي سيظهر في الواتساب)
+    async function saveOrderToFirebase(customOrderId) {
+      const total = calculateTotal();
       
       const orderData = {
+        orderId: customOrderId,  // ✅ نفس الID المخصص
         orderDate: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
         orderTime: new Date().toLocaleTimeString(),
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         customerName: customerNameInput.value.trim() || "Guest",
         phone: customerPhoneInput.value.trim() || "N/A",
         address: customerAddressInput.value.trim() || "N/A",
-        deliveryTime: getDeliveryTime(),
-        deliveryTimeText: getDeliveryTimeText(),
         store: "Fleuriste Marrakech",
-        subtotal: parseFloat(totals.subtotal),
-        total: parseFloat(totals.total),
-        orderStatus: "pending",
+        total: total,
         paymentMethod: "Cash on Delivery",
         items: cart.map(item => ({
           name: item.name,
@@ -591,146 +461,155 @@
       };
       
       try {
-        const docRef = await db.collection('orders').add(orderData);
-        console.log("Order saved! Firebase ID:", docRef.id);
-        return { success: true, firebaseId: docRef.id };
+        // استخدام set مع ID مخصص بدلاً من add
+        const docRef = db.collection('orders').doc(customOrderId);
+        await docRef.set(orderData);
+        console.log("✅ Order saved with custom ID:", customOrderId);
+        return { success: true, firebaseId: customOrderId };
       } catch (error) {
-        console.error("Firebase Error:", error);
+        console.error("❌ Firebase Error:", error);
         return { success: false, error: error.message };
       }
     }
     
-    // Generate WhatsApp message with Firebase ID
-    function generateWhatsAppMessage(firebaseId) {
-      const totals = calculateTotals();
-      const deliveryTimeText = getDeliveryTimeText();
+    // Generate WhatsApp message with the SAME ID
+    function generateWhatsAppMessage(orderId) {
+      const total = calculateTotal();
+      const customerName = customerNameInput.value.trim() || "Guest";
+      const customerPhone = customerPhoneInput.value.trim() || "N/A";
+      const customerAddress = customerAddressInput.value.trim() || "N/A";
       
-      let message = `*🌸 FLEURISTE MARRAKECH - NEW ORDER 🌸*\n\n`;
-      message += `*Order ID:* ${firebaseId}\n`;
-      message += `*━━━━━━━━━━━━━━━━━━━━*\n`;
-      message += `*👤 Customer Information:*\n`;
-      message += `Name: ${customerNameInput.value.trim() || "Guest"}\n`;
-      message += `Phone: ${customerPhoneInput.value.trim() || "N/A"}\n`;
-      message += `Address: ${customerAddressInput.value.trim() || "N/A"}\n`;
-      message += `Delivery: ${deliveryTimeText}\n\n`;
-      message += `*━━━━━━━━━━━━━━━━━━━━*\n`;
+      let message = `🌸 *FLEURISTE MARRAKECH - NEW ORDER* 🌸\n\n`;
+      message += `*Order ID:* ${orderId}\n`;
+      message += `━━━━━━━━━━━━━━━━━━━━\n`;
+      message += `*👤 Customer Details:*\n`;
+      message += `Name: ${customerName}\n`;
+      message += `Phone: ${customerPhone}\n`;
+      message += `Address: ${customerAddress}\n\n`;
+      message += `━━━━━━━━━━━━━━━━━━━━\n`;
       message += `*🛍️ Order Details:*\n`;
       
       cart.forEach((item, index) => {
         const price = item.basePrice || item.price || 0;
         const quantity = item.quantity || 1;
-        const total = price * quantity;
+        const totalPrice = price * quantity;
         message += `${index + 1}. ${item.name}\n`;
-        message += `   Quantity: ${quantity} x ${price.toFixed(2)} MAD = ${total.toFixed(2)} MAD\n`;
+        message += `   ${quantity} x ${price.toFixed(2)} MAD = ${totalPrice.toFixed(2)} MAD\n`;
       });
       
-      message += `*━━━━━━━━━━━━━━━━━━━━*\n`;
-      message += `*💰 Total Amount: ${totals.total} MAD*\n`;
-      message += `*💳 Payment Method: Cash on Delivery*\n\n`;
-      message += `*✅ Please confirm this order.*\n`;
-      message += `*⏰ Order placed: ${new Date().toLocaleString()}*\n`;
-      message += `*━━━━━━━━━━━━━━━━━━━━*\n`;
-      message += `*Thank you! 💐*`;
+      message += `━━━━━━━━━━━━━━━━━━━━\n`;
+      message += `*💰 Total: ${total.toFixed(2)} MAD*\n`;
+      message += `*💳 Payment: Cash on Delivery*\n\n`;
+      message += `✅ Please confirm this order. Thank you! 💐`;
       
       return message;
     }
     
-    // Main function to process order
+    // Open WhatsApp function
+    function openWhatsApp(message) {
+      const encodedMessage = encodeURIComponent(message);
+      const waMeUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+      const apiUrl = `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodedMessage}`;
+      
+      const newWindow = window.open(waMeUrl, '_blank');
+      
+      if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+        window.location.href = apiUrl;
+      }
+      
+      return true;
+    }
+    
+    // Main process
     async function processOrder() {
       // Validation
       if (cart.length === 0) {
-        alert("Your basket is empty! Please add items to your cart.");
+        showToast("Your basket is empty!", 'error');
         return;
       }
       
       if (!customerNameInput.value.trim()) {
-        alert("Please enter your full name");
+        showToast("Please enter your full name", 'error');
         customerNameInput.focus();
         return;
       }
       
       if (!customerPhoneInput.value.trim()) {
-        alert("Please enter your phone number");
+        showToast("Please enter your phone number", 'error');
         customerPhoneInput.focus();
         return;
       }
       
       if (!customerAddressInput.value.trim()) {
-        alert("Please enter your delivery address");
+        showToast("Please enter your delivery address", 'error');
         customerAddressInput.focus();
         return;
       }
       
-      // Disable button and show loading
+      // Disable button
+      const checkoutBtn = document.getElementById('checkout-btn');
       checkoutBtn.disabled = true;
-      checkoutBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Processing Order...';
+      checkoutBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Saving order...';
       
       try {
-        // Step 1: Save to Firebase and get the ID
-        const saveResult = await saveOrderToFirebase();
+        // Step 1: Generate unique order ID (هذا الID سيكون نفسه في Firebase وواتساب)
+        const orderId = generateOrderId();
+        console.log("Generated Order ID:", orderId);
+        
+        // Step 2: Save to Firebase with the custom ID
+        showToast("Saving order to database...", 'info');
+        const saveResult = await saveOrderToFirebase(orderId);
         
         if (!saveResult.success) {
           throw new Error(saveResult.error);
         }
         
-        const firebaseId = saveResult.firebaseId;
+        showToast(`Order saved! ID: ${orderId}`, 'success');
         
-        // Step 2: Generate WhatsApp message with the Firebase ID
-        const whatsappMessage = generateWhatsAppMessage(firebaseId);
+        // Step 3: Generate message for WhatsApp with the SAME ID
+        const whatsappMessage = generateWhatsAppMessage(orderId);
         
-        // Step 3: Open WhatsApp with the message
-        const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`;
-        window.open(whatsappUrl, '_blank');
+        // Step 4: Open WhatsApp
+        showToast("Opening WhatsApp...", 'info');
+        openWhatsApp(whatsappMessage);
         
-        // Step 4: Clear the cart
+        // Step 5: Clear cart
         cart = [];
         saveCart();
         renderCartItems();
-        updateCartDisplay();
-        
-        // Clear form fields
-        customerNameInput.value = '';
-        customerPhoneInput.value = '';
-        customerAddressInput.value = '';
         
         // Reset button
-        checkoutBtn.disabled = false;
-        checkoutBtn.innerHTML = '<i class="fab fa-whatsapp"></i> Complete Order via WhatsApp';
+        setTimeout(() => {
+          checkoutBtn.disabled = false;
+          checkoutBtn.innerHTML = '<i class="fab fa-whatsapp"></i> Complete Order via WhatsApp';
+        }, 3000);
         
       } catch (error) {
-        console.error("Order processing error:", error);
-        alert("Error: " + error.message);
+        console.error("Error:", error);
+        showToast("Error: " + error.message, 'error');
         checkoutBtn.disabled = false;
         checkoutBtn.innerHTML = '<i class="fab fa-whatsapp"></i> Complete Order via WhatsApp';
       }
     }
     
-    // Event Listeners
-    clearCartBtn.addEventListener('click', clearCart);
-    checkoutBtn.addEventListener('click', processOrder);
-    backButton.addEventListener('click', () => window.location.href = 'flowers.html');
+    // DOM elements
+    const customerNameInput = document.getElementById('customerName');
+    const customerPhoneInput = document.getElementById('customerPhone');
+    const customerAddressInput = document.getElementById('customerAddress');
+    const clearCartBtn = document.getElementById('clear-cart');
+    const checkoutBtn = document.getElementById('checkout-btn');
+    const backButton = document.getElementById('back-button');
     
-    timeOptions.forEach(opt => {
-      opt.addEventListener('click', function() {
-        timeOptions.forEach(o => o.classList.remove('selected'));
-        this.classList.add('selected');
-      });
-    });
+    // Event listeners
+    if (clearCartBtn) clearCartBtn.addEventListener('click', clearCart);
+    if (checkoutBtn) checkoutBtn.addEventListener('click', processOrder);
+    if (backButton) backButton.addEventListener('click', () => window.location.href = 'flowers.html');
     
-    document.querySelectorAll('.payment-option').forEach(opt => {
-      opt.addEventListener('click', function() {
-        document.querySelectorAll('.payment-option').forEach(o => o.classList.remove('selected'));
-        this.classList.add('selected');
-        const radio = this.querySelector('input[type="radio"]');
-        if (radio) radio.checked = true;
-      });
-    });
-    
+    // Initialize
     function init() {
       cart = getCart();
       renderCartItems();
-      updateCartDisplay();
-      console.log("✅ Checkout page ready!");
+      console.log("✅ Page loaded, cart items:", cart.length);
     }
     
     document.addEventListener('DOMContentLoaded', init);
