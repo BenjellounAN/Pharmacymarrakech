@@ -371,6 +371,46 @@
       font-style: italic;
     }
     
+    /* Empty Cart Styles with Image */
+    .empty-cart {
+      text-align: center;
+      padding: 40px 20px;
+    }
+    
+    .empty-cart-image {
+      max-width: 200px;
+      width: 100%;
+      height: auto;
+      margin-bottom: 20px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .empty-cart p {
+      font-size: 1.1rem;
+      color: var(--text-light);
+      margin-bottom: 20px;
+    }
+    
+    .browse-btn {
+      background: var(--primary-red);
+      color: white;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.3s ease;
+    }
+    
+    .browse-btn:hover {
+      background: var(--primary-red-dark);
+      transform: translateY(-2px);
+    }
+    
     .checkout-btn {
       width: 100%;
       background: linear-gradient(135deg, var(--primary-red) 0%, var(--primary-red-dark) 100%);
@@ -396,21 +436,6 @@
       margin-top: 12px;
       color: var(--text-light);
       font-size: 0.8rem;
-    }
-    
-    .empty-cart { text-align: center; padding: 30px 0; }
-    .empty-cart i { font-size: 4rem; color: var(--border-light); margin-bottom: 15px; }
-    
-    .browse-btn {
-      background: var(--primary-red);
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 25px;
-      font-weight: 600;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-block;
     }
     
     .toast-message {
@@ -444,6 +469,7 @@
       .time-options { flex-direction: column; }
       .love-card .content { padding: 15px; }
       .love-card textarea { font-size: 14px; height: 120px; }
+      .empty-cart-image { max-width: 150px; }
     }
   </style>
 </head>
@@ -611,7 +637,7 @@
       if (cart.length === 0) {
         cartItemsContainer.innerHTML = `
           <div class="empty-cart">
-            <i class="fas fa-shopping-basket"></i>
+            <img src="https://i.ibb.co/ym00vf8w/667-E396-C-3-CF9-4-B4-B-8-B27-45-C4-A7-F02581.png" alt="Empty Flower Basket" class="empty-cart-image">
             <p>Your flower basket is empty</p>
             <a href="flowers.html" class="browse-btn">Browse Flowers</a>
           </div>
