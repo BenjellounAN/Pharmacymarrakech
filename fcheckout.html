@@ -349,78 +349,9 @@
     .toast-message.error { background: #c0392b; }
     .toast-message.success { background: #27ae60; }
     
-    /* Success Modal Popup */
-    .success-modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.5);
-      z-index: 2000;
-      display: none;
-      justify-content: center;
-      align-items: center;
-    }
-    
-    .success-modal.show { display: flex; }
-    
-    .success-content {
-      background: white;
-      border-radius: 20px;
-      padding: 30px;
-      text-align: center;
-      max-width: 400px;
-      width: 90%;
-      animation: bounceIn 0.4s ease;
-    }
-    
-    .success-content i {
-      font-size: 70px;
-      color: #27ae60;
-      margin-bottom: 20px;
-    }
-    
-    .success-content h2 {
-      color: var(--primary-red);
-      margin-bottom: 10px;
-    }
-    
-    .success-content p {
-      color: var(--text-light);
-      margin-bottom: 10px;
-    }
-    
-    .order-id {
-      background: var(--bg-light);
-      padding: 10px;
-      border-radius: 10px;
-      margin: 15px 0;
-      font-family: monospace;
-      font-size: 1.1rem;
-      font-weight: 600;
-    }
-    
-    .success-btn {
-      background: var(--primary-red);
-      color: white;
-      border: none;
-      padding: 12px 25px;
-      border-radius: 30px;
-      font-weight: 600;
-      cursor: pointer;
-      margin-top: 10px;
-    }
-    
     @keyframes fadeInUp {
       from { opacity: 0; transform: translateX(-50%) translateY(20px); }
       to { opacity: 1; transform: translateX(-50%) translateY(0); }
-    }
-    
-    @keyframes bounceIn {
-      0% { transform: scale(0.8); opacity: 0; }
-      80% { transform: scale(1.05); }
-      100% { transform: scale(1); opacity: 1; }
     }
     
     @media (max-width: 768px) {
@@ -519,18 +450,6 @@
     <i class="fas fa-spinner fa-pulse"></i>
     <span>Saving order...</span>
   </div>
-  
-  <!-- Success Modal Popup -->
-  <div id="successModal" class="success-modal">
-    <div class="success-content">
-      <i class="fas fa-check-circle"></i>
-      <h2>✅ ORDER SUCCESSFUL!</h2>
-      <p>Your order has been received successfully</p>
-      <div class="order-id" id="modalOrderId">Order ID: ---</div>
-      <p>You will be redirected to WhatsApp to confirm your order</p>
-      <button class="success-btn" id="closeModalBtn">OK</button>
-    </div>
-  </div>
 
   <script>
     // Firebase Configuration
@@ -566,25 +485,13 @@
     const customerAddressInput = document.getElementById('customerAddress');
     const timeOptions = document.querySelectorAll('.time-option');
     const toastMessage = document.getElementById('toastMessage');
-    const successModal = document.getElementById('successModal');
-    const modalOrderId = document.getElementById('modalOrderId');
-    const closeModalBtn = document.getElementById('closeModalBtn');
     
     function showToast(message, type = 'info') {
       toastMessage.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-triangle' : 'fa-spinner fa-pulse'}"></i> <span>${message}</span>`;
       toastMessage.className = `toast-message show ${type}`;
       setTimeout(() => {
         toastMessage.classList.remove('show');
-      }, 4000);
-    }
-    
-    function showSuccessModal(orderId) {
-      modalOrderId.textContent = `Order ID: ${orderId}`;
-      successModal.classList.add('show');
-    }
-    
-    function hideSuccessModal() {
-      successModal.classList.remove('show');
+      }, 3000);
     }
     
     function getCart() {
@@ -698,12 +605,11 @@
     }
     
     // Save order to Firebase
-    async function saveOrderToFirebase() {
+    async function saveOrderToFirebase(orderId) {
       const totals = calculateTotals();
-      const orderNumber = `ORD-${Date.now()}`;
       
       const orderData = {
-        orderId: orderNumber,
+        orderId: orderId,
         orderDate: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
         orderTime: new Date().toLocaleTimeString(),
         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
@@ -729,8 +635,8 @@
       
       try {
         const docRef = await db.collection('orders').add(orderData);
-        console.log("✅ Order saved! ID:", docRef.id);
-        return { success: true, orderId: orderNumber, docId: docRef.id };
+        console.log("✅ Order saved! Firebase ID:", docRef.id);
+        return { success: true, firebaseId: docRef.id };
       } catch (error) {
         console.error("❌ Firebase Error:", error);
         return { success: false, error: error.message };
@@ -749,7 +655,7 @@
       cart.forEach((item, idx) => {
         const price = item.basePrice || item.price || 0;
         const qty = item.quantity || 1;
-        msg += `${idx+1}. ${qty} × ${item.name} - ${(price * qty).toFixed(2)} MAD\n`;
+        msg += `${idx+1}. ${qty}x ${item.name} - ${(price * qty).toFixed(2)} MAD\n`;
       });
       msg += `\n*Total: ${totals.total} MAD*\n`;
       msg += `*Payment: Cash on Delivery*\n\n`;
@@ -766,7 +672,7 @@
       }
       
       if (!customerPhoneInput.value.trim()) {
-        showToast("Please enter your phone number for WhatsApp confirmation", 'error');
+        showToast("Please enter your phone number", 'error');
         return;
       }
       
@@ -780,37 +686,40 @@
         return;
       }
       
+      // Disable button to prevent double submission
       checkoutBtn.disabled = true;
-      checkoutBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Saving to Database...';
-      showToast("Saving order to Firebase...", 'info');
+      checkoutBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Processing...';
+      showToast("Saving order to database...", 'info');
       
+      // Generate order ID
+      const orderId = `ORD-${Date.now()}`;
       const totals = calculateTotals();
-      const saveResult = await saveOrderToFirebase();
+      
+      // Save to Firebase
+      const saveResult = await saveOrderToFirebase(orderId);
       
       if (saveResult.success) {
-        // Show success message
-        showToast("Order saved successfully!", 'success');
+        // Show success toast (small notification, not big modal)
+        showToast("Order saved! Opening WhatsApp...", 'success');
         
-        // Show success modal popup
-        showSuccessModal(saveResult.orderId);
-        
-        // Generate WhatsApp message and send
-        const message = generateWhatsAppMessage(totals, saveResult.orderId);
+        // Generate WhatsApp message
+        const message = generateWhatsAppMessage(totals, orderId);
         const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
         
-        // Open WhatsApp in new window after short delay
-        setTimeout(() => {
-          window.open(whatsappUrl, '_blank');
-        }, 500);
+        // Open WhatsApp in new tab
+        window.open(whatsappUrl, '_blank');
         
-        // Clear cart
+        // Clear cart after successful order
         cart = [];
         saveCart();
         renderCartItems();
         updateCartDisplay();
         
-        checkoutBtn.disabled = false;
-        checkoutBtn.innerHTML = '<i class="fab fa-whatsapp"></i> Complete Order via WhatsApp';
+        // Reset button
+        setTimeout(() => {
+          checkoutBtn.disabled = false;
+          checkoutBtn.innerHTML = '<i class="fab fa-whatsapp"></i> Complete Order via WhatsApp';
+        }, 2000);
         
       } else {
         showToast(`Error: ${saveResult.error}`, 'error');
@@ -823,14 +732,6 @@
     clearCartBtn.addEventListener('click', clearCart);
     checkoutBtn.addEventListener('click', processOrder);
     backButton.addEventListener('click', () => window.location.href = 'flowers.html');
-    closeModalBtn.addEventListener('click', hideSuccessModal);
-    
-    // Close modal when clicking outside
-    successModal.addEventListener('click', (e) => {
-      if (e.target === successModal) {
-        hideSuccessModal();
-      }
-    });
     
     timeOptions.forEach(opt => {
       opt.addEventListener('click', function() {
