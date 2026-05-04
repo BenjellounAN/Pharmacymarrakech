@@ -6,6 +6,7 @@
   <title>Checkout - Fleuriste Marrakech</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
   
   <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
@@ -35,7 +36,7 @@
       color: var(--text-dark);
     }
     
-    .container { max-width: 1000px; margin: 0 auto; }
+    .container { max-width: 1200px; margin: 0 auto; }
     
     .back-btn {
       position: fixed;
@@ -79,9 +80,15 @@
       margin-bottom: 40px;
     }
     
-    .cart-items {
+    .cart-items-section {
       flex: 1;
       min-width: 300px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    
+    .cart-items {
       background: white;
       border-radius: 16px;
       padding: 20px;
@@ -89,7 +96,7 @@
     }
     
     .cart-summary {
-      width: 320px;
+      width: 350px;
       background: white;
       border-radius: 16px;
       padding: 20px;
@@ -287,6 +294,83 @@
     
     .payment-option.selected { border-color: var(--primary-red); background: rgba(139, 0, 0, 0.05); }
     
+    /* Love Message Card - Original Design */
+    .love-card {
+      width: 100%;
+      height: auto;
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      background: url('https://thumbs.dreamstime.com/b/ethereal-floral-background-soft-pastel-flowers-spring-designs-greetings-including-roses-daisies-lavender-create-326683096.jpg') no-repeat center/cover;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+    }
+    
+    .love-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0.35);
+      backdrop-filter: blur(2px);
+      border-radius: 20px;
+    }
+    
+    .love-card .right-line {
+      position: absolute;
+      top: 0;
+      right: 8px;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(to bottom,#7a001a,#b3002d,#7a001a);
+      z-index: 2;
+    }
+    
+    .love-card .left-line {
+      position: absolute;
+      top: 0;
+      left: 8px;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(to bottom,#7a001a,#b3002d,#7a001a);
+      z-index: 2;
+    }
+    
+    .love-card .content {
+      position: relative;
+      z-index: 2;
+      padding: 25px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    
+    .love-card .title {
+      font-size: 24px;
+      font-family: 'Great Vibes', cursive;
+      color: #7a0030;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    .love-card textarea {
+      width: 100%;
+      height: 150px;
+      border: none;
+      outline: none;
+      resize: none;
+      font-size: 18px;
+      line-height: 1.6;
+      background: transparent;
+      color: #2b2b2b;
+      font-family: 'Playfair Display', serif;
+      caret-color: #7a001a;
+      letter-spacing: 0.2px;
+    }
+    
+    .love-card textarea::placeholder {
+      color: #666;
+      font-style: italic;
+    }
+    
     .checkout-btn {
       width: 100%;
       background: linear-gradient(135deg, var(--primary-red) 0%, var(--primary-red-dark) 100%);
@@ -358,6 +442,8 @@
       .cart-container { flex-direction: column; }
       .cart-summary { width: 100%; }
       .time-options { flex-direction: column; }
+      .love-card .content { padding: 15px; }
+      .love-card textarea { font-size: 14px; height: 120px; }
     }
   </style>
 </head>
@@ -373,16 +459,30 @@
     </div>
     
     <div class="cart-container">
-      <div class="cart-items">
-        <div class="cart-header">
-          <h2 id="cart-count">Order Items (0)</h2>
-          <button class="clear-cart" id="clear-cart">
-            <i class="fas fa-trash-alt"></i> Clear All
-          </button>
+      <!-- Left Side: Order Items + Love Card -->
+      <div class="cart-items-section">
+        <div class="cart-items">
+          <div class="cart-header">
+            <h2 id="cart-count">Order Items (0)</h2>
+            <button class="clear-cart" id="clear-cart">
+              <i class="fas fa-trash-alt"></i> Clear All
+            </button>
+          </div>
+          <div id="cart-items-container"></div>
         </div>
-        <div id="cart-items-container"></div>
+        
+        <!-- Love Message Card - Below Order Items -->
+        <div class="love-card">
+          <div class="left-line"></div>
+          <div class="right-line"></div>
+          <div class="content">
+            <div class="title">Love Message</div>
+            <textarea id="loveMessage" placeholder="Write something beautiful..."></textarea>
+          </div>
+        </div>
       </div>
       
+      <!-- Right Side: Order Summary -->
       <div class="cart-summary">
         <h2 class="summary-title">Order Summary</h2>
         <div class="summary-item">
@@ -483,6 +583,7 @@
     const customerNameInput = document.getElementById('customerName');
     const customerPhoneInput = document.getElementById('customerPhone');
     const customerAddressInput = document.getElementById('customerAddress');
+    const loveMessageInput = document.getElementById('loveMessage');
     const timeOptions = document.querySelectorAll('.time-option');
     const toastMessage = document.getElementById('toastMessage');
     
@@ -604,16 +705,15 @@
       return selected.getAttribute('data-time') === 'asap' ? 'ASAP (45-60 min)' : 'Schedule Later';
     }
     
-    // Get customer information from form
     function getCustomerInfo() {
       return {
         name: customerNameInput.value.trim() || "Guest",
         phone: customerPhoneInput.value.trim() || "Not provided",
-        address: customerAddressInput.value.trim() || "Not provided"
+        address: customerAddressInput.value.trim() || "Not provided",
+        loveMessage: loveMessageInput.value.trim() || "No message"
       };
     }
     
-    // Generate WhatsApp message with all order details
     function generateWhatsAppMessage(totals, orderId) {
       const customer = getCustomerInfo();
       
@@ -625,6 +725,12 @@
       msg += `├ Phone: ${customer.phone}\n`;
       msg += `└ Address: ${customer.address}\n\n`;
       msg += `*Delivery:* ${getDeliveryTimeText()}\n\n`;
+      
+      if (customer.loveMessage && customer.loveMessage !== "No message") {
+        msg += `*💌 Love Message:*\n`;
+        msg += `"${customer.loveMessage}"\n\n`;
+      }
+      
       msg += `*Order Details:*\n`;
       
       cart.forEach((item, idx) => {
@@ -642,7 +748,6 @@
       return msg;
     }
     
-    // Save order to Firebase (silent - doesn't block WhatsApp)
     function saveOrderToFirebaseAsync(orderId, totals) {
       const customer = getCustomerInfo();
       
@@ -654,6 +759,7 @@
         customerName: customer.name,
         phone: customer.phone,
         address: customer.address,
+        loveMessage: customer.loveMessage,
         deliveryTime: getDeliveryTime(),
         deliveryTimeText: getDeliveryTimeText(),
         store: "Fleuriste Marrakech",
@@ -669,7 +775,6 @@
         totalItems: cart.reduce((sum, item) => sum + (item.quantity || 1), 0)
       };
       
-      // Save to Firebase without waiting
       db.collection('orders').add(orderData)
         .then((docRef) => {
           console.log("✅ Order saved to Firebase! ID:", docRef.id);
@@ -679,9 +784,7 @@
         });
     }
     
-    // Main process order function - opens WhatsApp IMMEDIATELY
     function processOrder() {
-      // Validate data
       if (cart.length === 0) {
         showToast("Your basket is empty! Please add items to your cart.", 'error');
         return;
@@ -705,36 +808,24 @@
         return;
       }
       
-      // Generate order ID
       const orderId = `ORD-${Date.now()}`;
       const totals = calculateTotals();
-      
-      // Generate WhatsApp message
       const message = generateWhatsAppMessage(totals, orderId);
-      
-      // Create WhatsApp URL
       const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
       
-      // Open WhatsApp in new tab IMMEDIATELY
       window.open(whatsappUrl, '_blank');
-      
-      // Save to Firebase in background (doesn't block or wait)
       saveOrderToFirebaseAsync(orderId, totals);
-      
-      // Show success toast
       showToast("Order sent via WhatsApp! ✓", 'success');
       
-      // Clear cart after successful order
       cart = [];
       saveCart();
       renderCartItems();
       updateCartDisplay();
+      loveMessageInput.value = '';
       
-      // Optional: reset form but keep customer info for next order
       console.log("Order completed:", orderId);
     }
     
-    // Event Listeners
     clearCartBtn.addEventListener('click', clearCart);
     checkoutBtn.addEventListener('click', processOrder);
     backButton.addEventListener('click', () => window.location.href = 'flowers.html');
