@@ -4,139 +4,1066 @@
 <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+
+      <!-- === Basic SEO === -->
       <title>KFC Menu | Order Fried Chicken & Burgers Delivery Marrakech</title>
       <meta name="description" content="Browse the full KFC menu and order crispy fried chicken, burgers, popcorn chicken, sides, and more for fast delivery in Marrakech. Easy online ordering.">
       <meta name="keywords" content="KFC menu Marrakech, Fried chicken delivery Marrakech, Best fried chicken Marrakech, Order KFC online Marrakech, KFC delivery">
       <meta name="author" content="Delivery Marrakech">
       <meta name="robots" content="index, follow">
       <link rel="canonical" href="https://www.delivery-marrakech.com/menukfc.html">
+
+      <!-- === Favicon === -->
       <link rel="icon" type="image/png" href="https://i.ibb.co/KpZZdGsM/Logo-of-benjelloun-express.jpg">
       <link rel="apple-touch-icon" href="https://i.ibb.co/KpZZdGsM/Logo-of-benjelloun-express.jpg">
+
+      <!-- === Open Graph Cards === -->
+      <meta property="og:title" content="KFC Menu | Order Fried Chicken Delivery Marrakech">
+      <meta property="og:description" content="View the full KFC menu. Order crispy fried chicken, burgers, and sides for fast delivery in Marrakech.">
+      <meta property="og:image" content="https://i.ibb.co/0VZXFKTk/IMG-3736.jpg">
+      <meta property="og:image:width" content="1200">
+      <meta property="og:image:height" content="630">
+      <meta property="og:url" content="https://www.delivery-marrakech.com/menukfc.html">
+      <meta property="og:type" content="website">
+      <meta property="og:locale" content="en_US">
+      <meta property="og:site_name" content="Delivery Marrakech">
+
+      <!-- === Twitter Card === -->
+      <meta name="twitter:card" content="summary_large_image">
+      <meta name="twitter:title" content="KFC Menu | Delivery Marrakech">
+      <meta name="twitter:description" content="Order crispy fried chicken from KFC for fast delivery in Marrakech.">
+      <meta name="twitter:image" content="https://i.ibb.co/0VZXFKTk/IMG-3736.jpg">
+
+      <!-- === Schema.org markup for Menu Page === -->
+      <script type="application/ld+json">
+      {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "KFC Delivery Menu - Marrakech",
+            "description": "Order crispy fried chicken, Original Recipe chicken, Zinger burger, popcorn chicken, fries, and more from KFC for fast delivery in Marrakech.",
+            "url": "https://www.delivery-marrakech.com/menukfc.html"
+      }
+      </script>
+
+      <!-- === Hreflang links === -->
+      <link rel="alternate" href="https://www.delivery-marrakech.com/ar/menukfc.html" hreflang="ar">
+      <link rel="alternate" href="https://www.delivery-marrakech.com/fr/menukfc.html" hreflang="fr">
+      <link rel="alternate" href="https://www.delivery-marrakech.com/en/menukfc.html" hreflang="en">
+
+      <!-- === Fonts & Icons === -->
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
       <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
       
       <style>
-            /* جميع الأنماط كما هي - لم يتم تغييرها */
-            * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Ubuntu', sans-serif; }
-            body { background-color: #f8f8f8; color: #333; max-width: 400px; margin: 0 auto; padding: 0; min-height: 100vh; position: relative; }
-            .navbar { position: fixed; top: 0; width: 100%; max-width: 400px; display: flex; justify-content: space-between; align-items: center; padding: 16px; background-color: transparent; z-index: 1000; transition: all 0.3s ease; }
-            .navbar.scrolled { background-color: white; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); }
-            .navbar.scrolled .nav-title { display: block; }
-            .nav-btn { width: 40px; height: 40px; border-radius: 50%; background-color: white; display: flex; justify-content: center; align-items: center; border: none; color: #8B0000; font-size: 16px; transition: all 0.2s ease; cursor: pointer; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); }
-            .nav-btn:active { transform: scale(0.95); }
-            .nav-title { display: none; font-weight: 700; color: #8B0000; position: absolute; left: 50%; transform: translateX(-50%); font-size: 18px; }
-            .hero-section { position: relative; height: 220px; overflow: hidden; }
-            .hero-image { width: 100%; height: 100%; object-fit: cover; }
-            .hero-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent); padding: 20px 16px 16px; color: white; }
-            .hero-title { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
-            .hero-subtitle { font-size: 14px; opacity: 0.9; }
-            .restaurant-info { padding: 20px 16px; background-color: white; border-radius: 0 0 16px 16px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); margin-bottom: 8px; }
-            .restaurant-name { font-size: 24px; font-weight: 700; margin-bottom: 12px; color: #8B0000; }
-            .rating-delivery { display: flex; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 16px; }
-            .delivery-time { display: flex; align-items: center; padding: 6px 12px; background: #F8F9FA; border-radius: 20px; color: #495057; }
-            .delivery-icon { margin-right: 6px; color: #8B0000; }
-            .categories-section { padding: 16px; background-color: white; margin-bottom: 8px; position: sticky; top: 72px; z-index: 900; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); transition: all 0.3s ease; }
-            .categories { display: flex; overflow-x: auto; gap: 8px; padding-bottom: 4px; scrollbar-width: none; scroll-behavior: smooth; }
-            .categories::-webkit-scrollbar { display: none; }
-            .category { padding: 12px 18px; background: #F8F9FA; border-radius: 12px; white-space: nowrap; font-size: 14px; font-weight: 500; color: #495057; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer; position: relative; overflow: hidden; border: 1px solid #E9ECEF; display: flex; align-items: center; justify-content: center; min-width: max-content; }
-            .category::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #8B0000 0%, #6D0000 100%); border-radius: 12px; opacity: 0; transition: opacity 0.3s ease; z-index: -1; }
-            .category.active { color: white; transform: scale(1.05); box-shadow: 0 4px 12px rgba(139, 0, 0, 0.25); border-color: #8B0000; font-weight: 600; }
-            .category.active::before { opacity: 1; }
-            .category-items-section { padding: 20px 16px; background-color: white; border-radius: 16px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); margin-bottom: 16px; scroll-margin-top: 120px; opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
-            .category-items-section.visible { opacity: 1; transform: translateY(0); }
-            .section-title { font-size: 20px; font-weight: 700; margin-bottom: 16px; color: #212529; display: flex; align-items: center; }
-            .section-title::after { content: ""; flex: 1; height: 1px; background: #DEE2E6; margin-left: 12px; }
-            .category-item { display: flex; padding: 16px 0; border-bottom: 1px solid #F1F3F5; transition: transform 0.2s ease; }
-            .category-item:last-child { border-bottom: none; }
-            .category-item:hover { transform: translateX(5px); }
-            .item-image { width: 100px; height: 100px; border-radius: 12px; object-fit: cover; margin-right: 16px; transition: transform 0.3s ease; }
-            .category-item:hover .item-image { transform: scale(1.05); }
-            .item-info { flex: 1; display: flex; flex-direction: column; justify-content: center; }
-            .item-name { font-weight: 600; font-size: 16px; margin-bottom: 6px; color: #212529; }
-            .item-description { font-size: 13px; color: #6C757D; margin-bottom: 12px; line-height: 1.4; }
-            .item-footer { display: flex; justify-content: space-between; align-items: center; }
-            .item-price { font-weight: 700; color: #000000; font-size: 16px; }
-            .item-add-btn { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #8B0000 0%, #6D0000 100%); display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(139, 0, 0, 0.3); color: white; font-weight: bold; font-size: 18px; border: none; cursor: pointer; transition: all 0.2s ease; }
-            .item-add-btn:active { transform: scale(0.9); }
-            .view-cart-btn { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background-color: #8B0000; color: white; border: none; border-radius: 30px; padding: 12px 25px; font-weight: bold; font-size: 16px; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); display: flex; align-items: center; gap: 10px; transition: all 0.3s; z-index: 1000; }
-            .cart-item-count { background: #fff; color: #8B0000; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: bold; }
-            .loading-spinner { text-align: center; padding: 50px; color: #8B0000; }
-            .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #8B0000; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto 15px; }
-            @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-            .error-message { text-align: center; padding: 50px; color: #dc3545; background: white; border-radius: 16px; margin: 20px; }
-            /* Modal Styles */
-            .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); display: none; justify-content: center; align-items: center; z-index: 2000; backdrop-filter: blur(10px); }
-            .modal { background: white; width: 90%; max-width: 500px; max-height: 85vh; border-radius: 30px; overflow-y: auto; animation: modalAppear 0.3s ease; }
-            @keyframes modalAppear { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
-            .modal-header { background: linear-gradient(135deg, #8B0000, #cc0000); color: white; padding: 20px; border-radius: 30px 30px 0 0; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; }
-            .modal-title { font-size: 18px; font-weight: 600; }
-            .close-btn { background: white; width: 35px; height: 35px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; border: none; }
-            .modal-content { padding: 20px; }
-            .modal-image { width: 100%; height: 200px; object-fit: cover; border-radius: 20px; margin-bottom: 15px; }
-            .modal-item-title { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
-            .modal-desc { color: #666; font-size: 14px; margin-bottom: 20px; }
-            .flavour-row { display: flex; gap: 15px; margin: 20px 0; justify-content: center; }
-            .flavour-option { padding: 10px 25px; background: #f0f0f0; border-radius: 30px; cursor: pointer; font-weight: 500; transition: all 0.2s; }
-            .flavour-option.active { background: #8B0000; color: white; }
-            .drink-options { display: flex; flex-wrap: wrap; gap: 10px; margin: 15px 0; }
-            .drink-option { padding: 8px 16px; background: #f0f0f0; border-radius: 25px; cursor: pointer; font-size: 14px; }
-            .drink-option.selected { background: #8B0000; color: white; }
-            .extras-section { margin: 20px 0; }
-            .extra-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; background: #f9f9f9; border-radius: 12px; margin-bottom: 8px; }
-            .extra-controls { display: flex; align-items: center; gap: 10px; }
-            .extra-qty { width: 30px; text-align: center; font-weight: bold; }
-            .extra-btn { width: 30px; height: 30px; border-radius: 50%; border: none; background: #8B0000; color: white; cursor: pointer; }
-            .fixed-footer { padding: 15px 20px; background: white; border-top: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; position: sticky; bottom: 0; }
-            .counter { display: flex; align-items: center; gap: 15px; }
-            .counter-btn { width: 35px; height: 35px; border-radius: 50%; border: none; background: #f0f0f0; font-size: 18px; cursor: pointer; }
-            .modal-add-btn { background: linear-gradient(135deg, #28a745, #20c997); color: white; border: none; padding: 10px 25px; border-radius: 30px; font-weight: bold; cursor: pointer; }
-            .special-instructions { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 12px; margin: 15px 0; resize: none; }
-            .search-modal, .share-modal { background: white; width: 90%; max-width: 500px; border-radius: 20px; overflow: hidden; }
-            .search-header { padding: 15px; display: flex; gap: 10px; border-bottom: 1px solid #eee; }
-            .search-input { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 25px; outline: none; }
-            .search-results { max-height: 400px; overflow-y: auto; padding: 10px; }
-            .search-result-item { display: flex; padding: 10px; border-bottom: 1px solid #eee; cursor: pointer; }
-            .search-result-image { width: 50px; height: 50px; border-radius: 10px; object-fit: cover; margin-right: 12px; }
-            .share-options { padding: 20px; }
-            .share-option { display: flex; align-items: center; gap: 15px; padding: 15px; background: #f9f9f9; border-radius: 12px; margin-bottom: 10px; cursor: pointer; }
-            .flying-element { position: fixed; width: 30px; height: 30px; background: #8B0000; border-radius: 50%; z-index: 9999; transition: all 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1); pointer-events: none; }
+            /* جميع الأنماط الأصلية كما هي دون تغيير */
+            * {
+                  margin: 0;
+                  padding: 0;
+                  box-sizing: border-box;
+                  font-family: 'Ubuntu', sans-serif;
+            }
+
+            body {
+                  background-color: #f8f8f8;
+                  color: #333;
+                  max-width: 400px;
+                  margin: 0 auto;
+                  padding: 0;
+                  min-height: 100vh;
+                  position: relative;
+            }
+
+            .navbar {
+                  position: fixed;
+                  top: 0;
+                  width: 100%;
+                  max-width: 400px;
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  padding: 16px;
+                  background-color: transparent;
+                  z-index: 1000;
+                  transition: all 0.3s ease;
+            }
+
+            .navbar.scrolled {
+                  background-color: white;
+                  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            }
+
+            .navbar.scrolled .nav-title {
+                  display: block;
+            }
+
+            .nav-btn {
+                  width: 40px;
+                  height: 40px;
+                  border-radius: 50%;
+                  background-color: white;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  border: none;
+                  color: #8B0000;
+                  font-size: 16px;
+                  transition: all 0.2s ease;
+                  cursor: pointer;
+                  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            }
+
+            .nav-btn:active {
+                  transform: scale(0.95);
+            }
+
+            .nav-title {
+                  display: none;
+                  font-weight: 700;
+                  color: #8B0000;
+                  position: absolute;
+                  left: 50%;
+                  transform: translateX(-50%);
+                  font-size: 18px;
+            }
+
+            .hero-section {
+                  position: relative;
+                  height: 220px;
+                  overflow: hidden;
+            }
+
+            .hero-image {
+                  width: 100%;
+                  height: 100%;
+                  object-fit: cover;
+            }
+
+            .hero-overlay {
+                  position: absolute;
+                  bottom: 0;
+                  left: 0;
+                  right: 0;
+                  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+                  padding: 20px 16px 16px;
+                  color: white;
+            }
+
+            .hero-title {
+                  font-size: 24px;
+                  font-weight: 700;
+                  margin-bottom: 4px;
+            }
+
+            .hero-subtitle {
+                  font-size: 14px;
+                  opacity: 0.9;
+            }
+
+            .restaurant-info {
+                  padding: 20px 16px;
+                  background-color: white;
+                  border-radius: 0 0 16px 16px;
+                  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+                  margin-bottom: 8px;
+            }
+
+            .restaurant-name {
+                  font-size: 24px;
+                  font-weight: 700;
+                  margin-bottom: 12px;
+                  color: #8B0000;
+            }
+
+            .rating-delivery {
+                  display: flex;
+                  align-items: center;
+                  margin-bottom: 8px;
+                  flex-wrap: wrap;
+                  gap: 16px;
+            }
+
+            .rating {
+                  display: flex;
+                  align-items: center;
+                  padding: 6px 12px;
+                  background: #FFF5F5;
+                  border-radius: 20px;
+            }
+
+            .rating-value {
+                  font-weight: 700;
+                  margin-right: 4px;
+                  color: #8B0000;
+            }
+
+            .delivery-time {
+                  display: flex;
+                  align-items: center;
+                  padding: 6px 12px;
+                  background: #F8F9FA;
+                  border-radius: 20px;
+                  color: #495057;
+            }
+
+            .delivery-icon {
+                  margin-right: 6px;
+                  color: #8B0000;
+            }
+
+            .categories-section {
+                  padding: 16px;
+                  background-color: white;
+                  margin-bottom: 8px;
+                  position: sticky;
+                  top: 72px;
+                  z-index: 900;
+                  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+                  transition: all 0.3s ease;
+            }
+
+            .categories {
+                  display: flex;
+                  overflow-x: auto;
+                  gap: 8px;
+                  padding-bottom: 4px;
+                  scrollbar-width: none;
+                  scroll-behavior: smooth;
+            }
+
+            .categories::-webkit-scrollbar {
+                  display: none;
+            }
+
+            .category {
+                  padding: 12px 18px;
+                  background: #F8F9FA;
+                  border-radius: 12px;
+                  white-space: nowrap;
+                  font-size: 14px;
+                  font-weight: 500;
+                  color: #495057;
+                  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                  cursor: pointer;
+                  position: relative;
+                  overflow: hidden;
+                  border: 1px solid #E9ECEF;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  min-width: max-content;
+                  will-change: transform, background, color;
+            }
+
+            .category::before {
+                  content: '';
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 100%;
+                  background: linear-gradient(135deg, #8B0000 0%, #6D0000 100%);
+                  border-radius: 12px;
+                  opacity: 0;
+                  transition: opacity 0.3s ease;
+                  z-index: -1;
+            }
+
+            .category.active {
+                  color: white;
+                  transform: scale(1.05);
+                  box-shadow: 0 4px 12px rgba(139, 0, 0, 0.25);
+                  border-color: #8B0000;
+                  font-weight: 600;
+            }
+
+            .category.active::before {
+                  opacity: 1;
+            }
+
+            .category-items-section {
+                  padding: 20px 16px;
+                  background-color: white;
+                  border-radius: 16px;
+                  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+                  margin-bottom: 16px;
+                  scroll-margin-top: 120px;
+                  opacity: 0;
+                  transform: translateY(20px);
+                  transition: opacity 0.5s ease, transform 0.5s ease;
+            }
+
+            .category-items-section.visible {
+                  opacity: 1;
+                  transform: translateY(0);
+            }
+
+            .section-title {
+                  font-size: 20px;
+                  font-weight: 700;
+                  margin-bottom: 16px;
+                  color: #212529;
+                  display: flex;
+                  align-items: center;
+            }
+
+            .section-title::after {
+                  content: "";
+                  flex: 1;
+                  height: 1px;
+                  background: #DEE2E6;
+                  margin-left: 12px;
+            }
+
+            .category-item {
+                  display: flex;
+                  padding: 16px 0;
+                  border-bottom: 1px solid #F1F3F5;
+                  transition: transform 0.2s ease;
+            }
+
+            .category-item:last-child {
+                  border-bottom: none;
+            }
+
+            .category-item:hover {
+                  transform: translateX(5px);
+            }
+
+            .item-image {
+                  width: 100px;
+                  height: 100px;
+                  border-radius: 12px;
+                  object-fit: cover;
+                  margin-right: 16px;
+                  transition: transform 0.3s ease;
+            }
+
+            .category-item:hover .item-image {
+                  transform: scale(1.05);
+            }
+
+            .item-info {
+                  flex: 1;
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: center;
+            }
+
+            .item-name {
+                  font-weight: 600;
+                  font-size: 16px;
+                  margin-bottom: 6px;
+                  color: #212529;
+            }
+
+            .item-description {
+                  font-size: 13px;
+                  color: #6C757D;
+                  margin-bottom: 12px;
+                  line-height: 1.4;
+            }
+
+            .item-footer {
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+            }
+
+            .item-price {
+                  font-weight: 700;
+                  color: #000000;
+                  font-size: 16px;
+            }
+
+            .item-add-btn {
+                  width: 36px;
+                  height: 36px;
+                  border-radius: 50%;
+                  background: linear-gradient(135deg, #8B0000 0%, #6D0000 100%);
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  box-shadow: 0 4px 10px rgba(139, 0, 0, 0.3);
+                  color: white;
+                  font-weight: bold;
+                  font-size: 18px;
+                  border: none;
+                  cursor: pointer;
+                  transition: all 0.2s ease;
+            }
+
+            .item-add-btn:active {
+                  transform: scale(0.9);
+            }
+
+            .view-cart-btn {
+                  position: fixed;
+                  bottom: 20px;
+                  left: 50%;
+                  transform: translateX(-50%);
+                  background-color: #8B0000;
+                  color: white;
+                  border: none;
+                  border-radius: 30px;
+                  padding: 12px 25px;
+                  font-weight: bold;
+                  font-size: 16px;
+                  cursor: pointer;
+                  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+                  display: flex;
+                  align-items: center;
+                  gap: 10px;
+                  transition: all 0.3s;
+                  z-index: 1000;
+            }
+
+            .view-cart-btn:hover {
+                  background-color: #660000;
+                  transform: translateX(-50%) translateY(-2px);
+            }
+
+            .cart-item-count {
+                  background: #fff;
+                  color: #8B0000;
+                  border-radius: 50%;
+                  width: 24px;
+                  height: 24px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  font-size: 14px;
+                  font-weight: bold;
+            }
+
+            .flying-element {
+                  position: fixed;
+                  width: 30px;
+                  height: 30px;
+                  background-color: #8B0000;
+                  border-radius: 50%;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  color: white;
+                  font-size: 18px;
+                  font-weight: bold;
+                  box-shadow: 0 0 15px rgba(139, 0, 0, 0.7);
+                  z-index: 9999;
+                  pointer-events: none;
+                  transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                  will-change: transform;
+            }
+
+            .flying-element::after {
+                  content: '+';
+            }
+
+            .overlay {
+                  position: fixed;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 100%;
+                  background: rgba(0, 0, 0, 0.7);
+                  display: none;
+                  justify-content: center;
+                  align-items: center;
+                  z-index: 2000;
+                  backdrop-filter: blur(10px);
+                  padding: 12px;
+            }
+
+            .modal {
+                  background: #ffffff;
+                  width: 100%;
+                  max-width: 500px;
+                  max-height: 90vh;
+                  overflow: hidden;
+                  border-radius: 40px;
+                  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.4);
+                  display: flex;
+                  flex-direction: column;
+                  animation: modalRise 0.5s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+            }
+
+            @keyframes modalRise {
+                  from {
+                        opacity: 0;
+                        transform: translateY(80px) scale(0.9);
+                  }
+                  to {
+                        opacity: 1;
+                        transform: translateY(0) scale(1);
+                  }
+            }
+
+            .modal-header {
+                  position: sticky;
+                  top: 0;
+                  background: rgba(255, 255, 255, 0.9);
+                  backdrop-filter: blur(10px);
+                  padding: 16px 24px;
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+                  z-index: 10;
+            }
+
+            .modal-title {
+                  font-size: 18px;
+                  font-weight: 600;
+                  color: #111827;
+            }
+
+            .close-btn {
+                  background: #f3f4f6;
+                  width: 40px;
+                  height: 40px;
+                  border-radius: 50%;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  cursor: pointer;
+                  transition: all 0.2s ease;
+                  color: #4b5563;
+            }
+
+            .close-btn:hover {
+                  background: #8b0000;
+                  color: white;
+                  transform: rotate(90deg);
+            }
+
+            .modal-content {
+                  padding: 24px;
+                  overflow-y: auto;
+                  flex-grow: 1;
+                  scrollbar-width: thin;
+                  -webkit-overflow-scrolling: touch;
+            }
+
+            .modal-image {
+                  width: 100%;
+                  height: 250px;
+                  object-fit: cover;
+                  border-radius: 28px;
+                  margin-bottom: 20px;
+                  box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.2);
+            }
+
+            .modal-item-title {
+                  font-size: 28px;
+                  font-weight: 700;
+                  color: #111827;
+                  margin-bottom: 4px;
+                  letter-spacing: -0.5px;
+            }
+
+            .modal-desc {
+                  color: #6b7280;
+                  font-size: 14px;
+                  line-height: 1.5;
+                  margin-bottom: 24px;
+            }
+
+            .section-title-modal {
+                  font-size: 16px;
+                  font-weight: 600;
+                  color: #111827;
+                  margin: 28px 0 16px;
+                  display: flex;
+                  align-items: center;
+                  gap: 8px;
+            }
+
+            .section-title-modal i {
+                  color: #8b0000;
+                  font-size: 18px;
+            }
+
+            .flavour-balance {
+                  background: linear-gradient(145deg, #fafafa, #f5f5f5);
+                  border-radius: 48px;
+                  padding: 24px 20px 32px;
+                  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02), 0 10px 20px -10px rgba(0, 0, 0, 0.1);
+                  margin-bottom: 10px;
+            }
+
+            .flavour-labels {
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  margin-bottom: 16px;
+            }
+
+            .flavour-side {
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                  gap: 4px;
+            }
+
+            .flavour-side img {
+                  width: 70px;
+                  height: 70px;
+                  object-fit: cover;
+                  border-radius: 35px;
+                  border: 3px solid white;
+                  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+            }
+
+            .flavour-side span {
+                  font-weight: 600;
+                  font-size: 14px;
+                  color: #374151;
+            }
+
+            .flavour-side .quantity {
+                  font-size: 26px;
+                  font-weight: 800;
+                  color: #8b0000;
+                  background: white;
+                  padding: 4px 12px;
+                  border-radius: 40px;
+                  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+                  margin-top: 4px;
+            }
+
+            .vs-divider {
+                  font-size: 18px;
+                  font-weight: 600;
+                  color: #9ca3af;
+                  background: white;
+                  width: 48px;
+                  height: 48px;
+                  border-radius: 30px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            }
+
+            .slider-container {
+                  position: relative;
+                  margin: 24px 0 10px;
+            }
+
+            .slider-track {
+                  width: 100%;
+                  height: 10px;
+                  border-radius: 20px;
+                  position: relative;
+                  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+            }
+
+            input[type=range] {
+                  -webkit-appearance: none;
+                  width: 100%;
+                  background: transparent;
+                  position: absolute;
+                  top: -5px;
+                  left: 0;
+                  height: 20px;
+            }
+
+            input[type=range]::-webkit-slider-thumb {
+                  -webkit-appearance: none;
+                  width: 28px;
+                  height: 28px;
+                  background: white;
+                  border-radius: 50%;
+                  box-shadow: 0 4px 12px rgba(139, 0, 0, 0.5), 0 0 0 2px white, 0 0 0 4px #8b0000;
+                  cursor: pointer;
+                  transition: 0.1s;
+                  margin-top: -9px;
+            }
+
+            .flavour-row {
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  gap: 15px;
+                  margin: 10px 0 25px;
+            }
+
+            .flavour-option {
+                  flex: 0 1 auto;
+                  background: #F1F3F4;
+                  border-radius: 40px;
+                  padding: 10px 28px;
+                  font-weight: 600;
+                  font-size: 16px;
+                  color: #2C3E50;
+                  cursor: pointer;
+                  border: 2px solid transparent;
+                  transition: all 0.2s;
+            }
+
+            .flavour-option.active {
+                  background: #8b0000;
+                  color: white;
+                  border-color: #8b0000;
+                  box-shadow: 0 4px 10px rgba(139, 0, 0, 0.3);
+            }
+
+            .drink-group {
+                  background: #F9F9F9;
+                  border-radius: 16px;
+                  padding: 15px;
+                  border: 1px solid #ECF0F1;
+                  margin: 20px 0;
+            }
+
+            .drink-options {
+                  display: flex;
+                  flex-wrap: wrap;
+                  gap: 12px;
+                  margin-top: 10px;
+            }
+
+            .drink-option {
+                  display: flex;
+                  align-items: center;
+                  gap: 6px;
+                  cursor: pointer;
+                  background: white;
+                  padding: 8px 16px;
+                  border-radius: 40px;
+                  border: 1px solid #ddd;
+                  transition: 0.2s;
+            }
+
+            .drink-option.selected {
+                  border-color: #8b0000;
+                  background: #ffeae9;
+            }
+
+            .special-instructions {
+                  width: 100%;
+                  padding: 16px 18px;
+                  border: 1px solid #e5e7eb;
+                  border-radius: 30px;
+                  font-size: 14px;
+                  resize: none;
+                  outline: none;
+                  transition: all 0.2s ease;
+                  background: white;
+                  color: #1f2937;
+                  margin-top: 15px;
+            }
+
+            .special-instructions:focus {
+                  border-color: #8b0000;
+                  box-shadow: 0 0 0 4px rgba(139, 0, 0, 0.1);
+            }
+
+            .fixed-footer {
+                  background: white;
+                  padding: 16px 24px;
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  border-top: 1px solid rgba(0, 0, 0, 0.05);
+                  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.02);
+            }
+
+            .counter {
+                  display: flex;
+                  align-items: center;
+                  gap: 10px;
+                  background: #f9fafb;
+                  padding: 6px 12px;
+                  border-radius: 60px;
+            }
+
+            .counter .counter-btn {
+                  width: 40px;
+                  height: 40px;
+                  border-radius: 50%;
+                  border: none;
+                  background: white;
+                  color: #1f2937;
+                  font-size: 16px;
+                  cursor: pointer;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  transition: all 0.2s ease;
+                  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            }
+
+            .counter .counter-btn:hover {
+                  background: #8b0000;
+                  color: white;
+                  transform: scale(1.1);
+            }
+
+            .counter .counter-value {
+                  font-weight: 600;
+                  font-size: 18px;
+                  min-width: 28px;
+                  text-align: center;
+            }
+
+            .modal-add-btn {
+                  background: linear-gradient(145deg, #8b0000, #a50000);
+                  color: white;
+                  border: none;
+                  padding: 10px 20px;
+                  border-radius: 50px;
+                  font-weight: 600;
+                  font-size: 14px;
+                  cursor: pointer;
+                  display: flex;
+                  align-items: center;
+                  gap: 8px;
+                  box-shadow: 0 12px 20px -8px rgba(139, 0, 0, 0.5);
+                  transition: all 0.3s ease;
+            }
+
+            .modal-add-btn:hover {
+                  transform: translateY(-3px);
+                  box-shadow: 0 18px 25px -8px rgba(139, 0, 0, 0.6);
+            }
+
+            .search-modal {
+                  background: white;
+                  width: 100%;
+                  max-width: 500px;
+                  max-height: 80vh;
+                  overflow: hidden;
+                  border-radius: 20px;
+                  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+                  display: flex;
+                  flex-direction: column;
+                  animation: modalAppear 0.4s ease forwards;
+            }
+
+            .search-header {
+                  position: sticky;
+                  top: 0;
+                  background: white;
+                  padding: 15px 20px;
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  border-bottom: 1px solid #ECF0F1;
+                  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+                  z-index: 100;
+            }
+
+            .search-input-container {
+                  display: flex;
+                  align-items: center;
+                  width: 100%;
+                  background: #F9F9F9;
+                  border-radius: 25px;
+                  padding: 10px 15px;
+                  margin-right: 10px;
+            }
+
+            .search-input {
+                  border: none;
+                  background: transparent;
+                  width: 100%;
+                  font-size: 16px;
+                  outline: none;
+            }
+
+            .search-results {
+                  padding: 15px;
+                  overflow-y: auto;
+                  flex-grow: 1;
+            }
+
+            .search-result-item {
+                  display: flex;
+                  padding: 12px 0;
+                  border-bottom: 1px solid #ECF0F1;
+                  cursor: pointer;
+                  transition: background-color 0.2s;
+            }
+
+            .search-result-item:hover {
+                  background-color: #F9F9F9;
+            }
+
+            .search-result-image {
+                  width: 60px;
+                  height: 60px;
+                  border-radius: 10px;
+                  object-fit: cover;
+                  margin-right: 15px;
+            }
+
+            .search-result-info {
+                  flex: 1;
+            }
+
+            .search-result-name {
+                  font-weight: 600;
+                  margin-bottom: 5px;
+            }
+
+            .search-result-price {
+                  color: #8B0000;
+                  font-weight: 700;
+            }
+
+            .no-results {
+                  text-align: center;
+                  padding: 20px;
+                  color: #7F8C8D;
+            }
+
+            .share-modal {
+                  background: white;
+                  width: 100%;
+                  max-width: 500px;
+                  max-height: 80vh;
+                  overflow: hidden;
+                  border-radius: 20px;
+                  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+                  display: flex;
+                  flex-direction: column;
+                  animation: modalAppear 0.4s ease forwards;
+            }
+
+            .share-options {
+                  padding: 20px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 15px;
+            }
+
+            .share-option {
+                  display: flex;
+                  align-items: center;
+                  padding: 15px;
+                  background: #F9F9F9;
+                  border-radius: 12px;
+                  cursor: pointer;
+                  transition: all 0.3s ease;
+            }
+
+            .share-option:hover {
+                  background: #8B0000;
+                  color: white;
+                  transform: translateX(5px);
+            }
+
+            .share-icon {
+                  width: 40px;
+                  height: 40px;
+                  border-radius: 50%;
+                  background: #8B0000;
+                  color: white;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  margin-right: 15px;
+                  transition: all 0.3s ease;
+            }
+
+            .share-option:hover .share-icon {
+                  background: white;
+                  color: #8B0000;
+            }
+
+            .share-text {
+                  font-weight: 500;
+                  font-size: 16px;
+            }
+
+            .loading-spinner {
+                  text-align: center;
+                  padding: 50px;
+                  color: #8B0000;
+            }
+
+            .spinner {
+                  border: 4px solid #f3f3f3;
+                  border-top: 4px solid #8B0000;
+                  border-radius: 50%;
+                  width: 40px;
+                  height: 40px;
+                  animation: spin 1s linear infinite;
+                  margin: 0 auto 15px;
+            }
+
+            @keyframes spin {
+                  0% { transform: rotate(0deg); }
+                  100% { transform: rotate(360deg); }
+            }
+
+            .error-message {
+                  text-align: center;
+                  padding: 50px;
+                  color: #dc3545;
+                  background: white;
+                  border-radius: 16px;
+                  margin: 20px;
+            }
+
+            @keyframes starAnimation {
+                  0% { opacity: 0; transform: translate(0, 0) scale(0.5); }
+                  50% { opacity: 1; transform: translate(var(--tx), var(--ty)) scale(1.2); }
+                  100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(1); }
+            }
+
+            .star {
+                  position: absolute;
+                  color: white;
+                  font-size: 12px;
+                  opacity: 0;
+                  pointer-events: none;
+                  z-index: 9999;
+            }
       </style>
 </head>
 
 <body>
+      <!-- Top Navigation Bar -->
       <nav class="navbar" id="navbar">
-            <button class="nav-btn" id="backButton"><i class="fas fa-arrow-left"></i></button>
+            <button class="nav-btn" id="backButton">
+                  <i class="fas fa-arrow-left"></i>
+            </button>
             <div class="nav-title">KFC</div>
             <div style="display: flex; gap: 12px;">
-                  <button class="nav-btn" id="searchButton"><i class="fas fa-search"></i></button>
-                  <button class="nav-btn" id="shareButton"><i class="fas fa-share-alt"></i></button>
+                  <button class="nav-btn" id="searchButton">
+                        <i class="fas fa-search"></i>
+                  </button>
+                  <button class="nav-btn" id="shareButton">
+                        <i class="fas fa-share-alt"></i>
+                  </button>
             </div>
       </nav>
 
+      <!-- Hero Image -->
       <div class="hero-section">
             <img src="https://img.cdn4dd.com/cdn-cgi/image/fit=cover,width=600,height=400,format=auto,quality=80/https://doordash-static.s3.amazonaws.com/media/store/header/8ff99d61-2170-4ff4-bbd2-55370c49ba3d.png" alt="KFC Storefront" class="hero-image">
             <div class="hero-overlay">
                   <h1 class="hero-title">KFC Delivery Menu</h1>
-                  <p class="hero-subtitle">Order KFC crispy chicken in Marrakech! Fresh chicken meals, burgers, sides and drinks. Fast delivery to your door.</p>
+                  <p class="hero-subtitle">Order KFC crispy chicken in Marrakech! Enjoy fresh chicken meals, burgers, sides and drinks. Fast delivery to your door.</p>
             </div>
       </div>
 
+      <!-- Restaurant Info -->
       <div class="restaurant-info">
             <h1 class="restaurant-name">KFC Delivery Marrakech</h1>
             <div class="rating-delivery">
-                  <div class="delivery-time"><i class="fas fa-motorcycle delivery-icon"></i><span>25-35 min</span></div>
+                  <div class="delivery-time">
+                        <i class="fas fa-motorcycle delivery-icon"></i>
+                        <span>25-35 min</span>
+                  </div>
             </div>
       </div>
 
+      <!-- Categories Section -->
       <div class="categories-section" id="categoriesSection">
             <div class="categories" id="categoriesContainer">
-                  <div class="category active" data-category="chickenMeals">CHICKEN MEALS</div>
-                  <div class="category" data-category="hotWings">HOT WINGS</div>
-                  <div class="category" data-category="loadedBuckets">LOADED BUCKETS</div>
-                  <div class="category" data-category="comboMeals">COMBO MEALS</div>
-                  <div class="category" data-category="familyBuckets">FAMILY BUCKETS</div>
-                  <div class="category" data-category="sides">SIDES</div>
-                  <div class="category" data-category="drinks">DRINKS</div>
+                  <!-- سيتم إضافة الأقسام من Firebase ديناميكياً -->
             </div>
       </div>
 
@@ -144,32 +1071,55 @@
             <div class="loading-spinner"><div class="spinner"></div><p>Loading menu from Firebase...</p></div>
       </div>
 
+      <!-- View Cart Button -->
       <button class="view-cart-btn" id="viewCartBtn" style="display: none;">
             <span>View Basket</span>
             <div class="cart-item-count" id="cartItemCount">0</div>
       </button>
 
-      <div class="overlay" id="modalOverlay">
-            <div class="modal" id="productModal">
-                  <div class="modal-header"><div class="modal-title" id="modalTitle">Customize Order</div><button class="close-btn" id="closeModalBtn"><i class="fas fa-times"></i></button></div>
-                  <div class="modal-content" id="modalContent"></div>
-                  <div class="fixed-footer" id="modalFooter"></div>
-            </div>
-      </div>
+      <!-- Modal Overlay (سيتم ملؤه ديناميكياً) -->
+      <div class="overlay" id="modalOverlay"></div>
 
-      <div class="overlay" id="searchOverlay">
+      <!-- Search Modal -->
+      <div class="overlay" id="searchOverlay" style="display: none;">
             <div class="search-modal">
-                  <div class="search-header"><input type="text" class="search-input" id="searchInput" placeholder="Search KFC meals..."><button class="close-btn" id="closeSearchBtn"><i class="fas fa-times"></i></button></div>
-                  <div class="search-results" id="searchResults"><div class="no-results">Type to start searching</div></div>
+                  <div class="search-header">
+                        <div class="search-input-container">
+                              <i class="fas fa-search"></i>
+                              <input type="text" class="search-input" id="searchInput" placeholder="Search KFC meals...">
+                        </div>
+                        <div class="close-btn" id="closeSearchBtn">
+                              <i class="fas fa-times"></i>
+                        </div>
+                  </div>
+                  <div class="search-results" id="searchResults">
+                        <div class="no-results">Type to start searching</div>
+                  </div>
             </div>
       </div>
 
-      <div class="overlay" id="shareOverlay">
+      <!-- Share Modal -->
+      <div class="overlay" id="shareOverlay" style="display: none;">
             <div class="share-modal">
-                  <div class="modal-header"><div class="modal-title">Share Order</div><button class="close-btn" id="closeShareBtn"><i class="fas fa-times"></i></button></div>
+                  <div class="modal-header">
+                        <div class="modal-title">Share Order</div>
+                        <div class="close-btn" id="closeShareBtn">
+                              <i class="fas fa-times"></i>
+                        </div>
+                  </div>
                   <div class="share-options">
-                        <div class="share-option" id="whatsappShare"><i class="fab fa-whatsapp" style="font-size: 24px; color: #25D366;"></i><span>Share via WhatsApp</span></div>
-                        <div class="share-option" id="copyShare"><i class="fas fa-copy" style="font-size: 24px; color: #6c757d;"></i><span>Copy Order Details</span></div>
+                        <div class="share-option" id="whatsappShare">
+                              <div class="share-icon">
+                                    <i class="fab fa-whatsapp"></i>
+                              </div>
+                              <div class="share-text">Share via WhatsApp</div>
+                        </div>
+                        <div class="share-option" id="copyShare">
+                              <div class="share-icon">
+                                    <i class="fas fa-copy"></i>
+                              </div>
+                              <div class="share-text">Copy Order Details</div>
+                        </div>
                   </div>
             </div>
       </div>
@@ -200,6 +1150,11 @@
             
             let cart = JSON.parse(localStorage.getItem('kfcCart')) || [];
             let currentProduct = null;
+            let lastClickedAddRect = null;
+            let selectedFlavour = "";
+            let selectedDrink = "";
+            let extraQuantities = {};
+            let mainQuantity = 1;
 
             const categoryNames = {
                   chickenMeals: "CHICKEN MEALS",
@@ -213,7 +1168,17 @@
 
             const categoryOrder = ["chickenMeals", "hotWings", "loadedBuckets", "comboMeals", "familyBuckets", "sides", "drinks"];
 
-            // ==================== Helper: Convert Object to Array ====================
+            // ==================== Helper Functions ====================
+            function escapeHtml(str) { 
+                  if (!str) return ''; 
+                  return str.replace(/[&<>]/g, function(m) { 
+                        if (m === '&') return '&amp;'; 
+                        if (m === '<') return '&lt;'; 
+                        if (m === '>') return '&gt;'; 
+                        return m; 
+                  }); 
+            }
+
             function ensureArray(data) {
                   if (!data) return [];
                   if (Array.isArray(data)) return data;
@@ -231,7 +1196,7 @@
                         console.log("✅ Data loaded from Firebase:", data);
                         
                         if (data && Object.keys(data).length > 0) {
-                              // تحويل كل تصنيف إلى مصفوفة بشكل صحيح
+                              // تحويل كل تصنيف إلى مصفوفة
                               Object.keys(categoryNames).forEach(catKey => {
                                     if (data[catKey]) {
                                           allProducts[catKey] = ensureArray(data[catKey]);
@@ -242,17 +1207,46 @@
                               
                               console.log("✅ Processed products:", allProducts);
                               renderAllSections();
+                              renderCategories();
                         } else {
                               container.innerHTML = `<div class="error-message"><i class="fas fa-exclamation-triangle" style="font-size: 48px; margin-bottom: 15px;"></i><h3>No products found!</h3><p>Please add products from the admin dashboard first.</p></div>`;
                         }
                         updateCartUI();
                   }).catch(error => {
                         console.error("❌ Error loading products:", error);
-                        container.innerHTML = `<div class="error-message"><i class="fas fa-exclamation-triangle" style="font-size: 48px; margin-bottom: 15px;"></i><h3>Error loading menu!</h3><p>${error.message}</p><p style="margin-top: 10px; font-size: 12px;">Check console for details</p></div>`;
+                        container.innerHTML = `<div class="error-message"><i class="fas fa-exclamation-triangle" style="font-size: 48px; margin-bottom: 15px;"></i><h3>Error loading menu!</h3><p>${error.message}</p></div>`;
                   });
             }
 
-            // ==================== Render Functions ====================
+            // ==================== Render Categories ====================
+            function renderCategories() {
+                  const categoriesContainer = document.getElementById('categoriesContainer');
+                  categoriesContainer.innerHTML = '';
+                  
+                  categoryOrder.forEach(catKey => {
+                        if (allProducts[catKey] && allProducts[catKey].length > 0) {
+                              const categoryDiv = document.createElement('div');
+                              categoryDiv.className = 'category';
+                              if (catKey === 'chickenMeals') categoryDiv.classList.add('active');
+                              categoryDiv.setAttribute('data-category', catKey);
+                              categoryDiv.textContent = categoryNames[catKey];
+                              categoriesContainer.appendChild(categoryDiv);
+                        }
+                  });
+                  
+                  // إضافة أحداث النقر للتصنيفات
+                  document.querySelectorAll('.category').forEach(cat => {
+                        cat.addEventListener('click', function() {
+                              const categoryId = this.getAttribute('data-category');
+                              const section = document.getElementById(`${categoryId}Section`);
+                              if (section) {
+                                    section.scrollIntoView({ behavior: 'smooth' });
+                              }
+                        });
+                  });
+            }
+
+            // ==================== Render Products ====================
             function renderAllSections() {
                   const container = document.getElementById('sectionsContainer');
                   container.innerHTML = '';
@@ -261,8 +1255,6 @@
                   
                   categoryOrder.forEach(catKey => {
                         let products = allProducts[catKey] || [];
-                        
-                        // تأكد مرة أخرى أن products هي مصفوفة
                         if (!Array.isArray(products)) {
                               products = ensureArray(products);
                         }
@@ -283,7 +1275,7 @@
                               if (product && typeof product === 'object') {
                                     const item = createProductItem(product);
                                     section.appendChild(item);
-                              }
+                                  }
                         });
                         
                         container.appendChild(section);
@@ -327,7 +1319,7 @@
                   const btn = e.currentTarget;
                   const product = JSON.parse(btn.getAttribute('data-product'));
                   const rect = btn.getBoundingClientRect();
-                  lastClickedRect = rect;
+                  lastClickedAddRect = { left: rect.left, top: rect.top, width: rect.width, height: rect.height };
                   
                   if (product.hasFlavours || product.hasDrinks || (product.hasExtras && product.extras?.length > 0)) {
                         openCustomizationModal(product);
@@ -337,12 +1329,6 @@
             }
 
             // ==================== Customization Modal ====================
-            let lastClickedRect = null;
-            let selectedFlavour = "";
-            let selectedDrink = "";
-            let extraQuantities = {};
-            let mainQuantity = 1;
-
             function openCustomizationModal(product) {
                   currentProduct = product;
                   selectedFlavour = product.hasFlavours && product.flavours?.length > 0 ? product.flavours[0].name : "";
@@ -354,84 +1340,244 @@
                         product.extras.forEach(extra => { extraQuantities[extra.id] = 0; });
                   }
                   
-                  updateModalContent();
-                  document.getElementById('modalOverlay').style.display = 'flex';
-                  document.body.style.overflow = 'hidden';
+                  buildAndShowModal(product);
             }
 
-            function updateModalContent() {
-                  const modalContent = document.getElementById('modalContent');
-                  const modalFooter = document.getElementById('modalFooter');
-                  const modalTitle = document.getElementById('modalTitle');
+            function buildAndShowModal(product) {
+                  const modalOverlay = document.getElementById('modalOverlay');
+                  let modalHtml = `
+                        <div class="modal">
+                              <div class="modal-header">
+                                    <div class="modal-title">Customize ${escapeHtml(product.name)}</div>
+                                    <div class="close-btn" id="closeModalBtn"><i class="fas fa-times"></i></div>
+                              </div>
+                              <div class="modal-content">
+                                    <img src="${product.image || 'https://via.placeholder.com/300x200/8B0000/white?text=KFC'}" class="modal-image" onerror="this.src='https://via.placeholder.com/300x200/8B0000/white?text=KFC'">
+                                    <h2 class="modal-item-title">${escapeHtml(product.name)}</h2>
+                                    <p class="modal-desc">${escapeHtml(product.description || '')}</p>
+                  `;
                   
-                  modalTitle.textContent = `Customize ${currentProduct.name}`;
-                  
-                  let html = `<img src="${currentProduct.image || 'https://via.placeholder.com/300x200/8B0000/white?text=KFC'}" class="modal-image" onerror="this.src='https://via.placeholder.com/300x200/8B0000/white?text=KFC'"><h2 class="modal-item-title">${escapeHtml(currentProduct.name)}</h2><p class="modal-desc">${escapeHtml(currentProduct.description || '')}</p>`;
-                  
-                  if (currentProduct.hasFlavours && currentProduct.flavours?.length > 0) {
-                        html += `<div class="flavour-row">`;
-                        currentProduct.flavours.forEach(flavour => {
+                  // Flavour selection (with slider for totalPieces)
+                  if (product.totalPieces && product.totalPieces > 0 && product.flavours && product.flavours.length >= 2) {
+                        const leftFlavour = product.flavours[0];
+                        const rightFlavour = product.flavours[1];
+                        const leftQty = Math.floor(product.totalPieces / 2);
+                        const rightQty = product.totalPieces - leftQty;
+                        
+                        modalHtml += `
+                              <div class="section-title-modal"><i class="fas fa-sliders-h"></i> Balance your flavours</div>
+                              <div class="flavour-balance">
+                                    <div class="flavour-labels">
+                                          <div class="flavour-side">
+                                                <img src="${leftFlavour.image || 'https://via.placeholder.com/70x70'}" alt="${leftFlavour.name}">
+                                                <span>${leftFlavour.name}</span>
+                                                <div class="quantity" id="leftQtyDisplay">${leftQty}</div>
+                                          </div>
+                                          <div class="vs-divider">VS</div>
+                                          <div class="flavour-side">
+                                                <img src="${rightFlavour.image || 'https://via.placeholder.com/70x70'}" alt="${rightFlavour.name}">
+                                                <span>${rightFlavour.name}</span>
+                                                <div class="quantity" id="rightQtyDisplay">${rightQty}</div>
+                                          </div>
+                                    </div>
+                                    <div class="slider-container">
+                                          <div class="slider-track" id="sliderTrack"></div>
+                                          <input type="range" id="flavourSlider" min="0" max="${product.totalPieces}" value="${leftQty}">
+                                    </div>
+                              </div>
+                        `;
+                  } 
+                  // Simple flavour options
+                  else if (product.hasFlavours && product.flavours && product.flavours.length > 0) {
+                        modalHtml += `<div class="section-title-modal"><i class="fas fa-pepper-hot"></i> Choose Flavour</div><div class="flavour-row">`;
+                        product.flavours.forEach(flavour => {
                               const flavourName = typeof flavour === 'string' ? flavour : flavour.name;
                               const activeClass = selectedFlavour === flavourName ? 'active' : '';
-                              html += `<div class="flavour-option ${activeClass}" onclick="selectFlavour('${escapeHtml(flavourName)}')">${escapeHtml(flavourName)}</div>`;
+                              modalHtml += `<div class="flavour-option ${activeClass}" onclick="window.selectFlavourHandler('${escapeHtml(flavourName)}')">${escapeHtml(flavourName)}</div>`;
                         });
-                        html += `</div>`;
+                        modalHtml += `</div>`;
                   }
                   
-                  if (currentProduct.hasDrinks && currentProduct.drinks?.length > 0) {
-                        html += `<h4 style="margin: 15px 0 10px;"><i class="fas fa-glass-cheers"></i> Choose your drink</h4><div class="drink-options">`;
-                        currentProduct.drinks.forEach(drink => {
+                  // Drink selection
+                  if (product.hasDrinks && product.drinks && product.drinks.length > 0) {
+                        modalHtml += `<div class="drink-group"><div style="font-weight:600; margin-bottom:4px;"><i class="fas fa-glass-cheers"></i> Choose your drink</div><div class="drink-options">`;
+                        product.drinks.forEach(drink => {
                               const drinkName = typeof drink === 'string' ? drink : drink.name;
                               const selectedClass = selectedDrink === drinkName ? 'selected' : '';
-                              html += `<div class="drink-option ${selectedClass}" onclick="selectDrink('${escapeHtml(drinkName)}')">${escapeHtml(drinkName)}</div>`;
+                              modalHtml += `<div class="drink-option ${selectedClass}" onclick="window.selectDrinkHandler('${escapeHtml(drinkName)}')">${escapeHtml(drinkName)}</div>`;
                         });
-                        html += `</div>`;
+                        modalHtml += `</div></div>`;
                   }
                   
-                  if (currentProduct.hasExtras && currentProduct.extras?.length > 0) {
-                        html += `<h4 style="margin: 15px 0 10px;"><i class="fas fa-plus-circle"></i> Add Extras</h4><div class="extras-section">`;
-                        currentProduct.extras.forEach(extra => {
+                  // Extras selection
+                  if (product.hasExtras && product.extras && product.extras.length > 0) {
+                        modalHtml += `<div class="section-title-modal"><i class="fas fa-plus-circle"></i> Add Extras</div>`;
+                        product.extras.forEach(extra => {
                               const qty = extraQuantities[extra.id] || 0;
-                              html += `<div class="extra-item"><span><strong>${escapeHtml(extra.name)}</strong> - ${(extra.price || 0).toFixed(2)} MAD</span><div class="extra-controls"><button class="extra-btn" onclick="updateExtra('${extra.id}', -1)">-</button><span class="extra-qty">${qty}</span><button class="extra-btn" onclick="updateExtra('${extra.id}', 1)">+</button></div></div>`;
+                              modalHtml += `
+                                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px; background: #f9f9f9; border-radius: 12px; margin-bottom: 8px;">
+                                          <span><strong>${escapeHtml(extra.name)}</strong> - ${(extra.price || 0).toFixed(2)} MAD</span>
+                                          <div style="display: flex; align-items: center; gap: 10px;">
+                                                <button class="counter-btn" onclick="window.updateExtraHandler('${extra.id}', -1)" style="width: 30px; height: 30px;">-</button>
+                                                <span style="min-width: 30px; text-align: center;">${qty}</span>
+                                                <button class="counter-btn" onclick="window.updateExtraHandler('${extra.id}', 1)" style="width: 30px; height: 30px;">+</button>
+                                          </div>
+                                    </div>
+                              `;
                         });
-                        html += `</div>`;
                   }
                   
-                  html += `<textarea class="special-instructions" id="specialInstructions" rows="2" placeholder="Special instructions (e.g., no ice, extra sauce, etc.)"></textarea>`;
-                  modalContent.innerHTML = html;
+                  // Special instructions
+                  modalHtml += `
+                                    <textarea class="special-instructions" id="specialInstructions" rows="2" placeholder="Special instructions (e.g., no ice, extra sauce, etc.)"></textarea>
+                              </div>
+                              <div class="fixed-footer">
+                                    <div class="counter">
+                                          <button class="counter-btn" id="decrementMainBtn"><i class="fas fa-minus"></i></button>
+                                          <span class="counter-value" id="mainQuantityValue">${mainQuantity}</span>
+                                          <button class="counter-btn" id="incrementMainBtn"><i class="fas fa-plus"></i></button>
+                                    </div>
+                                    <button class="modal-add-btn" id="addToCartBtn">Add · <span id="totalPriceValue">${(product.price * mainQuantity).toFixed(2)}</span> MAD</button>
+                              </div>
+                        </div>
+                  `;
                   
-                  const totalPrice = calculateTotalPrice();
-                  modalFooter.innerHTML = `<div class="counter"><button class="counter-btn" onclick="updateMainQuantity(-1)">-</button><span style="font-weight: bold; min-width: 30px; text-align: center;">${mainQuantity}</span><button class="counter-btn" onclick="updateMainQuantity(1)">+</button></div><button class="modal-add-btn" onclick="addCustomizedToCart()">Add · ${totalPrice.toFixed(2)} MAD</button>`;
+                  modalOverlay.innerHTML = modalHtml;
+                  modalOverlay.style.display = 'flex';
+                  document.body.style.overflow = 'hidden';
+                  
+                  // ربط الأحداث
+                  document.getElementById('closeModalBtn').addEventListener('click', closeModal);
+                  modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(); });
+                  
+                  // ربط أحداث السلايدر إذا وجد
+                  const slider = document.getElementById('flavourSlider');
+                  if (slider) {
+                        const leftDisplay = document.getElementById('leftQtyDisplay');
+                        const rightDisplay = document.getElementById('rightQtyDisplay');
+                        const track = document.getElementById('sliderTrack');
+                        const total = currentProduct.totalPieces;
+                        
+                        const updateSlider = (val) => {
+                              const left = parseInt(val);
+                              const right = total - left;
+                              if (leftDisplay) leftDisplay.textContent = left;
+                              if (rightDisplay) rightDisplay.textContent = right;
+                              if (track) {
+                                    const percent = (left / total) * 100;
+                                    track.style.background = `linear-gradient(90deg, #e03131 0%, #e03131 ${percent}%, #fbbf24 ${percent}%, #fbbf24 100%)`;
+                              }
+                        };
+                        
+                        slider.addEventListener('input', (e) => updateSlider(e.target.value));
+                        updateSlider(slider.value);
+                  }
+                  
+                  // ربط أحداث الكمية الرئيسية
+                  const decrementBtn = document.getElementById('decrementMainBtn');
+                  const incrementBtn = document.getElementById('incrementMainBtn');
+                  const quantitySpan = document.getElementById('mainQuantityValue');
+                  const totalPriceSpan = document.getElementById('totalPriceValue');
+                  
+                  const updateMainQuantityDisplay = () => {
+                        quantitySpan.textContent = mainQuantity;
+                        let total = (currentProduct.price || 0) * mainQuantity;
+                        if (currentProduct.hasExtras && currentProduct.extras) {
+                              currentProduct.extras.forEach(extra => {
+                                    total += (extra.price || 0) * (extraQuantities[extra.id] || 0);
+                              });
+                        }
+                        totalPriceSpan.textContent = total.toFixed(2);
+                  };
+                  
+                  decrementBtn.addEventListener('click', () => {
+                        if (mainQuantity > 1) {
+                              mainQuantity--;
+                              updateMainQuantityDisplay();
+                        }
+                  });
+                  
+                  incrementBtn.addEventListener('click', () => {
+                        mainQuantity++;
+                        updateMainQuantityDisplay();
+                  });
+                  
+                  // زر الإضافة
+                  document.getElementById('addToCartBtn').addEventListener('click', () => {
+                        const instructions = document.getElementById('specialInstructions')?.value || "";
+                        const selectedExtras = {};
+                        if (currentProduct.hasExtras && currentProduct.extras) {
+                              currentProduct.extras.forEach(extra => {
+                                    if (extraQuantities[extra.id] > 0) {
+                                          selectedExtras[extra.id] = { name: extra.name, quantity: extraQuantities[extra.id], price: extra.price };
+                                    }
+                              });
+                        }
+                        const customizations = {};
+                        if (selectedFlavour) customizations.flavour = selectedFlavour;
+                        if (selectedDrink) customizations.drink = selectedDrink;
+                        if (Object.keys(selectedExtras).length > 0) customizations.extras = selectedExtras;
+                        
+                        // معالجة السلايدر إذا وجد
+                        const sliderVal = document.getElementById('flavourSlider');
+                        if (sliderVal && currentProduct.flavours && currentProduct.flavours.length >= 2) {
+                              const leftQty = parseInt(sliderVal.value);
+                              const rightQty = currentProduct.totalPieces - leftQty;
+                              customizations.leftFlavour = currentProduct.flavours[0].name;
+                              customizations.rightFlavour = currentProduct.flavours[1].name;
+                              customizations.leftQty = leftQty;
+                              customizations.rightQty = rightQty;
+                        }
+                        
+                        addToCart(currentProduct, mainQuantity, customizations, instructions);
+                        closeModal();
+                  });
             }
 
-            function selectFlavour(flavour) { selectedFlavour = flavour; updateModalContent(); }
-            function selectDrink(drink) { selectedDrink = drink; updateModalContent(); }
-            function updateExtra(extraId, delta) { const newQty = (extraQuantities[extraId] || 0) + delta; extraQuantities[extraId] = Math.max(0, newQty); updateModalContent(); }
-            function updateMainQuantity(delta) { mainQuantity = Math.max(1, mainQuantity + delta); updateModalContent(); }
-            function calculateTotalPrice() {
+            // دوال عامة للـ Modal
+            window.selectFlavourHandler = (flavour) => {
+                  selectedFlavour = flavour;
+                  // تحديث واجهة المودال
+                  document.querySelectorAll('.flavour-option').forEach(opt => {
+                        opt.classList.remove('active');
+                        if (opt.textContent === flavour) opt.classList.add('active');
+                  });
+            };
+            
+            window.selectDrinkHandler = (drink) => {
+                  selectedDrink = drink;
+                  document.querySelectorAll('.drink-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                        if (opt.textContent === drink) opt.classList.add('selected');
+                  });
+            };
+            
+            window.updateExtraHandler = (extraId, delta) => {
+                  const newQty = (extraQuantities[extraId] || 0) + delta;
+                  extraQuantities[extraId] = Math.max(0, newQty);
+                  
+                  // تحديث الواجهة
+                  const extraDiv = document.querySelector(`[onclick*="${extraId}"]`)?.parentElement?.parentElement;
+                  if (extraDiv) {
+                        const qtySpan = extraDiv.querySelector('span:not(.counter-btn)');
+                        if (qtySpan) qtySpan.textContent = extraQuantities[extraId];
+                  }
+                  
+                  // تحديث السعر
                   let total = (currentProduct.price || 0) * mainQuantity;
                   if (currentProduct.hasExtras && currentProduct.extras) {
-                        currentProduct.extras.forEach(extra => { total += (extra.price || 0) * (extraQuantities[extra.id] || 0); });
-                  }
-                  return total;
-            }
-
-            function addCustomizedToCart() {
-                  const instructions = document.getElementById('specialInstructions')?.value || "";
-                  const selectedExtras = {};
-                  if (currentProduct.hasExtras && currentProduct.extras) {
                         currentProduct.extras.forEach(extra => {
-                              if (extraQuantities[extra.id] > 0) {
-                                    selectedExtras[extra.id] = { name: extra.name, quantity: extraQuantities[extra.id], price: extra.price };
-                              }
+                              total += (extra.price || 0) * (extraQuantities[extra.id] || 0);
                         });
                   }
-                  const customizations = {};
-                  if (selectedFlavour) customizations.flavour = selectedFlavour;
-                  if (selectedDrink) customizations.drink = selectedDrink;
-                  if (Object.keys(selectedExtras).length > 0) customizations.extras = selectedExtras;
-                  addToCart(currentProduct, mainQuantity, customizations, instructions);
-                  closeModal();
+                  const totalPriceSpan = document.getElementById('totalPriceValue');
+                  if (totalPriceSpan) totalPriceSpan.textContent = total.toFixed(2);
+            };
+            
+            function closeModal() {
+                  document.getElementById('modalOverlay').style.display = 'none';
+                  document.body.style.overflow = 'auto';
+                  currentProduct = null;
             }
 
             // ==================== Cart Functions ====================
@@ -439,11 +1585,30 @@
                   const existingIndex = cart.findIndex(item => item.id === product.id && JSON.stringify(item.customizations) === JSON.stringify(customizations));
                   const totalPrice = (product.price || 0) * quantity;
                   
+                  // حساب السعر الإضافي للإضافات
+                  let extrasTotal = 0;
+                  if (customizations.extras) {
+                        Object.values(customizations.extras).forEach(extra => {
+                              extrasTotal += (extra.price || 0) * (extra.quantity || 1);
+                        });
+                  }
+                  const finalTotalPrice = totalPrice + extrasTotal;
+                  
                   if (existingIndex !== -1) {
                         cart[existingIndex].quantity += quantity;
-                        cart[existingIndex].totalPrice += totalPrice;
+                        cart[existingIndex].totalPrice += finalTotalPrice;
                   } else {
-                        cart.push({ id: product.id, name: product.name, basePrice: product.price, quantity: quantity, totalPrice: totalPrice, img: product.image, description: product.description, customizations: customizations, specialInstructions: specialInstructions });
+                        cart.push({ 
+                              id: product.id, 
+                              name: product.name, 
+                              basePrice: product.price, 
+                              quantity: quantity, 
+                              totalPrice: finalTotalPrice, 
+                              img: product.image, 
+                              description: product.description, 
+                              customizations: customizations, 
+                              specialInstructions: specialInstructions 
+                        });
                   }
                   saveCart();
                   createFlyingAnimation();
@@ -460,87 +1625,81 @@
 
             function createFlyingAnimation() {
                   const viewCartBtn = document.getElementById('viewCartBtn');
-                  if (!lastClickedRect || !viewCartBtn) return;
+                  if (!lastClickedAddRect || !viewCartBtn) return;
                   const cartRect = viewCartBtn.getBoundingClientRect();
                   const flyingEl = document.createElement('div');
                   flyingEl.className = 'flying-element';
-                  flyingEl.style.left = (lastClickedRect.left + lastClickedRect.width / 2) + 'px';
-                  flyingEl.style.top = (lastClickedRect.top + lastClickedRect.height / 2) + 'px';
+                  flyingEl.style.left = (lastClickedAddRect.left + lastClickedAddRect.width / 2) + 'px';
+                  flyingEl.style.top = (lastClickedAddRect.top + lastClickedAddRect.height / 2) + 'px';
                   flyingEl.style.transform = 'translate(-50%, -50%)';
                   document.body.appendChild(flyingEl);
+                  
                   setTimeout(() => {
-                        flyingEl.style.transform = `translate(${cartRect.left - lastClickedRect.left}px, ${cartRect.top - lastClickedRect.top}px) scale(0.1)`;
+                        flyingEl.style.transform = `translate(${cartRect.left - lastClickedAddRect.left}px, ${cartRect.top - lastClickedAddRect.top}px) scale(0.1)`;
                         flyingEl.style.opacity = '0';
                         setTimeout(() => flyingEl.remove(), 500);
                   }, 10);
-                  lastClickedRect = null;
+                  
+                  // إضافة تأثير النجوم
+                  setTimeout(() => createStarsAnimation(), 400);
+                  lastClickedAddRect = null;
             }
 
-            function saveCart() { localStorage.setItem('kfcCart', JSON.stringify(cart)); updateCartUI(); }
+            function createStarsAnimation() {
+                  const viewCartBtn = document.getElementById('viewCartBtn');
+                  if (!viewCartBtn) return;
+                  for (let i = 0; i < 12; i++) {
+                        const star = document.createElement('div');
+                        star.classList.add('star');
+                        star.innerHTML = '★';
+                        star.style.position = 'fixed';
+                        star.style.zIndex = '9999';
+                        star.style.color = 'white';
+                        star.style.fontSize = Math.floor(12 + Math.random() * 8) + 'px';
+                        star.style.opacity = '0';
+                        const rect = viewCartBtn.getBoundingClientRect();
+                        const startX = rect.left + rect.width / 2;
+                        const startY = rect.top + rect.height / 2;
+                        star.style.left = startX + 'px';
+                        star.style.top = startY + 'px';
+                        const angle = Math.random() * Math.PI * 2;
+                        const distance = 40 + Math.random() * 60;
+                        const endX = startX + Math.cos(angle) * distance;
+                        const endY = startY + Math.sin(angle) * distance;
+                        document.body.appendChild(star);
+                        star.animate([{
+                                    transform: 'translate(0,0) scale(1)',
+                                    opacity: 1
+                              },
+                              {
+                                    transform: `translate(${endX - startX}px, ${endY - startY}px) scale(0)`,
+                                    opacity: 0
+                              }
+                        ], {
+                              duration: 800 + Math.random() * 400,
+                              easing: 'cubic-bezier(0.175,0.885,0.32,1.275)'
+                        }).onfinish = () => {
+                              star.remove();
+                        };
+                  }
+            }
+
+            function saveCart() { 
+                  localStorage.setItem('kfcCart', JSON.stringify(cart)); 
+                  updateCartUI(); 
+            }
+            
             function updateCartUI() {
                   const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
                   const viewCartBtn = document.getElementById('viewCartBtn');
                   const cartItemCount = document.getElementById('cartItemCount');
-                  if (itemCount > 0) { viewCartBtn.style.display = 'flex'; cartItemCount.textContent = itemCount; }
-                  else { viewCartBtn.style.display = 'none'; }
-            }
-            function closeModal() { document.getElementById('modalOverlay').style.display = 'none'; document.body.style.overflow = 'auto'; currentProduct = null; }
-
-            // ==================== Search Function ====================
-            function setupSearch() {
-                  const searchInput = document.getElementById('searchInput');
-                  const searchResults = document.getElementById('searchResults');
-                  searchInput.addEventListener('input', (e) => {
-                        const query = e.target.value.toLowerCase();
-                        if (query.length < 2) { searchResults.innerHTML = '<div class="no-results">Type at least 2 characters</div>'; return; }
-                        const results = [];
-                        Object.keys(allProducts).forEach(cat => {
-                              if (allProducts[cat] && Array.isArray(allProducts[cat])) {
-                                    allProducts[cat].forEach(product => {
-                                          if ((product.name && product.name.toLowerCase().includes(query)) || (product.description && product.description.toLowerCase().includes(query))) {
-                                                results.push(product);
-                                          }
-                                    });
-                              }
-                        });
-                        if (results.length > 0) {
-                              searchResults.innerHTML = results.map(product => `<div class="search-result-item" data-product='${JSON.stringify(product)}'><img src="${product.image || 'https://via.placeholder.com/50x50/8B0000/white?text=KFC'}" class="search-result-image" onerror="this.src='https://via.placeholder.com/50x50/8B0000/white?text=No+Img'"><div><div style="font-weight: bold;">${escapeHtml(product.name)}</div><div style="color: #8B0000;">${(product.price || 0).toFixed(2)} MAD</div></div></div>`).join('');
-                              document.querySelectorAll('.search-result-item').forEach(item => {
-                                    item.addEventListener('click', () => {
-                                          const product = JSON.parse(item.getAttribute('data-product'));
-                                          if (product.hasFlavours || product.hasDrinks || (product.hasExtras && product.extras?.length > 0)) { openCustomizationModal(product); }
-                                          else { addToCart(product, 1, {}, ""); }
-                                          document.getElementById('searchOverlay').style.display = 'none';
-                                          document.body.style.overflow = 'auto';
-                                    });
-                              });
-                        } else { searchResults.innerHTML = '<div class="no-results">No results found</div>'; }
-                  });
-            }
-
-            // ==================== Share Functions ====================
-            function setupShare() {
-                  document.getElementById('whatsappShare').addEventListener('click', () => {
-                        if (cart.length === 0) { alert('Your cart is empty!'); return; }
-                        let message = "🍗 *KFC Order Details* 🍗\n\n";
-                        let total = 0;
-                        cart.forEach(item => { message += `• ${item.name} x${item.quantity} = ${item.totalPrice.toFixed(2)} MAD\n`; total += item.totalPrice; });
-                        message += `\n━━━━━━━━━━━━━━━━\n*Total: ${total.toFixed(2)} MAD*\n━━━━━━━━━━━━━━━━\nThank you for ordering from KFC! 🍗`;
-                        window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, '_blank');
-                        document.getElementById('shareOverlay').style.display = 'none';
-                        document.body.style.overflow = 'auto';
-                  });
-                  document.getElementById('copyShare').addEventListener('click', () => {
-                        if (cart.length === 0) { alert('Your cart is empty!'); return; }
-                        let text = "KFC Order Details\n\n";
-                        let total = 0;
-                        cart.forEach(item => { text += `${item.name} x${item.quantity} = ${item.totalPrice.toFixed(2)} MAD\n`; total += item.totalPrice; });
-                        text += `\nTotal: ${total.toFixed(2)} MAD\nThank you for ordering from KFC!`;
-                        navigator.clipboard.writeText(text);
-                        alert('Order details copied!');
-                        document.getElementById('shareOverlay').style.display = 'none';
-                        document.body.style.overflow = 'auto';
-                  });
+                  if (itemCount > 0) { 
+                        viewCartBtn.style.display = 'flex'; 
+                        cartItemCount.textContent = itemCount; 
+                  }
+                  else { 
+                        viewCartBtn.style.display = 'none'; 
+                  }
             }
 
             // ==================== Intersection Observer ====================
@@ -551,40 +1710,166 @@
                                     entry.target.classList.add('visible');
                                     const categoryKey = entry.target.id.replace('Section', '');
                                     document.querySelectorAll('.category').forEach(cat => {
-                                          if (cat.getAttribute('data-category') === categoryKey) { cat.classList.add('active'); }
-                                          else { cat.classList.remove('active'); }
+                                          if (cat.getAttribute('data-category') === categoryKey) { 
+                                                cat.classList.add('active'); 
+                                          }
+                                          else { 
+                                                cat.classList.remove('active'); 
+                                          }
                                     });
                               }
                         });
                   }, { threshold: 0.1, rootMargin: '-80px 0px -50% 0px' });
-                  document.querySelectorAll('.category-items-section').forEach(section => { observer.observe(section); });
+                  
+                  document.querySelectorAll('.category-items-section').forEach(section => { 
+                        observer.observe(section); 
+                  });
             }
 
-            // ==================== Helper Functions ====================
-            function escapeHtml(str) { if (!str) return ''; return str.replace(/[&<>]/g, function(m) { if (m === '&') return '&amp;'; if (m === '<') return '&lt;'; if (m === '>') return '&gt;'; return m; }); }
+            // ==================== Search Functions ====================
+            function setupSearch() {
+                  const searchOverlay = document.getElementById('searchOverlay');
+                  const searchInput = document.getElementById('searchInput');
+                  const searchResults = document.getElementById('searchResults');
+                  const closeSearchBtn = document.getElementById('closeSearchBtn');
+                  
+                  document.getElementById('searchButton').addEventListener('click', () => { 
+                        searchOverlay.style.display = 'flex'; 
+                        document.body.style.overflow = 'hidden'; 
+                        searchInput.focus(); 
+                  });
+                  
+                  closeSearchBtn.addEventListener('click', () => { 
+                        searchOverlay.style.display = 'none'; 
+                        document.body.style.overflow = 'auto'; 
+                  });
+                  
+                  searchOverlay.addEventListener('click', (e) => { 
+                        if (e.target === searchOverlay) { 
+                              searchOverlay.style.display = 'none'; 
+                              document.body.style.overflow = 'auto'; 
+                        } 
+                  });
+                  
+                  searchInput.addEventListener('input', (e) => {
+                        const query = e.target.value.toLowerCase().trim();
+                        if (query.length < 2) { 
+                              searchResults.innerHTML = '<div class="no-results">Type at least 2 characters</div>'; 
+                              return; 
+                        }
+                        
+                        const results = [];
+                        Object.keys(allProducts).forEach(cat => {
+                              if (allProducts[cat] && Array.isArray(allProducts[cat])) {
+                                    allProducts[cat].forEach(product => {
+                                          if (product.name && product.name.toLowerCase().includes(query)) {
+                                                results.push(product);
+                                          }
+                                    });
+                              }
+                        });
+                        
+                        if (results.length > 0) {
+                              searchResults.innerHTML = results.map(product => `
+                                    <div class="search-result-item" data-product='${JSON.stringify(product)}'>
+                                          <img src="${product.image || 'https://via.placeholder.com/50x50/8B0000/white?text=KFC'}" class="search-result-image" onerror="this.src='https://via.placeholder.com/50x50/8B0000/white?text=No+Img'">
+                                          <div class="search-result-info">
+                                                <div class="search-result-name">${escapeHtml(product.name)}</div>
+                                                <div class="search-result-price">${(product.price || 0).toFixed(2)} MAD</div>
+                                          </div>
+                                    </div>
+                              `).join('');
+                              
+                              document.querySelectorAll('.search-result-item').forEach(item => {
+                                    item.addEventListener('click', () => {
+                                          const product = JSON.parse(item.getAttribute('data-product'));
+                                          const rect = item.getBoundingClientRect();
+                                          lastClickedAddRect = { left: rect.left, top: rect.top, width: rect.width, height: rect.height };
+                                          
+                                          if (product.hasFlavours || product.hasDrinks || (product.hasExtras && product.extras?.length > 0)) { 
+                                                openCustomizationModal(product); 
+                                          }
+                                          else { 
+                                                addToCart(product, 1, {}, ""); 
+                                          }
+                                          searchOverlay.style.display = 'none';
+                                          document.body.style.overflow = 'auto';
+                                    });
+                              });
+                        } else { 
+                              searchResults.innerHTML = '<div class="no-results">No results found</div>'; 
+                        }
+                  });
+            }
+
+            // ==================== Share Functions ====================
+            function setupShare() {
+                  const shareOverlay = document.getElementById('shareOverlay');
+                  const closeShareBtn = document.getElementById('closeShareBtn');
+                  
+                  document.getElementById('shareButton').addEventListener('click', () => { 
+                        shareOverlay.style.display = 'flex'; 
+                        document.body.style.overflow = 'hidden'; 
+                  });
+                  
+                  closeShareBtn.addEventListener('click', () => { 
+                        shareOverlay.style.display = 'none'; 
+                        document.body.style.overflow = 'auto'; 
+                  });
+                  
+                  shareOverlay.addEventListener('click', (e) => { 
+                        if (e.target === shareOverlay) { 
+                              shareOverlay.style.display = 'none'; 
+                              document.body.style.overflow = 'auto'; 
+                        } 
+                  });
+                  
+                  document.getElementById('whatsappShare').addEventListener('click', () => {
+                        if (cart.length === 0) { alert('Your cart is empty!'); return; }
+                        let message = "🍗 *KFC Order Details* 🍗\n\n";
+                        let total = 0;
+                        cart.forEach(item => { 
+                              message += `• ${item.name} x${item.quantity} = ${item.totalPrice.toFixed(2)} MAD\n`; 
+                              total += item.totalPrice; 
+                        });
+                        message += `\n━━━━━━━━━━━━━━━━\n*Total: ${total.toFixed(2)} MAD*\n━━━━━━━━━━━━━━━━\nThank you for ordering from KFC! 🍗`;
+                        window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, '_blank');
+                        shareOverlay.style.display = 'none';
+                        document.body.style.overflow = 'auto';
+                  });
+                  
+                  document.getElementById('copyShare').addEventListener('click', () => {
+                        if (cart.length === 0) { alert('Your cart is empty!'); return; }
+                        let text = "KFC Order Details\n\n";
+                        let total = 0;
+                        cart.forEach(item => { 
+                              text += `${item.name} x${item.quantity} = ${item.totalPrice.toFixed(2)} MAD\n`; 
+                              total += item.totalPrice; 
+                        });
+                        text += `\nTotal: ${total.toFixed(2)} MAD\nThank you for ordering from KFC!`;
+                        navigator.clipboard.writeText(text);
+                        alert('Order details copied!');
+                        shareOverlay.style.display = 'none';
+                        document.body.style.overflow = 'auto';
+                  });
+            }
 
             // ==================== Event Listeners & Init ====================
-            document.getElementById('backButton').addEventListener('click', () => { window.location.href = 'index.html'; });
-            document.getElementById('viewCartBtn').addEventListener('click', () => { window.location.href = 'checkout.html'; });
-            document.getElementById('closeModalBtn').addEventListener('click', closeModal);
-            document.getElementById('modalOverlay').addEventListener('click', (e) => { if (e.target === document.getElementById('modalOverlay')) closeModal(); });
+            document.getElementById('backButton').addEventListener('click', () => { 
+                  window.location.href = 'index.html'; 
+            });
             
-            document.getElementById('searchButton').addEventListener('click', () => { document.getElementById('searchOverlay').style.display = 'flex'; document.body.style.overflow = 'hidden'; document.getElementById('searchInput').focus(); });
-            document.getElementById('closeSearchBtn').addEventListener('click', () => { document.getElementById('searchOverlay').style.display = 'none'; document.body.style.overflow = 'auto'; });
-            document.getElementById('searchOverlay').addEventListener('click', (e) => { if (e.target === document.getElementById('searchOverlay')) { document.getElementById('searchOverlay').style.display = 'none'; document.body.style.overflow = 'auto'; } });
+            document.getElementById('viewCartBtn').addEventListener('click', () => { 
+                  window.location.href = 'checkout.html'; 
+            });
             
-            document.getElementById('shareButton').addEventListener('click', () => { document.getElementById('shareOverlay').style.display = 'flex'; document.body.style.overflow = 'hidden'; });
-            document.getElementById('closeShareBtn').addEventListener('click', () => { document.getElementById('shareOverlay').style.display = 'none'; document.body.style.overflow = 'auto'; });
-            document.getElementById('shareOverlay').addEventListener('click', (e) => { if (e.target === document.getElementById('shareOverlay')) { document.getElementById('shareOverlay').style.display = 'none'; document.body.style.overflow = 'auto'; } });
+            window.addEventListener('scroll', () => { 
+                  const navbar = document.getElementById('navbar'); 
+                  if (window.scrollY > 100) navbar.classList.add('scrolled'); 
+                  else navbar.classList.remove('scrolled'); 
+            });
             
-            window.addEventListener('scroll', () => { const navbar = document.getElementById('navbar'); if (window.scrollY > 100) navbar.classList.add('scrolled'); else navbar.classList.remove('scrolled'); });
-            document.querySelectorAll('.category').forEach(cat => { cat.addEventListener('click', function() { const categoryId = this.getAttribute('data-category'); const section = document.getElementById(`${categoryId}Section`); if (section) { section.scrollIntoView({ behavior: 'smooth' }); } }); });
-            
-            window.selectFlavour = selectFlavour;
-            window.selectDrink = selectDrink;
-            window.updateExtra = updateExtra;
-            window.updateMainQuantity = updateMainQuantity;
-            window.addCustomizedToCart = addCustomizedToCart;
+            // تصدير الدوال العامة
             window.closeModal = closeModal;
             
             setupSearch();
@@ -592,4 +1877,5 @@
             loadProducts();
       </script>
 </body>
+
 </html>
