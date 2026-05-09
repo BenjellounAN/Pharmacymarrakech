@@ -22,7 +22,6 @@
       <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
       
       <style>
-            /* جميع الأنماط الأصلية كما هي دون تغيير */
             * {
                   margin: 0;
                   padding: 0;
@@ -382,7 +381,6 @@
                   font-weight: bold;
             }
 
-            /* Loading Spinner */
             .loading-spinner {
                   text-align: center;
                   padding: 50px;
@@ -402,6 +400,24 @@
             @keyframes spin {
                   0% { transform: rotate(0deg); }
                   100% { transform: rotate(360deg); }
+            }
+
+            .error-message {
+                  text-align: center;
+                  padding: 50px;
+                  color: #dc3545;
+                  background: white;
+                  border-radius: 16px;
+                  margin: 20px;
+            }
+
+            .empty-category {
+                  text-align: center;
+                  padding: 30px;
+                  color: #999;
+                  background: #f9f9f9;
+                  border-radius: 12px;
+                  margin: 10px 0;
             }
 
             /* Modal Styles */
@@ -793,10 +809,11 @@
       <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 
       <script>
-            // ==================== Firebase Configuration ====================
+            // ==================== Firebase Configuration (تم تصحيح databaseURL) ====================
             const firebaseConfig = {
                   apiKey: "AIzaSyC7BQcsjKxZq0jATJ14wXoruOIa8NiIQsE",
                   authDomain: "kfc-menu-dashboard.firebaseapp.com",
+                  databaseURL: "https://kfc-menu-dashboard-default-rtdb.europe-west1.firebasedatabase.app",
                   projectId: "kfc-menu-dashboard",
                   storageBucket: "kfc-menu-dashboard.firebasestorage.app",
                   messagingSenderId: "465768808759",
@@ -837,16 +854,38 @@
 
             // ==================== Load Products from Firebase ====================
             function loadProducts() {
+                  const container = document.getElementById('sectionsContainer');
+                  container.innerHTML = '<div class="loading-spinner"><div class="spinner"></div><p>Loading menu from Firebase...</p></div>';
+                  
                   database.ref('products').once('value').then(snapshot => {
                         const data = snapshot.val();
+                        console.log("Data loaded from Firebase:", data);
+                        
                         if (data && Object.keys(data).length > 0) {
                               allProducts = data;
+                              renderAllSections();
+                        } else {
+                              // إذا كانت قاعدة البيانات فارغة، عرض رسالة
+                              container.innerHTML = `
+                                    <div class="error-message">
+                                          <i class="fas fa-exclamation-triangle" style="font-size: 48px; margin-bottom: 15px;"></i>
+                                          <h3>No products found!</h3>
+                                          <p>Please add products from the admin dashboard first.</p>
+                                          <p style="margin-top: 10px; font-size: 12px; color: #999;">Database path: products/</p>
+                                    </div>
+                              `;
                         }
-                        renderAllSections();
                         updateCartUI();
                   }).catch(error => {
                         console.error("Error loading products:", error);
-                        document.getElementById('sectionsContainer').innerHTML = '<div class="loading-spinner"><p style="color: red;">Error loading menu. Please refresh.</p></div>';
+                        container.innerHTML = `
+                              <div class="error-message">
+                                    <i class="fas fa-exclamation-triangle" style="font-size: 48px; margin-bottom: 15px;"></i>
+                                    <h3>Error loading menu!</h3>
+                                    <p>${error.message}</p>
+                                    <p style="margin-top: 10px; font-size: 12px; color: #999;">Check console for details</p>
+                              </div>
+                        `;
                   });
             }
 
@@ -855,10 +894,13 @@
                   const container = document.getElementById('sectionsContainer');
                   container.innerHTML = '';
                   
+                  let hasAnyProducts = false;
+                  
                   categoryOrder.forEach(catKey => {
                         const products = allProducts[catKey] || [];
                         if (products.length === 0) return;
                         
+                        hasAnyProducts = true;
                         const section = document.createElement('div');
                         section.className = 'category-items-section animate-section';
                         section.id = `${catKey}Section`;
@@ -876,23 +918,36 @@
                         container.appendChild(section);
                   });
                   
-                  attachAddToCartEvents();
-                  setupIntersectionObserver();
+                  if (!hasAnyProducts) {
+                        container.innerHTML = `
+                              <div class="error-message">
+                                    <i class="fas fa-box-open" style="font-size: 48px; margin-bottom: 15px;"></i>
+                                    <h3>No products available</h3>
+                                    <p>Please check back later or contact support.</p>
+                              </div>
+                        `;
+                  } else {
+                        attachAddToCartEvents();
+                        setupIntersectionObserver();
+                  }
             }
 
             function createProductItem(product) {
                   const div = document.createElement('div');
                   div.className = 'category-item';
                   
+                  // التأكد من وجود صورة افتراضية
+                  const productImage = product.image && product.image !== '' ? product.image : 'https://via.placeholder.com/100x100/8B0000/white?text=KFC';
+                  
                   div.innerHTML = `
-                        <img src="${product.image || 'https://via.placeholder.com/100x100/8B0000/white?text=KFC'}" 
+                        <img src="${productImage}" 
                              class="item-image" 
                              onerror="this.src='https://via.placeholder.com/100x100/8B0000/white?text=No+Img'">
                         <div class="item-info">
                               <div class="item-name">${escapeHtml(product.name)}</div>
                               <div class="item-description">${escapeHtml(product.description || 'Delicious KFC meal')}</div>
                               <div class="item-footer">
-                                    <div class="item-price">${product.price.toFixed(2)} MAD</div>
+                                    <div class="item-price">${(product.price || 0).toFixed(2)} MAD</div>
                                     <button class="item-add-btn" data-product='${JSON.stringify(product)}'>+</button>
                               </div>
                         </div>
@@ -933,7 +988,7 @@
             function openCustomizationModal(product) {
                   currentProduct = product;
                   selectedFlavour = product.hasFlavours && product.flavours?.length > 0 ? product.flavours[0].name : "";
-                  selectedDrink = product.hasDrinks && product.drinks?.length > 0 ? product.drinks[0].name : "";
+                  selectedDrink = product.hasDrinks && product.drinks?.length > 0 ? (typeof product.drinks[0] === 'string' ? product.drinks[0] : product.drinks[0].name) : "";
                   extraQuantities = {};
                   mainQuantity = 1;
                   
@@ -965,8 +1020,9 @@
                   if (currentProduct.hasFlavours && currentProduct.flavours?.length > 0) {
                         html += `<div class="flavour-row">`;
                         currentProduct.flavours.forEach(flavour => {
-                              const activeClass = selectedFlavour === flavour.name ? 'active' : '';
-                              html += `<div class="flavour-option ${activeClass}" onclick="selectFlavour('${escapeHtml(flavour.name)}')">${escapeHtml(flavour.name)}</div>`;
+                              const flavourName = typeof flavour === 'string' ? flavour : flavour.name;
+                              const activeClass = selectedFlavour === flavourName ? 'active' : '';
+                              html += `<div class="flavour-option ${activeClass}" onclick="selectFlavour('${escapeHtml(flavourName)}')">${escapeHtml(flavourName)}</div>`;
                         });
                         html += `</div>`;
                   }
@@ -991,7 +1047,7 @@
                               const qty = extraQuantities[extra.id] || 0;
                               html += `
                                     <div class="extra-item">
-                                          <span><strong>${escapeHtml(extra.name)}</strong> - ${extra.price.toFixed(2)} MAD</span>
+                                          <span><strong>${escapeHtml(extra.name)}</strong> - ${(extra.price || 0).toFixed(2)} MAD</span>
                                           <div class="extra-controls">
                                                 <button class="extra-btn" onclick="updateExtra('${extra.id}', -1)">-</button>
                                                 <span class="extra-qty">${qty}</span>
@@ -1046,10 +1102,10 @@
             }
 
             function calculateTotalPrice() {
-                  let total = currentProduct.price * mainQuantity;
+                  let total = (currentProduct.price || 0) * mainQuantity;
                   if (currentProduct.hasExtras && currentProduct.extras) {
                         currentProduct.extras.forEach(extra => {
-                              total += extra.price * (extraQuantities[extra.id] || 0);
+                              total += (extra.price || 0) * (extraQuantities[extra.id] || 0);
                         });
                   }
                   return total;
@@ -1070,12 +1126,12 @@
                         });
                   }
                   
-                  addToCart(currentProduct, mainQuantity, {
-                        flavour: selectedFlavour,
-                        drink: selectedDrink,
-                        extras: selectedExtras
-                  }, instructions);
+                  const customizations = {};
+                  if (selectedFlavour) customizations.flavour = selectedFlavour;
+                  if (selectedDrink) customizations.drink = selectedDrink;
+                  if (Object.keys(selectedExtras).length > 0) customizations.extras = selectedExtras;
                   
+                  addToCart(currentProduct, mainQuantity, customizations, instructions);
                   closeModal();
             }
 
@@ -1086,7 +1142,7 @@
                         JSON.stringify(item.customizations) === JSON.stringify(customizations)
                   );
                   
-                  const totalPrice = product.price * quantity;
+                  const totalPrice = (product.price || 0) * quantity;
                   
                   if (existingIndex !== -1) {
                         cart[existingIndex].quantity += quantity;
@@ -1107,6 +1163,42 @@
                   
                   saveCart();
                   createFlyingAnimation();
+                  showAddedToCartMessage(product.name);
+            }
+
+            function showAddedToCartMessage(productName) {
+                  // رسالة短暂ة تظهر عند إضافة المنتج
+                  const toast = document.createElement('div');
+                  toast.style.cssText = `
+                        position: fixed;
+                        bottom: 80px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        background: #28a745;
+                        color: white;
+                        padding: 10px 20px;
+                        border-radius: 30px;
+                        font-size: 14px;
+                        z-index: 2000;
+                        white-space: nowrap;
+                        animation: fadeInOut 2s ease;
+                  `;
+                  toast.innerHTML = `<i class="fas fa-check-circle"></i> ${escapeHtml(productName)} added to cart!`;
+                  document.body.appendChild(toast);
+                  
+                  // إضافة animation
+                  const style = document.createElement('style');
+                  style.textContent = `
+                        @keyframes fadeInOut {
+                              0% { opacity: 0; transform: translateX(-50%) translateY(20px); }
+                              15% { opacity: 1; transform: translateX(-50%) translateY(0); }
+                              85% { opacity: 1; transform: translateX(-50%) translateY(0); }
+                              100% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+                        }
+                  `;
+                  document.head.appendChild(style);
+                  
+                  setTimeout(() => toast.remove(), 2000);
             }
 
             function createFlyingAnimation() {
@@ -1151,6 +1243,7 @@
             function closeModal() {
                   document.getElementById('modalOverlay').style.display = 'none';
                   document.body.style.overflow = 'auto';
+                  currentProduct = null;
             }
 
             // ==================== Search Function ====================
@@ -1167,12 +1260,14 @@
                         
                         const results = [];
                         Object.keys(allProducts).forEach(cat => {
-                              allProducts[cat].forEach(product => {
-                                    if (product.name.toLowerCase().includes(query) || 
-                                        (product.description && product.description.toLowerCase().includes(query))) {
-                                          results.push(product);
-                                    }
-                              });
+                              if (allProducts[cat] && Array.isArray(allProducts[cat])) {
+                                    allProducts[cat].forEach(product => {
+                                          if ((product.name && product.name.toLowerCase().includes(query)) || 
+                                              (product.description && product.description.toLowerCase().includes(query))) {
+                                                results.push(product);
+                                          }
+                                    });
+                              }
                         });
                         
                         if (results.length > 0) {
@@ -1181,7 +1276,7 @@
                                           <img src="${product.image || 'https://via.placeholder.com/50x50/8B0000/white?text=KFC'}" class="search-result-image" onerror="this.src='https://via.placeholder.com/50x50/8B0000/white?text=No+Img'">
                                           <div>
                                                 <div style="font-weight: bold;">${escapeHtml(product.name)}</div>
-                                                <div style="color: #8B0000;">${product.price.toFixed(2)} MAD</div>
+                                                <div style="color: #8B0000;">${(product.price || 0).toFixed(2)} MAD</div>
                                           </div>
                                     </div>
                               `).join('');
@@ -1347,6 +1442,7 @@
             window.updateExtra = updateExtra;
             window.updateMainQuantity = updateMainQuantity;
             window.addCustomizedToCart = addCustomizedToCart;
+            window.closeModal = closeModal;
             
             // Initialize
             setupSearch();
