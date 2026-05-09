@@ -8,520 +8,74 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Cairo', sans-serif;
-        }
-
-        body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-        }
-
-        .admin-header {
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(10px);
-            padding: 20px 30px;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .logo-area h1 {
-            color: #8B0000;
-            font-size: 24px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .logo-area p {
-            color: #666;
-            font-size: 12px;
-        }
-
-        .stats-area {
-            display: flex;
-            gap: 20px;
-        }
-
-        .stat-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 12px;
-            text-align: center;
-        }
-
-        .stat-card .number {
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        .stat-card .label {
-            font-size: 12px;
-            opacity: 0.9;
-        }
-
-        .dashboard-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .category-tabs {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 30px;
-            background: white;
-            padding: 15px;
-            border-radius: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .category-tab {
-            padding: 12px 24px;
-            background: #f0f0f0;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            color: #333;
-        }
-
-        .category-tab:hover {
-            transform: translateY(-2px);
-            background: #8B0000;
-            color: white;
-        }
-
-        .category-tab.active {
-            background: linear-gradient(135deg, #8B0000, #cc0000);
-            color: white;
-            box-shadow: 0 4px 15px rgba(139,0,0,0.3);
-        }
-
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .product-card {
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-            animation: fadeInUp 0.5s ease;
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .product-image-section {
-            position: relative;
-            height: 200px;
-            background: #f5f5f5;
-            overflow: hidden;
-        }
-
-        .product-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s;
-        }
-
-        .product-card:hover .product-image {
-            transform: scale(1.05);
-        }
-
-        .product-badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: #8B0000;
-            color: white;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
-        }
-
-        .product-info {
-            padding: 20px;
-        }
-
-        .product-name {
-            font-size: 18px;
-            font-weight: 700;
-            color: #333;
-            margin-bottom: 8px;
-        }
-
-        .product-price {
-            font-size: 22px;
-            font-weight: 800;
-            color: #8B0000;
-            margin: 10px 0;
-        }
-
-        .product-description {
-            color: #666;
-            font-size: 13px;
-            line-height: 1.5;
-            margin-bottom: 15px;
-        }
-
-        .customizations-preview {
-            background: #f9f9f9;
-            padding: 10px;
-            border-radius: 10px;
-            margin: 10px 0;
-            font-size: 12px;
-        }
-
-        .customizations-preview span {
-            display: inline-block;
-            background: #e0e0e0;
-            padding: 3px 8px;
-            border-radius: 12px;
-            margin: 3px;
-            font-size: 11px;
-        }
-
-        .product-actions {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        .btn-edit, .btn-delete {
-            flex: 1;
-            padding: 10px;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .btn-edit {
-            background: #007bff;
-            color: white;
-        }
-
-        .btn-edit:hover {
-            background: #0056b3;
-            transform: scale(1.02);
-        }
-
-        .btn-delete {
-            background: #dc3545;
-            color: white;
-        }
-
-        .btn-delete:hover {
-            background: #c82333;
-            transform: scale(1.02);
-        }
-
-        .add-product-btn {
-            background: linear-gradient(135deg, #28a745, #20c997);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 50px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-bottom: 20px;
-            transition: all 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .add-product-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(40,167,69,0.4);
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.8);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            animation: fadeIn 0.3s;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .modal-content {
-            background: white;
-            border-radius: 30px;
-            width: 90%;
-            max-width: 600px;
-            max-height: 85vh;
-            overflow-y: auto;
-            animation: slideUp 0.3s;
-        }
-
-        @keyframes slideUp {
-            from {
-                transform: translateY(50px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .modal-header {
-            background: linear-gradient(135deg, #8B0000, #cc0000);
-            color: white;
-            padding: 20px;
-            border-radius: 30px 30px 0 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-        }
-
-        .modal-header h3 {
-            font-size: 22px;
-        }
-
-        .close-modal {
-            background: white;
-            border: none;
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 18px;
-            transition: all 0.3s;
-        }
-
-        .close-modal:hover {
-            transform: rotate(90deg);
-        }
-
-        .modal-body {
-            padding: 25px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #333;
-        }
-
-        .form-group input, .form-group textarea, .form-group select {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 12px;
-            font-size: 14px;
-            transition: all 0.3s;
-        }
-
-        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
-            border-color: #8B0000;
-            outline: none;
-        }
-
-        .customization-section {
-            background: #f9f9f9;
-            padding: 15px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-        }
-
-        .customization-section h4 {
-            margin-bottom: 15px;
-            color: #8B0000;
-        }
-
-        .extras-list, .drinks-list {
-            margin-top: 10px;
-        }
-
-        .extra-item, .drink-item {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 10px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .extra-item input, .drink-item input {
-            flex: 1;
-            min-width: 120px;
-        }
-
-        .add-extra-btn {
-            background: #28a745;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 12px;
-            margin-top: 10px;
-        }
-
-        .remove-item {
-            background: #dc3545;
-            color: white;
-            border: none;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-
-        .form-actions {
-            display: flex;
-            gap: 15px;
-            margin-top: 25px;
-        }
-
-        .btn-save, .btn-cancel {
-            flex: 1;
-            padding: 12px;
-            border: none;
-            border-radius: 12px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .btn-save {
-            background: linear-gradient(135deg, #28a745, #20c997);
-            color: white;
-        }
-
-        .btn-cancel {
-            background: #6c757d;
-            color: white;
-        }
-
-        .loading {
-            text-align: center;
-            padding: 50px;
-            color: white;
-        }
-
-        .spinner {
-            border: 4px solid rgba(255,255,255,0.3);
-            border-top: 4px solid white;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 60px;
-            background: white;
-            border-radius: 20px;
-            color: #999;
-        }
-
-        .empty-state i {
-            font-size: 60px;
-            margin-bottom: 20px;
-        }
-
-        .toast {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: #333;
-            color: white;
-            padding: 12px 24px;
-            border-radius: 12px;
-            z-index: 1100;
-            animation: slideInRight 0.3s;
-        }
-
-        @keyframes slideInRight {
-            from {
-                transform: translateX(100px);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .admin-header {
-                flex-direction: column;
-                text-align: center;
-            }
-            .products-grid {
-                grid-template-columns: 1fr;
-            }
-            .category-tab {
-                font-size: 12px;
-                padding: 8px 16px;
-            }
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
+        body { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; }
+        .admin-header { background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); padding: 20px 30px; box-shadow: 0 2px 20px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
+        .logo-area h1 { color: #8B0000; font-size: 24px; display: flex; align-items: center; gap: 10px; }
+        .logo-area p { color: #666; font-size: 12px; }
+        .stats-area { display: flex; gap: 20px; }
+        .stat-card { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 10px 20px; border-radius: 12px; text-align: center; }
+        .stat-card .number { font-size: 28px; font-weight: bold; }
+        .stat-card .label { font-size: 12px; opacity: 0.9; }
+        .dashboard-container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+        .category-tabs { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 30px; background: white; padding: 15px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .category-tab { padding: 12px 24px; background: #f0f0f0; border: none; border-radius: 12px; cursor: pointer; font-weight: 600; transition: all 0.3s ease; color: #333; }
+        .category-tab:hover { transform: translateY(-2px); background: #8B0000; color: white; }
+        .category-tab.active { background: linear-gradient(135deg, #8B0000, #cc0000); color: white; box-shadow: 0 4px 15px rgba(139,0,0,0.3); }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px; margin-top: 20px; }
+        .product-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1); transition: all 0.3s ease; animation: fadeInUp 0.5s ease; }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 8px 30px rgba(0,0,0,0.2); }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .product-image-section { position: relative; height: 200px; background: #f5f5f5; overflow: hidden; }
+        .product-image { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+        .product-card:hover .product-image { transform: scale(1.05); }
+        .product-badge { position: absolute; top: 10px; right: 10px; background: #8B0000; color: white; padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+        .product-info { padding: 20px; }
+        .product-name { font-size: 18px; font-weight: 700; color: #333; margin-bottom: 8px; }
+        .product-price { font-size: 22px; font-weight: 800; color: #8B0000; margin: 10px 0; }
+        .product-description { color: #666; font-size: 13px; line-height: 1.5; margin-bottom: 15px; }
+        .customizations-preview { background: #f9f9f9; padding: 10px; border-radius: 10px; margin: 10px 0; font-size: 12px; }
+        .customizations-preview span { display: inline-block; background: #e0e0e0; padding: 3px 8px; border-radius: 12px; margin: 3px; font-size: 11px; }
+        .product-actions { display: flex; gap: 10px; margin-top: 15px; }
+        .btn-edit, .btn-delete { flex: 1; padding: 10px; border: none; border-radius: 10px; cursor: pointer; font-weight: 600; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn-edit { background: #007bff; color: white; }
+        .btn-edit:hover { background: #0056b3; transform: scale(1.02); }
+        .btn-delete { background: #dc3545; color: white; }
+        .btn-delete:hover { background: #c82333; transform: scale(1.02); }
+        .add-product-btn { background: linear-gradient(135deg, #28a745, #20c997); color: white; border: none; padding: 15px 30px; border-radius: 50px; font-size: 16px; font-weight: bold; cursor: pointer; margin-bottom: 20px; transition: all 0.3s; display: inline-flex; align-items: center; gap: 10px; }
+        .add-product-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(40,167,69,0.4); }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center; animation: fadeIn 0.3s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .modal-content { background: white; border-radius: 30px; width: 90%; max-width: 600px; max-height: 85vh; overflow-y: auto; animation: slideUp 0.3s; }
+        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .modal-header { background: linear-gradient(135deg, #8B0000, #cc0000); color: white; padding: 20px; border-radius: 30px 30px 0 0; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; }
+        .modal-header h3 { font-size: 22px; }
+        .close-modal { background: white; border: none; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; font-size: 18px; transition: all 0.3s; }
+        .close-modal:hover { transform: rotate(90deg); }
+        .modal-body { padding: 25px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: #333; }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 12px; font-size: 14px; transition: all 0.3s; }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: #8B0000; outline: none; }
+        .customization-section { background: #f9f9f9; padding: 15px; border-radius: 15px; margin-bottom: 20px; }
+        .customization-section h4 { margin-bottom: 15px; color: #8B0000; }
+        .extras-list, .drinks-list { margin-top: 10px; }
+        .extra-item, .drink-item { display: flex; gap: 10px; margin-bottom: 10px; align-items: center; flex-wrap: wrap; }
+        .extra-item input, .drink-item input { flex: 1; min-width: 120px; }
+        .add-extra-btn { background: #28a745; color: white; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer; font-size: 12px; margin-top: 10px; }
+        .remove-item { background: #dc3545; color: white; border: none; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; }
+        .form-actions { display: flex; gap: 15px; margin-top: 25px; }
+        .btn-save, .btn-cancel { flex: 1; padding: 12px; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; transition: all 0.3s; }
+        .btn-save { background: linear-gradient(135deg, #28a745, #20c997); color: white; }
+        .btn-cancel { background: #6c757d; color: white; }
+        .loading { text-align: center; padding: 50px; color: white; }
+        .spinner { border: 4px solid rgba(255,255,255,0.3); border-top: 4px solid white; border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin: 0 auto 20px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .empty-state { text-align: center; padding: 60px; background: white; border-radius: 20px; color: #999; }
+        .empty-state i { font-size: 60px; margin-bottom: 20px; }
+        .toast { position: fixed; bottom: 30px; right: 30px; background: #333; color: white; padding: 12px 24px; border-radius: 12px; z-index: 1100; animation: slideInRight 0.3s; }
+        @keyframes slideInRight { from { transform: translateX(100px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @media (max-width: 768px) { .admin-header { flex-direction: column; text-align: center; } .products-grid { grid-template-columns: 1fr; } .category-tab { font-size: 12px; padding: 8px 16px; } }
     </style>
 </head>
 <body>
@@ -669,7 +223,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 
     <script>
-        // ==================== Firebase Configuration (المعدل مع databaseURL الصحيح) ====================
+        // ==================== Firebase Configuration ====================
         const firebaseConfig = {
             apiKey: "AIzaSyC7BQcsjKxZq0jATJ14wXoruOIa8NiIQsE",
             authDomain: "kfc-menu-dashboard.firebaseapp.com",
@@ -681,20 +235,13 @@
             measurementId: "G-ZG8JM57DLC"
         };
 
-        // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
         
-        // ==================== Global Variables ====================
+        // Global Variables
         let currentCategory = 'chickenMeals';
         let allProducts = {
-            chickenMeals: [],
-            hotWings: [],
-            loadedBuckets: [],
-            comboMeals: [],
-            familyBuckets: [],
-            sides: [],
-            drinks: []
+            chickenMeals: [], hotWings: [], loadedBuckets: [], comboMeals: [], familyBuckets: [], sides: [], drinks: []
         };
         
         const categoryNames = {
@@ -707,12 +254,13 @@
             drinks: "🥤 DRINKS"
         };
 
-        // ==================== Firebase Operations ====================
-        function loadAllProducts() {
+        // Load Products
+        async function loadAllProducts() {
             const container = document.getElementById('productsContainer');
             container.innerHTML = '<div class="loading"><div class="spinner"></div><p>Loading products from Firebase...</p></div>';
             
-            database.ref('products').once('value').then(snapshot => {
+            try {
+                const snapshot = await database.ref('products').once('value');
                 const data = snapshot.val();
                 if (data && Object.keys(data).length > 0) {
                     allProducts = data;
@@ -720,11 +268,11 @@
                     await initializeDefaultProducts();
                 }
                 updateUI();
-            }).catch(error => {
+            } catch (error) {
                 console.error("Error loading products:", error);
                 container.innerHTML = `<div class="empty-state"><i class="fas fa-exclamation-triangle"></i><h3>Error: ${error.message}</h3><p>Check console for details</p></div>`;
                 showToast("Error loading products: " + error.message, "error");
-            });
+            }
         }
 
         function initializeDefaultProducts() {
@@ -733,16 +281,16 @@
                     { id: "cm1", name: "Crispy Strips Meal (4 Pcs)", price: 78, description: "4 crispy chicken strips served with Fries, Bread, 1 Drink and 1 Coleslaw.", image: "https://i.ibb.co/TqPsCxRL/IMG-5127.png", hasFlavours: true, flavours: [{name:"Spicy",img:"https://i.ibb.co/ymmg8ywn/IMG-5106.png"},{name:"Original",img:"https://i.ibb.co/ymmg8ywn/IMG-5106.png"}], hasDrinks: true, drinks: [{name:"Pepsi",img:"https://i.ibb.co/YFfGKBJw/IMG-5155.webp"},{name:"7up",img:"https://i.ibb.co/SXf5ZJ03/IMG-5136.png"},{name:"Miranda",img:"https://i.ibb.co/Nndd5f05/IMG-5135.png"},{name:"Water",img:"https://i.ibb.co/SX48S52t/IMG-5133.png"}], hasExtras: false, extras: [] }
                 ],
                 hotWings: [
-                    { id: "hw1", name: "Hot Wings (3 Pcs)", price: 30, description: "3 spicy crispy hot wings, perfectly seasoned and fried.", image: "https://i.ibb.co/93nQWQPX/IMG-5148.jpg", hasFlavours: false, hasDrinks: false, hasExtras: false, extras: [] }
+                    { id: "hw1", name: "Hot Wings (3 Pcs)", price: 30, description: "3 spicy crispy hot wings.", image: "https://i.ibb.co/93nQWQPX/IMG-5148.jpg", hasFlavours: false, hasDrinks: false, hasExtras: false, extras: [] }
                 ],
                 loadedBuckets: [
-                    { id: "lb1", name: "Loaded Bucket 8 Pcs", price: 160, description: "8 chicken strips served with 1L Soft Drink, 6 Sauces and 1 Large Coleslaw.", image: "https://i.ibb.co/WdK8FWh/IMG-5633.jpg", hasFlavours: true, flavours: [{name:"Spicy",img:"https://i.ibb.co/ymmg8ywn/IMG-5106.png"},{name:"Original",img:"https://i.ibb.co/ymmg8ywn/IMG-5106.png"}], hasDrinks: true, drinks: [{name:"Pepsi",img:"https://i.ibb.co/YFfGKBJw/IMG-5155.webp"},{name:"7up",img:"https://i.ibb.co/SXf5ZJ03/IMG-5136.png"},{name:"Miranda",img:"https://i.ibb.co/Nndd5f05/IMG-5135.png"},{name:"Water",img:"https://i.ibb.co/SX48S52t/IMG-5133.png"}], hasExtras: false, extras: [] }
+                    { id: "lb1", name: "Loaded Bucket 8 Pcs", price: 160, description: "8 chicken strips with 1L Drink, Sauces and Coleslaw.", image: "https://i.ibb.co/WdK8FWh/IMG-5633.jpg", hasFlavours: true, flavours: [{name:"Spicy",img:"https://i.ibb.co/ymmg8ywn/IMG-5106.png"},{name:"Original",img:"https://i.ibb.co/ymmg8ywn/IMG-5106.png"}], hasDrinks: true, drinks: [{name:"Pepsi",img:"https://i.ibb.co/YFfGKBJw/IMG-5155.webp"},{name:"7up",img:"https://i.ibb.co/SXf5ZJ03/IMG-5136.png"},{name:"Miranda",img:"https://i.ibb.co/Nndd5f05/IMG-5135.png"},{name:"Water",img:"https://i.ibb.co/SX48S52t/IMG-5133.png"}], hasExtras: false, extras: [] }
                 ],
                 comboMeals: [
-                    { id: "com1", name: "Mighty Zinger Combo", price: 86, description: "Double Zinger burger served with Fries, 1 Drink", image: "https://i.ibb.co/nsTffWCY/IMG-5132.png", hasFlavours: true, flavours: [{name:"Spicy",img:"https://i.ibb.co/ymmg8ywn/IMG-5106.png"},{name:"Original",img:"https://i.ibb.co/ymmg8ywn/IMG-5106.png"}], hasDrinks: true, drinks: [{name:"Pepsi",img:"https://i.ibb.co/YFfGKBJw/IMG-5155.webp"},{name:"7up",img:"https://i.ibb.co/SXf5ZJ03/IMG-5136.png"},{name:"Miranda",img:"https://i.ibb.co/Nndd5f05/IMG-5135.png"},{name:"Water",img:"https://i.ibb.co/SX48S52t/IMG-5133.png"}], hasExtras: true, extras: [{id:"bone",name:"Piece with bone",price:21,img:"https://i.ibb.co/TqLZtxwv/IMG-5113.png"},{id:"strips",name:"Chicken strips",price:15,img:"https://i.ibb.co/ymmg8ywn/IMG-5106.png"}] }
+                    { id: "com1", name: "Mighty Zinger Combo", price: 86, description: "Double Zinger burger with Fries and Drink.", image: "https://i.ibb.co/nsTffWCY/IMG-5132.png", hasFlavours: true, flavours: [{name:"Spicy",img:"https://i.ibb.co/ymmg8ywn/IMG-5106.png"},{name:"Original",img:"https://i.ibb.co/ymmg8ywn/IMG-5106.png"}], hasDrinks: true, drinks: [{name:"Pepsi",img:"https://i.ibb.co/YFfGKBJw/IMG-5155.webp"},{name:"7up",img:"https://i.ibb.co/SXf5ZJ03/IMG-5136.png"},{name:"Miranda",img:"https://i.ibb.co/Nndd5f05/IMG-5135.png"},{name:"Water",img:"https://i.ibb.co/SX48S52t/IMG-5133.png"}], hasExtras: true, extras: [{id:"bone",name:"Piece with bone",price:21,img:"https://i.ibb.co/TqLZtxwv/IMG-5113.png"},{id:"strips",name:"Chicken strips",price:15,img:"https://i.ibb.co/ymmg8ywn/IMG-5106.png"}] }
                 ],
                 familyBuckets: [
-                    { id: "fb1", name: "Family Bucket 8 Pcs", price: 195, description: "8 pieces of chicken with bone served with 1 Family Fries, 1L Soft Drink, 3 Sauces and 1 Large Coleslaw.", image: "https://i.ibb.co/3mPYmS4H/IMG-5634.png", hasFlavours: true, flavours: [{name:"Spicy",img:"https://i.ibb.co/TqLZtxwv/IMG-5113.png"},{name:"Original",img:"https://i.ibb.co/TqLZtxwv/IMG-5113.png"}], hasDrinks: true, drinks: [{name:"Pepsi",img:"https://i.ibb.co/YFfGKBJw/IMG-5155.webp"},{name:"7up",img:"https://i.ibb.co/SXf5ZJ03/IMG-5136.png"},{name:"Miranda",img:"https://i.ibb.co/Nndd5f05/IMG-5135.png"},{name:"Water",img:"https://i.ibb.co/SX48S52t/IMG-5133.png"}], hasExtras: false, extras: [] }
+                    { id: "fb1", name: "Family Bucket 8 Pcs", price: 195, description: "8 pieces of chicken with Family Fries, Drink and Coleslaw.", image: "https://i.ibb.co/3mPYmS4H/IMG-5634.png", hasFlavours: true, flavours: [{name:"Spicy",img:"https://i.ibb.co/TqLZtxwv/IMG-5113.png"},{name:"Original",img:"https://i.ibb.co/TqLZtxwv/IMG-5113.png"}], hasDrinks: true, drinks: [{name:"Pepsi",img:"https://i.ibb.co/YFfGKBJw/IMG-5155.webp"},{name:"7up",img:"https://i.ibb.co/SXf5ZJ03/IMG-5136.png"},{name:"Miranda",img:"https://i.ibb.co/Nndd5f05/IMG-5135.png"},{name:"Water",img:"https://i.ibb.co/SX48S52t/IMG-5133.png"}], hasExtras: false, extras: [] }
                 ],
                 sides: [
                     { id: "sd1", name: "Rizo spicy", price: 55, description: "Spicy Rizo side", image: "https://i.ibb.co/gQrsPjN/IMG-5114.jpg", hasFlavours: false, hasDrinks: false, hasExtras: false, extras: [] },
@@ -792,7 +340,6 @@
             }
         }
 
-        // ==================== UI Functions ====================
         function updateUI() {
             renderCategoryTabs();
             renderProducts();
@@ -821,47 +368,35 @@
             const products = allProducts[currentCategory] || [];
             
             if (products.length === 0) {
-                container.innerHTML = `
-                    <div class="empty-state">
-                        <i class="fas fa-box-open"></i>
-                        <h3>No Products in ${categoryNames[currentCategory]}</h3>
-                        <p>Click "Add New Product" to get started!</p>
-                    </div>
-                `;
+                container.innerHTML = `<div class="empty-state"><i class="fas fa-box-open"></i><h3>No Products in ${categoryNames[currentCategory]}</h3><p>Click "Add New Product" to get started!</p></div>`;
                 return;
             }
             
-            container.innerHTML = `
-                <div class="products-grid">
-                    ${products.map(product => `
-                        <div class="product-card">
-                            <div class="product-image-section">
-                                <img src="${product.image || 'https://via.placeholder.com/300x200/8B0000/white?text=KFC'}" class="product-image" onerror="this.src='https://via.placeholder.com/300x200/8B0000/white?text=No+Image'">
-                                <div class="product-badge">${product.price} MAD</div>
-                            </div>
-                            <div class="product-info">
-                                <h3 class="product-name">${escapeHtml(product.name)}</h3>
-                                <div class="product-price">${product.price.toFixed(2)} MAD</div>
-                                <p class="product-description">${escapeHtml(product.description?.substring(0, 100) || '')}${product.description?.length > 100 ? '...' : ''}</p>
-                                ${product.hasFlavours ? '<div class="customizations-preview"><span><i class="fas fa-pepper-hot"></i> Flavours available</span></div>' : ''}
-                                ${product.hasDrinks ? '<div class="customizations-preview"><span><i class="fas fa-glass-cheers"></i> Drinks included</span></div>' : ''}
-                                ${product.hasExtras && product.extras?.length ? `<div class="customizations-preview"><span><i class="fas fa-plus-circle"></i> ${product.extras.length} extras</span></div>` : ''}
-                                <div class="product-actions">
-                                    <button class="btn-edit" onclick="openEditModal('${currentCategory}', '${product.id}')"><i class="fas fa-edit"></i> Edit</button>
-                                    <button class="btn-delete" onclick="deleteProduct('${currentCategory}', '${product.id}')"><i class="fas fa-trash"></i> Delete</button>
-                                </div>
-                            </div>
+            container.innerHTML = `<div class="products-grid">${products.map(product => `
+                <div class="product-card">
+                    <div class="product-image-section">
+                        <img src="${product.image || 'https://via.placeholder.com/300x200/8B0000/white?text=KFC'}" class="product-image" onerror="this.src='https://via.placeholder.com/300x200/8B0000/white?text=No+Image'">
+                        <div class="product-badge">${product.price} MAD</div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">${escapeHtml(product.name)}</h3>
+                        <div class="product-price">${product.price.toFixed(2)} MAD</div>
+                        <p class="product-description">${escapeHtml(product.description?.substring(0, 100) || '')}${product.description?.length > 100 ? '...' : ''}</p>
+                        ${product.hasFlavours ? '<div class="customizations-preview"><span><i class="fas fa-pepper-hot"></i> Flavours available</span></div>' : ''}
+                        ${product.hasDrinks ? '<div class="customizations-preview"><span><i class="fas fa-glass-cheers"></i> Drinks included</span></div>' : ''}
+                        ${product.hasExtras && product.extras?.length ? `<div class="customizations-preview"><span><i class="fas fa-plus-circle"></i> ${product.extras.length} extras</span></div>` : ''}
+                        <div class="product-actions">
+                            <button class="btn-edit" onclick="openEditModal('${currentCategory}', '${product.id}')"><i class="fas fa-edit"></i> Edit</button>
+                            <button class="btn-delete" onclick="deleteProduct('${currentCategory}', '${product.id}')"><i class="fas fa-trash"></i> Delete</button>
                         </div>
-                    `).join('')}
+                    </div>
                 </div>
-            `;
+            `).join('')}</div>`;
         }
 
         function updateStats() {
             let total = 0;
-            Object.keys(allProducts).forEach(cat => {
-                total += (allProducts[cat]?.length || 0);
-            });
+            Object.keys(allProducts).forEach(cat => { total += (allProducts[cat]?.length || 0); });
             document.getElementById('totalProducts').textContent = total;
         }
 
@@ -926,11 +461,7 @@
                 product.drinks.forEach((drink) => {
                     const div = document.createElement('div');
                     div.className = 'drink-item';
-                    div.innerHTML = `
-                        <input type="text" placeholder="Drink name" class="drink-name" value="${escapeHtml(drink.name || drink)}">
-                        <input type="url" placeholder="Image URL" class="drink-img" value="${drink.img || ''}">
-                        <button type="button" class="remove-item" onclick="this.parentElement.remove()"><i class="fas fa-times"></i></button>
-                    `;
+                    div.innerHTML = `<input type="text" placeholder="Drink name" class="drink-name" value="${escapeHtml(drink.name || drink)}"><input type="url" placeholder="Image URL" class="drink-img" value="${drink.img || ''}"><button type="button" class="remove-item" onclick="this.parentElement.remove()"><i class="fas fa-times"></i></button>`;
                     document.getElementById('drinksList').appendChild(div);
                 });
             } else {
@@ -943,12 +474,7 @@
                 product.extras.forEach(extra => {
                     const div = document.createElement('div');
                     div.className = 'extra-item';
-                    div.innerHTML = `
-                        <input type="text" placeholder="Extra name" class="extra-name" value="${escapeHtml(extra.name)}">
-                        <input type="number" placeholder="Price" class="extra-price" step="0.01" value="${extra.price}">
-                        <input type="url" placeholder="Image URL" class="extra-img" value="${extra.img || ''}">
-                        <button type="button" class="remove-item" onclick="this.parentElement.remove()"><i class="fas fa-times"></i></button>
-                    `;
+                    div.innerHTML = `<input type="text" placeholder="Extra name" class="extra-name" value="${escapeHtml(extra.name)}"><input type="number" placeholder="Price" class="extra-price" step="0.01" value="${extra.price}"><input type="url" placeholder="Image URL" class="extra-img" value="${extra.img || ''}"><button type="button" class="remove-item" onclick="this.parentElement.remove()"><i class="fas fa-times"></i></button>`;
                     document.getElementById('extrasList').appendChild(div);
                 });
             } else {
@@ -975,23 +501,14 @@
         function addDrinkField() {
             const div = document.createElement('div');
             div.className = 'drink-item';
-            div.innerHTML = `
-                <input type="text" placeholder="Drink name" class="drink-name">
-                <input type="url" placeholder="Image URL" class="drink-img">
-                <button type="button" class="remove-item" onclick="this.parentElement.remove()"><i class="fas fa-times"></i></button>
-            `;
+            div.innerHTML = `<input type="text" placeholder="Drink name" class="drink-name"><input type="url" placeholder="Image URL" class="drink-img"><button type="button" class="remove-item" onclick="this.parentElement.remove()"><i class="fas fa-times"></i></button>`;
             document.getElementById('drinksList').appendChild(div);
         }
 
         function addExtraField() {
             const div = document.createElement('div');
             div.className = 'extra-item';
-            div.innerHTML = `
-                <input type="text" placeholder="Extra name" class="extra-name">
-                <input type="number" placeholder="Price" class="extra-price" step="0.01">
-                <input type="url" placeholder="Image URL" class="extra-img">
-                <button type="button" class="remove-item" onclick="this.parentElement.remove()"><i class="fas fa-times"></i></button>
-            `;
+            div.innerHTML = `<input type="text" placeholder="Extra name" class="extra-name"><input type="number" placeholder="Price" class="extra-price" step="0.01"><input type="url" placeholder="Image URL" class="extra-img"><button type="button" class="remove-item" onclick="this.parentElement.remove()"><i class="fas fa-times"></i></button>`;
             document.getElementById('extrasList').appendChild(div);
         }
 
@@ -999,28 +516,21 @@
             e.preventDefault();
             
             const category = document.getElementById('categorySelect').value;
-            if (!category) {
-                showToast("Please select a category", "error");
-                return;
-            }
+            if (!category) { showToast("Please select a category", "error"); return; }
             
             const productId = document.getElementById('productId').value || Date.now().toString();
             
             let flavours = [];
             if (document.getElementById('hasFlavours').value === 'true') {
-                flavours = [
-                    { name: document.getElementById('flavour1Name').value || "Spicy", img: document.getElementById('flavour1Image').value || "" },
-                    { name: document.getElementById('flavour2Name').value || "Original", img: document.getElementById('flavour2Image').value || "" }
-                ];
+                flavours = [{ name: document.getElementById('flavour1Name').value || "Spicy", img: document.getElementById('flavour1Image').value || "" },
+                           { name: document.getElementById('flavour2Name').value || "Original", img: document.getElementById('flavour2Image').value || "" }];
             }
             
             let drinks = [];
             if (document.getElementById('hasDrinks').value === 'true') {
                 document.querySelectorAll('#drinksList .drink-item').forEach(item => {
                     const name = item.querySelector('.drink-name')?.value;
-                    if (name) {
-                        drinks.push({ name: name, img: item.querySelector('.drink-img')?.value || "" });
-                    }
+                    if (name) drinks.push({ name: name, img: item.querySelector('.drink-img')?.value || "" });
                 });
             }
             
@@ -1029,14 +539,7 @@
                 document.querySelectorAll('#extrasList .extra-item').forEach((item, index) => {
                     const name = item.querySelector('.extra-name')?.value;
                     const price = parseFloat(item.querySelector('.extra-price')?.value);
-                    if (name && !isNaN(price)) {
-                        extras.push({
-                            id: `extra_${Date.now()}_${index}`,
-                            name: name,
-                            price: price,
-                            img: item.querySelector('.extra-img')?.value || ""
-                        });
-                    }
+                    if (name && !isNaN(price)) extras.push({ id: `extra_${Date.now()}_${index}`, name: name, price: price, img: item.querySelector('.extra-img')?.value || "" });
                 });
             }
             
@@ -1054,8 +557,7 @@
                 extras: extras
             };
             
-            const isEdit = !!document.getElementById('productId').value;
-            saveProduct(product, category, isEdit);
+            saveProduct(product, category, !!document.getElementById('productId').value);
         });
 
         function showToast(message, type = "success") {
@@ -1078,7 +580,7 @@
             });
         }
 
-        // Make functions global
+        // Make functions global (مرة واحدة فقط وبعد تعريف الدوال)
         window.openAddModal = openAddModal;
         window.openEditModal = openEditModal;
         window.deleteProduct = deleteProduct;
@@ -1087,19 +589,8 @@
         window.addExtraField = addExtraField;
         window.updateCategoryField = updateCategoryField;
 
-        // Initialize
+        // Start
         loadAllProducts();
-
-
-        // Make sure functions are global
-window.openAddModal = openAddModal;
-window.closeModal = closeModal;
-window.addDrinkField = addDrinkField;
-window.addExtraField = addExtraField;
-window.updateCategoryField = updateCategoryField;
-window.openEditModal = openEditModal;
-window.deleteProduct = deleteProduct;
     </script>
-
 </body>
 </html>
