@@ -17,1013 +17,170 @@
       <link rel="icon" type="image/png" href="https://i.ibb.co/KpZZdGsM/Logo-of-benjelloun-express.jpg">
       <link rel="apple-touch-icon" href="https://i.ibb.co/KpZZdGsM/Logo-of-benjelloun-express.jpg">
 
-      <!-- === Open Graph Cards === -->
-      <meta property="og:title" content="KFC Menu | Order Fried Chicken Delivery Marrakech">
-      <meta property="og:description" content="View the full KFC menu. Order crispy fried chicken, burgers, and sides for fast delivery in Marrakech.">
-      <meta property="og:image" content="https://i.ibb.co/0VZXFKTk/IMG-3736.jpg">
-      <meta property="og:image:width" content="1200">
-      <meta property="og:image:height" content="630">
-      <meta property="og:url" content="https://www.delivery-marrakech.com/menukfc.html">
-      <meta property="og:type" content="website">
-      <meta property="og:locale" content="en_US">
-      <meta property="og:site_name" content="Delivery Marrakech">
-
-      <!-- === Twitter Card === -->
-      <meta name="twitter:card" content="summary_large_image">
-      <meta name="twitter:title" content="KFC Menu | Delivery Marrakech">
-      <meta name="twitter:description" content="Order crispy fried chicken from KFC for fast delivery in Marrakech.">
-      <meta name="twitter:image" content="https://i.ibb.co/0VZXFKTk/IMG-3736.jpg">
-
-      <!-- === Schema.org markup === -->
-      <script type="application/ld+json">
-      {
-            "@context": "https://schema.org",
-            "@type": "WebPage",
-            "name": "KFC Delivery Menu - Marrakech",
-            "description": "Order crispy fried chicken from KFC for fast delivery in Marrakech.",
-            "url": "https://www.delivery-marrakech.com/menukfc.html",
-            "about": {
-                  "@type": "FastFoodRestaurant",
-                  "name": "KFC Marrakech delivery",
-                  "image": "https://i.ibb.co/0VZXFKTk/IMG-3736.jpg",
-                  "telephone": "+212642620325",
-                  "priceRange": "$$",
-                  "address": {
-                        "@type": "PostalAddress",
-                        "streetAddress": "Marrakech, Gueliz",
-                        "addressLocality": "Marrakech",
-                        "addressRegion": "Marrakech-Safi",
-                        "postalCode": "40000",
-                        "addressCountry": "MA"
-                  },
-                  "openingHoursSpecification": [{
-                        "@type": "OpeningHoursSpecification",
-                        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-                        "opens": "10:00",
-                        "closes": "23:30"
-                  }],
-                  "servesCuisine": ["Fried Chicken", "American", "Fast Food"]
-            }
-      }
-      </script>
-
-      <!-- === Hreflang links === -->
-      <link rel="alternate" href="https://www.delivery-marrakech.com/ar/menukfc.html" hreflang="ar">
-      <link rel="alternate" href="https://www.delivery-marrakech.com/fr/menukfc.html" hreflang="fr">
-      <link rel="alternate" href="https://www.delivery-marrakech.com/en/menukfc.html" hreflang="en">
-
       <!-- === Fonts & Icons === -->
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
       <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
       
       <style>
-            * {
-                  margin: 0;
-                  padding: 0;
-                  box-sizing: border-box;
-                  font-family: 'Ubuntu', sans-serif;
-            }
-
-            body {
-                  background-color: #f8f8f8;
-                  color: #333;
-                  max-width: 400px;
-                  margin: 0 auto;
-                  padding: 0;
-                  min-height: 100vh;
-                  position: relative;
-            }
-
-            .navbar {
-                  position: fixed;
-                  top: 0;
-                  width: 100%;
-                  max-width: 400px;
-                  display: flex;
-                  justify-content: space-between;
-                  align-items: center;
-                  padding: 16px;
-                  background-color: transparent;
-                  z-index: 1000;
-                  transition: all 0.3s ease;
-            }
-
-            .navbar.scrolled {
-                  background-color: white;
-                  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            }
-
-            .navbar.scrolled .nav-title {
-                  display: block;
-            }
-
-            .nav-btn {
-                  width: 40px;
-                  height: 40px;
-                  border-radius: 50%;
-                  background-color: white;
-                  display: flex;
-                  justify-content: center;
-                  align-items: center;
-                  border: none;
-                  color: #8B0000;
-                  font-size: 16px;
-                  transition: all 0.2s ease;
-                  cursor: pointer;
-                  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-            }
-
-            .nav-btn:active {
-                  transform: scale(0.95);
-            }
-
-            .nav-title {
-                  display: none;
-                  font-weight: 700;
-                  color: #8B0000;
-                  position: absolute;
-                  left: 50%;
-                  transform: translateX(-50%);
-                  font-size: 18px;
-            }
-
-            .hero-section {
-                  position: relative;
-                  height: 220px;
-                  overflow: hidden;
-            }
-
-            .hero-image {
-                  width: 100%;
-                  height: 100%;
-                  object-fit: cover;
-            }
-
-            .hero-overlay {
-                  position: absolute;
-                  bottom: 0;
-                  left: 0;
-                  right: 0;
-                  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
-                  padding: 20px 16px 16px;
-                  color: white;
-            }
-
-            .hero-title {
-                  font-size: 24px;
-                  font-weight: 700;
-                  margin-bottom: 4px;
-            }
-
-            .hero-subtitle {
-                  font-size: 14px;
-                  opacity: 0.9;
-            }
-
-            .restaurant-info {
-                  padding: 20px 16px;
-                  background-color: white;
-                  border-radius: 0 0 16px 16px;
-                  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-                  margin-bottom: 8px;
-            }
-
-            .restaurant-name {
-                  font-size: 24px;
-                  font-weight: 700;
-                  margin-bottom: 12px;
-                  color: #8B0000;
-            }
-
-            .rating-delivery {
-                  display: flex;
-                  align-items: center;
-                  margin-bottom: 8px;
-                  flex-wrap: wrap;
-                  gap: 16px;
-            }
-
-            .delivery-time {
-                  display: flex;
-                  align-items: center;
-                  padding: 6px 12px;
-                  background: #F8F9FA;
-                  border-radius: 20px;
-                  color: #495057;
-            }
-
-            .delivery-icon {
-                  margin-right: 6px;
-                  color: #8B0000;
-            }
-
-            .categories-section {
-                  padding: 16px;
-                  background-color: white;
-                  margin-bottom: 8px;
-                  position: sticky;
-                  top: 72px;
-                  z-index: 900;
-                  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-                  transition: all 0.3s ease;
-            }
-
-            .categories {
-                  display: flex;
-                  overflow-x: auto;
-                  gap: 8px;
-                  padding-bottom: 4px;
-                  scrollbar-width: none;
-                  scroll-behavior: smooth;
-            }
-
-            .categories::-webkit-scrollbar {
-                  display: none;
-            }
-
-            .category {
-                  padding: 12px 18px;
-                  background: #F8F9FA;
-                  border-radius: 12px;
-                  white-space: nowrap;
-                  font-size: 14px;
-                  font-weight: 500;
-                  color: #495057;
-                  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-                  cursor: pointer;
-                  position: relative;
-                  overflow: hidden;
-                  border: 1px solid #E9ECEF;
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                  min-width: max-content;
-                  will-change: transform, background, color;
-            }
-
-            .category::before {
-                  content: '';
-                  position: absolute;
-                  top: 0;
-                  left: 0;
-                  width: 100%;
-                  height: 100%;
-                  background: linear-gradient(135deg, #8B0000 0%, #6D0000 100%);
-                  border-radius: 12px;
-                  opacity: 0;
-                  transition: opacity 0.3s ease;
-                  z-index: -1;
-            }
-
-            .category.active {
-                  color: white;
-                  transform: scale(1.05);
-                  box-shadow: 0 4px 12px rgba(139, 0, 0, 0.25);
-                  border-color: #8B0000;
-                  font-weight: 600;
-            }
-
-            .category.active::before {
-                  opacity: 1;
-            }
-
-            .category.highlight {
-                  animation: pulse 0.5s ease;
-            }
-
-            @keyframes pulse {
-                  0% { transform: scale(1); }
-                  50% { transform: scale(1.08); }
-                  100% { transform: scale(1.05); }
-            }
-
-            .category-items-section {
-                  padding: 20px 16px;
-                  background-color: white;
-                  border-radius: 16px;
-                  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-                  margin-bottom: 20px;
-                  scroll-margin-top: 120px;
-                  opacity: 0;
-                  transform: translateY(30px);
-                  transition: opacity 0.6s ease, transform 0.6s ease;
-            }
-
-            .category-items-section.visible {
-                  opacity: 1;
-                  transform: translateY(0);
-            }
-
-            .section-title {
-                  font-size: 20px;
-                  font-weight: 700;
-                  margin-bottom: 16px;
-                  color: #212529;
-                  display: flex;
-                  align-items: center;
-            }
-
-            .section-title::after {
-                  content: "";
-                  flex: 1;
-                  height: 1px;
-                  background: #DEE2E6;
-                  margin-left: 12px;
-            }
-
-            .category-item {
-                  display: flex;
-                  padding: 16px 0;
-                  border-bottom: 1px solid #F1F3F5;
-                  transition: transform 0.2s ease;
-            }
-
-            .category-item:last-child {
-                  border-bottom: none;
-            }
-
-            .category-item:hover {
-                  transform: translateX(5px);
-            }
-
-            .item-image {
-                  width: 100px;
-                  height: 100px;
-                  border-radius: 12px;
-                  object-fit: cover;
-                  margin-right: 16px;
-                  transition: transform 0.3s ease;
-            }
-
-            .category-item:hover .item-image {
-                  transform: scale(1.05);
-            }
-
-            .item-info {
-                  flex: 1;
-                  display: flex;
-                  flex-direction: column;
-                  justify-content: center;
-            }
-
-            .item-name {
-                  font-weight: 600;
-                  font-size: 16px;
-                  margin-bottom: 6px;
-                  color: #212529;
-            }
-
-            .item-description {
-                  font-size: 13px;
-                  color: #6C757D;
-                  margin-bottom: 12px;
-                  line-height: 1.4;
-            }
-
-            .item-footer {
-                  display: flex;
-                  justify-content: space-between;
-                  align-items: center;
-            }
-
-            .item-price {
-                  font-weight: 700;
-                  color: #000000;
-                  font-size: 16px;
-            }
-
-            .item-add-btn {
-                  width: 36px;
-                  height: 36px;
-                  border-radius: 50%;
-                  background: linear-gradient(135deg, #8B0000 0%, #6D0000 100%);
-                  display: flex;
-                  justify-content: center;
-                  align-items: center;
-                  box-shadow: 0 4px 10px rgba(139, 0, 0, 0.3);
-                  color: white;
-                  font-weight: bold;
-                  font-size: 18px;
-                  border: none;
-                  cursor: pointer;
-                  transition: all 0.2s ease;
-            }
-
-            .item-add-btn:active {
-                  transform: scale(0.9);
-            }
-
-            .view-cart-btn {
-                  position: fixed;
-                  bottom: 20px;
-                  left: 50%;
-                  transform: translateX(-50%);
-                  background-color: #8B0000;
-                  color: white;
-                  border: none;
-                  border-radius: 30px;
-                  padding: 12px 25px;
-                  font-weight: bold;
-                  font-size: 16px;
-                  cursor: pointer;
-                  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-                  display: flex;
-                  align-items: center;
-                  gap: 10px;
-                  transition: all 0.3s;
-                  z-index: 1000;
-            }
-
-            .cart-item-count {
-                  background: #fff;
-                  color: #8B0000;
-                  border-radius: 50%;
-                  width: 24px;
-                  height: 24px;
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                  font-size: 14px;
-                  font-weight: bold;
-            }
-
-            .loading-spinner {
-                  text-align: center;
-                  padding: 50px;
-                  color: #8B0000;
-            }
-
-            .spinner {
-                  border: 4px solid #f3f3f3;
-                  border-top: 4px solid #8B0000;
-                  border-radius: 50%;
-                  width: 40px;
-                  height: 40px;
-                  animation: spin 1s linear infinite;
-                  margin: 0 auto 15px;
-            }
-
+            /* جميع الأنماط كما هي */
+            * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Ubuntu', sans-serif; }
+            body { background-color: #f8f8f8; color: #333; max-width: 400px; margin: 0 auto; padding: 0; min-height: 100vh; position: relative; }
+            .navbar { position: fixed; top: 0; width: 100%; max-width: 400px; display: flex; justify-content: space-between; align-items: center; padding: 16px; background-color: transparent; z-index: 1000; transition: all 0.3s ease; }
+            .navbar.scrolled { background-color: white; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); }
+            .navbar.scrolled .nav-title { display: block; }
+            .nav-btn { width: 40px; height: 40px; border-radius: 50%; background-color: white; display: flex; justify-content: center; align-items: center; border: none; color: #8B0000; font-size: 16px; transition: all 0.2s ease; cursor: pointer; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); }
+            .nav-btn:active { transform: scale(0.95); }
+            .nav-title { display: none; font-weight: 700; color: #8B0000; position: absolute; left: 50%; transform: translateX(-50%); font-size: 18px; }
+            .hero-section { position: relative; height: 220px; overflow: hidden; }
+            .hero-image { width: 100%; height: 100%; object-fit: cover; }
+            .hero-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent); padding: 20px 16px 16px; color: white; }
+            .hero-title { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
+            .hero-subtitle { font-size: 14px; opacity: 0.9; }
+            .restaurant-info { padding: 20px 16px; background-color: white; border-radius: 0 0 16px 16px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); margin-bottom: 8px; }
+            .restaurant-name { font-size: 24px; font-weight: 700; margin-bottom: 12px; color: #8B0000; }
+            .rating-delivery { display: flex; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 16px; }
+            .delivery-time { display: flex; align-items: center; padding: 6px 12px; background: #F8F9FA; border-radius: 20px; color: #495057; }
+            .delivery-icon { margin-right: 6px; color: #8B0000; }
+            .categories-section { padding: 16px; background-color: white; margin-bottom: 8px; position: sticky; top: 72px; z-index: 900; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); transition: all 0.3s ease; }
+            .categories { display: flex; overflow-x: auto; gap: 8px; padding-bottom: 4px; scrollbar-width: none; scroll-behavior: smooth; }
+            .categories::-webkit-scrollbar { display: none; }
+            .category { padding: 12px 18px; background: #F8F9FA; border-radius: 12px; white-space: nowrap; font-size: 14px; font-weight: 500; color: #495057; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer; position: relative; overflow: hidden; border: 1px solid #E9ECEF; display: flex; align-items: center; justify-content: center; min-width: max-content; }
+            .category::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #8B0000 0%, #6D0000 100%); border-radius: 12px; opacity: 0; transition: opacity 0.3s ease; z-index: -1; }
+            .category.active { color: white; transform: scale(1.05); box-shadow: 0 4px 12px rgba(139, 0, 0, 0.25); border-color: #8B0000; font-weight: 600; }
+            .category.active::before { opacity: 1; }
+            .category-items-section { padding: 20px 16px; background-color: white; border-radius: 16px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); margin-bottom: 20px; scroll-margin-top: 120px; opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+            .category-items-section.visible { opacity: 1; transform: translateY(0); }
+            .section-title { font-size: 20px; font-weight: 700; margin-bottom: 16px; color: #212529; display: flex; align-items: center; }
+            .section-title::after { content: ""; flex: 1; height: 1px; background: #DEE2E6; margin-left: 12px; }
+            .category-item { display: flex; padding: 16px 0; border-bottom: 1px solid #F1F3F5; transition: transform 0.2s ease; }
+            .category-item:last-child { border-bottom: none; }
+            .category-item:hover { transform: translateX(5px); }
+            .item-image { width: 100px; height: 100px; border-radius: 12px; object-fit: cover; margin-right: 16px; transition: transform 0.3s ease; }
+            .category-item:hover .item-image { transform: scale(1.05); }
+            .item-info { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+            .item-name { font-weight: 600; font-size: 16px; margin-bottom: 6px; color: #212529; }
+            .item-description { font-size: 13px; color: #6C757D; margin-bottom: 12px; line-height: 1.4; }
+            .item-footer { display: flex; justify-content: space-between; align-items: center; }
+            .item-price { font-weight: 700; color: #000000; font-size: 16px; }
+            .item-add-btn { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #8B0000 0%, #6D0000 100%); display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(139, 0, 0, 0.3); color: white; font-weight: bold; font-size: 18px; border: none; cursor: pointer; transition: all 0.2s ease; }
+            .item-add-btn:active { transform: scale(0.9); }
+            .view-cart-btn { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background-color: #8B0000; color: white; border: none; border-radius: 30px; padding: 12px 25px; font-weight: bold; font-size: 16px; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); display: flex; align-items: center; gap: 10px; transition: all 0.3s; z-index: 1000; }
+            .view-cart-btn:hover { background-color: #660000; transform: translateX(-50%) translateY(-2px); }
+            .cart-item-count { background: #fff; color: #8B0000; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: bold; }
+            .loading-spinner { text-align: center; padding: 50px; color: #8B0000; }
+            .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #8B0000; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto 15px; }
             @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-            .error-message {
-                  text-align: center;
-                  padding: 50px;
-                  color: #dc3545;
-                  background: white;
-                  border-radius: 16px;
-                  margin: 20px;
-            }
-
-            .overlay {
-                  position: fixed;
-                  top: 0;
-                  left: 0;
-                  width: 100%;
-                  height: 100%;
-                  background: rgba(0, 0, 0, 0.7);
-                  display: none;
-                  justify-content: center;
-                  align-items: center;
-                  z-index: 2000;
-                  backdrop-filter: blur(10px);
-                  padding: 12px;
-            }
-
-            .modal {
-                  background: #ffffff;
-                  width: 100%;
-                  max-width: 500px;
-                  max-height: 90vh;
-                  overflow: hidden;
-                  border-radius: 40px;
-                  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.4);
-                  display: flex;
-                  flex-direction: column;
-                  animation: modalRise 0.5s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
-            }
-
-            @keyframes modalRise {
-                  from { opacity: 0; transform: translateY(80px) scale(0.9); }
-                  to { opacity: 1; transform: translateY(0) scale(1); }
-            }
-
-            .modal-header {
-                  position: sticky;
-                  top: 0;
-                  background: rgba(255, 255, 255, 0.9);
-                  backdrop-filter: blur(10px);
-                  padding: 16px 24px;
-                  display: flex;
-                  justify-content: space-between;
-                  align-items: center;
-                  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-                  z-index: 10;
-            }
-
-            .modal-title {
-                  font-size: 18px;
-                  font-weight: 600;
-                  color: #111827;
-            }
-
-            .close-btn {
-                  background: #f3f4f6;
-                  width: 40px;
-                  height: 40px;
-                  border-radius: 50%;
-                  display: flex;
-                  justify-content: center;
-                  align-items: center;
-                  cursor: pointer;
-                  transition: all 0.2s ease;
-                  color: #4b5563;
-                  border: none;
-            }
-
-            .close-btn:hover {
-                  background: #8b0000;
-                  color: white;
-                  transform: rotate(90deg);
-            }
-
-            .modal-content {
-                  padding: 24px;
-                  overflow-y: auto;
-                  flex-grow: 1;
-                  scrollbar-width: thin;
-            }
-
-            .modal-image {
-                  width: 100%;
-                  height: 250px;
-                  object-fit: cover;
-                  border-radius: 28px;
-                  margin-bottom: 20px;
-                  box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.2);
-            }
-
-            .modal-item-title {
-                  font-size: 28px;
-                  font-weight: 700;
-                  color: #111827;
-                  margin-bottom: 4px;
-            }
-
-            .modal-desc {
-                  color: #6b7280;
-                  font-size: 14px;
-                  line-height: 1.5;
-                  margin-bottom: 24px;
-            }
-
-            .section-title-modal {
-                  font-size: 16px;
-                  font-weight: 600;
-                  color: #111827;
-                  margin: 28px 0 16px;
-                  display: flex;
-                  align-items: center;
-                  gap: 8px;
-            }
-
-            .section-title-modal i {
-                  color: #8b0000;
-                  font-size: 18px;
-            }
-
-            .flavour-balance {
-                  background: linear-gradient(145deg, #fafafa, #f5f5f5);
-                  border-radius: 48px;
-                  padding: 24px 20px 32px;
-                  margin-bottom: 10px;
-            }
-
-            .flavour-labels {
-                  display: flex;
-                  justify-content: space-between;
-                  align-items: center;
-                  margin-bottom: 16px;
-            }
-
-            .flavour-side {
-                  display: flex;
-                  flex-direction: column;
-                  align-items: center;
-                  gap: 4px;
-            }
-
-            .flavour-side img {
-                  width: 80px;
-                  height: 80px;
-                  object-fit: cover;
-                  border-radius: 40px;
-                  border: 3px solid white;
-                  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
-            }
-
-            .flavour-side span {
-                  font-weight: 600;
-                  font-size: 14px;
-                  color: #374151;
-            }
-
-            .flavour-side .quantity {
-                  font-size: 28px;
-                  font-weight: 800;
-                  color: #8b0000;
-                  background: white;
-                  padding: 4px 12px;
-                  border-radius: 40px;
-                  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-                  margin-top: 4px;
-                  min-width: 60px;
-                  text-align: center;
-            }
-
-            .vs-divider {
-                  font-size: 18px;
-                  font-weight: 600;
-                  color: #9ca3af;
-                  background: white;
-                  width: 48px;
-                  height: 48px;
-                  border-radius: 30px;
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-            }
-
-            .slider-container {
-                  position: relative;
-                  margin: 24px 0 10px;
-            }
-
-            .slider-track {
-                  width: 100%;
-                  height: 10px;
-                  border-radius: 20px;
-                  position: relative;
-                  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
-            }
-
-            input[type=range] {
-                  -webkit-appearance: none;
-                  width: 100%;
-                  background: transparent;
-                  position: absolute;
-                  top: -5px;
-                  left: 0;
-                  height: 20px;
-            }
-
-            input[type=range]::-webkit-slider-thumb {
-                  -webkit-appearance: none;
-                  width: 28px;
-                  height: 28px;
-                  background: white;
-                  border-radius: 50%;
-                  box-shadow: 0 4px 12px rgba(139, 0, 0, 0.5), 0 0 0 2px white, 0 0 0 4px #8b0000;
-                  cursor: pointer;
-                  transition: 0.1s;
-                  margin-top: -9px;
-            }
-
-            .flavour-row {
-                  display: flex;
-                  gap: 15px;
-                  margin: 20px 0;
-                  justify-content: center;
-            }
-
-            .flavour-option {
-                  padding: 10px 28px;
-                  background: #f0f0f0;
-                  border-radius: 30px;
-                  cursor: pointer;
-                  font-weight: 500;
-                  transition: all 0.2s;
-            }
-
-            .flavour-option.active {
-                  background: #8B0000;
-                  color: white;
-            }
-
-            .drink-options {
-                  display: flex;
-                  flex-wrap: wrap;
-                  gap: 12px;
-                  margin-top: 10px;
-            }
-
-            .drink-option {
-                  display: flex;
-                  align-items: center;
-                  gap: 8px;
-                  cursor: pointer;
-                  background: white;
-                  padding: 8px 16px;
-                  border-radius: 40px;
-                  border: 1px solid #ddd;
-                  transition: 0.2s;
-            }
-
-            .drink-option.selected {
-                  border-color: #8b0000;
-                  background: #ffeae9;
-            }
-
-            .drink-name {
-                  font-weight: 500;
-                  font-size: 15px;
-            }
-
-            .extras-section {
-                  margin: 15px 0;
-            }
-
-            .extra-item {
-                  display: flex;
-                  justify-content: space-between;
-                  align-items: center;
-                  padding: 12px;
-                  background: #f9f9f9;
-                  border-radius: 12px;
-                  margin-bottom: 8px;
-            }
-
-            .special-instructions {
-                  width: 100%;
-                  padding: 16px 18px;
-                  border: 1px solid #e5e7eb;
-                  border-radius: 30px;
-                  font-size: 14px;
-                  resize: none;
-                  outline: none;
-                  transition: all 0.2s ease;
-                  background: white;
-                  color: #1f2937;
-            }
-
-            .special-instructions:focus {
-                  border-color: #8b0000;
-                  box-shadow: 0 0 0 4px rgba(139, 0, 0, 0.1);
-            }
-
-            .fixed-footer {
-                  background: white;
-                  padding: 16px 24px;
-                  display: flex;
-                  justify-content: space-between;
-                  align-items: center;
-                  border-top: 1px solid rgba(0, 0, 0, 0.05);
-                  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.02);
-            }
-
-            .counter {
-                  display: flex;
-                  align-items: center;
-                  gap: 10px;
-                  background: #f9fafb;
-                  padding: 6px 12px;
-                  border-radius: 60px;
-            }
-
-            .counter .counter-btn {
-                  width: 40px;
-                  height: 40px;
-                  border-radius: 50%;
-                  border: none;
-                  background: white;
-                  color: #1f2937;
-                  font-size: 18px;
-                  cursor: pointer;
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                  transition: all 0.2s ease;
-                  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-            }
-
-            .counter .counter-btn:hover {
-                  background: #8b0000;
-                  color: white;
-                  transform: scale(1.1);
-            }
-
-            .counter .counter-value {
-                  font-weight: 600;
-                  font-size: 18px;
-                  min-width: 28px;
-                  text-align: center;
-            }
-
-            .modal-add-btn {
-                  background: linear-gradient(145deg, #8b0000, #a50000);
-                  color: white;
-                  border: none;
-                  padding: 12px 24px;
-                  border-radius: 50px;
-                  font-weight: 600;
-                  font-size: 14px;
-                  cursor: pointer;
-                  display: flex;
-                  align-items: center;
-                  gap: 8px;
-                  box-shadow: 0 12px 20px -8px rgba(139, 0, 0, 0.5);
-                  transition: all 0.3s ease;
-            }
-
+            .error-message { text-align: center; padding: 50px; color: #dc3545; background: white; border-radius: 16px; margin: 20px; }
+            .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); display: none; justify-content: center; align-items: center; z-index: 2000; backdrop-filter: blur(10px); padding: 12px; }
+            .modal { background: #ffffff; width: 100%; max-width: 500px; max-height: 90vh; overflow: hidden; border-radius: 40px; box-shadow: 0 40px 80px rgba(0, 0, 0, 0.4); display: flex; flex-direction: column; animation: modalRise 0.5s cubic-bezier(0.2, 0.9, 0.3, 1) forwards; }
+            @keyframes modalRise { from { opacity: 0; transform: translateY(80px) scale(0.9); } to { opacity: 1; transform: translateY(0) scale(1); } }
+            .modal-header { position: sticky; top: 0; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0, 0, 0, 0.05); z-index: 10; }
+            .modal-title { font-size: 18px; font-weight: 600; color: #111827; }
+            .close-btn { background: #f3f4f6; width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: all 0.2s ease; color: #4b5563; border: none; }
+            .close-btn:hover { background: #8b0000; color: white; transform: rotate(90deg); }
+            .modal-content { padding: 24px; overflow-y: auto; flex-grow: 1; }
+            .modal-image { width: 100%; height: 250px; object-fit: cover; border-radius: 28px; margin-bottom: 20px; }
+            .modal-item-title { font-size: 28px; font-weight: 700; color: #111827; margin-bottom: 4px; }
+            .modal-desc { color: #6b7280; font-size: 14px; line-height: 1.5; margin-bottom: 24px; }
+            .section-title-modal { font-size: 16px; font-weight: 600; color: #111827; margin: 28px 0 16px; display: flex; align-items: center; gap: 8px; }
+            .section-title-modal i { color: #8b0000; font-size: 18px; }
+            .flavour-balance { background: linear-gradient(145deg, #fafafa, #f5f5f5); border-radius: 48px; padding: 24px 20px 32px; margin-bottom: 10px; }
+            .flavour-labels { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+            .flavour-side { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+            .flavour-side img { width: 80px; height: 80px; object-fit: cover; border-radius: 40px; border: 3px solid white; box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15); }
+            .flavour-side .quantity { font-size: 28px; font-weight: 800; color: #8b0000; background: white; padding: 4px 12px; border-radius: 40px; min-width: 60px; text-align: center; }
+            .vs-divider { font-size: 18px; font-weight: 600; color: #9ca3af; background: white; width: 48px; height: 48px; border-radius: 30px; display: flex; align-items: center; justify-content: center; }
+            .slider-container { position: relative; margin: 24px 0 10px; }
+            .slider-track { width: 100%; height: 10px; border-radius: 20px; }
+            input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; position: absolute; top: -5px; left: 0; height: 20px; }
+            input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 28px; height: 28px; background: white; border-radius: 50%; box-shadow: 0 4px 12px rgba(139, 0, 0, 0.5), 0 0 0 2px white, 0 0 0 4px #8b0000; cursor: pointer; margin-top: -9px; }
+            .flavour-row { display: flex; gap: 15px; margin: 20px 0; justify-content: center; }
+            .flavour-option { padding: 10px 28px; background: #f0f0f0; border-radius: 30px; cursor: pointer; font-weight: 500; transition: all 0.2s; }
+            .flavour-option.active { background: #8B0000; color: white; }
+            .drink-options { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 10px; }
+            .drink-option { display: flex; align-items: center; gap: 8px; cursor: pointer; background: white; padding: 8px 16px; border-radius: 40px; border: 1px solid #ddd; transition: 0.2s; }
+            .drink-option.selected { border-color: #8b0000; background: #ffeae9; }
+            .extras-section { margin: 15px 0; }
+            .extra-item { display: flex; justify-content: space-between; align-items: center; padding: 12px; background: #f9f9f9; border-radius: 12px; margin-bottom: 8px; }
+            .special-instructions { width: 100%; padding: 16px 18px; border: 1px solid #e5e7eb; border-radius: 30px; font-size: 14px; resize: none; outline: none; }
+            .special-instructions:focus { border-color: #8b0000; box-shadow: 0 0 0 4px rgba(139, 0, 0, 0.1); }
+            .fixed-footer { background: white; padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(0, 0, 0, 0.05); }
+            .counter { display: flex; align-items: center; gap: 10px; background: #f9fafb; padding: 6px 12px; border-radius: 60px; }
+            .counter .counter-btn { width: 40px; height: 40px; border-radius: 50%; border: none; background: white; color: #1f2937; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease; }
+            .counter .counter-btn:hover { background: #8b0000; color: white; transform: scale(1.1); }
+            .modal-add-btn { background: linear-gradient(145deg, #8b0000, #a50000); color: white; border: none; padding: 12px 24px; border-radius: 50px; font-weight: 600; font-size: 14px; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 12px 20px -8px rgba(139, 0, 0, 0.5); transition: all 0.3s ease; }
+            
+            /* أنيميشن الطيران المعدل */
             .flying-element {
-                  position: fixed;
-                  width: 30px;
-                  height: 30px;
-                  background-color: #8B0000;
-                  border-radius: 50%;
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                  color: white;
-                  font-size: 18px;
-                  font-weight: bold;
-                  box-shadow: 0 0 15px rgba(139, 0, 0, 0.7);
-                  z-index: 9999;
-                  pointer-events: none;
-                  transition: transform 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+                position: fixed;
+                width: 36px;
+                height: 36px;
+                background: linear-gradient(135deg, #8B0000, #cc0000);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                font-size: 20px;
+                font-weight: bold;
+                box-shadow: 0 0 20px rgba(139, 0, 0, 0.7);
+                z-index: 10000;
+                pointer-events: none;
+                will-change: transform, opacity;
             }
-
             .flying-element::after {
-                  content: '+';
+                content: '+';
+                font-size: 20px;
+                font-weight: bold;
             }
-
+            
+            /* أنيميشن النجوم */
             .star {
-                  position: fixed;
-                  color: #FFD700;
-                  font-size: 14px;
-                  pointer-events: none;
-                  z-index: 9999;
-                  text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+                position: fixed;
+                color: #FFD700;
+                font-size: 16px;
+                pointer-events: none;
+                z-index: 10001;
+                text-shadow: 0 0 5px rgba(255, 215, 0, 0.8);
+                will-change: transform, opacity;
             }
-
-            .search-modal {
-                  background: white;
-                  width: 100%;
-                  max-width: 500px;
-                  max-height: 80vh;
-                  overflow: hidden;
-                  border-radius: 20px;
-                  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
-                  display: flex;
-                  flex-direction: column;
-            }
-
-            .search-header {
-                  position: sticky;
-                  top: 0;
-                  background: white;
-                  padding: 15px 20px;
-                  display: flex;
-                  justify-content: space-between;
-                  align-items: center;
-                  border-bottom: 1px solid #ECF0F1;
-            }
-
-            .search-input {
-                  flex: 1;
-                  padding: 12px 16px;
-                  border: 1px solid #ddd;
-                  border-radius: 25px;
-                  outline: none;
-                  font-size: 16px;
-                  margin-right: 10px;
-            }
-
-            .search-results {
-                  padding: 15px;
-                  overflow-y: auto;
-                  flex-grow: 1;
-            }
-
-            .search-result-item {
-                  display: flex;
-                  padding: 12px 0;
-                  border-bottom: 1px solid #ECF0F1;
-                  cursor: pointer;
-                  transition: background-color 0.2s;
-            }
-
-            .search-result-item:hover {
-                  background-color: #F9F9F9;
-            }
-
-            .search-result-image {
-                  width: 60px;
-                  height: 60px;
-                  border-radius: 10px;
-                  object-fit: cover;
-                  margin-right: 15px;
-            }
-
-            .search-result-info {
-                  flex: 1;
-            }
-
-            .search-result-name {
-                  font-weight: 600;
-                  margin-bottom: 5px;
-            }
-
-            .search-result-price {
-                  color: #8B0000;
-                  font-weight: 700;
-            }
-
-            .no-results {
-                  text-align: center;
-                  padding: 20px;
-                  color: #7F8C8D;
-            }
-
-            .share-modal {
-                  background: white;
-                  width: 100%;
-                  max-width: 500px;
-                  border-radius: 20px;
-                  overflow: hidden;
-            }
-
-            .share-options {
-                  padding: 20px;
-                  display: flex;
-                  flex-direction: column;
-                  gap: 15px;
-            }
-
-            .share-option {
-                  display: flex;
-                  align-items: center;
-                  padding: 15px;
-                  background: #F9F9F9;
-                  border-radius: 12px;
-                  cursor: pointer;
-                  transition: all 0.3s ease;
-            }
-
-            .share-option:hover {
-                  background: #8B0000;
-                  color: white;
-            }
-
-            .share-icon {
-                  width: 40px;
-                  height: 40px;
-                  border-radius: 50%;
-                  background: #8B0000;
-                  color: white;
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                  margin-right: 15px;
-            }
-
-            .share-text {
-                  font-weight: 500;
-                  font-size: 16px;
-            }
-
-            @keyframes slideIn {
-                  from { opacity: 0; transform: translateY(30px); }
-                  to { opacity: 1; transform: translateY(0); }
-            }
-
-            .animate-section {
-                  animation: slideIn 0.6s ease forwards;
-            }
-
+            
             @keyframes fadeInOut {
-                  0% { opacity: 0; transform: translateX(-50%) translateY(20px); }
-                  10% { opacity: 1; transform: translateX(-50%) translateY(0); }
-                  90% { opacity: 1; transform: translateX(-50%) translateY(0); }
-                  100% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+                0% { opacity: 0; transform: translateX(-50%) translateY(20px); }
+                10% { opacity: 1; transform: translateX(-50%) translateY(0); }
+                90% { opacity: 1; transform: translateX(-50%) translateY(0); }
+                100% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
             }
+            
+            .search-modal { background: white; width: 100%; max-width: 500px; max-height: 80vh; overflow: hidden; border-radius: 20px; display: flex; flex-direction: column; }
+            .search-header { position: sticky; top: 0; background: white; padding: 15px 20px; display: flex; gap: 10px; border-bottom: 1px solid #ECF0F1; }
+            .search-input { flex: 1; padding: 12px 16px; border: 1px solid #ddd; border-radius: 25px; outline: none; font-size: 16px; }
+            .search-results { padding: 15px; overflow-y: auto; flex-grow: 1; }
+            .search-result-item { display: flex; padding: 12px 0; border-bottom: 1px solid #ECF0F1; cursor: pointer; transition: background-color 0.2s; }
+            .search-result-item:hover { background-color: #F9F9F9; }
+            .search-result-image { width: 60px; height: 60px; border-radius: 10px; object-fit: cover; margin-right: 15px; }
+            .search-result-info { flex: 1; }
+            .search-result-name { font-weight: 600; margin-bottom: 5px; }
+            .search-result-price { color: #8B0000; font-weight: 700; }
+            .no-results { text-align: center; padding: 20px; color: #7F8C8D; }
+            .share-modal { background: white; width: 100%; max-width: 500px; border-radius: 20px; overflow: hidden; }
+            .share-options { padding: 20px; display: flex; flex-direction: column; gap: 15px; }
+            .share-option { display: flex; align-items: center; padding: 15px; background: #F9F9F9; border-radius: 12px; cursor: pointer; transition: all 0.3s ease; }
+            .share-option:hover { background: #8B0000; color: white; }
+            .share-icon { width: 40px; height: 40px; border-radius: 50%; background: #8B0000; color: white; display: flex; align-items: center; justify-content: center; margin-right: 15px; }
+            @keyframes slideIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+            .animate-section { animation: slideIn 0.6s ease forwards; }
       </style>
 </head>
 
 <body>
       <!-- Top Navigation Bar -->
       <nav class="navbar" id="navbar">
-            <button class="nav-btn" id="backButton">
-                  <i class="fas fa-arrow-left"></i>
-            </button>
+            <button class="nav-btn" id="backButton"><i class="fas fa-arrow-left"></i></button>
             <div class="nav-title">KFC</div>
             <div style="display: flex; gap: 12px;">
-                  <button class="nav-btn" id="searchButton">
-                        <i class="fas fa-search"></i>
-                  </button>
-                  <button class="nav-btn" id="shareButton">
-                        <i class="fas fa-share-alt"></i>
-                  </button>
+                  <button class="nav-btn" id="searchButton"><i class="fas fa-search"></i></button>
+                  <button class="nav-btn" id="shareButton"><i class="fas fa-share-alt"></i></button>
             </div>
       </nav>
 
@@ -1040,10 +197,7 @@
       <div class="restaurant-info">
             <h1 class="restaurant-name">KFC Delivery Marrakech</h1>
             <div class="rating-delivery">
-                  <div class="delivery-time">
-                        <i class="fas fa-motorcycle delivery-icon"></i>
-                        <span>25-35 min</span>
-                  </div>
+                  <div class="delivery-time"><i class="fas fa-motorcycle delivery-icon"></i><span>25-35 min</span></div>
             </div>
       </div>
 
@@ -1107,7 +261,6 @@
             </div>
       </div>
 
-      <!-- Firebase Scripts -->
       <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
       <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 
@@ -1135,6 +288,7 @@
             let cart = JSON.parse(localStorage.getItem('kfcCart')) || [];
             let currentProduct = null;
             let lastClickedAddRect = null;
+            let activeFlyingElements = []; // تتبع العناصر الطائرة
 
             const categoryNames = {
                   chickenMeals: "CHICKEN MEALS",
@@ -1196,7 +350,7 @@
                   });
             }
 
-            // ==================== Render Products from Firebase ====================
+            // ==================== Render Products ====================
             function renderAllSections() {
                   const container = document.getElementById('sectionsContainer');
                   container.innerHTML = '';
@@ -1278,221 +432,31 @@
                   }
             }
 
-            // ==================== Advanced Slider Modal (Like Original KFC Modal) ====================
-            function buildSliderModal(productData) {
+            // ==================== Simple Modal Builder (مختصر) ====================
+            function buildSimpleModal(productData) {
                   const modal = document.createElement('div');
                   modal.className = 'modal';
                   
-                  const totalPieces = productData.totalPieces || 4;
-                  const leftFlavour = (productData.flavours && productData.flavours[0]) ? productData.flavours[0] : { name: "Spicy Strips", img: "https://i.ibb.co/ymmg8ywn/IMG-5106.png" };
-                  const rightFlavour = (productData.flavours && productData.flavours[1]) ? productData.flavours[1] : { name: "Original Strips", img: "https://i.ibb.co/ymmg8ywn/IMG-5106.png" };
-                  
-                  let leftQty = Math.floor(totalPieces / 2);
-                  let rightQty = totalPieces - leftQty;
                   let mainQuantity = 1;
-                  let selectedDrink = (productData.drinks && productData.drinks[0]) ? (typeof productData.drinks[0] === 'string' ? productData.drinks[0] : productData.drinks[0].name) : "Pepsi";
-
+                  let selectedDrink = (productData.drinks && productData.drinks[0]) ? (typeof productData.drinks[0] === 'string' ? productData.drinks[0] : productData.drinks[0].name) : "";
+                  let selectedFlavour = (productData.flavours && productData.flavours[0]) ? (typeof productData.flavours[0] === 'string' ? productData.flavours[0] : productData.flavours[0].name) : "";
+                  
                   const header = document.createElement('div');
                   header.className = 'modal-header';
-                  header.innerHTML = `
-                        <div class="modal-title">Customize ${escapeHtml(productData.name)}</div>
-                        <button class="close-btn" id="closeModalBtn"><i class="fas fa-times"></i></button>
-                  `;
-
-                  const content = document.createElement('div');
-                  content.className = 'modal-content';
-
-                  content.innerHTML = `
-                        <img src="${productData.image || 'https://via.placeholder.com/300x200/8B0000/white?text=KFC'}" class="modal-image" onerror="this.src='https://via.placeholder.com/300x200/8B0000/white?text=KFC'">
-                        <h2 class="modal-item-title">${escapeHtml(productData.name)}</h2>
-                        <p class="modal-desc">${escapeHtml(productData.description || '')}</p>
-                        <div class="section-title-modal"><i class="fas fa-sliders-h"></i> Balance your flavours</div>
-                        <div class="flavour-balance">
-                              <div class="flavour-labels">
-                                    <div class="flavour-side">
-                                          <img src="${leftFlavour.img}" alt="${leftFlavour.name}" onerror="this.src='https://i.ibb.co/ymmg8ywn/IMG-5106.png'">
-                                          <span>${escapeHtml(leftFlavour.name)}</span>
-                                          <div class="quantity" id="leftQtyDisplay">${leftQty}</div>
-                                          <span class="pieces-label">pieces</span>
-                                    </div>
-                                    <div class="vs-divider">VS</div>
-                                    <div class="flavour-side">
-                                          <img src="${rightFlavour.img}" alt="${rightFlavour.name}" onerror="this.src='https://i.ibb.co/ymmg8ywn/IMG-5106.png'">
-                                          <span>${escapeHtml(rightFlavour.name)}</span>
-                                          <div class="quantity" id="rightQtyDisplay">${rightQty}</div>
-                                          <span class="pieces-label">pieces</span>
-                                    </div>
-                              </div>
-                              <div class="slider-container">
-                                    <div class="slider-track" id="sliderTrack"></div>
-                                    <input type="range" id="flavourSlider" min="0" max="${totalPieces}" value="${leftQty}">
-                              </div>
-                        </div>
-                  `;
-
-                  // Drinks section
-                  if (productData.drinks && productData.drinks.length > 0) {
-                        const drinkSection = document.createElement('div');
-                        drinkSection.innerHTML = `<div class="section-title-modal"><i class="fas fa-glass-cheers"></i> Choose your drink</div>`;
-                        const drinksRow = document.createElement('div');
-                        drinksRow.className = 'drink-options';
-                        drinksRow.id = 'drinksRow';
-                        
-                        productData.drinks.forEach((drink, index) => {
-                              const drinkName = typeof drink === 'string' ? drink : drink.name;
-                              const drinkImgSrc = (typeof drink === 'object' && drink.img) ? drink.img : '';
-                              const selectedClass = (index === 0) ? 'selected' : '';
-                              const drinkDiv = document.createElement('div');
-                              drinkDiv.className = `drink-option ${selectedClass}`;
-                              drinkDiv.setAttribute('data-drink', drinkName);
-                              drinkDiv.innerHTML = drinkImgSrc ? `<img src="${drinkImgSrc}" style="width:24px;height:24px;object-fit:cover;border-radius:4px;">` : '';
-                              drinkDiv.innerHTML += `<span class="drink-name">${escapeHtml(drinkName)}</span>`;
-                              drinksRow.appendChild(drinkDiv);
-                        });
-                        drinkSection.appendChild(drinksRow);
-                        content.appendChild(drinkSection);
-                  }
-
-                  // Special instructions
-                  const instrDiv = document.createElement('div');
-                  instrDiv.innerHTML = `
-                        <div class="section-title-modal"><i class="fas fa-pen"></i> Special instructions</div>
-                        <textarea id="specialInstructions" class="special-instructions" placeholder="Add any special instructions..." rows="2" maxlength="200"></textarea>
-                  `;
-                  content.appendChild(instrDiv);
-
-                  // Footer
-                  const footer = document.createElement('div');
-                  footer.className = 'fixed-footer';
-                  footer.innerHTML = `
-                        <div class="counter">
-                              <button class="counter-btn" id="decrementBtn"><i class="fas fa-minus"></i></button>
-                              <span class="counter-value" id="counterValue">${mainQuantity}</span>
-                              <button class="counter-btn" id="incrementBtn"><i class="fas fa-plus"></i></button>
-                        </div>
-                        <button class="modal-add-btn" id="modalAddBtn">
-                              <i class="fas fa-shopping-bag"></i> Add · <span id="totalPrice">${(productData.price * mainQuantity).toFixed(2)} MAD</span>
-                        </button>
-                  `;
-
-                  modal.appendChild(header);
-                  modal.appendChild(content);
-                  modal.appendChild(footer);
-
-                  // Bind events
-                  const closeBtn = modal.querySelector('#closeModalBtn');
-                  closeBtn.addEventListener('click', closeModal);
-
-                  const slider = modal.querySelector('#flavourSlider');
-                  const leftQtyDisplay = modal.querySelector('#leftQtyDisplay');
-                  const rightQtyDisplay = modal.querySelector('#rightQtyDisplay');
-                  const sliderTrack = modal.querySelector('#sliderTrack');
-
-                  function updateSliderTrack(value) {
-                        const percent = (value / totalPieces) * 100;
-                        if (sliderTrack) {
-                              sliderTrack.style.background = `linear-gradient(90deg, #e03131 0%, #e03131 ${percent}%, #fbbf24 ${percent}%, #fbbf24 100%)`;
-                        }
-                  }
-
-                  function updateFromSlider(val) {
-                        const newLeft = parseInt(val, 10);
-                        const newRight = totalPieces - newLeft;
-                        leftQty = newLeft;
-                        rightQty = newRight;
-                        leftQtyDisplay.textContent = leftQty;
-                        rightQtyDisplay.textContent = rightQty;
-                        updateSliderTrack(newLeft);
-                  }
-
-                  updateSliderTrack(leftQty);
-                  if (slider) {
-                        slider.addEventListener('input', (e) => updateFromSlider(e.target.value));
-                  }
-
-                  // Drink selection
-                  const drinkOptions = modal.querySelectorAll('.drink-option');
-                  drinkOptions.forEach(opt => {
-                        opt.addEventListener('click', function() {
-                              drinkOptions.forEach(o => o.classList.remove('selected'));
-                              this.classList.add('selected');
-                              selectedDrink = this.getAttribute('data-drink');
-                        });
-                  });
-
-                  // Quantity counter
-                  const decrementBtn = modal.querySelector('#decrementBtn');
-                  const incrementBtn = modal.querySelector('#incrementBtn');
-                  const counterValue = modal.querySelector('#counterValue');
-                  const totalPriceSpan = modal.querySelector('#totalPrice');
-
-                  decrementBtn.addEventListener('click', () => {
-                        if (mainQuantity > 1) {
-                              mainQuantity--;
-                              counterValue.textContent = mainQuantity;
-                              totalPriceSpan.textContent = (productData.price * mainQuantity).toFixed(2) + ' MAD';
-                        }
-                  });
-
-                  incrementBtn.addEventListener('click', () => {
-                        mainQuantity++;
-                        counterValue.textContent = mainQuantity;
-                        totalPriceSpan.textContent = (productData.price * mainQuantity).toFixed(2) + ' MAD';
-                  });
-
-                  // Add button
-                  const addBtn = modal.querySelector('#modalAddBtn');
-                  addBtn.addEventListener('click', () => {
-                        const customizations = {
-                              leftFlavour: leftFlavour.name,
-                              rightFlavour: rightFlavour.name,
-                              leftQty: leftQty,
-                              rightQty: rightQty,
-                              drink: selectedDrink
-                        };
-                        const specialInstructions = modal.querySelector('#specialInstructions')?.value || "";
-                        addToCart(productData, mainQuantity, customizations, specialInstructions);
-                        closeModal();
-                  });
-
-                  return modal;
-            }
-
-            // ==================== Extras Modal ====================
-            function buildExtrasModal(productData) {
-                  const modal = document.createElement('div');
-                  modal.className = 'modal';
+                  header.innerHTML = `<div class="modal-title">Customize ${escapeHtml(productData.name)}</div><button class="close-btn" id="closeModalBtn"><i class="fas fa-times"></i></button>`;
                   
-                  let selectedFlavour = (productData.flavours && productData.flavours.length > 0) ? (typeof productData.flavours[0] === 'string' ? productData.flavours[0] : productData.flavours[0].name) : "";
-                  let selectedDrink = (productData.drinks && productData.drinks.length > 0) ? (typeof productData.drinks[0] === 'string' ? productData.drinks[0] : productData.drinks[0].name) : "";
-                  let extraQuantities = {};
-                  let mainQuantity = 1;
-
-                  if (productData.hasExtras && productData.extras) {
-                        productData.extras.forEach(extra => { extraQuantities[extra.id] = 0; });
-                  }
-
-                  const header = document.createElement('div');
-                  header.className = 'modal-header';
-                  header.innerHTML = `
-                        <div class="modal-title">Customize ${escapeHtml(productData.name)}</div>
-                        <button class="close-btn" id="closeModalBtn"><i class="fas fa-times"></i></button>
-                  `;
-
                   const content = document.createElement('div');
                   content.className = 'modal-content';
-
                   content.innerHTML = `
                         <img src="${productData.image || 'https://via.placeholder.com/300x200/8B0000/white?text=KFC'}" class="modal-image" onerror="this.src='https://via.placeholder.com/300x200/8B0000/white?text=KFC'">
                         <h2 class="modal-item-title">${escapeHtml(productData.name)}</h2>
                         <p class="modal-desc">${escapeHtml(productData.description || '')}</p>
                   `;
-
+                  
                   // Flavours
                   if (productData.hasFlavours && productData.flavours && productData.flavours.length > 0) {
                         const flavourDiv = document.createElement('div');
                         flavourDiv.className = 'flavour-row';
-                        
                         productData.flavours.forEach(flavour => {
                               const flavourName = typeof flavour === 'string' ? flavour : flavour.name;
                               const optSpan = document.createElement('span');
@@ -1507,17 +471,16 @@
                         });
                         content.appendChild(flavourDiv);
                   }
-
+                  
                   // Drinks
                   if (productData.hasDrinks && productData.drinks && productData.drinks.length > 0) {
                         const drinkSection = document.createElement('div');
                         drinkSection.innerHTML = `<div class="section-title-modal"><i class="fas fa-glass-cheers"></i> Choose your drink</div>`;
                         const drinksRow = document.createElement('div');
                         drinksRow.className = 'drink-options';
-                        
-                        productData.drinks.forEach(drink => {
+                        productData.drinks.forEach((drink, idx) => {
                               const drinkName = typeof drink === 'string' ? drink : drink.name;
-                              const selectedClass = selectedDrink === drinkName ? 'selected' : '';
+                              const selectedClass = (idx === 0 && !selectedDrink) || selectedDrink === drinkName ? 'selected' : '';
                               const drinkDiv = document.createElement('div');
                               drinkDiv.className = `drink-option ${selectedClass}`;
                               drinkDiv.setAttribute('data-drink', drinkName);
@@ -1532,143 +495,48 @@
                         drinkSection.appendChild(drinksRow);
                         content.appendChild(drinkSection);
                   }
-
-                  // Extras
-                  if (productData.hasExtras && productData.extras && productData.extras.length > 0) {
-                        const extrasSection = document.createElement('div');
-                        extrasSection.innerHTML = `<div class="section-title-modal"><i class="fas fa-plus-circle"></i> Add Extras</div>`;
-                        const extrasList = document.createElement('div');
-                        extrasList.className = 'extras-section';
-                        
-                        productData.extras.forEach(extra => {
-                              const extraDiv = document.createElement('div');
-                              extraDiv.className = 'extra-item';
-                              const qty = extraQuantities[extra.id] || 0;
-                              extraDiv.innerHTML = `
-                                    <span><strong>${escapeHtml(extra.name)}</strong> - ${(extra.price || 0).toFixed(2)} MAD</span>
-                                    <div style="display: flex; align-items: center; gap: 10px;">
-                                          <button class="extra-minus" data-id="${extra.id}" style="width:30px;height:30px;border-radius:50%;border:none;background:#8B0000;color:white;cursor:pointer;">-</button>
-                                          <span class="extra-qty" id="extra-qty-${extra.id}" style="min-width:30px;text-align:center;">${qty}</span>
-                                          <button class="extra-plus" data-id="${extra.id}" style="width:30px;height:30px;border-radius:50%;border:none;background:#8B0000;color:white;cursor:pointer;">+</button>
-                                    </div>
-                              `;
-                              extrasList.appendChild(extraDiv);
-                        });
-                        extrasSection.appendChild(extrasList);
-                        content.appendChild(extrasSection);
-                  }
-
+                  
                   // Special instructions
-                  const instrDiv = document.createElement('div');
-                  instrDiv.innerHTML = `
-                        <div class="section-title-modal"><i class="fas fa-pen"></i> Special instructions</div>
-                        <textarea id="specialInstructions" class="special-instructions" placeholder="Special instructions..." rows="2"></textarea>
-                  `;
-                  content.appendChild(instrDiv);
-
-                  // Footer
+                  content.innerHTML += `<div class="section-title-modal"><i class="fas fa-pen"></i> Special instructions</div>
+                        <textarea id="specialInstructions" class="special-instructions" placeholder="Special instructions..." rows="2"></textarea>`;
+                  
                   const footer = document.createElement('div');
                   footer.className = 'fixed-footer';
-                  
-                  function calculateTotal() {
-                        let extrasTotal = 0;
-                        if (productData.hasExtras && productData.extras) {
-                              productData.extras.forEach(extra => {
-                                    extrasTotal += (extra.price || 0) * (extraQuantities[extra.id] || 0);
-                              });
-                        }
-                        return (productData.price * mainQuantity) + extrasTotal;
-                  }
-                  
                   footer.innerHTML = `
-                        <div class="counter">
-                              <button class="counter-btn" id="decrementBtn"><i class="fas fa-minus"></i></button>
-                              <span class="counter-value" id="counterValue">${mainQuantity}</span>
-                              <button class="counter-btn" id="incrementBtn"><i class="fas fa-plus"></i></button>
-                        </div>
-                        <button class="modal-add-btn" id="modalAddBtn">
-                              <i class="fas fa-shopping-bag"></i> Add · <span id="totalPrice">${calculateTotal().toFixed(2)} MAD</span>
-                        </button>
+                        <div class="counter"><button class="counter-btn" id="decrementBtn"><i class="fas fa-minus"></i></button><span class="counter-value" id="counterValue">${mainQuantity}</span><button class="counter-btn" id="incrementBtn"><i class="fas fa-plus"></i></button></div>
+                        <button class="modal-add-btn" id="modalAddBtn"><i class="fas fa-shopping-bag"></i> Add · <span id="totalPrice">${(productData.price * mainQuantity).toFixed(2)} MAD</span></button>
                   `;
-
+                  
                   modal.appendChild(header);
                   modal.appendChild(content);
                   modal.appendChild(footer);
-
-                  // Bind events
+                  
+                  // Events
                   const closeBtn = modal.querySelector('#closeModalBtn');
                   closeBtn.addEventListener('click', closeModal);
-
-                  // Extra buttons
-                  setTimeout(() => {
-                        document.querySelectorAll('.extra-minus').forEach(btn => {
-                              btn.addEventListener('click', () => {
-                                    const id = btn.getAttribute('data-id');
-                                    if (extraQuantities[id] > 0) {
-                                          extraQuantities[id]--;
-                                          const qtySpan = document.getElementById(`extra-qty-${id}`);
-                                          if (qtySpan) qtySpan.textContent = extraQuantities[id];
-                                          updateModalTotal();
-                                    }
-                              });
-                        });
-                        document.querySelectorAll('.extra-plus').forEach(btn => {
-                              btn.addEventListener('click', () => {
-                                    const id = btn.getAttribute('data-id');
-                                    extraQuantities[id]++;
-                                    const qtySpan = document.getElementById(`extra-qty-${id}`);
-                                    if (qtySpan) qtySpan.textContent = extraQuantities[id];
-                                    updateModalTotal();
-                              });
-                        });
-                  }, 100);
-
-                  function updateModalTotal() {
-                        const total = calculateTotal();
-                        const totalSpan = modal.querySelector('#totalPrice');
-                        if (totalSpan) totalSpan.textContent = total.toFixed(2) + ' MAD';
-                  }
-
-                  // Quantity counter
+                  
                   const decrementBtn = modal.querySelector('#decrementBtn');
                   const incrementBtn = modal.querySelector('#incrementBtn');
                   const counterValue = modal.querySelector('#counterValue');
-
+                  const totalPriceSpan = modal.querySelector('#totalPrice');
+                  
                   decrementBtn.addEventListener('click', () => {
-                        if (mainQuantity > 1) {
-                              mainQuantity--;
-                              counterValue.textContent = mainQuantity;
-                              updateModalTotal();
-                        }
+                        if (mainQuantity > 1) { mainQuantity--; counterValue.textContent = mainQuantity; totalPriceSpan.textContent = (productData.price * mainQuantity).toFixed(2) + ' MAD'; }
                   });
-
                   incrementBtn.addEventListener('click', () => {
-                        mainQuantity++;
-                        counterValue.textContent = mainQuantity;
-                        updateModalTotal();
+                        mainQuantity++; counterValue.textContent = mainQuantity; totalPriceSpan.textContent = (productData.price * mainQuantity).toFixed(2) + ' MAD';
                   });
-
-                  // Add button
+                  
                   const addBtn = modal.querySelector('#modalAddBtn');
                   addBtn.addEventListener('click', () => {
-                        const selectedExtras = {};
-                        if (productData.hasExtras && productData.extras) {
-                              productData.extras.forEach(extra => {
-                                    if (extraQuantities[extra.id] > 0) {
-                                          selectedExtras[extra.id] = { name: extra.name, quantity: extraQuantities[extra.id], price: extra.price };
-                                    }
-                              });
-                        }
                         const customizations = {};
                         if (selectedFlavour) customizations.flavour = selectedFlavour;
                         if (selectedDrink) customizations.drink = selectedDrink;
-                        if (Object.keys(selectedExtras).length > 0) customizations.extras = selectedExtras;
-                        
                         const specialInstructions = modal.querySelector('#specialInstructions')?.value || "";
                         addToCart(productData, mainQuantity, customizations, specialInstructions);
                         closeModal();
                   });
-
+                  
                   return modal;
             }
 
@@ -1676,18 +544,10 @@
                   currentProduct = product;
                   const modalOverlay = document.getElementById('modalOverlay');
                   document.body.style.overflow = 'hidden';
-                  
-                  let modal;
-                  if (product.totalPieces) {
-                        modal = buildSliderModal(product);
-                  } else {
-                        modal = buildExtrasModal(product);
-                  }
-                  
+                  const modal = buildSimpleModal(product);
                   modalOverlay.innerHTML = '';
                   modalOverlay.appendChild(modal);
                   modalOverlay.style.display = 'flex';
-                  
                   modalOverlay.addEventListener('click', function(e) {
                         if (e.target === modalOverlay) closeModal();
                   });
@@ -1701,7 +561,7 @@
                   currentProduct = null;
             }
 
-            // ==================== Cart Functions with Stars Animation ====================
+            // ==================== تحسين أنيميشن الإضافة ====================
             function addToCart(product, quantity, customizations, specialInstructions) {
                   const existingIndex = cart.findIndex(item => 
                         item.id === product.id && 
@@ -1740,38 +600,81 @@
                   setTimeout(() => toast.remove(), 2000);
             }
 
+            // ==================== أنيميشن الطيران والنجوم المعدل بالكامل ====================
             function createFlyingAndStarsAnimation() {
                   const viewCartBtn = document.getElementById('viewCartBtn');
                   if (!lastClickedAddRect || !viewCartBtn) return;
                   
+                  const startX = lastClickedAddRect.left + lastClickedAddRect.width / 2;
+                  const startY = lastClickedAddRect.top + lastClickedAddRect.height / 2;
                   const cartRect = viewCartBtn.getBoundingClientRect();
+                  const endX = cartRect.left + cartRect.width / 2;
+                  const endY = cartRect.top + cartRect.height / 2;
+                  
+                  // إنشاء العنصر الطائر
                   const flyingEl = document.createElement('div');
                   flyingEl.className = 'flying-element';
-                  flyingEl.style.left = (lastClickedAddRect.left + lastClickedAddRect.width / 2) + 'px';
-                  flyingEl.style.top = (lastClickedAddRect.top + lastClickedAddRect.height / 2) + 'px';
-                  flyingEl.style.transform = 'translate(-50%, -50%)';
+                  flyingEl.style.left = startX + 'px';
+                  flyingEl.style.top = startY + 'px';
+                  flyingEl.style.transform = 'translate(-50%, -50%) scale(1)';
+                  flyingEl.style.opacity = '1';
                   document.body.appendChild(flyingEl);
                   
-                  setTimeout(() => {
-                        flyingEl.style.transform = `translate(${cartRect.left - lastClickedAddRect.left}px, ${cartRect.top - lastClickedAddRect.top}px) scale(0.1)`;
-                        flyingEl.style.opacity = '0';
-                        setTimeout(() => flyingEl.remove(), 500);
-                  }, 10);
+                  // تخزين العنصر للتتبع
+                  activeFlyingElements.push(flyingEl);
                   
-                  // Create stars animation around the cart button
+                  //强制执行 إعادة الرسم
+                  flyingEl.offsetHeight;
+                  
+                  // بدء أنيميشن الطيران
+                  flyingEl.style.transition = 'all 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1)';
+                  flyingEl.style.transform = `translate(${endX - startX}px, ${endY - startY}px) scale(0.3)`;
+                  flyingEl.style.opacity = '0';
+                  
+                  // إزالة العنصر بعد انتهاء الأنيميشن
+                  const removeFlyingElement = () => {
+                        if (flyingEl && flyingEl.parentNode) {
+                              flyingEl.remove();
+                        }
+                        const index = activeFlyingElements.indexOf(flyingEl);
+                        if (index > -1) activeFlyingElements.splice(index, 1);
+                  };
+                  
+                  flyingEl.addEventListener('transitionend', removeFlyingElement, { once: true });
+                  
+                  // تأمين: إزالة العنصر بعد 1 ثانية إذا لم يتم إزالته تلقائياً
+                  setTimeout(() => {
+                        if (flyingEl && flyingEl.parentNode) {
+                              flyingEl.remove();
+                              const index = activeFlyingElements.indexOf(flyingEl);
+                              if (index > -1) activeFlyingElements.splice(index, 1);
+                        }
+                  }, 600);
+                  
+                  // إنشاء تأثير النجوم حول زر السلة
                   for (let i = 0; i < 12; i++) {
-                        const star = document.createElement('div');
-                        star.className = 'star';
-                        star.innerHTML = '★';
-                        star.style.left = (cartRect.left + cartRect.width / 2) + 'px';
-                        star.style.top = (cartRect.top + cartRect.height / 2) + 'px';
-                        document.body.appendChild(star);
-                        const angle = Math.random() * Math.PI * 2;
-                        const distance = 40 + Math.random() * 50;
-                        star.animate([
-                              { transform: 'translate(0,0) scale(1)', opacity: 1 },
-                              { transform: `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px) scale(0)`, opacity: 0 }
-                        ], { duration: 800, easing: 'cubic-bezier(0.2, 0.9, 0.4, 1.1)' }).onfinish = () => star.remove();
+                        setTimeout(() => {
+                              const star = document.createElement('div');
+                              star.className = 'star';
+                              star.innerHTML = '★';
+                              star.style.left = (cartRect.left + cartRect.width / 2) + 'px';
+                              star.style.top = (cartRect.top + cartRect.height / 2) + 'px';
+                              star.style.transform = 'translate(-50%, -50%)';
+                              document.body.appendChild(star);
+                              
+                              const angle = Math.random() * Math.PI * 2;
+                              const distance = 30 + Math.random() * 40;
+                              const endXStar = Math.cos(angle) * distance;
+                              const endYStar = Math.sin(angle) * distance;
+                              
+                              star.animate([
+                                    { transform: 'translate(-50%, -50%) scale(1)', opacity: 1 },
+                                    { transform: `translate(${endXStar - 0}px, ${endYStar - 0}px) scale(0)`, opacity: 0 }
+                              ], {
+                                    duration: 600,
+                                    easing: 'cubic-bezier(0.2, 0.9, 0.4, 1.1)'
+                              }).onfinish = () => star.remove();
+                        }, i * 30);
                   }
                   
                   lastClickedAddRect = null;
@@ -1884,7 +787,7 @@
                   });
             }
 
-            // ==================== Intersection Observer with Category Highlight ====================
+            // ==================== Intersection Observer ====================
             function setupIntersectionObserver() {
                   const categories = document.querySelectorAll('.category');
                   const sections = document.querySelectorAll('.category-items-section');
@@ -1908,40 +811,10 @@
                   sections.forEach(section => { observer.observe(section); });
             }
 
-            // ==================== Category Click with Pulse Animation ====================
-            function setupCategoryClick() {
-                  const categories = document.querySelectorAll('.category');
-                  const categoriesContainer = document.getElementById('categoriesContainer');
-                  
-                  categories.forEach(cat => { 
-                        cat.addEventListener('click', function() { 
-                              const categoryId = this.getAttribute('data-category'); 
-                              const section = document.getElementById(`${categoryId}Section`); 
-                              if (section) { 
-                                    // Add pulse animation
-                                    this.classList.add('highlight');
-                                    setTimeout(() => this.classList.remove('highlight'), 500);
-                                    
-                                    section.scrollIntoView({ behavior: 'smooth' }); 
-                                    
-                                    // Scroll category into view
-                                    const containerWidth = categoriesContainer.offsetWidth;
-                                    const categoryLeft = this.offsetLeft;
-                                    const categoryWidth = this.offsetWidth;
-                                    categoriesContainer.scrollTo({
-                                          left: categoryLeft - (containerWidth / 2) + (categoryWidth / 2),
-                                          behavior: 'smooth'
-                                    });
-                              } 
-                        }); 
-                  });
-            }
-
             // ==================== Event Listeners & Init ====================
             document.getElementById('backButton').addEventListener('click', () => { window.location.href = 'index.html'; });
             document.getElementById('viewCartBtn').addEventListener('click', () => { window.location.href = 'checkout.html'; });
             
-            // Search button
             document.getElementById('searchButton').addEventListener('click', () => { 
                   document.getElementById('searchOverlay').style.display = 'flex'; 
                   document.body.style.overflow = 'hidden'; 
@@ -1958,7 +831,6 @@
                   } 
             });
             
-            // Share button
             document.getElementById('shareButton').addEventListener('click', () => { 
                   document.getElementById('shareOverlay').style.display = 'flex'; 
                   document.body.style.overflow = 'hidden'; 
@@ -1974,19 +846,26 @@
                   } 
             });
             
-            // Navbar scroll effect
             window.addEventListener('scroll', () => { 
                   const navbar = document.getElementById('navbar'); 
                   if (window.scrollY > 100) navbar.classList.add('scrolled'); 
                   else navbar.classList.remove('scrolled'); 
             });
             
-            // Make functions global
+            document.querySelectorAll('.category').forEach(cat => { 
+                  cat.addEventListener('click', function() { 
+                        const categoryId = this.getAttribute('data-category'); 
+                        const section = document.getElementById(`${categoryId}Section`); 
+                        if (section) { 
+                              section.scrollIntoView({ behavior: 'smooth' }); 
+                        } 
+                  }); 
+            });
+            
             window.closeModal = closeModal;
             
             setupSearch();
             setupShare();
-            setupCategoryClick();
             loadProducts();
       </script>
 </body>
