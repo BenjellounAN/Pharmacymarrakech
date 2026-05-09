@@ -34,13 +34,13 @@
       <meta name="twitter:description" content="Order crispy fried chicken from KFC for fast delivery in Marrakech.">
       <meta name="twitter:image" content="https://i.ibb.co/0VZXFKTk/IMG-3736.jpg">
 
-      <!-- === Schema.org markup for Menu Page === -->
+      <!-- === Schema.org markup === -->
       <script type="application/ld+json">
       {
             "@context": "https://schema.org",
             "@type": "WebPage",
             "name": "KFC Delivery Menu - Marrakech",
-            "description": "Order crispy fried chicken, Original Recipe chicken, Zinger burger, popcorn chicken, fries, and more from KFC for fast delivery in Marrakech.",
+            "description": "Order crispy fried chicken from KFC for fast delivery in Marrakech.",
             "url": "https://www.delivery-marrakech.com/menukfc.html",
             "about": {
                   "@type": "FastFoodRestaurant",
@@ -63,10 +63,6 @@
                         "closes": "23:30"
                   }],
                   "servesCuisine": ["Fried Chicken", "American", "Fast Food"]
-            },
-            "potentialAction": {
-                  "@type": "OrderAction",
-                  "target": "https://www.delivery-marrakech.com/order/kfc"
             }
       }
       </script>
@@ -81,7 +77,6 @@
       <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
       
       <style>
-            /* جميع الأنماط الأصلية من التصميم الثاني كما هي دون تغيير */
             * {
                   margin: 0;
                   padding: 0;
@@ -292,16 +287,26 @@
                   opacity: 1;
             }
 
+            .category.highlight {
+                  animation: pulse 0.5s ease;
+            }
+
+            @keyframes pulse {
+                  0% { transform: scale(1); }
+                  50% { transform: scale(1.08); }
+                  100% { transform: scale(1.05); }
+            }
+
             .category-items-section {
                   padding: 20px 16px;
                   background-color: white;
                   border-radius: 16px;
                   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-                  margin-bottom: 16px;
+                  margin-bottom: 20px;
                   scroll-margin-top: 120px;
                   opacity: 0;
-                  transform: translateY(20px);
-                  transition: opacity 0.5s ease, transform 0.5s ease;
+                  transform: translateY(30px);
+                  transition: opacity 0.6s ease, transform 0.6s ease;
             }
 
             .category-items-section.visible {
@@ -608,10 +613,10 @@
             }
 
             .flavour-side img {
-                  width: 70px;
-                  height: 70px;
+                  width: 80px;
+                  height: 80px;
                   object-fit: cover;
-                  border-radius: 35px;
+                  border-radius: 40px;
                   border: 3px solid white;
                   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
             }
@@ -623,7 +628,7 @@
             }
 
             .flavour-side .quantity {
-                  font-size: 26px;
+                  font-size: 28px;
                   font-weight: 800;
                   color: #8b0000;
                   background: white;
@@ -631,7 +636,7 @@
                   border-radius: 40px;
                   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
                   margin-top: 4px;
-                  min-width: 50px;
+                  min-width: 60px;
                   text-align: center;
             }
 
@@ -684,6 +689,27 @@
                   margin-top: -9px;
             }
 
+            .flavour-row {
+                  display: flex;
+                  gap: 15px;
+                  margin: 20px 0;
+                  justify-content: center;
+            }
+
+            .flavour-option {
+                  padding: 10px 28px;
+                  background: #f0f0f0;
+                  border-radius: 30px;
+                  cursor: pointer;
+                  font-weight: 500;
+                  transition: all 0.2s;
+            }
+
+            .flavour-option.active {
+                  background: #8B0000;
+                  color: white;
+            }
+
             .drink-options {
                   display: flex;
                   flex-wrap: wrap;
@@ -694,14 +720,13 @@
             .drink-option {
                   display: flex;
                   align-items: center;
-                  gap: 6px;
+                  gap: 8px;
                   cursor: pointer;
                   background: white;
                   padding: 8px 16px;
                   border-radius: 40px;
                   border: 1px solid #ddd;
                   transition: 0.2s;
-                  flex: 0 1 auto;
             }
 
             .drink-option.selected {
@@ -712,6 +737,20 @@
             .drink-name {
                   font-weight: 500;
                   font-size: 15px;
+            }
+
+            .extras-section {
+                  margin: 15px 0;
+            }
+
+            .extra-item {
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  padding: 12px;
+                  background: #f9f9f9;
+                  border-radius: 12px;
+                  margin-bottom: 8px;
             }
 
             .special-instructions {
@@ -784,7 +823,7 @@
                   background: linear-gradient(145deg, #8b0000, #a50000);
                   color: white;
                   border: none;
-                  padding: 10px 20px;
+                  padding: 12px 24px;
                   border-radius: 50px;
                   font-weight: 600;
                   font-size: 14px;
@@ -811,7 +850,7 @@
                   box-shadow: 0 0 15px rgba(139, 0, 0, 0.7);
                   z-index: 9999;
                   pointer-events: none;
-                  transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                  transition: transform 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1);
             }
 
             .flying-element::after {
@@ -820,8 +859,8 @@
 
             .star {
                   position: fixed;
-                  color: #ffd700;
-                  font-size: 12px;
+                  color: #FFD700;
+                  font-size: 14px;
                   pointer-events: none;
                   z-index: 9999;
                   text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
@@ -884,83 +923,90 @@
                   border-radius: 10px;
                   object-fit: cover;
                   margin-right: 15px;
-                }
+            }
 
-                .search-result-info {
-                      flex: 1;
-                }
+            .search-result-info {
+                  flex: 1;
+            }
 
-                .search-result-name {
-                      font-weight: 600;
-                      margin-bottom: 5px;
-                }
+            .search-result-name {
+                  font-weight: 600;
+                  margin-bottom: 5px;
+            }
 
-                .search-result-price {
-                      color: #8B0000;
-                      font-weight: 700;
-                }
+            .search-result-price {
+                  color: #8B0000;
+                  font-weight: 700;
+            }
 
-                .no-results {
-                      text-align: center;
-                      padding: 20px;
-                      color: #7F8C8D;
-                }
+            .no-results {
+                  text-align: center;
+                  padding: 20px;
+                  color: #7F8C8D;
+            }
 
-                .share-modal {
-                      background: white;
-                      width: 100%;
-                      max-width: 500px;
-                      border-radius: 20px;
-                      overflow: hidden;
-                }
+            .share-modal {
+                  background: white;
+                  width: 100%;
+                  max-width: 500px;
+                  border-radius: 20px;
+                  overflow: hidden;
+            }
 
-                .share-options {
-                      padding: 20px;
-                      display: flex;
-                      flex-direction: column;
-                      gap: 15px;
-                }
+            .share-options {
+                  padding: 20px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 15px;
+            }
 
-                .share-option {
-                      display: flex;
-                      align-items: center;
-                      padding: 15px;
-                      background: #F9F9F9;
-                      border-radius: 12px;
-                      cursor: pointer;
-                      transition: all 0.3s ease;
-                }
+            .share-option {
+                  display: flex;
+                  align-items: center;
+                  padding: 15px;
+                  background: #F9F9F9;
+                  border-radius: 12px;
+                  cursor: pointer;
+                  transition: all 0.3s ease;
+            }
 
-                .share-option:hover {
-                      background: #8B0000;
-                      color: white;
-                }
+            .share-option:hover {
+                  background: #8B0000;
+                  color: white;
+            }
 
-                .share-icon {
-                      width: 40px;
-                      height: 40px;
-                      border-radius: 50%;
-                      background: #8B0000;
-                      color: white;
-                      display: flex;
-                      align-items: center;
-                      justify-content: center;
-                      margin-right: 15px;
-                }
+            .share-icon {
+                  width: 40px;
+                  height: 40px;
+                  border-radius: 50%;
+                  background: #8B0000;
+                  color: white;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  margin-right: 15px;
+            }
 
-                .share-text {
-                      font-weight: 500;
-                      font-size: 16px;
-                }
+            .share-text {
+                  font-weight: 500;
+                  font-size: 16px;
+            }
 
-                @keyframes slideIn {
-                      from { opacity: 0; transform: translateY(30px); }
-                      to { opacity: 1; transform: translateY(0); }
-                }
+            @keyframes slideIn {
+                  from { opacity: 0; transform: translateY(30px); }
+                  to { opacity: 1; transform: translateY(0); }
+            }
 
-                .animate-section {
-                      animation: slideIn 0.6s ease forwards;
-                }
+            .animate-section {
+                  animation: slideIn 0.6s ease forwards;
+            }
+
+            @keyframes fadeInOut {
+                  0% { opacity: 0; transform: translateX(-50%) translateY(20px); }
+                  10% { opacity: 1; transform: translateX(-50%) translateY(0); }
+                  90% { opacity: 1; transform: translateX(-50%) translateY(0); }
+                  100% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+            }
       </style>
 </head>
 
@@ -1088,7 +1134,6 @@
             
             let cart = JSON.parse(localStorage.getItem('kfcCart')) || [];
             let currentProduct = null;
-            let currentModal = null;
             let lastClickedAddRect = null;
 
             const categoryNames = {
@@ -1226,28 +1271,26 @@
                   const rect = btn.getBoundingClientRect();
                   lastClickedAddRect = { left: rect.left, top: rect.top, width: rect.width, height: rect.height };
                   
-                  // Check if product has customizations (flavours, drinks, extras)
-                  if (product.hasFlavours || product.hasDrinks || (product.hasExtras && product.extras?.length > 0)) {
+                  if (product.hasFlavours || product.hasDrinks || (product.hasExtras && product.extras?.length > 0) || product.totalPieces) {
                         openCustomizationModal(product);
                   } else {
                         addToCart(product, 1, {}, "");
                   }
             }
 
-            // ==================== Slider Modal for Products with totalPieces ====================
+            // ==================== Advanced Slider Modal (Like Original KFC Modal) ====================
             function buildSliderModal(productData) {
                   const modal = document.createElement('div');
                   modal.className = 'modal';
                   
                   const totalPieces = productData.totalPieces || 4;
-                  const leftFlavour = (productData.flavours && productData.flavours[0]) ? productData.flavours[0] : { name: "Spicy", img: "https://i.ibb.co/ymmg8ywn/IMG-5106.png" };
-                  const rightFlavour = (productData.flavours && productData.flavours[1]) ? productData.flavours[1] : { name: "Original", img: "https://i.ibb.co/ymmg8ywn/IMG-5106.png" };
+                  const leftFlavour = (productData.flavours && productData.flavours[0]) ? productData.flavours[0] : { name: "Spicy Strips", img: "https://i.ibb.co/ymmg8ywn/IMG-5106.png" };
+                  const rightFlavour = (productData.flavours && productData.flavours[1]) ? productData.flavours[1] : { name: "Original Strips", img: "https://i.ibb.co/ymmg8ywn/IMG-5106.png" };
                   
                   let leftQty = Math.floor(totalPieces / 2);
                   let rightQty = totalPieces - leftQty;
                   let mainQuantity = 1;
                   let selectedDrink = (productData.drinks && productData.drinks[0]) ? (typeof productData.drinks[0] === 'string' ? productData.drinks[0] : productData.drinks[0].name) : "Pepsi";
-                  let drinkImg = "";
 
                   const header = document.createElement('div');
                   header.className = 'modal-header';
@@ -1267,14 +1310,14 @@
                         <div class="flavour-balance">
                               <div class="flavour-labels">
                                     <div class="flavour-side">
-                                          <img src="${leftFlavour.img || 'https://i.ibb.co/ymmg8ywn/IMG-5106.png'}" alt="${leftFlavour.name}">
+                                          <img src="${leftFlavour.img}" alt="${leftFlavour.name}" onerror="this.src='https://i.ibb.co/ymmg8ywn/IMG-5106.png'">
                                           <span>${escapeHtml(leftFlavour.name)}</span>
                                           <div class="quantity" id="leftQtyDisplay">${leftQty}</div>
                                           <span class="pieces-label">pieces</span>
                                     </div>
                                     <div class="vs-divider">VS</div>
                                     <div class="flavour-side">
-                                          <img src="${rightFlavour.img || 'https://i.ibb.co/ymmg8ywn/IMG-5106.png'}" alt="${rightFlavour.name}">
+                                          <img src="${rightFlavour.img}" alt="${rightFlavour.name}" onerror="this.src='https://i.ibb.co/ymmg8ywn/IMG-5106.png'">
                                           <span>${escapeHtml(rightFlavour.name)}</span>
                                           <div class="quantity" id="rightQtyDisplay">${rightQty}</div>
                                           <span class="pieces-label">pieces</span>
@@ -1415,12 +1458,12 @@
                   return modal;
             }
 
-            // ==================== Simple Modal for Products with Extras ====================
+            // ==================== Extras Modal ====================
             function buildExtrasModal(productData) {
                   const modal = document.createElement('div');
                   modal.className = 'modal';
                   
-                  let selectedFlavour = (productData.flavours && productData.flavours.length > 0) ? productData.flavours[0].name : "";
+                  let selectedFlavour = (productData.flavours && productData.flavours.length > 0) ? (typeof productData.flavours[0] === 'string' ? productData.flavours[0] : productData.flavours[0].name) : "";
                   let selectedDrink = (productData.drinks && productData.drinks.length > 0) ? (typeof productData.drinks[0] === 'string' ? productData.drinks[0] : productData.drinks[0].name) : "";
                   let extraQuantities = {};
                   let mainQuantity = 1;
@@ -1449,20 +1492,12 @@
                   if (productData.hasFlavours && productData.flavours && productData.flavours.length > 0) {
                         const flavourDiv = document.createElement('div');
                         flavourDiv.className = 'flavour-row';
-                        flavourDiv.style.display = 'flex';
-                        flavourDiv.style.gap = '15px';
-                        flavourDiv.style.justifyContent = 'center';
-                        flavourDiv.style.margin = '20px 0';
                         
                         productData.flavours.forEach(flavour => {
                               const flavourName = typeof flavour === 'string' ? flavour : flavour.name;
                               const optSpan = document.createElement('span');
                               optSpan.className = `flavour-option ${selectedFlavour === flavourName ? 'active' : ''}`;
                               optSpan.textContent = flavourName;
-                              optSpan.style.padding = '10px 25px';
-                              optSpan.style.background = '#f0f0f0';
-                              optSpan.style.borderRadius = '30px';
-                              optSpan.style.cursor = 'pointer';
                               optSpan.addEventListener('click', () => {
                                     flavourDiv.querySelectorAll('.flavour-option').forEach(el => el.classList.remove('active'));
                                     optSpan.classList.add('active');
@@ -1508,14 +1543,6 @@
                         productData.extras.forEach(extra => {
                               const extraDiv = document.createElement('div');
                               extraDiv.className = 'extra-item';
-                              extraDiv.style.display = 'flex';
-                              extraDiv.style.justifyContent = 'space-between';
-                              extraDiv.style.alignItems = 'center';
-                              extraDiv.style.padding = '10px';
-                              extraDiv.style.background = '#f9f9f9';
-                              extraDiv.style.borderRadius = '12px';
-                              extraDiv.style.marginBottom = '8px';
-                              
                               const qty = extraQuantities[extra.id] || 0;
                               extraDiv.innerHTML = `
                                     <span><strong>${escapeHtml(extra.name)}</strong> - ${(extra.price || 0).toFixed(2)} MAD</span>
@@ -1542,6 +1569,17 @@
                   // Footer
                   const footer = document.createElement('div');
                   footer.className = 'fixed-footer';
+                  
+                  function calculateTotal() {
+                        let extrasTotal = 0;
+                        if (productData.hasExtras && productData.extras) {
+                              productData.extras.forEach(extra => {
+                                    extrasTotal += (extra.price || 0) * (extraQuantities[extra.id] || 0);
+                              });
+                        }
+                        return (productData.price * mainQuantity) + extrasTotal;
+                  }
+                  
                   footer.innerHTML = `
                         <div class="counter">
                               <button class="counter-btn" id="decrementBtn"><i class="fas fa-minus"></i></button>
@@ -1549,7 +1587,7 @@
                               <button class="counter-btn" id="incrementBtn"><i class="fas fa-plus"></i></button>
                         </div>
                         <button class="modal-add-btn" id="modalAddBtn">
-                              <i class="fas fa-shopping-bag"></i> Add · <span id="totalPrice">${calculateExtrasTotal(productData, extraQuantities) * mainQuantity} MAD</span>
+                              <i class="fas fa-shopping-bag"></i> Add · <span id="totalPrice">${calculateTotal().toFixed(2)} MAD</span>
                         </button>
                   `;
 
@@ -1562,85 +1600,76 @@
                   closeBtn.addEventListener('click', closeModal);
 
                   // Extra buttons
-                  document.querySelectorAll('.extra-minus').forEach(btn => {
-                        btn.addEventListener('click', () => {
-                              const id = btn.getAttribute('data-id');
-                              if (extraQuantities[id] > 0) {
-                                    extraQuantities[id]--;
-                                    document.getElementById(`extra-qty-${id}`).textContent = extraQuantities[id];
-                                    updateExtrasTotal();
-                              }
+                  setTimeout(() => {
+                        document.querySelectorAll('.extra-minus').forEach(btn => {
+                              btn.addEventListener('click', () => {
+                                    const id = btn.getAttribute('data-id');
+                                    if (extraQuantities[id] > 0) {
+                                          extraQuantities[id]--;
+                                          const qtySpan = document.getElementById(`extra-qty-${id}`);
+                                          if (qtySpan) qtySpan.textContent = extraQuantities[id];
+                                          updateModalTotal();
+                                    }
+                              });
                         });
-                  });
-                  document.querySelectorAll('.extra-plus').forEach(btn => {
-                        btn.addEventListener('click', () => {
-                              const id = btn.getAttribute('data-id');
-                              extraQuantities[id]++;
-                              document.getElementById(`extra-qty-${id}`).textContent = extraQuantities[id];
-                              updateExtrasTotal();
+                        document.querySelectorAll('.extra-plus').forEach(btn => {
+                              btn.addEventListener('click', () => {
+                                    const id = btn.getAttribute('data-id');
+                                    extraQuantities[id]++;
+                                    const qtySpan = document.getElementById(`extra-qty-${id}`);
+                                    if (qtySpan) qtySpan.textContent = extraQuantities[id];
+                                    updateModalTotal();
+                              });
                         });
+                  }, 100);
+
+                  function updateModalTotal() {
+                        const total = calculateTotal();
+                        const totalSpan = modal.querySelector('#totalPrice');
+                        if (totalSpan) totalSpan.textContent = total.toFixed(2) + ' MAD';
+                  }
+
+                  // Quantity counter
+                  const decrementBtn = modal.querySelector('#decrementBtn');
+                  const incrementBtn = modal.querySelector('#incrementBtn');
+                  const counterValue = modal.querySelector('#counterValue');
+
+                  decrementBtn.addEventListener('click', () => {
+                        if (mainQuantity > 1) {
+                              mainQuantity--;
+                              counterValue.textContent = mainQuantity;
+                              updateModalTotal();
+                        }
                   });
 
-                  function calculateExtrasTotal(product, extras) {
-                        let total = product.price;
-                        if (product.hasExtras && product.extras) {
-                              product.extras.forEach(extra => {
-                                    total += (extra.price || 0) * (extras[extra.id] || 0);
+                  incrementBtn.addEventListener('click', () => {
+                        mainQuantity++;
+                        counterValue.textContent = mainQuantity;
+                        updateModalTotal();
+                  });
+
+                  // Add button
+                  const addBtn = modal.querySelector('#modalAddBtn');
+                  addBtn.addEventListener('click', () => {
+                        const selectedExtras = {};
+                        if (productData.hasExtras && productData.extras) {
+                              productData.extras.forEach(extra => {
+                                    if (extraQuantities[extra.id] > 0) {
+                                          selectedExtras[extra.id] = { name: extra.name, quantity: extraQuantities[extra.id], price: extra.price };
+                                    }
                               });
                         }
-                        return total;
-                      }
+                        const customizations = {};
+                        if (selectedFlavour) customizations.flavour = selectedFlavour;
+                        if (selectedDrink) customizations.drink = selectedDrink;
+                        if (Object.keys(selectedExtras).length > 0) customizations.extras = selectedExtras;
+                        
+                        const specialInstructions = modal.querySelector('#specialInstructions')?.value || "";
+                        addToCart(productData, mainQuantity, customizations, specialInstructions);
+                        closeModal();
+                  });
 
-                      function updateExtrasTotal() {
-                            const total = calculateExtrasTotal(productData, extraQuantities) * mainQuantity;
-                            const totalSpan = modal.querySelector('#totalPrice');
-                            if (totalSpan) totalSpan.textContent = total.toFixed(2) + ' MAD';
-                      }
-
-                      // Quantity counter
-                      const decrementBtn = modal.querySelector('#decrementBtn');
-                      const incrementBtn = modal.querySelector('#incrementBtn');
-                      const counterValue = modal.querySelector('#counterValue');
-                      const totalPriceSpan = modal.querySelector('#totalPrice');
-
-                      decrementBtn.addEventListener('click', () => {
-                            if (mainQuantity > 1) {
-                                  mainQuantity--;
-                                  counterValue.textContent = mainQuantity;
-                                  const total = calculateExtrasTotal(productData, extraQuantities) * mainQuantity;
-                                  totalPriceSpan.textContent = total.toFixed(2) + ' MAD';
-                            }
-                      });
-
-                      incrementBtn.addEventListener('click', () => {
-                            mainQuantity++;
-                            counterValue.textContent = mainQuantity;
-                            const total = calculateExtrasTotal(productData, extraQuantities) * mainQuantity;
-                            totalPriceSpan.textContent = total.toFixed(2) + ' MAD';
-                      });
-
-                      // Add button
-                      const addBtn = modal.querySelector('#modalAddBtn');
-                      addBtn.addEventListener('click', () => {
-                            const selectedExtras = {};
-                            if (productData.hasExtras && productData.extras) {
-                                  productData.extras.forEach(extra => {
-                                        if (extraQuantities[extra.id] > 0) {
-                                              selectedExtras[extra.id] = { name: extra.name, quantity: extraQuantities[extra.id], price: extra.price };
-                                        }
-                                  });
-                            }
-                            const customizations = {};
-                            if (selectedFlavour) customizations.flavour = selectedFlavour;
-                            if (selectedDrink) customizations.drink = selectedDrink;
-                            if (Object.keys(selectedExtras).length > 0) customizations.extras = selectedExtras;
-                            
-                            const specialInstructions = modal.querySelector('#specialInstructions')?.value || "";
-                            addToCart(productData, mainQuantity, customizations, specialInstructions);
-                            closeModal();
-                      });
-
-                      return modal;
+                  return modal;
             }
 
             function openCustomizationModal(product) {
@@ -1672,7 +1701,7 @@
                   currentProduct = null;
             }
 
-            // ==================== Cart Functions ====================
+            // ==================== Cart Functions with Stars Animation ====================
             function addToCart(product, quantity, customizations, specialInstructions) {
                   const existingIndex = cart.findIndex(item => 
                         item.id === product.id && 
@@ -1699,7 +1728,7 @@
                   }
                   
                   saveCart();
-                  createFlyingAnimation();
+                  createFlyingAndStarsAnimation();
                   showAddedToCartMessage(product.name);
             }
 
@@ -1709,14 +1738,9 @@
                   toast.innerHTML = `<i class="fas fa-check-circle"></i> ${escapeHtml(productName)} added to cart!`;
                   document.body.appendChild(toast);
                   setTimeout(() => toast.remove(), 2000);
-                  
-                  // Add custom style for animation
-                  const style = document.createElement('style');
-                  style.textContent = `@keyframes fadeInOut { 0% { opacity: 0; transform: translateX(-50%) translateY(20px); } 10% { opacity: 1; transform: translateX(-50%) translateY(0); } 90% { opacity: 1; transform: translateX(-50%) translateY(0); } 100% { opacity: 0; transform: translateX(-50%) translateY(-20px); } }`;
-                  document.head.appendChild(style);
             }
 
-            function createFlyingAnimation() {
+            function createFlyingAndStarsAnimation() {
                   const viewCartBtn = document.getElementById('viewCartBtn');
                   if (!lastClickedAddRect || !viewCartBtn) return;
                   
@@ -1734,8 +1758,8 @@
                         setTimeout(() => flyingEl.remove(), 500);
                   }, 10);
                   
-                  // Create stars
-                  for (let i = 0; i < 8; i++) {
+                  // Create stars animation around the cart button
+                  for (let i = 0; i < 12; i++) {
                         const star = document.createElement('div');
                         star.className = 'star';
                         star.innerHTML = '★';
@@ -1743,11 +1767,11 @@
                         star.style.top = (cartRect.top + cartRect.height / 2) + 'px';
                         document.body.appendChild(star);
                         const angle = Math.random() * Math.PI * 2;
-                        const distance = 30 + Math.random() * 40;
+                        const distance = 40 + Math.random() * 50;
                         star.animate([
                               { transform: 'translate(0,0) scale(1)', opacity: 1 },
                               { transform: `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px) scale(0)`, opacity: 0 }
-                        ], { duration: 600, easing: 'ease-out' }).onfinish = () => star.remove();
+                        ], { duration: 800, easing: 'cubic-bezier(0.2, 0.9, 0.4, 1.1)' }).onfinish = () => star.remove();
                   }
                   
                   lastClickedAddRect = null;
@@ -1809,7 +1833,7 @@
                               document.querySelectorAll('.search-result-item').forEach(item => {
                                     item.addEventListener('click', () => {
                                           const product = JSON.parse(item.getAttribute('data-product'));
-                                          if (product.hasFlavours || product.hasDrinks || (product.hasExtras && product.extras?.length > 0)) { 
+                                          if (product.hasFlavours || product.hasDrinks || (product.hasExtras && product.extras?.length > 0) || product.totalPieces) { 
                                                 openCustomizationModal(product); 
                                           } else { 
                                                 addToCart(product, 1, {}, ""); 
@@ -1860,7 +1884,7 @@
                   });
             }
 
-            // ==================== Intersection Observer ====================
+            // ==================== Intersection Observer with Category Highlight ====================
             function setupIntersectionObserver() {
                   const categories = document.querySelectorAll('.category');
                   const sections = document.querySelectorAll('.category-items-section');
@@ -1879,9 +1903,38 @@
                                     });
                               }
                         });
-                  }, { threshold: 0.1, rootMargin: '-80px 0px -50% 0px' });
+                  }, { threshold: 0.2, rootMargin: '-80px 0px -50% 0px' });
                   
                   sections.forEach(section => { observer.observe(section); });
+            }
+
+            // ==================== Category Click with Pulse Animation ====================
+            function setupCategoryClick() {
+                  const categories = document.querySelectorAll('.category');
+                  const categoriesContainer = document.getElementById('categoriesContainer');
+                  
+                  categories.forEach(cat => { 
+                        cat.addEventListener('click', function() { 
+                              const categoryId = this.getAttribute('data-category'); 
+                              const section = document.getElementById(`${categoryId}Section`); 
+                              if (section) { 
+                                    // Add pulse animation
+                                    this.classList.add('highlight');
+                                    setTimeout(() => this.classList.remove('highlight'), 500);
+                                    
+                                    section.scrollIntoView({ behavior: 'smooth' }); 
+                                    
+                                    // Scroll category into view
+                                    const containerWidth = categoriesContainer.offsetWidth;
+                                    const categoryLeft = this.offsetLeft;
+                                    const categoryWidth = this.offsetWidth;
+                                    categoriesContainer.scrollTo({
+                                          left: categoryLeft - (containerWidth / 2) + (categoryWidth / 2),
+                                          behavior: 'smooth'
+                                    });
+                              } 
+                        }); 
+                  });
             }
 
             // ==================== Event Listeners & Init ====================
@@ -1928,22 +1981,12 @@
                   else navbar.classList.remove('scrolled'); 
             });
             
-            // Category click scroll
-            document.querySelectorAll('.category').forEach(cat => { 
-                  cat.addEventListener('click', function() { 
-                        const categoryId = this.getAttribute('data-category'); 
-                        const section = document.getElementById(`${categoryId}Section`); 
-                        if (section) { 
-                              section.scrollIntoView({ behavior: 'smooth' }); 
-                        } 
-                  }); 
-            });
-            
-            // Make functions global for modal buttons
+            // Make functions global
             window.closeModal = closeModal;
             
             setupSearch();
             setupShare();
+            setupCategoryClick();
             loadProducts();
       </script>
 </body>
