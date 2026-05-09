@@ -280,6 +280,22 @@
                   opacity: 1;
             }
 
+            .category.highlight {
+                  animation: pulse 0.5s ease;
+            }
+
+            @keyframes pulse {
+                  0% {
+                        transform: scale(1);
+                  }
+                  50% {
+                        transform: scale(1.08);
+                  }
+                  100% {
+                        transform: scale(1.05);
+                  }
+            }
+
             .category-items-section {
                   padding: 20px 16px;
                   background-color: white;
@@ -373,6 +389,23 @@
                   font-weight: 700;
                   color: #000000;
                   font-size: 16px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 4px;
+            }
+
+            .price-size {
+                  display: flex;
+                  font-size: 14px;
+                  gap: 8px;
+            }
+
+            .size-text {
+                  color: #6C757D;
+            }
+
+            .price-amount {
+                  color: #8B0000;
             }
 
             .item-add-btn {
@@ -630,6 +663,21 @@
                   margin-top: 4px;
             }
 
+            .flavour-side .pieces-label {
+                  font-size: 12px;
+                  font-weight: 700;
+                  text-transform: lowercase;
+                  margin-top: 2px;
+            }
+
+            .pieces-label.spicy {
+                  color: #8b0000;
+            }
+
+            .pieces-label.original {
+                  color: #b45309;
+            }
+
             .vs-divider {
                   font-size: 18px;
                   font-weight: 600;
@@ -679,6 +727,11 @@
                   margin-top: -9px;
             }
 
+            input[type=range]::-webkit-slider-thumb:hover {
+                  transform: scale(1.15);
+                  box-shadow: 0 6px 16px rgba(139, 0, 0, 0.7), 0 0 0 2px white, 0 0 0 4px #8b0000;
+            }
+
             .flavour-row {
                   display: flex;
                   align-items: center;
@@ -698,6 +751,8 @@
                   cursor: pointer;
                   border: 2px solid transparent;
                   transition: all 0.2s;
+                  user-select: none;
+                  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
             }
 
             .flavour-option.active {
@@ -705,6 +760,134 @@
                   color: white;
                   border-color: #8b0000;
                   box-shadow: 0 4px 10px rgba(139, 0, 0, 0.3);
+            }
+
+            .flavour-or {
+                  font-weight: 700;
+                  color: #95A5A6;
+                  font-size: 18px;
+            }
+
+            .extra-heading {
+                  display: flex;
+                  align-items: center;
+                  gap: 8px;
+                  font-weight: 600;
+                  font-size: 18px;
+                  color: #1e1e1e;
+                  margin: 20px 0 15px;
+                  border-bottom: 2px dashed #8b0000;
+                  padding-bottom: 8px;
+            }
+
+            .extra-heading i {
+                  color: #8b0000;
+                  font-size: 22px;
+            }
+
+            .optional-text {
+                  font-size: 14px;
+                  font-weight: 400;
+                  color: #8e8e8e;
+                  margin-left: 5px;
+            }
+
+            .chicken-row {
+                  display: flex;
+                  flex-direction: row;
+                  flex-wrap: nowrap;
+                  gap: 12px;
+                  margin-bottom: 20px;
+                  justify-content: center;
+            }
+
+            .chicken-card {
+                  flex: 1 1 0;
+                  min-width: 0;
+                  background: white;
+                  border: 2px solid #ECF0F1;
+                  border-radius: 16px;
+                  padding: 12px 6px 12px;
+                  text-align: center;
+                  transition: 0.2s;
+                  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+            }
+
+            .chicken-card:hover {
+                  border-color: #8b0000;
+                  background: #FFF5F5;
+            }
+
+            .chicken-img {
+                  width: 100%;
+                  height: 100px;
+                  object-fit: contain;
+                  background: white;
+                  border-radius: 12px;
+                  margin-bottom: 8px;
+                  padding: 4px;
+            }
+
+            .chicken-name {
+                  font-weight: 700;
+                  font-size: 0.95rem;
+                  color: #2C3E50;
+                  margin-bottom: 4px;
+                  white-space: nowrap;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+            }
+
+            .chicken-subtotal {
+                  font-weight: 700;
+                  color: #8b0000;
+                  font-size: 1.1rem;
+                  margin: 6px 0 2px;
+                  min-height: 26px;
+            }
+
+            .unit-hint {
+                  font-size: 11px;
+                  color: #95A5A6;
+                  margin-bottom: 8px;
+            }
+
+            .item-counter {
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  gap: 10px;
+                  margin-top: 5px;
+            }
+
+            .item-counter .counter-btn {
+                  width: 36px;
+                  height: 36px;
+                  border-radius: 50%;
+                  border: none;
+                  background: #F9F9F9;
+                  color: #2C3E50;
+                  font-size: 18px;
+                  font-weight: bold;
+                  cursor: pointer;
+                  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                  transition: all 0.2s ease;
+                  display: inline-flex;
+                  align-items: center;
+                  justify-content: center;
+            }
+
+            .item-counter .counter-btn:hover {
+                  background: #8b0000;
+                  color: white;
+                  transform: scale(1.1);
+            }
+
+            .item-counter .item-qty {
+                  font-weight: 700;
+                  font-size: 18px;
+                  min-width: 30px;
+                  text-align: center;
             }
 
             .drink-group {
@@ -732,11 +915,60 @@
                   border-radius: 40px;
                   border: 1px solid #ddd;
                   transition: 0.2s;
+                  flex: 0 1 auto;
             }
 
             .drink-option.selected {
                   border-color: #8b0000;
                   background: #ffeae9;
+            }
+
+            .drink-option input[type="radio"] {
+                  accent-color: #8b0000;
+                  width: 18px;
+                  height: 18px;
+                  margin: 0;
+            }
+
+            .drink-name {
+                  font-weight: 500;
+                  font-size: 15px;
+            }
+
+            .drink-option img {
+                  width: 24px;
+                  height: 24px;
+                  object-fit: cover;
+                  border-radius: 4px;
+            }
+
+            .drinks-row {
+                  display: flex;
+                  flex-wrap: wrap;
+                  gap: 12px;
+                  margin-bottom: 20px;
+            }
+
+            .drinks-row .drink-option {
+                  display: flex;
+                  align-items: center;
+                  gap: 8px;
+                  padding: 8px 12px;
+                  border-radius: 40px;
+                  border: 1px solid #ddd;
+                  background: white;
+                  cursor: pointer;
+            }
+
+            .drinks-row .drink-option.selected {
+                  border-color: #8b0000;
+                  background: #ffeae9;
+            }
+
+            .drinks-row .drink-image {
+                  width: 24px;
+                  height: 24px;
+                  object-fit: cover;
             }
 
             .special-instructions {
@@ -750,12 +982,19 @@
                   transition: all 0.2s ease;
                   background: white;
                   color: #1f2937;
-                  margin-top: 15px;
             }
 
             .special-instructions:focus {
                   border-color: #8b0000;
                   box-shadow: 0 0 0 4px rgba(139, 0, 0, 0.1);
+            }
+
+            .char-counter {
+                  display: flex;
+                  justify-content: space-between;
+                  font-size: 12px;
+                  color: #9ca3af;
+                  margin-top: 6px;
             }
 
             .fixed-footer {
@@ -820,11 +1059,74 @@
                   gap: 8px;
                   box-shadow: 0 12px 20px -8px rgba(139, 0, 0, 0.5);
                   transition: all 0.3s ease;
+                  white-space: nowrap;
             }
 
             .modal-add-btn:hover {
                   transform: translateY(-3px);
                   box-shadow: 0 18px 25px -8px rgba(139, 0, 0, 0.6);
+            }
+
+            .price {
+                  font-weight: 700;
+                  font-size: 16px;
+            }
+
+            .global-counter {
+                  display: flex;
+                  align-items: center;
+                  gap: 15px;
+                  background: transparent;
+                  padding: 0;
+                  border-radius: 0;
+                  box-shadow: none;
+            }
+
+            .global-counter .counter-btn {
+                  width: 40px;
+                  height: 40px;
+                  border-radius: 50%;
+                  border: none;
+                  background: #F9F9F9;
+                  color: #2C3E50;
+                  font-size: 18px;
+                  font-weight: normal;
+                  cursor: pointer;
+                  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                  transition: all 0.2s ease;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+            }
+
+            .global-counter .counter-btn:hover {
+                  background: #8b0000;
+                  color: white;
+                  transform: scale(1.1);
+            }
+
+            .global-counter .global-qty {
+                  font-weight: 700;
+                  font-size: 18px;
+                  min-width: 30px;
+                  text-align: center;
+            }
+
+            @media (max-width: 400px) {
+                  .modal-content {
+                        padding: 18px;
+                  }
+                  .flavour-side img {
+                        width: 60px;
+                        height: 60px;
+                  }
+                  .flavour-side .quantity {
+                        font-size: 22px;
+                  }
+                  .vs-divider {
+                        width: 40px;
+                        height: 40px;
+                  }
             }
 
             .search-modal {
@@ -953,6 +1255,11 @@
                   transform: translateX(5px);
             }
 
+            .share-option:hover .share-icon {
+                  background: white;
+                  color: #8B0000;
+            }
+
             .share-icon {
                   width: 40px;
                   height: 40px;
@@ -964,11 +1271,6 @@
                   justify-content: center;
                   margin-right: 15px;
                   transition: all 0.3s ease;
-            }
-
-            .share-option:hover .share-icon {
-                  background: white;
-                  color: #8B0000;
             }
 
             .share-text {
@@ -1004,21 +1306,6 @@
                   background: white;
                   border-radius: 16px;
                   margin: 20px;
-            }
-
-            @keyframes starAnimation {
-                  0% { opacity: 0; transform: translate(0, 0) scale(0.5); }
-                  50% { opacity: 1; transform: translate(var(--tx), var(--ty)) scale(1.2); }
-                  100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(1); }
-            }
-
-            .star {
-                  position: absolute;
-                  color: white;
-                  font-size: 12px;
-                  opacity: 0;
-                  pointer-events: none;
-                  z-index: 9999;
             }
       </style>
 </head>
@@ -1063,10 +1350,11 @@
       <!-- Categories Section -->
       <div class="categories-section" id="categoriesSection">
             <div class="categories" id="categoriesContainer">
-                  <!-- سيتم إضافة الأقسام من Firebase ديناميكياً -->
+                  <!-- Categories will be dynamically loaded from Firebase -->
             </div>
       </div>
 
+      <!-- Sections Container -->
       <div id="sectionsContainer">
             <div class="loading-spinner"><div class="spinner"></div><p>Loading menu from Firebase...</p></div>
       </div>
@@ -1077,7 +1365,7 @@
             <div class="cart-item-count" id="cartItemCount">0</div>
       </button>
 
-      <!-- Modal Overlay (سيتم ملؤه ديناميكياً) -->
+      <!-- Overlay & Modal Container (for search, share & customization) -->
       <div class="overlay" id="modalOverlay"></div>
 
       <!-- Search Modal -->
@@ -1136,8 +1424,7 @@
                   projectId: "kfc-menu-dashboard",
                   storageBucket: "kfc-menu-dashboard.firebasestorage.app",
                   messagingSenderId: "465768808759",
-                  appId: "1:465768808759:web:d2ab65440b19008e465ab2",
-                  measurementId: "G-ZG8JM57DLC"
+                  appId: "1:465768808759:web:d2ab65440b19008e465ab2"
             };
 
             firebase.initializeApp(firebaseConfig);
@@ -1151,10 +1438,6 @@
             let cart = JSON.parse(localStorage.getItem('kfcCart')) || [];
             let currentProduct = null;
             let lastClickedAddRect = null;
-            let selectedFlavour = "";
-            let selectedDrink = "";
-            let extraQuantities = {};
-            let mainQuantity = 1;
 
             const categoryNames = {
                   chickenMeals: "CHICKEN MEALS",
@@ -1196,7 +1479,6 @@
                         console.log("✅ Data loaded from Firebase:", data);
                         
                         if (data && Object.keys(data).length > 0) {
-                              // تحويل كل تصنيف إلى مصفوفة
                               Object.keys(categoryNames).forEach(catKey => {
                                     if (data[catKey]) {
                                           allProducts[catKey] = ensureArray(data[catKey]);
@@ -1206,8 +1488,8 @@
                               });
                               
                               console.log("✅ Processed products:", allProducts);
-                              renderAllSections();
                               renderCategories();
+                              renderAllSections();
                         } else {
                               container.innerHTML = `<div class="error-message"><i class="fas fa-exclamation-triangle" style="font-size: 48px; margin-bottom: 15px;"></i><h3>No products found!</h3><p>Please add products from the admin dashboard first.</p></div>`;
                         }
@@ -1234,7 +1516,7 @@
                         }
                   });
                   
-                  // إضافة أحداث النقر للتصنيفات
+                  // Add click events for categories
                   document.querySelectorAll('.category').forEach(cat => {
                         cat.addEventListener('click', function() {
                               const categoryId = this.getAttribute('data-category');
@@ -1275,7 +1557,7 @@
                               if (product && typeof product === 'object') {
                                     const item = createProductItem(product);
                                     section.appendChild(item);
-                                  }
+                              }
                         });
                         
                         container.appendChild(section);
@@ -1300,8 +1582,10 @@
                               <div class="item-name">${escapeHtml(product.name)}</div>
                               <div class="item-description">${escapeHtml(product.description || 'Delicious KFC meal')}</div>
                               <div class="item-footer">
-                                    <div class="item-price">${(product.price || 0).toFixed(2)} MAD</div>
-                                    <button class="item-add-btn" data-product='${JSON.stringify(product)}'>+</button>
+                                    <div class="item-price">
+                                          <div class="price-size"><span class="price-amount">${(product.price || 0).toFixed(2)} MAD</span></div>
+                                    </div>
+                                    <button class="item-add-btn" data-name="${escapeHtml(product.name)}" data-product='${JSON.stringify(product)}'>+</button>
                               </div>
                         </div>
                   `;
@@ -1321,30 +1605,19 @@
                   const rect = btn.getBoundingClientRect();
                   lastClickedAddRect = { left: rect.left, top: rect.top, width: rect.width, height: rect.height };
                   
-                  if (product.hasFlavours || product.hasDrinks || (product.hasExtras && product.extras?.length > 0)) {
+                  // Check if product has customizations
+                  if (product.hasFlavours || product.hasDrinks || (product.hasExtras && product.extras?.length > 0) || product.totalPieces) {
                         openCustomizationModal(product);
                   } else {
                         addToCart(product, 1, {}, "");
                   }
             }
 
-            // ==================== Customization Modal ====================
+            // ==================== Open Modal using the original structure from second code ====================
             function openCustomizationModal(product) {
                   currentProduct = product;
-                  selectedFlavour = product.hasFlavours && product.flavours?.length > 0 ? product.flavours[0].name : "";
-                  selectedDrink = product.hasDrinks && product.drinks?.length > 0 ? (typeof product.drinks[0] === 'string' ? product.drinks[0] : product.drinks[0].name) : "";
-                  extraQuantities = {};
-                  mainQuantity = 1;
                   
-                  if (product.hasExtras && product.extras) {
-                        product.extras.forEach(extra => { extraQuantities[extra.id] = 0; });
-                  }
-                  
-                  buildAndShowModal(product);
-            }
-
-            function buildAndShowModal(product) {
-                  const modalOverlay = document.getElementById('modalOverlay');
+                  // Build modal HTML based on product type
                   let modalHtml = `
                         <div class="modal">
                               <div class="modal-header">
@@ -1357,7 +1630,7 @@
                                     <p class="modal-desc">${escapeHtml(product.description || '')}</p>
                   `;
                   
-                  // Flavour selection (with slider for totalPieces)
+                  // For products with totalPieces (slider for flavours)
                   if (product.totalPieces && product.totalPieces > 0 && product.flavours && product.flavours.length >= 2) {
                         const leftFlavour = product.flavours[0];
                         const rightFlavour = product.flavours[1];
@@ -1370,14 +1643,16 @@
                                     <div class="flavour-labels">
                                           <div class="flavour-side">
                                                 <img src="${leftFlavour.image || 'https://via.placeholder.com/70x70'}" alt="${leftFlavour.name}">
-                                                <span>${leftFlavour.name}</span>
+                                                <span>${escapeHtml(leftFlavour.name)}</span>
                                                 <div class="quantity" id="leftQtyDisplay">${leftQty}</div>
+                                                <span class="pieces-label spicy">pieces ${escapeHtml(leftFlavour.name.toLowerCase())}</span>
                                           </div>
                                           <div class="vs-divider">VS</div>
                                           <div class="flavour-side">
                                                 <img src="${rightFlavour.image || 'https://via.placeholder.com/70x70'}" alt="${rightFlavour.name}">
-                                                <span>${rightFlavour.name}</span>
+                                                <span>${escapeHtml(rightFlavour.name)}</span>
                                                 <div class="quantity" id="rightQtyDisplay">${rightQty}</div>
+                                                <span class="pieces-label original">pieces ${escapeHtml(rightFlavour.name.toLowerCase())}</span>
                                           </div>
                                     </div>
                                     <div class="slider-container">
@@ -1386,77 +1661,97 @@
                                     </div>
                               </div>
                         `;
-                  } 
-                  // Simple flavour options
+                  }
+                  // For products with simple flavour options
                   else if (product.hasFlavours && product.flavours && product.flavours.length > 0) {
                         modalHtml += `<div class="section-title-modal"><i class="fas fa-pepper-hot"></i> Choose Flavour</div><div class="flavour-row">`;
-                        product.flavours.forEach(flavour => {
+                        product.flavours.forEach((flavour, index) => {
                               const flavourName = typeof flavour === 'string' ? flavour : flavour.name;
-                              const activeClass = selectedFlavour === flavourName ? 'active' : '';
-                              modalHtml += `<div class="flavour-option ${activeClass}" onclick="window.selectFlavourHandler('${escapeHtml(flavourName)}')">${escapeHtml(flavourName)}</div>`;
+                              const activeClass = index === 0 ? 'active' : '';
+                              modalHtml += `<div class="flavour-option ${activeClass}" data-flavour="${escapeHtml(flavourName)}">${escapeHtml(flavourName)}</div>`;
+                              if (index < product.flavours.length - 1) {
+                                    modalHtml += `<span class="flavour-or">or</span>`;
+                              }
                         });
                         modalHtml += `</div>`;
                   }
                   
-                  // Drink selection
-                  if (product.hasDrinks && product.drinks && product.drinks.length > 0) {
-                        modalHtml += `<div class="drink-group"><div style="font-weight:600; margin-bottom:4px;"><i class="fas fa-glass-cheers"></i> Choose your drink</div><div class="drink-options">`;
-                        product.drinks.forEach(drink => {
-                              const drinkName = typeof drink === 'string' ? drink : drink.name;
-                              const selectedClass = selectedDrink === drinkName ? 'selected' : '';
-                              modalHtml += `<div class="drink-option ${selectedClass}" onclick="window.selectDrinkHandler('${escapeHtml(drinkName)}')">${escapeHtml(drinkName)}</div>`;
-                        });
-                        modalHtml += `</div></div>`;
-                  }
-                  
-                  // Extras selection
+                  // For products with extras
                   if (product.hasExtras && product.extras && product.extras.length > 0) {
-                        modalHtml += `<div class="section-title-modal"><i class="fas fa-plus-circle"></i> Add Extras</div>`;
+                        modalHtml += `<div class="extra-heading"><i class="fas fa-plus-circle"></i> Add Extra + <span class="optional-text">(optional)</span></div><div class="chicken-row">`;
                         product.extras.forEach(extra => {
-                              const qty = extraQuantities[extra.id] || 0;
                               modalHtml += `
-                                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px; background: #f9f9f9; border-radius: 12px; margin-bottom: 8px;">
-                                          <span><strong>${escapeHtml(extra.name)}</strong> - ${(extra.price || 0).toFixed(2)} MAD</span>
-                                          <div style="display: flex; align-items: center; gap: 10px;">
-                                                <button class="counter-btn" onclick="window.updateExtraHandler('${extra.id}', -1)" style="width: 30px; height: 30px;">-</button>
-                                                <span style="min-width: 30px; text-align: center;">${qty}</span>
-                                                <button class="counter-btn" onclick="window.updateExtraHandler('${extra.id}', 1)" style="width: 30px; height: 30px;">+</button>
+                                    <div class="chicken-card" data-extra-id="${extra.id}">
+                                          <img src="${extra.image || 'https://via.placeholder.com/100x100'}" class="chicken-img" onerror="this.src='https://via.placeholder.com/100x100'">
+                                          <div class="chicken-name">${escapeHtml(extra.name)}</div>
+                                          <div class="chicken-subtotal" id="subtotal-${extra.id}">0.00 MAD</div>
+                                          <div class="unit-hint">@ ${(extra.price || 0).toFixed(2)} MAD</div>
+                                          <div class="item-counter">
+                                                <button class="counter-btn" onclick="window.updateExtraQuantity('${extra.id}', -1)"><i class="fas fa-minus"></i></button>
+                                                <span class="item-qty" id="qty-${extra.id}">0</span>
+                                                <button class="counter-btn" onclick="window.updateExtraQuantity('${extra.id}', 1)"><i class="fas fa-plus"></i></button>
                                           </div>
                                     </div>
                               `;
                         });
+                        modalHtml += `</div>`;
+                  }
+                  
+                  // For products with drinks
+                  if (product.hasDrinks && product.drinks && product.drinks.length > 0) {
+                        modalHtml += `<div class="drink-group"><div style="font-weight:600; margin-bottom:4px;"><i class="fas fa-glass-cheers"></i> Choose your drink</div><div class="drink-options">`;
+                        product.drinks.forEach((drink, index) => {
+                              const drinkName = typeof drink === 'string' ? drink : drink.name;
+                              const selectedClass = index === 0 ? 'selected' : '';
+                              modalHtml += `<label class="drink-option ${selectedClass}"><input type="radio" name="drink" value="${escapeHtml(drinkName)}" ${index === 0 ? 'checked' : ''}> <span class="drink-name">${escapeHtml(drinkName)}</span></label>`;
+                        });
+                        modalHtml += `</div></div>`;
                   }
                   
                   // Special instructions
                   modalHtml += `
-                                    <textarea class="special-instructions" id="specialInstructions" rows="2" placeholder="Special instructions (e.g., no ice, extra sauce, etc.)"></textarea>
+                                    <textarea class="special-instructions" id="specialInstructions" rows="3" placeholder="Add any special instructions..."></textarea>
+                                    <div class="char-counter"><span id="charCount">0</span>/200 characters</div>
                               </div>
                               <div class="fixed-footer">
-                                    <div class="counter">
+                                    <div class="global-counter">
                                           <button class="counter-btn" id="decrementMainBtn"><i class="fas fa-minus"></i></button>
-                                          <span class="counter-value" id="mainQuantityValue">${mainQuantity}</span>
+                                          <span class="global-qty" id="mainQuantityValue">1</span>
                                           <button class="counter-btn" id="incrementMainBtn"><i class="fas fa-plus"></i></button>
                                     </div>
-                                    <button class="modal-add-btn" id="addToCartBtn">Add · <span id="totalPriceValue">${(product.price * mainQuantity).toFixed(2)}</span> MAD</button>
+                                    <button class="modal-add-btn" id="addToCartBtn">Add · <span id="totalPriceValue">${(product.price || 0).toFixed(2)}</span> MAD</button>
                               </div>
                         </div>
                   `;
                   
+                  const modalOverlay = document.getElementById('modalOverlay');
                   modalOverlay.innerHTML = modalHtml;
                   modalOverlay.style.display = 'flex';
                   document.body.style.overflow = 'hidden';
                   
-                  // ربط الأحداث
+                  // Store extra quantities
+                  let extraQuantities = {};
+                  if (product.hasExtras && product.extras) {
+                        product.extras.forEach(extra => {
+                              extraQuantities[extra.id] = 0;
+                        });
+                  }
+                  
+                  let mainQuantity = 1;
+                  let selectedFlavour = product.hasFlavours && product.flavours && product.flavours.length > 0 ? (typeof product.flavours[0] === 'string' ? product.flavours[0] : product.flavours[0].name) : "";
+                  let selectedDrink = product.hasDrinks && product.drinks && product.drinks.length > 0 ? (typeof product.drinks[0] === 'string' ? product.drinks[0] : product.drinks[0].name) : "";
+                  
+                  // Close modal
                   document.getElementById('closeModalBtn').addEventListener('click', closeModal);
                   modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(); });
                   
-                  // ربط أحداث السلايدر إذا وجد
+                  // Slider functionality
                   const slider = document.getElementById('flavourSlider');
                   if (slider) {
                         const leftDisplay = document.getElementById('leftQtyDisplay');
                         const rightDisplay = document.getElementById('rightQtyDisplay');
                         const track = document.getElementById('sliderTrack');
-                        const total = currentProduct.totalPieces;
+                        const total = product.totalPieces;
                         
                         const updateSlider = (val) => {
                               const left = parseInt(val);
@@ -1473,137 +1768,146 @@
                         updateSlider(slider.value);
                   }
                   
-                  // ربط أحداث الكمية الرئيسية
-                  const decrementBtn = document.getElementById('decrementMainBtn');
-                  const incrementBtn = document.getElementById('incrementMainBtn');
-                  const quantitySpan = document.getElementById('mainQuantityValue');
-                  const totalPriceSpan = document.getElementById('totalPriceValue');
+                  // Flavour options click
+                  document.querySelectorAll('.flavour-option').forEach(opt => {
+                        opt.addEventListener('click', function() {
+                              document.querySelectorAll('.flavour-option').forEach(o => o.classList.remove('active'));
+                              this.classList.add('active');
+                              selectedFlavour = this.getAttribute('data-flavour');
+                        });
+                  });
                   
-                  const updateMainQuantityDisplay = () => {
-                        quantitySpan.textContent = mainQuantity;
-                        let total = (currentProduct.price || 0) * mainQuantity;
-                        if (currentProduct.hasExtras && currentProduct.extras) {
-                              currentProduct.extras.forEach(extra => {
+                  // Drink options click
+                  document.querySelectorAll('input[name="drink"]').forEach(radio => {
+                        radio.addEventListener('change', function() {
+                              selectedDrink = this.value;
+                        });
+                  });
+                  
+                  // Character counter
+                  const specialInput = document.getElementById('specialInstructions');
+                  const charSpan = document.getElementById('charCount');
+                  if (specialInput) {
+                        specialInput.addEventListener('input', function() {
+                              charSpan.textContent = this.value.length;
+                        });
+                  }
+                  
+                  // Update total price function
+                  function updateTotalPrice() {
+                        let total = (product.price || 0) * mainQuantity;
+                        if (product.hasExtras && product.extras) {
+                              product.extras.forEach(extra => {
                                     total += (extra.price || 0) * (extraQuantities[extra.id] || 0);
                               });
                         }
-                        totalPriceSpan.textContent = total.toFixed(2);
-                  };
-                  
-                  decrementBtn.addEventListener('click', () => {
-                        if (mainQuantity > 1) {
-                              mainQuantity--;
-                              updateMainQuantityDisplay();
-                        }
-                  });
-                  
-                  incrementBtn.addEventListener('click', () => {
-                        mainQuantity++;
-                        updateMainQuantityDisplay();
-                  });
-                  
-                  // زر الإضافة
-                  document.getElementById('addToCartBtn').addEventListener('click', () => {
-                        const instructions = document.getElementById('specialInstructions')?.value || "";
-                        const selectedExtras = {};
-                        if (currentProduct.hasExtras && currentProduct.extras) {
-                              currentProduct.extras.forEach(extra => {
-                                    if (extraQuantities[extra.id] > 0) {
-                                          selectedExtras[extra.id] = { name: extra.name, quantity: extraQuantities[extra.id], price: extra.price };
-                                    }
-                              });
-                        }
-                        const customizations = {};
-                        if (selectedFlavour) customizations.flavour = selectedFlavour;
-                        if (selectedDrink) customizations.drink = selectedDrink;
-                        if (Object.keys(selectedExtras).length > 0) customizations.extras = selectedExtras;
-                        
-                        // معالجة السلايدر إذا وجد
-                        const sliderVal = document.getElementById('flavourSlider');
-                        if (sliderVal && currentProduct.flavours && currentProduct.flavours.length >= 2) {
-                              const leftQty = parseInt(sliderVal.value);
-                              const rightQty = currentProduct.totalPieces - leftQty;
-                              customizations.leftFlavour = currentProduct.flavours[0].name;
-                              customizations.rightFlavour = currentProduct.flavours[1].name;
-                              customizations.leftQty = leftQty;
-                              customizations.rightQty = rightQty;
-                        }
-                        
-                        addToCart(currentProduct, mainQuantity, customizations, instructions);
-                        closeModal();
-                  });
-            }
-
-            // دوال عامة للـ Modal
-            window.selectFlavourHandler = (flavour) => {
-                  selectedFlavour = flavour;
-                  // تحديث واجهة المودال
-                  document.querySelectorAll('.flavour-option').forEach(opt => {
-                        opt.classList.remove('active');
-                        if (opt.textContent === flavour) opt.classList.add('active');
-                  });
-            };
-            
-            window.selectDrinkHandler = (drink) => {
-                  selectedDrink = drink;
-                  document.querySelectorAll('.drink-option').forEach(opt => {
-                        opt.classList.remove('selected');
-                        if (opt.textContent === drink) opt.classList.add('selected');
-                  });
-            };
-            
-            window.updateExtraHandler = (extraId, delta) => {
-                  const newQty = (extraQuantities[extraId] || 0) + delta;
-                  extraQuantities[extraId] = Math.max(0, newQty);
-                  
-                  // تحديث الواجهة
-                  const extraDiv = document.querySelector(`[onclick*="${extraId}"]`)?.parentElement?.parentElement;
-                  if (extraDiv) {
-                        const qtySpan = extraDiv.querySelector('span:not(.counter-btn)');
-                        if (qtySpan) qtySpan.textContent = extraQuantities[extraId];
+                        const priceSpan = document.getElementById('totalPriceValue');
+                        if (priceSpan) priceSpan.textContent = total.toFixed(2);
                   }
                   
-                  // تحديث السعر
-                  let total = (currentProduct.price || 0) * mainQuantity;
-                  if (currentProduct.hasExtras && currentProduct.extras) {
-                        currentProduct.extras.forEach(extra => {
-                              total += (extra.price || 0) * (extraQuantities[extra.id] || 0);
+                  // Main quantity buttons
+                  const decrementBtn = document.getElementById('decrementMainBtn');
+                  const incrementBtn = document.getElementById('incrementMainBtn');
+                  const quantitySpan = document.getElementById('mainQuantityValue');
+                  
+                  if (decrementBtn) {
+                        decrementBtn.addEventListener('click', () => {
+                              if (mainQuantity > 1) {
+                                    mainQuantity--;
+                                    quantitySpan.textContent = mainQuantity;
+                                    updateTotalPrice();
+                              }
                         });
                   }
-                  const totalPriceSpan = document.getElementById('totalPriceValue');
-                  if (totalPriceSpan) totalPriceSpan.textContent = total.toFixed(2);
-            };
+                  
+                  if (incrementBtn) {
+                        incrementBtn.addEventListener('click', () => {
+                              mainQuantity++;
+                              quantitySpan.textContent = mainQuantity;
+                              updateTotalPrice();
+                        });
+                  }
+                  
+                  // Global function for extra quantity update
+                  window.updateExtraQuantity = function(extraId, delta) {
+                        const newQty = (extraQuantities[extraId] || 0) + delta;
+                        extraQuantities[extraId] = Math.max(0, newQty);
+                        const qtySpan = document.getElementById(`qty-${extraId}`);
+                        if (qtySpan) qtySpan.textContent = extraQuantities[extraId];
+                        const subtotalSpan = document.getElementById(`subtotal-${extraId}`);
+                        const extra = product.extras.find(e => e.id === extraId);
+                        if (subtotalSpan && extra) {
+                              subtotalSpan.textContent = (extraQuantities[extraId] * extra.price).toFixed(2) + ' MAD';
+                        }
+                        updateTotalPrice();
+                  };
+                  
+                  // Add to cart button
+                  const addBtn = document.getElementById('addToCartBtn');
+                  if (addBtn) {
+                        addBtn.addEventListener('click', () => {
+                              const instructions = document.getElementById('specialInstructions')?.value || "";
+                              const selectedExtras = {};
+                              if (product.hasExtras && product.extras) {
+                                    product.extras.forEach(extra => {
+                                          if (extraQuantities[extra.id] > 0) {
+                                                selectedExtras[extra.id] = { name: extra.name, quantity: extraQuantities[extra.id], price: extra.price };
+                                          }
+                                    });
+                              }
+                              const customizations = {};
+                              if (selectedFlavour) customizations.flavour = selectedFlavour;
+                              if (selectedDrink) customizations.drink = selectedDrink;
+                              if (Object.keys(selectedExtras).length > 0) customizations.extras = selectedExtras;
+                              
+                              // Handle slider values
+                              if (slider && product.flavours && product.flavours.length >= 2) {
+                                    const leftQty = parseInt(slider.value);
+                                    const rightQty = product.totalPieces - leftQty;
+                                    customizations.leftFlavour = product.flavours[0].name;
+                                    customizations.rightFlavour = product.flavours[1].name;
+                                    customizations.leftQty = leftQty;
+                                    customizations.rightQty = rightQty;
+                              }
+                              
+                              addToCart(product, mainQuantity, customizations, instructions);
+                              closeModal();
+                        });
+                  }
+                  
+                  updateTotalPrice();
+            }
             
             function closeModal() {
-                  document.getElementById('modalOverlay').style.display = 'none';
+                  const modalOverlay = document.getElementById('modalOverlay');
+                  modalOverlay.style.display = 'none';
                   document.body.style.overflow = 'auto';
+                  modalOverlay.innerHTML = '';
                   currentProduct = null;
             }
 
             // ==================== Cart Functions ====================
             function addToCart(product, quantity, customizations, specialInstructions) {
                   const existingIndex = cart.findIndex(item => item.id === product.id && JSON.stringify(item.customizations) === JSON.stringify(customizations));
-                  const totalPrice = (product.price || 0) * quantity;
                   
-                  // حساب السعر الإضافي للإضافات
-                  let extrasTotal = 0;
+                  // Calculate total price
+                  let total = (product.price || 0) * quantity;
                   if (customizations.extras) {
                         Object.values(customizations.extras).forEach(extra => {
-                              extrasTotal += (extra.price || 0) * (extra.quantity || 1);
+                              total += (extra.price || 0) * (extra.quantity || 1);
                         });
                   }
-                  const finalTotalPrice = totalPrice + extrasTotal;
                   
                   if (existingIndex !== -1) {
                         cart[existingIndex].quantity += quantity;
-                        cart[existingIndex].totalPrice += finalTotalPrice;
+                        cart[existingIndex].totalPrice += total;
                   } else {
                         cart.push({ 
                               id: product.id, 
                               name: product.name, 
                               basePrice: product.price, 
                               quantity: quantity, 
-                              totalPrice: finalTotalPrice, 
+                              totalPrice: total, 
                               img: product.image, 
                               description: product.description, 
                               customizations: customizations, 
@@ -1611,21 +1915,13 @@
                         });
                   }
                   saveCart();
-                  createFlyingAnimation();
-                  showAddedToCartMessage(product.name);
+                  flyToBasket();
             }
 
-            function showAddedToCartMessage(productName) {
-                  const toast = document.createElement('div');
-                  toast.style.cssText = `position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%); background: #28a745; color: white; padding: 10px 20px; border-radius: 30px; font-size: 14px; z-index: 2000; white-space: nowrap; animation: fadeInOut 2s ease;`;
-                  toast.innerHTML = `<i class="fas fa-check-circle"></i> ${escapeHtml(productName)} added to cart!`;
-                  document.body.appendChild(toast);
-                  setTimeout(() => toast.remove(), 2000);
-            }
-
-            function createFlyingAnimation() {
+            function flyToBasket() {
                   const viewCartBtn = document.getElementById('viewCartBtn');
                   if (!lastClickedAddRect || !viewCartBtn) return;
+                  
                   const cartRect = viewCartBtn.getBoundingClientRect();
                   const flyingEl = document.createElement('div');
                   flyingEl.className = 'flying-element';
@@ -1640,7 +1936,7 @@
                         setTimeout(() => flyingEl.remove(), 500);
                   }, 10);
                   
-                  // إضافة تأثير النجوم
+                  // Star animation
                   setTimeout(() => createStarsAnimation(), 400);
                   lastClickedAddRect = null;
             }
@@ -1696,8 +1992,7 @@
                   if (itemCount > 0) { 
                         viewCartBtn.style.display = 'flex'; 
                         cartItemCount.textContent = itemCount; 
-                  }
-                  else { 
+                  } else { 
                         viewCartBtn.style.display = 'none'; 
                   }
             }
@@ -1712,8 +2007,16 @@
                                     document.querySelectorAll('.category').forEach(cat => {
                                           if (cat.getAttribute('data-category') === categoryKey) { 
                                                 cat.classList.add('active'); 
-                                          }
-                                          else { 
+                                                // Scroll category into view
+                                                const container = document.getElementById('categoriesContainer');
+                                                const catLeft = cat.offsetLeft;
+                                                const containerWidth = container.offsetWidth;
+                                                const catWidth = cat.offsetWidth;
+                                                container.scrollTo({
+                                                      left: catLeft - (containerWidth / 2) + (catWidth / 2),
+                                                      behavior: 'smooth'
+                                                });
+                                          } else { 
                                                 cat.classList.remove('active'); 
                                           }
                                     });
@@ -1772,7 +2075,7 @@
                         if (results.length > 0) {
                               searchResults.innerHTML = results.map(product => `
                                     <div class="search-result-item" data-product='${JSON.stringify(product)}'>
-                                          <img src="${product.image || 'https://via.placeholder.com/50x50/8B0000/white?text=KFC'}" class="search-result-image" onerror="this.src='https://via.placeholder.com/50x50/8B0000/white?text=No+Img'">
+                                          <img src="${product.image || 'https://via.placeholder.com/60x60/8B0000/white?text=KFC'}" class="search-result-image" onerror="this.src='https://via.placeholder.com/60x60/8B0000/white?text=No+Img'">
                                           <div class="search-result-info">
                                                 <div class="search-result-name">${escapeHtml(product.name)}</div>
                                                 <div class="search-result-price">${(product.price || 0).toFixed(2)} MAD</div>
@@ -1786,10 +2089,9 @@
                                           const rect = item.getBoundingClientRect();
                                           lastClickedAddRect = { left: rect.left, top: rect.top, width: rect.width, height: rect.height };
                                           
-                                          if (product.hasFlavours || product.hasDrinks || (product.hasExtras && product.extras?.length > 0)) { 
+                                          if (product.hasFlavours || product.hasDrinks || (product.hasExtras && product.extras?.length > 0) || product.totalPieces) { 
                                                 openCustomizationModal(product); 
-                                          }
-                                          else { 
+                                          } else { 
                                                 addToCart(product, 1, {}, ""); 
                                           }
                                           searchOverlay.style.display = 'none';
@@ -1869,7 +2171,8 @@
                   else navbar.classList.remove('scrolled'); 
             });
             
-            // تصدير الدوال العامة
+            // Export functions to global scope
+            window.updateExtraQuantity = function() {};
             window.closeModal = closeModal;
             
             setupSearch();
