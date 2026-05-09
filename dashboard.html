@@ -254,6 +254,14 @@
             drinks: "🥤 DRINKS"
         };
 
+        // Helper: تحويل الكائن إلى مصفوفة
+        function ensureArray(data) {
+            if (!data) return [];
+            if (Array.isArray(data)) return data;
+            if (typeof data === 'object') return Object.values(data);
+            return [];
+        }
+
         // Load Products
         async function loadAllProducts() {
             const container = document.getElementById('productsContainer');
@@ -263,7 +271,14 @@
                 const snapshot = await database.ref('products').once('value');
                 const data = snapshot.val();
                 if (data && Object.keys(data).length > 0) {
-                    allProducts = data;
+                    // تحويل كل تصنيف إلى مصفوفة
+                    Object.keys(categoryNames).forEach(catKey => {
+                        if (data[catKey]) {
+                            allProducts[catKey] = ensureArray(data[catKey]);
+                        } else {
+                            allProducts[catKey] = [];
+                        }
+                    });
                 } else {
                     await initializeDefaultProducts();
                 }
@@ -303,17 +318,32 @@
             };
             
             return database.ref('products').set(defaultProducts).then(() => {
-                allProducts = defaultProducts;
+                // تحويل إلى مصفوفات بعد التحميل
+                Object.keys(categoryNames).forEach(catKey => {
+                    if (defaultProducts[catKey]) {
+                        allProducts[catKey] = ensureArray(defaultProducts[catKey]);
+                    }
+                });
                 showToast("Default products loaded successfully!", "success");
             });
         }
 
+        // ==================== دالة saveProduct المعدلة ====================
         function saveProduct(product, category, isEdit = false) {
             showToast("Saving product...", "info");
             
             database.ref(`products/${category}/${product.id}`).set(product).then(() => {
+                // تحديث allProducts محلياً - التأكد من أنها مصفوفة
+                if (!allProducts[category]) {
+                    allProducts[category] = [];
+                }
+                
+                // التأكد من أن allProducts[category] هي مصفوفة
+                if (!Array.isArray(allProducts[category])) {
+                    allProducts[category] = ensureArray(allProducts[category]);
+                }
+                
                 if (!isEdit) {
-                    if (!allProducts[category]) allProducts[category] = [];
                     allProducts[category].push(product);
                 } else {
                     const index = allProducts[category].findIndex(p => p.id === product.id);
@@ -365,7 +395,12 @@
 
         function renderProducts() {
             const container = document.getElementById('productsContainer');
-            const products = allProducts[currentCategory] || [];
+            let products = allProducts[currentCategory] || [];
+            
+            // التأكد من أن products هي مصفوفة
+            if (!Array.isArray(products)) {
+                products = ensureArray(products);
+            }
             
             if (products.length === 0) {
                 container.innerHTML = `<div class="empty-state"><i class="fas fa-box-open"></i><h3>No Products in ${categoryNames[currentCategory]}</h3><p>Click "Add New Product" to get started!</p></div>`;
@@ -396,7 +431,14 @@
 
         function updateStats() {
             let total = 0;
-            Object.keys(allProducts).forEach(cat => { total += (allProducts[cat]?.length || 0); });
+            Object.keys(allProducts).forEach(cat => { 
+                const products = allProducts[cat];
+                if (Array.isArray(products)) {
+                    total += products.length;
+                } else if (products && typeof products === 'object') {
+                    total += Object.keys(products).length;
+                }
+            });
             document.getElementById('totalProducts').textContent = total;
         }
 
@@ -430,7 +472,11 @@
         }
 
         function openEditModal(category, productId) {
-            const product = allProducts[category].find(p => p.id === productId);
+            let products = allProducts[category];
+            if (!Array.isArray(products)) {
+                products = ensureArray(products);
+            }
+            const product = products.find(p => p.id === productId);
             if (!product) return;
             
             document.getElementById('modalTitle').textContent = 'Edit Product';
@@ -580,7 +626,7 @@
             });
         }
 
-        // Make functions global (مرة واحدة فقط وبعد تعريف الدوال)
+        // Make functions global
         window.openAddModal = openAddModal;
         window.openEditModal = openEditModal;
         window.deleteProduct = deleteProduct;
