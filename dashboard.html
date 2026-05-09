@@ -46,7 +46,7 @@
         .add-product-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(40,167,69,0.4); }
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center; animation: fadeIn 0.3s; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .modal-content { background: white; border-radius: 30px; width: 90%; max-width: 600px; max-height: 85vh; overflow-y: auto; animation: slideUp 0.3s; }
+        .modal-content { background: white; border-radius: 30px; width: 90%; max-width: 650px; max-height: 85vh; overflow-y: auto; animation: slideUp 0.3s; }
         @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         .modal-header { background: linear-gradient(135deg, #8B0000, #cc0000); color: white; padding: 20px; border-radius: 30px 30px 0 0; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; }
         .modal-header h3 { font-size: 22px; }
@@ -75,6 +75,7 @@
         .empty-state i { font-size: 60px; margin-bottom: 20px; }
         .toast { position: fixed; bottom: 30px; right: 30px; background: #333; color: white; padding: 12px 24px; border-radius: 12px; z-index: 1100; animation: slideInRight 0.3s; }
         @keyframes slideInRight { from { transform: translateX(100px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        .info-box { background: #e3f2fd; border-left: 4px solid #2196f3; padding: 10px 15px; margin-bottom: 15px; border-radius: 8px; font-size: 13px; }
         @media (max-width: 768px) { .admin-header { flex-direction: column; text-align: center; } .products-grid { grid-template-columns: 1fr; } .category-tab { font-size: 12px; padding: 8px 16px; } }
     </style>
 </head>
@@ -160,6 +161,13 @@
                     <div class="customization-section">
                         <h4><i class="fas fa-sliders-h"></i> Customization Options</h4>
                         
+                        <!-- ====== حقل عدد القطع (مهم لظهور السلايدر) ====== -->
+                        <div class="form-group" id="totalPiecesGroup">
+                            <label><i class="fas fa-chicken"></i> Total Pieces (للوجبات التي تحتوي على قطع)</label>
+                            <input type="number" id="totalPieces" step="1" min="0" placeholder="مثال: 4, 6, 8, 12, 16, 20" value="0">
+                            <small style="color: #999; display: block;">⚠️ مهم جداً: أدخل عدد القطع هنا (مثل 4، 6، 8) ليظهر سلايدر توزيع النكهات في التطبيق!</small>
+                        </div>
+
                         <div class="form-group">
                             <label><i class="fas fa-pepper-hot"></i> Has Flavour Selection?</label>
                             <select id="hasFlavours">
@@ -171,15 +179,15 @@
                         <div id="flavoursSection" style="display: none;">
                             <div class="form-group">
                                 <label>Flavour 1 Name</label>
-                                <input type="text" id="flavour1Name" placeholder="e.g., Spicy" value="Spicy">
+                                <input type="text" id="flavour1Name" placeholder="e.g., Spicy Strips" value="Spicy Strips">
                                 <label style="margin-top: 10px;">Flavour 1 Image URL</label>
-                                <input type="url" id="flavour1Image" placeholder="https://...">
+                                <input type="url" id="flavour1Image" placeholder="https://..." value="https://i.ibb.co/ymmg8ywn/IMG-5106.png">
                             </div>
                             <div class="form-group">
                                 <label>Flavour 2 Name</label>
-                                <input type="text" id="flavour2Name" placeholder="e.g., Original" value="Original">
+                                <input type="text" id="flavour2Name" placeholder="e.g., Original Strips" value="Original Strips">
                                 <label style="margin-top: 10px;">Flavour 2 Image URL</label>
-                                <input type="url" id="flavour2Image" placeholder="https://...">
+                                <input type="url" id="flavour2Image" placeholder="https://..." value="https://i.ibb.co/ymmg8ywn/IMG-5106.png">
                             </div>
                         </div>
 
@@ -293,27 +301,57 @@
         function initializeDefaultProducts() {
             const defaultProducts = {
                 chickenMeals: [
-                    { id: "cm1", name: "Crispy Strips Meal (4 Pcs)", price: 78, description: "4 crispy chicken strips served with Fries, Bread, 1 Drink and 1 Coleslaw.", image: "https://i.ibb.co/TqPsCxRL/IMG-5127.png", hasFlavours: true, flavours: [{name:"Spicy",img:"https://i.ibb.co/ymmg8ywn/IMG-5106.png"},{name:"Original",img:"https://i.ibb.co/ymmg8ywn/IMG-5106.png"}], hasDrinks: true, drinks: [{name:"Pepsi",img:"https://i.ibb.co/YFfGKBJw/IMG-5155.webp"},{name:"7up",img:"https://i.ibb.co/SXf5ZJ03/IMG-5136.png"},{name:"Miranda",img:"https://i.ibb.co/Nndd5f05/IMG-5135.png"},{name:"Water",img:"https://i.ibb.co/SX48S52t/IMG-5133.png"}], hasExtras: false, extras: [] }
+                    { 
+                        id: "cm1", name: "Crispy Strips Meal (4 Pcs)", price: 78, description: "4 crispy chicken strips served with Fries, Bread, 1 Drink and 1 Coleslaw.", 
+                        image: "https://i.ibb.co/TqPsCxRL/IMG-5127.png", totalPieces: 4,
+                        hasFlavours: true, flavours: [{name:"Spicy Strips",img:"https://i.ibb.co/ymmg8ywn/IMG-5106.png"},{name:"Original Strips",img:"https://i.ibb.co/ymmg8ywn/IMG-5106.png"}], 
+                        hasDrinks: true, drinks: [{name:"Pepsi",img:"https://i.ibb.co/YFfGKBJw/IMG-5155.webp"},{name:"7up",img:"https://i.ibb.co/SXf5ZJ03/IMG-5136.png"},{name:"Miranda",img:"https://i.ibb.co/Nndd5f05/IMG-5135.png"},{name:"Water",img:"https://i.ibb.co/SX48S52t/IMG-5133.png"}], 
+                        hasExtras: false, extras: [] 
+                    },
+                    { 
+                        id: "cm2", name: "Crispy Strips Meal (6 Pcs)", price: 92, description: "6 crispy chicken strips served with Fries, Bread, 1 Drink and 1 Coleslaw.", 
+                        image: "https://i.ibb.co/PzCXbbZ0/IMG-5126.png", totalPieces: 6,
+                        hasFlavours: true, flavours: [{name:"Spicy Strips",img:"https://i.ibb.co/ymmg8ywn/IMG-5106.png"},{name:"Original Strips",img:"https://i.ibb.co/ymmg8ywn/IMG-5106.png"}], 
+                        hasDrinks: true, drinks: [{name:"Pepsi",img:"https://i.ibb.co/YFfGKBJw/IMG-5155.webp"},{name:"7up",img:"https://i.ibb.co/SXf5ZJ03/IMG-5136.png"},{name:"Miranda",img:"https://i.ibb.co/Nndd5f05/IMG-5135.png"},{name:"Water",img:"https://i.ibb.co/SX48S52t/IMG-5133.png"}], 
+                        hasExtras: false, extras: [] 
+                    },
+                    { 
+                        id: "cm3", name: "Super Dinner Meal (3 Pcs)", price: 85, description: "3 pieces of crispy chicken with bone served with Fries, Bread, 1 Drink and 1 Coleslaw.", 
+                        image: "https://i.ibb.co/9m4Bj9nZ/IMG-5124.png", totalPieces: 3,
+                        hasFlavours: true, flavours: [{name:"Spicy Chicken",img:"https://i.ibb.co/TqLZtxwv/IMG-5113.png"},{name:"Original Chicken",img:"https://i.ibb.co/TqLZtxwv/IMG-5113.png"}], 
+                        hasDrinks: true, drinks: [{name:"Pepsi",img:"https://i.ibb.co/YFfGKBJw/IMG-5155.webp"},{name:"7up",img:"https://i.ibb.co/SXf5ZJ03/IMG-5136.png"},{name:"Miranda",img:"https://i.ibb.co/Nndd5f05/IMG-5135.png"},{name:"Water",img:"https://i.ibb.co/SX48S52t/IMG-5133.png"}], 
+                        hasExtras: false, extras: [] 
+                    },
+                    { 
+                        id: "cm4", name: "Super Dinner Meal (4 Pcs)", price: 95, description: "4 pieces of crispy chicken with bone served with Fries, Bread, 1 Drink and 1 Coleslaw.", 
+                        image: "https://i.ibb.co/1GPDnFVs/IMG-5125.png", totalPieces: 4,
+                        hasFlavours: true, flavours: [{name:"Spicy Chicken",img:"https://i.ibb.co/TqLZtxwv/IMG-5113.png"},{name:"Original Chicken",img:"https://i.ibb.co/TqLZtxwv/IMG-5113.png"}], 
+                        hasDrinks: true, drinks: [{name:"Pepsi",img:"https://i.ibb.co/YFfGKBJw/IMG-5155.webp"},{name:"7up",img:"https://i.ibb.co/SXf5ZJ03/IMG-5136.png"},{name:"Miranda",img:"https://i.ibb.co/Nndd5f05/IMG-5135.png"},{name:"Water",img:"https://i.ibb.co/SX48S52t/IMG-5133.png"}], 
+                        hasExtras: false, extras: [] 
+                    }
                 ],
                 hotWings: [
-                    { id: "hw1", name: "Hot Wings (3 Pcs)", price: 30, description: "3 spicy crispy hot wings.", image: "https://i.ibb.co/93nQWQPX/IMG-5148.jpg", hasFlavours: false, hasDrinks: false, hasExtras: false, extras: [] }
+                    { id: "hw1", name: "Hot Wings (3 Pcs)", price: 30, description: "3 spicy crispy hot wings.", image: "https://i.ibb.co/93nQWQPX/IMG-5148.jpg", totalPieces: 3, hasFlavours: false, hasDrinks: false, hasExtras: false, extras: [] }
                 ],
                 loadedBuckets: [
-                    { id: "lb1", name: "Loaded Bucket 8 Pcs", price: 160, description: "8 chicken strips with 1L Drink, Sauces and Coleslaw.", image: "https://i.ibb.co/WdK8FWh/IMG-5633.jpg", hasFlavours: true, flavours: [{name:"Spicy",img:"https://i.ibb.co/ymmg8ywn/IMG-5106.png"},{name:"Original",img:"https://i.ibb.co/ymmg8ywn/IMG-5106.png"}], hasDrinks: true, drinks: [{name:"Pepsi",img:"https://i.ibb.co/YFfGKBJw/IMG-5155.webp"},{name:"7up",img:"https://i.ibb.co/SXf5ZJ03/IMG-5136.png"},{name:"Miranda",img:"https://i.ibb.co/Nndd5f05/IMG-5135.png"},{name:"Water",img:"https://i.ibb.co/SX48S52t/IMG-5133.png"}], hasExtras: false, extras: [] }
+                    { id: "lb1", name: "Loaded Bucket 8 Pcs", price: 160, description: "8 chicken strips with 1L Drink, Sauces and Coleslaw.", image: "https://i.ibb.co/WdK8FWh/IMG-5633.jpg", totalPieces: 8, hasFlavours: true, flavours: [{name:"Spicy Strips",img:"https://i.ibb.co/ymmg8ywn/IMG-5106.png"},{name:"Original Strips",img:"https://i.ibb.co/ymmg8ywn/IMG-5106.png"}], hasDrinks: true, drinks: [{name:"Pepsi",img:"https://i.ibb.co/YFfGKBJw/IMG-5155.webp"},{name:"7up",img:"https://i.ibb.co/SXf5ZJ03/IMG-5136.png"},{name:"Miranda",img:"https://i.ibb.co/Nndd5f05/IMG-5135.png"},{name:"Water",img:"https://i.ibb.co/SX48S52t/IMG-5133.png"}], hasExtras: false, extras: [] },
+                    { id: "lb2", name: "Loaded Bucket 12 Pcs", price: 185, description: "12 chicken strips with 1L Drink, Sauces and Coleslaw.", image: "https://i.ibb.co/WdK8FWh/IMG-5633.jpg", totalPieces: 12, hasFlavours: true, flavours: [{name:"Spicy Strips",img:"https://i.ibb.co/ymmg8ywn/IMG-5106.png"},{name:"Original Strips",img:"https://i.ibb.co/ymmg8ywn/IMG-5106.png"}], hasDrinks: true, drinks: [{name:"Pepsi",img:"https://i.ibb.co/YFfGKBJw/IMG-5155.webp"},{name:"7up",img:"https://i.ibb.co/SXf5ZJ03/IMG-5136.png"},{name:"Miranda",img:"https://i.ibb.co/Nndd5f05/IMG-5135.png"},{name:"Water",img:"https://i.ibb.co/SX48S52t/IMG-5133.png"}], hasExtras: false, extras: [] },
+                    { id: "lb3", name: "Loaded Bucket 16 Pcs", price: 220, description: "16 chicken strips with 1.5L Drink, Sauces and Coleslaw.", image: "https://i.ibb.co/WdK8FWh/IMG-5633.jpg", totalPieces: 16, hasFlavours: true, flavours: [{name:"Spicy Strips",img:"https://i.ibb.co/ymmg8ywn/IMG-5106.png"},{name:"Original Strips",img:"https://i.ibb.co/ymmg8ywn/IMG-5106.png"}], hasDrinks: true, drinks: [{name:"Pepsi",img:"https://i.ibb.co/YFfGKBJw/IMG-5155.webp"},{name:"7up",img:"https://i.ibb.co/SXf5ZJ03/IMG-5136.png"},{name:"Miranda",img:"https://i.ibb.co/Nndd5f05/IMG-5135.png"},{name:"Water",img:"https://i.ibb.co/SX48S52t/IMG-5133.png"}], hasExtras: false, extras: [] }
                 ],
                 comboMeals: [
-                    { id: "com1", name: "Mighty Zinger Combo", price: 86, description: "Double Zinger burger with Fries and Drink.", image: "https://i.ibb.co/nsTffWCY/IMG-5132.png", hasFlavours: true, flavours: [{name:"Spicy",img:"https://i.ibb.co/ymmg8ywn/IMG-5106.png"},{name:"Original",img:"https://i.ibb.co/ymmg8ywn/IMG-5106.png"}], hasDrinks: true, drinks: [{name:"Pepsi",img:"https://i.ibb.co/YFfGKBJw/IMG-5155.webp"},{name:"7up",img:"https://i.ibb.co/SXf5ZJ03/IMG-5136.png"},{name:"Miranda",img:"https://i.ibb.co/Nndd5f05/IMG-5135.png"},{name:"Water",img:"https://i.ibb.co/SX48S52t/IMG-5133.png"}], hasExtras: true, extras: [{id:"bone",name:"Piece with bone",price:21,img:"https://i.ibb.co/TqLZtxwv/IMG-5113.png"},{id:"strips",name:"Chicken strips",price:15,img:"https://i.ibb.co/ymmg8ywn/IMG-5106.png"}] }
+                    { id: "com1", name: "Mighty Zinger Combo", price: 86, description: "Double Zinger burger with Fries and Drink.", image: "https://i.ibb.co/nsTffWCY/IMG-5132.png", totalPieces: 0, hasFlavours: true, flavours: [{name:"Spicy",img:"https://i.ibb.co/ymmg8ywn/IMG-5106.png"},{name:"Original",img:"https://i.ibb.co/ymmg8ywn/IMG-5106.png"}], hasDrinks: true, drinks: [{name:"Pepsi",img:"https://i.ibb.co/YFfGKBJw/IMG-5155.webp"},{name:"7up",img:"https://i.ibb.co/SXf5ZJ03/IMG-5136.png"},{name:"Miranda",img:"https://i.ibb.co/Nndd5f05/IMG-5135.png"},{name:"Water",img:"https://i.ibb.co/SX48S52t/IMG-5133.png"}], hasExtras: true, extras: [{id:"bone",name:"Piece with bone",price:21,img:"https://i.ibb.co/TqLZtxwv/IMG-5113.png"},{id:"strips",name:"Chicken strips",price:15,img:"https://i.ibb.co/ymmg8ywn/IMG-5106.png"}] }
                 ],
                 familyBuckets: [
-                    { id: "fb1", name: "Family Bucket 8 Pcs", price: 195, description: "8 pieces of chicken with Family Fries, Drink and Coleslaw.", image: "https://i.ibb.co/3mPYmS4H/IMG-5634.png", hasFlavours: true, flavours: [{name:"Spicy",img:"https://i.ibb.co/TqLZtxwv/IMG-5113.png"},{name:"Original",img:"https://i.ibb.co/TqLZtxwv/IMG-5113.png"}], hasDrinks: true, drinks: [{name:"Pepsi",img:"https://i.ibb.co/YFfGKBJw/IMG-5155.webp"},{name:"7up",img:"https://i.ibb.co/SXf5ZJ03/IMG-5136.png"},{name:"Miranda",img:"https://i.ibb.co/Nndd5f05/IMG-5135.png"},{name:"Water",img:"https://i.ibb.co/SX48S52t/IMG-5133.png"}], hasExtras: false, extras: [] }
+                    { id: "fb1", name: "Family Bucket 8 Pcs", price: 195, description: "8 pieces of chicken with Family Fries, Drink and Coleslaw.", image: "https://i.ibb.co/3mPYmS4H/IMG-5634.png", totalPieces: 8, hasFlavours: true, flavours: [{name:"Spicy",img:"https://i.ibb.co/TqLZtxwv/IMG-5113.png"},{name:"Original",img:"https://i.ibb.co/TqLZtxwv/IMG-5113.png"}], hasDrinks: true, drinks: [{name:"Pepsi",img:"https://i.ibb.co/YFfGKBJw/IMG-5155.webp"},{name:"7up",img:"https://i.ibb.co/SXf5ZJ03/IMG-5136.png"},{name:"Miranda",img:"https://i.ibb.co/Nndd5f05/IMG-5135.png"},{name:"Water",img:"https://i.ibb.co/SX48S52t/IMG-5133.png"}], hasExtras: false, extras: [] },
+                    { id: "fb2", name: "Family Bucket 12 Pcs", price: 225, description: "12 pieces of chicken with Family Fries, Drink and Coleslaw.", image: "https://i.ibb.co/3mPYmS4H/IMG-5634.png", totalPieces: 12, hasFlavours: true, flavours: [{name:"Spicy",img:"https://i.ibb.co/TqLZtxwv/IMG-5113.png"},{name:"Original",img:"https://i.ibb.co/TqLZtxwv/IMG-5113.png"}], hasDrinks: true, drinks: [{name:"Pepsi",img:"https://i.ibb.co/YFfGKBJw/IMG-5155.webp"},{name:"7up",img:"https://i.ibb.co/SXf5ZJ03/IMG-5136.png"},{name:"Miranda",img:"https://i.ibb.co/Nndd5f05/IMG-5135.png"},{name:"Water",img:"https://i.ibb.co/SX48S52t/IMG-5133.png"}], hasExtras: false, extras: [] }
                 ],
                 sides: [
-                    { id: "sd1", name: "Rizo spicy", price: 55, description: "Spicy Rizo side", image: "https://i.ibb.co/gQrsPjN/IMG-5114.jpg", hasFlavours: false, hasDrinks: false, hasExtras: false, extras: [] },
-                    { id: "sd2", name: "Medium Fries", price: 19, description: "Medium french fries", image: "https://i.ibb.co/0jPWcw0M/IMG-5111.png", hasFlavours: false, hasDrinks: false, hasExtras: false, extras: [] }
+                    { id: "sd1", name: "Rizo spicy", price: 55, description: "Spicy Rizo side", image: "https://i.ibb.co/gQrsPjN/IMG-5114.jpg", totalPieces: 0, hasFlavours: false, hasDrinks: false, hasExtras: false, extras: [] },
+                    { id: "sd2", name: "Medium Fries", price: 19, description: "Medium french fries", image: "https://i.ibb.co/0jPWcw0M/IMG-5111.png", totalPieces: 0, hasFlavours: false, hasDrinks: false, hasExtras: false, extras: [] }
                 ],
                 drinks: [
-                    { id: "dr1", name: "Pepsi", price: 11, description: "Pepsi cola", image: "https://i.ibb.co/YFfGKBJw/IMG-5155.webp", hasFlavours: false, hasDrinks: false, hasExtras: false, extras: [] },
-                    { id: "dr2", name: "Water", price: 5, description: "Mineral water", image: "https://i.ibb.co/SX48S52t/IMG-5133.png", hasFlavours: false, hasDrinks: false, hasExtras: false, extras: [] }
+                    { id: "dr1", name: "Pepsi", price: 11, description: "Pepsi cola", image: "https://i.ibb.co/YFfGKBJw/IMG-5155.webp", totalPieces: 0, hasFlavours: false, hasDrinks: false, hasExtras: false, extras: [] },
+                    { id: "dr2", name: "Water", price: 5, description: "Mineral water", image: "https://i.ibb.co/SX48S52t/IMG-5133.png", totalPieces: 0, hasFlavours: false, hasDrinks: false, hasExtras: false, extras: [] }
                 ]
             };
             
@@ -417,6 +455,7 @@
                         <h3 class="product-name">${escapeHtml(product.name)}</h3>
                         <div class="product-price">${product.price.toFixed(2)} MAD</div>
                         <p class="product-description">${escapeHtml(product.description?.substring(0, 100) || '')}${product.description?.length > 100 ? '...' : ''}</p>
+                        ${product.totalPieces && product.totalPieces > 0 ? `<div class="customizations-preview"><span><i class="fas fa-chicken"></i> ${product.totalPieces} pieces</span></div>` : ''}
                         ${product.hasFlavours ? '<div class="customizations-preview"><span><i class="fas fa-pepper-hot"></i> Flavours available</span></div>' : ''}
                         ${product.hasDrinks ? '<div class="customizations-preview"><span><i class="fas fa-glass-cheers"></i> Drinks included</span></div>' : ''}
                         ${product.hasExtras && product.extras?.length ? `<div class="customizations-preview"><span><i class="fas fa-plus-circle"></i> ${product.extras.length} extras</span></div>` : ''}
@@ -450,6 +489,7 @@
             document.getElementById('modalTitle').textContent = 'Add New Product';
             document.getElementById('productForm').reset();
             document.getElementById('productId').value = '';
+            document.getElementById('totalPieces').value = '0';
             document.getElementById('hasFlavours').value = 'false';
             document.getElementById('hasDrinks').value = 'false';
             document.getElementById('hasExtras').value = 'false';
@@ -487,6 +527,7 @@
             document.getElementById('productPrice').value = product.price;
             document.getElementById('productDescription').value = product.description || '';
             document.getElementById('productImage').value = product.image || '';
+            document.getElementById('totalPieces').value = product.totalPieces || 0;
             document.getElementById('hasFlavours').value = product.hasFlavours ? 'true' : 'false';
             document.getElementById('hasDrinks').value = product.hasDrinks ? 'true' : 'false';
             document.getElementById('hasExtras').value = product.hasExtras ? 'true' : 'false';
@@ -565,11 +606,14 @@
             if (!category) { showToast("Please select a category", "error"); return; }
             
             const productId = document.getElementById('productId').value || Date.now().toString();
+            const totalPiecesValue = parseInt(document.getElementById('totalPieces').value) || 0;
             
             let flavours = [];
             if (document.getElementById('hasFlavours').value === 'true') {
-                flavours = [{ name: document.getElementById('flavour1Name').value || "Spicy", img: document.getElementById('flavour1Image').value || "" },
-                           { name: document.getElementById('flavour2Name').value || "Original", img: document.getElementById('flavour2Image').value || "" }];
+                flavours = [
+                    { name: document.getElementById('flavour1Name').value || "Spicy", img: document.getElementById('flavour1Image').value || "" },
+                    { name: document.getElementById('flavour2Name').value || "Original", img: document.getElementById('flavour2Image').value || "" }
+                ];
             }
             
             let drinks = [];
@@ -595,6 +639,7 @@
                 price: parseFloat(document.getElementById('productPrice').value),
                 description: document.getElementById('productDescription').value,
                 image: document.getElementById('productImage').value || 'https://via.placeholder.com/300x200/8B0000/white?text=KFC',
+                totalPieces: totalPiecesValue,
                 hasFlavours: document.getElementById('hasFlavours').value === 'true',
                 hasDrinks: document.getElementById('hasDrinks').value === 'true',
                 hasExtras: document.getElementById('hasExtras').value === 'true',
@@ -602,6 +647,13 @@
                 drinks: drinks,
                 extras: extras
             };
+            
+            // إظهار تحذير إذا كان المنتج يحتوي على نكهات ولكن totalPieces = 0
+            if (product.hasFlavours && product.totalPieces === 0) {
+                if (!confirm("⚠️ This product has flavours but total pieces is 0. The slider modal won't appear. Do you want to continue anyway?")) {
+                    return;
+                }
+            }
             
             saveProduct(product, category, !!document.getElementById('productId').value);
         });
