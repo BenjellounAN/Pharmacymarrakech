@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>BenEx Market - Supermarket Delivery</title>
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Ubuntu', sans-serif;
+    }
+
+    body {
+      background-color: #f8f8f8;
+      color: #333;
+      max-width: 400px;
+      margin: 0 auto;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* Original app styles */
+    .navbar.scrolled .nav-title,
+    .delivery-icon,
+    .restaurant-name,
+    .category.active,
+    .view-cart-btn {
+      color: #B22222;
+    }
+
+    .category.active {
+      border-color: #B22222;
+    }
+
+    .category.active::before {
+      background: linear-gradient(135deg, #B22222 0%, #8B1A1A 100%);
+    }
+
+    .add-btn {
+      background: linear-gradient(135deg, #B22222 0%, #8B1A1A 100%);
+      box-shadow: 0 4px 10px rgba(178, 34, 34, 0.3);
+    }
+
+    .product-price {
+      font-weight: 600;
+      color: #B22222;
+    }
+
+    .nav-btn {
+      color: #B22222;
+    }
+
+    .category-container {
+      background-color: white;
+      margin-bottom: 14px;          
+      padding-bottom: 8px;
+      border-bottom: 1px solid #e0e6ed; 
+    }
+    .category-container:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+
+    .category-title {
+      font-size: 20px;
+      font-weight: 700;
+      padding: 16px 16px 8px 16px;
+      color: #212529;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      padding: 0 12px 12px 12px;
+    }
+
+    .view-all-wrapper {
+      display: flex;
+      justify-content: flex-end;
+      padding: 0 16px 12px 16px;
+    }
+    .view-all-btn {
+      background: white;
+      border: 1.5px solid #B22222;
+      color: #B22222;
+      font-weight: 600;
+      font-size: 13px;
+      padding: 8px 20px;
+      border-radius: 40px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      max-width: 400px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px;
+      background-color: transparent;
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+
+    .navbar.scrolled {
+      background-color: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar.scrolled .nav-title {
+      display: block;
+    }
+
+    .nav-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .nav-title {
+      display: none;
+      font-weight: 700;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 18px;
+    }
+
+    .hero-section {
+      position: relative;
+      height: 150px;
+      overflow: hidden;
+    }
+
+    .hero-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .restaurant-info {
+      padding: 20px 16px;
+      background-color: white;
+      border-radius: 0 0 16px 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      margin-bottom: 8px;
+    }
+
+    .restaurant-name {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .delivery-time {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #f0f0f0;
+      padding: 8px 16px;
+      border-radius: 20px;
+      width: fit-content;
+    }
+
+    .categories-section {
+      padding: 16px;
+      background-color: white;
+      margin-bottom: 8px;
+      position: sticky;
+      top: 72px;
+      z-index: 900;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .categories {
+      display: flex;
+      overflow-x: auto;
+      gap: 12px;
+      padding-bottom: 4px;
+      scrollbar-width: none;
+    }
+
+    .categories::-webkit-scrollbar {
+      display: none;
+    }
+
+    .category {
+      padding: 14px 22px;
+      background: #F8F9FA;
+      border-radius: 40px;
+      white-space: nowrap;
+      font-size: 15px;
+      font-weight: 600;
+      color: #495057;
+      transition: all 0.15s ease;
+      cursor: pointer;
+      border: 1.5px solid #E9ECEF;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .category::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(135deg, #B22222 0%, #8B1A1A 100%);
+      border-radius: 40px;
+      opacity: 0;
+      transition: opacity 0.15s ease;
+      z-index: -1;
+    }
+
+    .category.active {
+      color: white;
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(178, 34, 34, 0.25);
+      border-color: #B22222;
+    }
+
+    .category.active::before {
+      opacity: 1;
+    }
+
+    .product-card {
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      transition: transform 0.15s ease;
+      border: 1px solid #ddd;
+      position: relative;
+    }
+
+    .product-card:active {
+      transform: scale(0.98);
+    }
+
+    .product-image-container {
+      height: 100px;
+      position: relative;
+      padding: 8px;
+    }
+
+    .product-image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .add-btn {
+      position: absolute;
+      bottom: -16px;
+      right: 8px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 4px 10px rgba(178, 34, 34, 0.3);
+      color: white;
+      font-weight: bold;
+      font-size: 18px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .product-info {
+      padding: 24px 8px 8px;
+    }
+
+    .product-title {
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 6px;
+      color: #212529;
+      line-height: 1.3;
+      min-height: 40px;
+    }
+
+    .product-description {
+      font-size: 11px;
+      color: #666;
+      margin-bottom: 4px;
+    }
+
+    .view-cart-btn {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #B22222;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      padding: 12px 25px;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      display: none;
+      z-index: 1000;
+    }
+
+    @media(max-width:600px){
+      .products {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .flying-element {
+      position: fixed;
+      width: 30px;
+      height: 30px;
+      background-color: #B22222;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      box-shadow: 0 0 15px rgba(178, 34, 34, 0.7);
+      z-index: 9999;
+      pointer-events: none;
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .flying-element::after {
+      content: '+';
+    }
+
+    /* Loading Spinner */
+    .loading-spinner {
+      text-align: center;
+      padding: 40px;
+      color: #B22222;
+    }
+
+    .loading-spinner i {
+      font-size: 40px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Main App -->
+  <nav class="navbar" id="navbar">
+    <button class="nav-btn" id="backButton"><i class="fas fa-arrow-left"></i></button>
+    <div class="nav-title">BenEx Market</div>
+    <div style="display: flex; gap: 12px;">
+      <button class="nav-btn" id="searchButton"><i class="fas fa-search"></i></button>
+    </div>
+  </nav>
+
+  <div class="hero-section">
+    <img src="https://i.ibb.co/Z6Zk8q6/chips1.png" alt="BenEx Market" class="hero-image">
+  </div>
+
+  <div class="restaurant-info">
+    <h1 class="restaurant-name">BenEx Market Marrakech</h1>
+    <div class="delivery-time">
+      <i class="fas fa-motorcycle delivery-icon"></i>
+      <span>15-30 min</span>
+    </div>
+  </div>
+
+  <div class="categories-section" id="categoriesSection">
+    <div class="categories" id="categoriesContainer">
+      <div class="loading-spinner"><i class="fas fa-spinner"></i> Loading...</div>
+    </div>
+  </div>
+
+  <div id="products-container">
+    <div class="loading-spinner"><i class="fas fa-spinner"></i> Loading products...</div>
+  </div>
+
+  <button class="view-cart-btn" id="viewCartBtn">
+    <span>View Basket</span>
+    <div class="cart-item-count" id="cartItemCount">0</div>
+  </button>
+
+  <script>
+    // Firebase Configuration - Your provided config
+    const firebaseConfig = {
+      apiKey: "AIzaSyB0CGFqa0f1rQvyQHAI2pwm2MarqGDX6S4",
+      authDomain: "ben-market-c5eb5.firebaseapp.com",
+      projectId: "ben-market-c5eb5",
+      storageBucket: "ben-market-c5eb5.firebasestorage.app",
+      messagingSenderId: "622679741266",
+      appId: "1:622679741266:web:4d274821dfc25de2ca208b",
+      measurementId: "G-L61KK3PNMN"
+    };
+    
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+    
+    let allProducts = [];
+    let dbListener = null;
+    
+    // Category mapping
+    const categoryMap = {
+      'crisps': { name: 'Crisps & snacks', icon: '🥔', order: 0 },
+      'chocolate': { name: 'Chocolate', icon: '🍫', order: 1 },
+      'drinks': { name: 'Drinks', icon: '🥤', order: 2 },
+      'bakery': { name: 'Bakery', icon: '🥖', order: 3 },
+      'dairy': { name: 'Dairy', icon: '🥛', order: 4 },
+      'fruits': { name: 'Fruits & veg', icon: '🍎', order: 5 },
+      'frozen': { name: 'Frozen', icon: '❄️', order: 6 },
+      'household': { name: 'Household', icon: '🧴', order: 7 }
+    };
+    
+    // Real-time listener for products from Firebase
+    function setupRealtimeListener() {
+      if (dbListener) {
+        dbListener();
+      }
+      
+      dbListener = db.collection('products').onSnapshot((snapshot) => {
+        allProducts = [];
+        snapshot.forEach(doc => {
+          allProducts.push({ 
+            id: doc.id, 
+            ...doc.data(),
+            price: doc.data().price || 0
+          });
+        });
+        console.log('Products updated from Firebase:', allProducts.length);
+        renderMainPage();
+      }, (error) => {
+        console.error('Error listening to products:', error);
+        // If no products in Firebase, load demo data
+        if (allProducts.length === 0) {
+          loadDemoData();
+        }
+      });
+    }
+    
+    // Demo data to initialize Firebase
+    async function loadDemoData() {
+      const demoProducts = [
+        { name: 'Kettle Sea Salt 130g', price: 22.00, image: 'https://glovo.dhmedia.io/image/global-catalog-glovo/nv-global-catalog/aa/923b4a90-e1e7-457f-b27e-6a452893884c.jpg', description: 'Sea salt crisps', category: 'crisps' },
+        { name: 'Oreo 154g', price: 15.00, image: 'https://glovo.dhmedia.io/image/global-catalog-glovo/nv-global-catalog/aa/923b4a90-e1e7-457f-b27e-6a452893884c.jpg', description: 'Original Oreo cookies', category: 'crisps' },
+        { name: 'Walkers Baked 6pk', price: 20.00, image: 'https://glovo.dhmedia.io/image/global-catalog-glovo/nv-global-catalog/aa/923b4a90-e1e7-457f-b27e-6a452893884c.jpg', description: 'Baked crisps', category: 'crisps' },
+        { name: 'Milky Bar 100g', price: 19.90, image: 'https://i.ibb.co/fpJj6gT/oreo.png', description: 'Milky chocolate bar', category: 'chocolate' },
+        { name: 'Dark Chocolate 70%', price: 24.90, image: 'https://i.ibb.co/Z6Zk8q6/chips1.png', description: 'Premium dark chocolate', category: 'chocolate' },
+        { name: 'Coca Cola 500ml', price: 18.00, image: 'https://i.ibb.co/Z6Zk8q6/chips1.png', description: 'Classic cola', category: 'drinks' },
+        { name: 'Fresh Baguette', price: 14.00, image: 'https://i.ibb.co/Z6Zk8q6/chips1.png', description: 'Freshly baked baguette', category: 'bakery' },
+        { name: 'Fresh Milk 2L', price: 23.00, image: 'https://i.ibb.co/Z6Zk8q6/chips1.png', description: 'Fresh pasteurized milk', category: 'dairy' },
+        { name: 'Apple Pack 4pcs', price: 24.00, image: 'https://i.ibb.co/Z6Zk8q6/chips1.png', description: 'Fresh red apples', category: 'fruits' },
+        { name: 'Frozen Pizza Margherita', price: 45.00, image: 'https://i.ibb.co/Z6Zk8q6/chips1.png', description: 'Italian style pizza', category: 'frozen' },
+        { name: 'Toilet Roll 4pk', price: 35.00, image: 'https://i.ibb.co/Z6Zk8q6/chips1.png', description: 'Premium toilet paper', category: 'household' }
+      ];
+      
+      // Check if Firebase has any products
+      const snapshot = await db.collection('products').get();
+      if (snapshot.empty) {
+        // Add demo products to Firebase
+        for (const product of demoProducts) {
+          await db.collection('products').add(product);
+        }
+        console.log('Demo products added to Firebase');
+      }
+    }
+    
+    // Render main store page
+    function renderMainPage() {
+      const container = document.getElementById('products-container');
+      const categoriesContainer = document.getElementById('categoriesContainer');
+      
+      if (!container) return;
+      
+      // Group products by category
+      const grouped = {};
+      allProducts.forEach(product => {
+        if (!grouped[product.category]) grouped[product.category] = [];
+        grouped[product.category].push(product);
+      });
+      
+      // Render categories bar
+      categoriesContainer.innerHTML = '';
+      let hasActiveSet = false;
+      
+      Object.keys(categoryMap).sort((a,b) => categoryMap[a].order - categoryMap[b].order).forEach(catKey => {
+        if (grouped[catKey] && grouped[catKey].length > 0) {
+          const catDiv = document.createElement('div');
+          catDiv.className = 'category';
+          if (!hasActiveSet && catKey === 'crisps') {
+            catDiv.classList.add('active');
+            hasActiveSet = true;
+          }
+          catDiv.setAttribute('data-category', catKey);
+          catDiv.innerHTML = `${categoryMap[catKey].icon} ${categoryMap[catKey].name}`;
+          catDiv.onclick = () => scrollToCategory(catKey);
+          categoriesContainer.appendChild(catDiv);
+        }
+      });
+      
+      if (categoriesContainer.children.length === 0) {
+        categoriesContainer.innerHTML = '<div class="loading-spinner">No categories available</div>';
+      }
+      
+      // Render products by category
+      container.innerHTML = '';
+      Object.keys(categoryMap).sort((a,b) => categoryMap[a].order - categoryMap[b].order).forEach(catKey => {
+        const products = grouped[catKey] || [];
+        if (products.length === 0) return;
+        
+        const catContainer = document.createElement('div');
+        catContainer.className = 'category-container';
+        catContainer.id = `${catKey}-container`;
+        catContainer.innerHTML = `
+          <div class="category-title">${categoryMap[catKey].icon} ${categoryMap[catKey].name}</div>
+          <div class="products" id="products-${catKey}"></div>
+          <div class="view-all-wrapper"><div class="view-all-btn" onclick="alert('جميع منتجات ${categoryMap[catKey].name}')"><span>View All</span><i class="fas fa-arrow-right"></i></div></div>
+        `;
+        container.appendChild(catContainer);
+        
+        const productsGrid = catContainer.querySelector(`#products-${catKey}`);
+        products.forEach(product => {
+          const productCard = document.createElement('div');
+          productCard.className = 'product-card';
+          productCard.innerHTML = `
+            <div class="product-image-container">
+              <img src="${product.image || 'https://via.placeholder.com/100'}" class="product-image" onerror="this.src='https://via.placeholder.com/100'">
+              <button class="add-btn" data-name="${escapeHtml(product.name)}" data-price="${product.price}" data-id="${product.id}">+</button>
+            </div>
+            <div class="product-info">
+              <div class="product-title">${escapeHtml(product.name)}</div>
+              ${product.description ? `<div class="product-description">${escapeHtml(product.description.substring(0, 40))}</div>` : ''}
+              <div class="product-price">${product.price.toFixed(2)} MAD</div>
+            </div>
+          `;
+          productsGrid.appendChild(productCard);
+        });
+      });
+      
+      // Reattach add to cart events
+      document.querySelectorAll('.add-btn').forEach(btn => {
+        btn.removeEventListener('click', addToCartHandler);
+        btn.addEventListener('click', addToCartHandler);
+      });
+      
+      if (allProducts.length === 0) {
+        container.innerHTML = '<div class="loading-spinner"><i class="fas fa-box-open"></i><br>No products available</div>';
+      }
+    }
+    
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str.replace(/[&<>]/g, function(m) {
+        if (m === '&') return '&amp;';
+        if (m === '<') return '&lt;';
+        if (m === '>') return '&gt;';
+        return m;
+      });
+    }
+    
+    function addToCartHandler(e) {
+      e.stopPropagation();
+      const name = this.getAttribute('data-name');
+      const price = parseFloat(this.getAttribute('data-price'));
+      const productId = this.getAttribute('data-id');
+      const product = allProducts.find(p => p.id === productId);
+      
+      let cart = JSON.parse(localStorage.getItem('deliverooCart')) || [];
+      const existing = cart.find(item => item.id === productId);
+      if (existing) {
+        existing.quantity++;
+        existing.totalPrice = existing.quantity * existing.basePrice;
+      } else {
+        cart.push({
+          id: productId,
+          name: name,
+          basePrice: price,
+          quantity: 1,
+          totalPrice: price,
+          image: product?.image || ''
+        });
+      }
+      localStorage.setItem('deliverooCart', JSON.stringify(cart));
+      updateCartUI();
+      
+      // Animation
+      const rect = this.getBoundingClientRect();
+      const viewCartBtn = document.getElementById('viewCartBtn');
+      if (viewCartBtn && viewCartBtn.style.display !== 'none') {
+        const flyingEl = document.createElement('div');
+        flyingEl.className = 'flying-element';
+        flyingEl.style.left = (rect.left + rect.width/2) + 'px';
+        flyingEl.style.top = (rect.top + rect.height/2) + 'px';
+        flyingEl.style.transform = 'translate(-50%, -50%)';
+        document.body.appendChild(flyingEl);
+        
+        const basketRect = viewCartBtn.getBoundingClientRect();
+        setTimeout(() => {
+          flyingEl.style.transform = `translate(${basketRect.left - rect.left}px, ${basketRect.top - rect.top}px) scale(0.1)`;
+        }, 10);
+        
+        setTimeout(() => flyingEl.remove(), 600);
+      }
+    }
+    
+    function updateCartUI() {
+      const cart = JSON.parse(localStorage.getItem('deliverooCart')) || [];
+      const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+      const viewCartBtn = document.getElementById('viewCartBtn');
+      const cartItemCount = document.getElementById('cartItemCount');
+      if (itemCount > 0) {
+        viewCartBtn.style.display = 'flex';
+        cartItemCount.textContent = itemCount;
+      } else {
+        viewCartBtn.style.display = 'none';
+      }
+    }
+    
+    function scrollToCategory(categoryKey) {
+      const container = document.getElementById(`${categoryKey}-container`);
+      if (container) {
+        container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      // Update active category
+      document.querySelectorAll('.category').forEach((cat, index) => {
+        if (cat.getAttribute('data-category') === categoryKey) {
+          cat.classList.add('active');
+        } else {
+          cat.classList.remove('active');
+        }
+      });
+    }
+    
+    // Navigation
+    document.getElementById('backButton').onclick = () => window.history.back();
+    document.getElementById('searchButton').onclick = () => {
+      const searchTerm = prompt('🔍 Search for products:', '');
+      if (searchTerm && searchTerm.trim()) {
+        const products = document.querySelectorAll('.product-card');
+        let found = false;
+        products.forEach(card => {
+          const title = card.querySelector('.product-title')?.textContent.toLowerCase() || '';
+          if (title.includes(searchTerm.toLowerCase())) {
+            card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            card.style.boxShadow = '0 0 0 3px #B22222';
+            setTimeout(() => {
+              card.style.boxShadow = '';
+            }, 2000);
+            found = true;
+          }
+        });
+        if (!found) alert('No products found matching: ' + searchTerm);
+      }
+    };
+    
+    document.getElementById('viewCartBtn').onclick = () => {
+      const cart = JSON.parse(localStorage.getItem('deliverooCart')) || [];
+      if (cart.length === 0) {
+        alert('🛒 Your basket is empty');
+        return;
+      }
+      let msg = '🛒 Your Basket:\n\n';
+      let total = 0;
+      cart.forEach((item, i) => {
+        msg += `${i+1}. ${item.name}\n   x${item.quantity} = ${item.totalPrice.toFixed(2)} MAD\n\n`;
+        total += item.totalPrice;
+      });
+      msg += `━━━━━━━━━━━━━━━━\n💰 Total: ${total.toFixed(2)} MAD\n━━━━━━━━━━━━━━━━\n\n✅ Thank you for shopping at BenEx Market!`;
+      alert(msg);
+    };
+    
+    // Scroll effect for navbar
+    window.addEventListener('scroll', () => {
+      const navbar = document.getElementById('navbar');
+      if (window.scrollY > 100) navbar.classList.add('scrolled');
+      else navbar.classList.remove('scrolled');
+    });
+    
+    // Update active category on scroll
+    let ticking = false;
+    const categoryKeys = ['crisps', 'chocolate', 'drinks', 'bakery', 'dairy', 'fruits', 'frozen', 'household'];
+    
+    function updateActiveCategory() {
+      const scrollPosition = window.scrollY + 100;
+      const categories = document.querySelectorAll('.category');
+      
+      for (let i = 0; i < categoryKeys.length; i++) {
+        const container = document.getElementById(`${categoryKeys[i]}-container`);
+        if (container) {
+          const containerTop = container.offsetTop;
+          const containerBottom = containerTop + container.offsetHeight;
+          if (scrollPosition >= containerTop && scrollPosition < containerBottom) {
+            categories.forEach(cat => cat.classList.remove('active'));
+            if (categories[i]) categories[i].classList.add('active');
+            break;
+          }
+        }
+      }
+    }
+    
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          updateActiveCategory();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+    
+    // Initialize
+    updateCartUI();
+    setupRealtimeListener();
+    
+    console.log('App initialized - Listening to Firebase for real-time updates');
+  </script>
+</body>
+</html>
