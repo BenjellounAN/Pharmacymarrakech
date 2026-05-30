@@ -39,10 +39,46 @@
     .categories::-webkit-scrollbar { height: 3px; }
     .categories::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
     .categories::-webkit-scrollbar-thumb { background: #B22222; border-radius: 10px; }
-    .category { padding: 14px 22px; background: #F8F9FA; border-radius: 40px; white-space: nowrap; font-size: 15px; font-weight: 600; color: #495057; transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1); cursor: pointer; border: 1.5px solid #E9ECEF; position: relative; overflow: hidden; flex-shrink: 0; }
-    .category::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(135deg, #B22222 0%, #8B1A1A 100%); border-radius: 40px; opacity: 0; transition: opacity 0.2s ease; z-index: -1; }
-    .category.active { color: white; transform: scale(1.03); box-shadow: 0 6px 14px rgba(178, 34, 34, 0.25); border-color: #B22222; }
+    .category { 
+      padding: 14px 22px; 
+      background: #F8F9FA; 
+      border-radius: 40px; 
+      white-space: nowrap; 
+      font-size: 15px; 
+      font-weight: 600; 
+      color: #495057; 
+      transition: all 0.3s cubic-bezier(0.34, 1.2, 0.64, 1); 
+      cursor: pointer; 
+      border: 1.5px solid #E9ECEF; 
+      position: relative; 
+      overflow: hidden; 
+      flex-shrink: 0;
+      transform: scale(1);
+      opacity: 0.9;
+    }
+    .category::before { 
+      content: ''; 
+      position: absolute; 
+      top: 0; 
+      left: 0; 
+      right: 0; 
+      bottom: 0; 
+      background: linear-gradient(135deg, #B22222 0%, #8B1A1A 100%); 
+      border-radius: 40px; 
+      opacity: 0; 
+      transition: opacity 0.3s ease; 
+      z-index: -1; 
+    }
+    .category.active { 
+      color: white; 
+      transform: scale(1.05) translateY(-2px); 
+      box-shadow: 0 8px 20px rgba(178, 34, 34, 0.3); 
+      border-color: #B22222;
+      opacity: 1;
+    }
     .category.active::before { opacity: 1; }
+    .category:active { transform: scale(0.96); transition: transform 0.1s; }
+    
     .product-card { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); transition: transform 0.15s ease, box-shadow 0.2s; border: 1px solid #ddd; position: relative; }
     .product-image-container { height: 100px; position: relative; padding: 8px; }
     .product-image { width: 100%; height: 100%; object-fit: contain; }
@@ -79,6 +115,16 @@
     .result-add-small { background: linear-gradient(135deg, #B22222, #8B1A1A); border: none; color: white; width: 36px; height: 36px; border-radius: 50%; font-size: 18px; font-weight: bold; cursor: pointer; margin-left: 8px; transition: 0.1s; }
     .no-results { text-align: center; padding: 40px 20px; color: #888; font-weight: 500; }
     .search-highlight { background: #ffeb3b; color: #B22222; font-weight: bold; border-radius: 4px; padding: 0 2px; }
+    
+    /* Instant scroll reveal animation for categories */
+    @keyframes categoryGlow {
+      0% { box-shadow: 0 0 0 0 rgba(178,34,34,0.4); }
+      100% { box-shadow: 0 0 0 8px rgba(178,34,34,0); }
+    }
+    .category-trigger-glow {
+      animation: categoryGlow 0.6s ease-out;
+    }
+    
     @media(max-width:600px){ .products { grid-template-columns: repeat(2, 1fr); } }
   </style>
 </head>
@@ -153,6 +199,39 @@
       renderMainPage();
     });
     
+    // Professional instant category navigation with smooth page scroll + slider auto-center + animation
+    function scrollToCategory(categoryKey, fromClick = true) {
+      const targetContainer = document.getElementById(`${categoryKey}-container`);
+      if (targetContainer) {
+        // Smooth scroll to category section with instant feel but elegant easing
+        targetContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      
+      // Update active class on categories
+      const categories = document.querySelectorAll('.category');
+      let activeCatElement = null;
+      categories.forEach(cat => {
+        if (cat.getAttribute('data-category') === categoryKey) {
+          cat.classList.add('active');
+          activeCatElement = cat;
+          // Add glow animation for professional feedback
+          cat.classList.add('category-trigger-glow');
+          setTimeout(() => cat.classList.remove('category-trigger-glow'), 600);
+        } else {
+          cat.classList.remove('active');
+        }
+      });
+      
+      // Auto-scroll categories slider to make active category fully visible (instant yet smooth)
+      const categoriesSlider = document.getElementById('categoriesContainer');
+      if (activeCatElement && categoriesSlider) {
+        const sliderRect = categoriesSlider.getBoundingClientRect();
+        const activeRect = activeCatElement.getBoundingClientRect();
+        const scrollLeftTarget = categoriesSlider.scrollLeft + (activeRect.left - sliderRect.left) - (sliderRect.width / 2) + (activeRect.width / 2);
+        categoriesSlider.scrollTo({ left: Math.max(0, scrollLeftTarget), behavior: 'smooth' });
+      }
+    }
+    
     function renderMainPage() {
       const container = document.getElementById('products-container');
       const categoriesContainer = document.getElementById('categoriesContainer');
@@ -163,7 +242,7 @@
         grouped[product.category].push(product);
       });
       
-      // Build smooth category slider (horizontal scroll with active indicator)
+      // Build categories slider with instant click handlers
       categoriesContainer.innerHTML = '';
       const catKeysSorted = Object.keys(categoryMap).sort((a,b) => categoryMap[a].order - categoryMap[b].order);
       catKeysSorted.forEach(catKey => {
@@ -173,7 +252,11 @@
           if (catKey === 'crisps') catDiv.classList.add('active');
           catDiv.setAttribute('data-category', catKey);
           catDiv.innerHTML = `${categoryMap[catKey].icon} ${categoryMap[catKey].name}`;
-          catDiv.onclick = () => scrollToCategory(catKey);
+          // Direct instant navigation with animation and slider sync
+          catDiv.onclick = (e) => {
+            e.preventDefault();
+            scrollToCategory(catKey, true);
+          };
           categoriesContainer.appendChild(catDiv);
         }
       });
@@ -218,7 +301,7 @@
         btn.removeEventListener('click', addToCartHandler);
         btn.addEventListener('click', addToCartHandler);
       });
-      // View All buttons simple alert
+      
       document.querySelectorAll('.view-all-btn').forEach(btn => {
         btn.onclick = (e) => {
           e.stopPropagation();
@@ -227,6 +310,17 @@
           alert(`✨ Explore all ${catName} products at BenEx! ✨`);
         };
       });
+      
+      // After rendering, ensure scroll-based active category detection works perfectly
+      setTimeout(() => {
+        updateActiveCategory();
+        // If no active on load, set first visible
+        const anyActive = document.querySelector('.category.active');
+        if (!anyActive && categoriesContainer.firstChild) {
+          const firstCat = categoriesContainer.firstChild.getAttribute('data-category');
+          if(firstCat) scrollToCategory(firstCat);
+        }
+      }, 100);
     }
     
     function escapeHtml(str) {
@@ -262,7 +356,6 @@
       localStorage.setItem('deliverooCart', JSON.stringify(cart));
       updateCartUI();
       
-      // Flying animation
       const rect = this.getBoundingClientRect();
       const viewCartBtn = document.getElementById('viewCartBtn');
       if (viewCartBtn && viewCartBtn.style.display !== 'none') {
@@ -294,29 +387,8 @@
       }
     }
     
-    // Smooth category scroll + auto centering slider
-    function scrollToCategory(categoryKey) {
-      const container = document.getElementById(`${categoryKey}-container`);
-      if (container) {
-        container.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-      // Active category highlight
-      document.querySelectorAll('.category').forEach(cat => {
-        if (cat.getAttribute('data-category') === categoryKey) {
-          cat.classList.add('active');
-          // Smooth scroll the categories slider to make active button visible
-          const categoriesDiv = document.getElementById('categoriesContainer');
-          const catOffset = cat.offsetLeft - categoriesDiv.offsetLeft - 20;
-          categoriesDiv.scrollTo({ left: catOffset, behavior: 'smooth' });
-        } else {
-          cat.classList.remove('active');
-        }
-      });
-    }
-    
-    // Enhanced modern search modal
+    // Enhanced search modal (same as before but perfectly integrated)
     function openSearchModal() {
-      // Remove existing overlay if any
       const existingOverlay = document.querySelector('.search-overlay');
       if (existingOverlay) existingOverlay.remove();
       
@@ -369,7 +441,6 @@
           `;
           resultsContainer.appendChild(resultDiv);
         });
-        // attach add events for search results
         overlay.querySelectorAll('.result-add-small').forEach(btn => {
           btn.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -386,7 +457,6 @@
             }
             localStorage.setItem('deliverooCart', JSON.stringify(cart));
             updateCartUI();
-            // mini fly effect from search item
             const rect = btn.getBoundingClientRect();
             const flyMini = document.createElement('div');
             flyMini.className = 'flying-element';
@@ -395,7 +465,6 @@
             flyMini.style.transform = 'translate(-50%, -50%)';
             document.body.appendChild(flyMini);
             setTimeout(() => flyMini.remove(), 400);
-            // Optional: subtle visual feedback
             btn.style.transform = 'scale(0.9)';
             setTimeout(() => btn.style.transform = '', 120);
           });
@@ -444,14 +513,23 @@
           const containerTop = container.offsetTop;
           const containerBottom = containerTop + container.offsetHeight;
           if (scrollPosition >= containerTop && scrollPosition < containerBottom) {
-            categories.forEach(cat => cat.classList.remove('active'));
-            if (categories[i]) categories[i].classList.add('active');
-            // Auto-scroll categories slider to keep active visible
-            const catElem = categories[i];
-            if(catElem && document.getElementById('categoriesContainer')) {
-              const parentScroll = document.getElementById('categoriesContainer');
-              const targetLeft = catElem.offsetLeft - parentScroll.offsetLeft - 20;
-              parentScroll.scrollTo({ left: Math.max(0, targetLeft), behavior: 'smooth' });
+            let activeChanged = false;
+            categories.forEach(cat => {
+              if (cat.getAttribute('data-category') === categoryKeys[i]) {
+                if (!cat.classList.contains('active')) activeChanged = true;
+                cat.classList.add('active');
+              } else {
+                cat.classList.remove('active');
+              }
+            });
+            // Sync slider auto-center on scroll if needed
+            const activeCat = document.querySelector(`.category[data-category="${categoryKeys[i]}"]`);
+            const categoriesSlider = document.getElementById('categoriesContainer');
+            if (activeCat && categoriesSlider && activeChanged) {
+              const sliderRect = categoriesSlider.getBoundingClientRect();
+              const activeRect = activeCat.getBoundingClientRect();
+              const scrollTarget = categoriesSlider.scrollLeft + (activeRect.left - sliderRect.left) - (sliderRect.width / 2) + (activeRect.width / 2);
+              categoriesSlider.scrollTo({ left: Math.max(0, scrollTarget), behavior: 'smooth' });
             }
             break;
           }
