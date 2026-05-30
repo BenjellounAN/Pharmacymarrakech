@@ -94,36 +94,32 @@
     .loading-spinner i { font-size: 40px; animation: spin 1s linear infinite; }
     @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     
-    /* Enhanced Search Modal Styles */
-    .search-overlay { position: fixed; top: 0; left: 0; width: 100%; max-width: 400px; margin: 0 auto; right: 0; height: 100%; background: rgba(0,0,0,0.75); backdrop-filter: blur(6px); z-index: 2000; display: flex; align-items: flex-start; justify-content: center; transition: all 0.3s ease; }
-    .search-modal { background: white; width: 90%; margin-top: 70px; border-radius: 32px; box-shadow: 0 25px 40px rgba(0,0,0,0.3); overflow: hidden; animation: slideDown 0.25s ease; max-height: 75vh; display: flex; flex-direction: column; }
-    @keyframes slideDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
-    .search-header { padding: 20px 20px 12px; border-bottom: 1px solid #eee; display: flex; align-items: center; justify-content: space-between; background: #fff; }
+    /* Enhanced Search Modal with Product Images */
+    .search-overlay { position: fixed; top: 0; left: 0; width: 100%; max-width: 400px; margin: 0 auto; right: 0; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); z-index: 2000; display: flex; align-items: flex-start; justify-content: center; transition: all 0.3s ease; }
+    .search-modal { background: white; width: 92%; margin-top: 60px; border-radius: 32px; box-shadow: 0 25px 50px rgba(0,0,0,0.4); overflow: hidden; animation: slideDown 0.3s cubic-bezier(0.34, 1.2, 0.64, 1); max-height: 80vh; display: flex; flex-direction: column; }
+    @keyframes slideDown { from { opacity: 0; transform: translateY(-40px) scale(0.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    .search-header { padding: 18px 20px 12px; border-bottom: 1px solid #eee; display: flex; align-items: center; justify-content: space-between; background: #fff; }
     .search-header h3 { font-size: 20px; font-weight: 700; color: #B22222; display: flex; align-items: center; gap: 10px; }
     .close-search { background: none; border: none; font-size: 24px; cursor: pointer; color: #666; transition: 0.2s; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
     .close-search:hover { background: #f0f0f0; color: #B22222; }
-    .search-input-wrapper { padding: 12px 20px; background: #fff; }
+    .search-input-wrapper { padding: 12px 20px; background: #fff; border-bottom: 1px solid #f0f0f0; }
     .search-input { width: 100%; padding: 14px 18px; border: 2px solid #e9ecef; border-radius: 50px; font-size: 16px; outline: none; transition: 0.2s; background: #f8f9fa; }
     .search-input:focus { border-color: #B22222; background: white; box-shadow: 0 0 0 3px rgba(178,34,34,0.1); }
-    .search-results-list { overflow-y: auto; padding: 8px 16px 20px; max-height: 55vh; }
-    .result-item { display: flex; align-items: center; justify-content: space-between; background: #fff; border-radius: 18px; padding: 12px 12px; margin-bottom: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border: 1px solid #f0f0f0; transition: all 0.2s; }
-    .result-item:hover { background: #fef6f6; transform: translateX(4px); border-color: #ffcdcd; }
-    .result-info { flex: 1; }
-    .result-name { font-weight: 700; font-size: 15px; color: #212529; }
-    .result-category { font-size: 11px; color: #B22222; margin-top: 4px; font-weight: 500; }
-    .result-price { font-weight: 700; color: #B22222; font-size: 15px; margin-left: 12px; }
-    .result-add-small { background: linear-gradient(135deg, #B22222, #8B1A1A); border: none; color: white; width: 36px; height: 36px; border-radius: 50%; font-size: 18px; font-weight: bold; cursor: pointer; margin-left: 8px; transition: 0.1s; }
-    .no-results { text-align: center; padding: 40px 20px; color: #888; font-weight: 500; }
-    .search-highlight { background: #ffeb3b; color: #B22222; font-weight: bold; border-radius: 4px; padding: 0 2px; }
+    .search-results-list { overflow-y: auto; padding: 12px 16px 20px; max-height: 58vh; }
     
-    /* Instant scroll reveal animation for categories */
-    @keyframes categoryGlow {
-      0% { box-shadow: 0 0 0 0 rgba(178,34,34,0.4); }
-      100% { box-shadow: 0 0 0 8px rgba(178,34,34,0); }
-    }
-    .category-trigger-glow {
-      animation: categoryGlow 0.6s ease-out;
-    }
+    /* New stylish result item with image */
+    .result-item-with-image { display: flex; align-items: center; gap: 14px; background: white; border-radius: 20px; padding: 12px; margin-bottom: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); border: 1px solid #f0f0f0; transition: all 0.25s ease; cursor: pointer; }
+    .result-item-with-image:hover { transform: translateX(5px); border-color: #ffcccc; background: #fffafa; box-shadow: 0 4px 15px rgba(178,34,34,0.1); }
+    .result-image-box { width: 60px; height: 60px; background: #f8f9fa; border-radius: 16px; display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; padding: 6px; }
+    .result-image { width: 100%; height: 100%; object-fit: contain; }
+    .result-details { flex: 1; }
+    .result-name { font-weight: 700; font-size: 15px; color: #212529; margin-bottom: 4px; line-height: 1.3; }
+    .result-category { font-size: 11px; color: #B22222; font-weight: 500; margin-bottom: 4px; display: flex; align-items: center; gap: 4px; }
+    .result-price { font-weight: 800; color: #B22222; font-size: 16px; }
+    .result-add-btn { background: linear-gradient(135deg, #B22222, #8B1A1A); border: none; color: white; width: 42px; height: 42px; border-radius: 50%; font-size: 20px; font-weight: bold; cursor: pointer; transition: 0.15s; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 8px rgba(178,34,34,0.3); flex-shrink: 0; }
+    .result-add-btn:active { transform: scale(0.92); }
+    .no-results { text-align: center; padding: 50px 20px; color: #888; font-weight: 500; font-size: 15px; }
+    .search-highlight { background: #ffeb3b; color: #B22222; font-weight: bold; border-radius: 4px; padding: 0 3px; }
     
     @media(max-width:600px){ .products { grid-template-columns: repeat(2, 1fr); } }
   </style>
@@ -199,30 +195,23 @@
       renderMainPage();
     });
     
-    // Professional instant category navigation with smooth page scroll + slider auto-center + animation
-    function scrollToCategory(categoryKey, fromClick = true) {
+    function scrollToCategory(categoryKey) {
       const targetContainer = document.getElementById(`${categoryKey}-container`);
       if (targetContainer) {
-        // Smooth scroll to category section with instant feel but elegant easing
         targetContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
-      
-      // Update active class on categories
       const categories = document.querySelectorAll('.category');
       let activeCatElement = null;
       categories.forEach(cat => {
         if (cat.getAttribute('data-category') === categoryKey) {
           cat.classList.add('active');
           activeCatElement = cat;
-          // Add glow animation for professional feedback
           cat.classList.add('category-trigger-glow');
           setTimeout(() => cat.classList.remove('category-trigger-glow'), 600);
         } else {
           cat.classList.remove('active');
         }
       });
-      
-      // Auto-scroll categories slider to make active category fully visible (instant yet smooth)
       const categoriesSlider = document.getElementById('categoriesContainer');
       if (activeCatElement && categoriesSlider) {
         const sliderRect = categoriesSlider.getBoundingClientRect();
@@ -242,7 +231,6 @@
         grouped[product.category].push(product);
       });
       
-      // Build categories slider with instant click handlers
       categoriesContainer.innerHTML = '';
       const catKeysSorted = Object.keys(categoryMap).sort((a,b) => categoryMap[a].order - categoryMap[b].order);
       catKeysSorted.forEach(catKey => {
@@ -252,10 +240,9 @@
           if (catKey === 'crisps') catDiv.classList.add('active');
           catDiv.setAttribute('data-category', catKey);
           catDiv.innerHTML = `${categoryMap[catKey].icon} ${categoryMap[catKey].name}`;
-          // Direct instant navigation with animation and slider sync
           catDiv.onclick = (e) => {
             e.preventDefault();
-            scrollToCategory(catKey, true);
+            scrollToCategory(catKey);
           };
           categoriesContainer.appendChild(catDiv);
         }
@@ -296,7 +283,6 @@
         });
       });
       
-      // Attach add to cart events
       document.querySelectorAll('.add-btn').forEach(btn => {
         btn.removeEventListener('click', addToCartHandler);
         btn.addEventListener('click', addToCartHandler);
@@ -311,10 +297,8 @@
         };
       });
       
-      // After rendering, ensure scroll-based active category detection works perfectly
       setTimeout(() => {
         updateActiveCategory();
-        // If no active on load, set first visible
         const anyActive = document.querySelector('.category.active');
         if (!anyActive && categoriesContainer.firstChild) {
           const firstCat = categoriesContainer.firstChild.getAttribute('data-category');
@@ -387,7 +371,7 @@
       }
     }
     
-    // Enhanced search modal (same as before but perfectly integrated)
+    // Enhanced search modal with product images
     function openSearchModal() {
       const existingOverlay = document.querySelector('.search-overlay');
       if (existingOverlay) existingOverlay.remove();
@@ -417,7 +401,7 @@
       const performSearch = () => {
         const query = searchInput.value.trim().toLowerCase();
         if (!query) {
-          resultsContainer.innerHTML = '<div class="no-results">🍏 Start typing to find fresh products...</div>';
+          resultsContainer.innerHTML = '<div class="no-results">🍏 Start typing to find fresh products with images...</div>';
           return;
         }
         const matched = allProducts.filter(p => p.name.toLowerCase().includes(query) || (p.description && p.description.toLowerCase().includes(query)));
@@ -427,21 +411,30 @@
         }
         resultsContainer.innerHTML = '';
         matched.forEach(prod => {
-          const catInfo = categoryMap[prod.category] || { name: prod.category || 'Item' };
+          const catInfo = categoryMap[prod.category] || { name: prod.category || 'Item', icon: '📦' };
           const highlightedName = prod.name.replace(new RegExp(`(${query})`, 'gi'), match => `<span class="search-highlight">${match}</span>`);
+          const productImage = prod.image && prod.image !== '' ? prod.image : 'https://via.placeholder.com/80?text=Product';
+          
           const resultDiv = document.createElement('div');
-          resultDiv.className = 'result-item';
+          resultDiv.className = 'result-item-with-image';
           resultDiv.innerHTML = `
-            <div class="result-info">
+            <div class="result-image-box">
+              <img src="${productImage}" class="result-image" onerror="this.src='https://via.placeholder.com/80?text=Food'">
+            </div>
+            <div class="result-details">
               <div class="result-name">${highlightedName}</div>
               <div class="result-category"><i class="fas fa-tag"></i> ${catInfo.icon} ${catInfo.name}</div>
+              <div class="result-price">${prod.price.toFixed(2)} MAD</div>
             </div>
-            <div class="result-price">${prod.price.toFixed(2)} MAD</div>
-            <button class="result-add-small" data-id="${prod.id}" data-name="${escapeHtml(prod.name)}" data-price="${prod.price}"><i class="fas fa-plus"></i></button>
+            <button class="result-add-btn" data-id="${prod.id}" data-name="${escapeHtml(prod.name)}" data-price="${prod.price}" data-image="${productImage}">
+              <i class="fas fa-plus"></i>
+            </button>
           `;
           resultsContainer.appendChild(resultDiv);
         });
-        overlay.querySelectorAll('.result-add-small').forEach(btn => {
+        
+        // Attach add to cart for each search result
+        overlay.querySelectorAll('.result-add-btn').forEach(btn => {
           btn.addEventListener('click', (e) => {
             e.stopPropagation();
             const id = btn.getAttribute('data-id');
@@ -457,6 +450,8 @@
             }
             localStorage.setItem('deliverooCart', JSON.stringify(cart));
             updateCartUI();
+            
+            // Flying animation from button
             const rect = btn.getBoundingClientRect();
             const flyMini = document.createElement('div');
             flyMini.className = 'flying-element';
@@ -464,9 +459,17 @@
             flyMini.style.top = (rect.top + rect.height/2) + 'px';
             flyMini.style.transform = 'translate(-50%, -50%)';
             document.body.appendChild(flyMini);
-            setTimeout(() => flyMini.remove(), 400);
+            setTimeout(() => flyMini.remove(), 450);
             btn.style.transform = 'scale(0.9)';
             setTimeout(() => btn.style.transform = '', 120);
+            
+            // Optional: small haptic feedback
+            const viewCart = document.getElementById('viewCartBtn');
+            if(viewCart && viewCart.style.display !== 'none') {
+              viewCart.style.animation = 'none';
+              viewCart.offsetHeight;
+              viewCart.style.animation = null;
+            }
           });
         });
       };
@@ -513,19 +516,16 @@
           const containerTop = container.offsetTop;
           const containerBottom = containerTop + container.offsetHeight;
           if (scrollPosition >= containerTop && scrollPosition < containerBottom) {
-            let activeChanged = false;
             categories.forEach(cat => {
               if (cat.getAttribute('data-category') === categoryKeys[i]) {
-                if (!cat.classList.contains('active')) activeChanged = true;
                 cat.classList.add('active');
               } else {
                 cat.classList.remove('active');
               }
             });
-            // Sync slider auto-center on scroll if needed
             const activeCat = document.querySelector(`.category[data-category="${categoryKeys[i]}"]`);
             const categoriesSlider = document.getElementById('categoriesContainer');
-            if (activeCat && categoriesSlider && activeChanged) {
+            if (activeCat && categoriesSlider) {
               const sliderRect = categoriesSlider.getBoundingClientRect();
               const activeRect = activeCat.getBoundingClientRect();
               const scrollTarget = categoriesSlider.scrollLeft + (activeRect.left - sliderRect.left) - (sliderRect.width / 2) + (activeRect.width / 2);
