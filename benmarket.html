@@ -11,9 +11,7 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Ubuntu', sans-serif; }
     body { background-color: #f8f8f8; color: #333; max-width: 400px; margin: 0 auto; min-height: 100vh; position: relative; }
-    .navbar.scrolled .nav-title, .delivery-icon, .restaurant-name, .category.active, .view-cart-btn { color: #B22222; }
-    .category.active { border-color: #B22222; }
-    .category.active::before { background: linear-gradient(135deg, #B22222 0%, #8B1A1A 100%); }
+    .navbar.scrolled .nav-title, .delivery-icon, .restaurant-name, .view-cart-btn { color: #B22222; }
     .add-btn { background: linear-gradient(135deg, #B22222 0%, #8B1A1A 100%); box-shadow: 0 4px 10px rgba(178, 34, 34, 0.3); }
     .product-price { font-weight: 600; color: #B22222; }
     .nav-btn { color: #B22222; }
@@ -34,52 +32,65 @@
     .restaurant-info { padding: 20px 16px; background-color: white; border-radius: 0 0 16px 16px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); margin-bottom: 8px; }
     .restaurant-name { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
     .delivery-time { display: flex; align-items: center; gap: 8px; background: #f0f0f0; padding: 8px 16px; border-radius: 20px; width: fit-content; }
-    .categories-section { padding: 16px; background-color: white; margin-bottom: 8px; position: sticky; top: 72px; z-index: 900; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); }
-    .categories { display: flex; overflow-x: auto; gap: 12px; padding-bottom: 4px; scrollbar-width: thin; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; }
+    .categories-section { padding: 12px 16px; background-color: white; margin-bottom: 8px; position: sticky; top: 72px; z-index: 900; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); }
+    .categories { display: flex; overflow-x: auto; gap: 16px; padding-bottom: 8px; scrollbar-width: thin; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; }
     .categories::-webkit-scrollbar { height: 3px; }
     .categories::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
     .categories::-webkit-scrollbar-thumb { background: #B22222; border-radius: 10px; }
-    .category { 
-      padding: 14px 22px; 
-      background: #F8F9FA; 
-      border-radius: 40px; 
-      white-space: nowrap; 
-      font-size: 15px; 
-      font-weight: 600; 
-      color: #495057; 
-      transition: all 0.3s cubic-bezier(0.34, 1.2, 0.64, 1); 
-      cursor: pointer; 
-      border: 1.5px solid #E9ECEF; 
-      position: relative; 
-      overflow: hidden; 
-      flex-shrink: 0;
-      transform: scale(1);
-      opacity: 0.9;
-    }
-    .category::before { 
-      content: ''; 
-      position: absolute; 
-      top: 0; 
-      left: 0; 
-      right: 0; 
-      bottom: 0; 
-      background: linear-gradient(135deg, #B22222 0%, #8B1A1A 100%); 
-      border-radius: 40px; 
-      opacity: 0; 
-      transition: opacity 0.3s ease; 
-      z-index: -1; 
-    }
-    .category.active { 
-      color: white; 
-      transform: scale(1.05) translateY(-2px); 
-      box-shadow: 0 8px 20px rgba(178, 34, 34, 0.3); 
-      border-color: #B22222;
-      opacity: 1;
-    }
-    .category.active::before { opacity: 1; }
-    .category:active { transform: scale(0.96); transition: transform 0.1s; }
     
-    /* --- تحسينات الصور --- */
+    /* ---------- الأناقة الجديدة: كل فئة بصورة فوق وكتابة أسفل ---------- */
+    .category {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-width: 80px;
+      background: #F8F9FA;
+      border-radius: 24px;
+      padding: 12px 8px 10px 8px;
+      transition: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      cursor: pointer;
+      border: 1.5px solid #E9ECEF;
+      gap: 8px;
+      flex-shrink: 0;
+      backdrop-filter: blur(2px);
+    }
+    .category-img {
+      width: 56px;
+      height: 56px;
+      object-fit: cover;
+      border-radius: 50%;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+      transition: transform 0.2s ease, box-shadow 0.2s;
+      display: block;
+      background: white;
+      border: 2px solid white;
+    }
+    .category span {
+      font-size: 13px;
+      font-weight: 600;
+      color: #2c3e44;
+      text-align: center;
+      letter-spacing: -0.2px;
+      transition: color 0.2s;
+    }
+    .category.active {
+      background: linear-gradient(145deg, #fff8f8, #ffffff);
+      border-color: #B22222;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 18px rgba(178,34,34,0.2);
+    }
+    .category.active .category-img {
+      transform: scale(1.02);
+      box-shadow: 0 8px 16px rgba(178,34,34,0.3);
+      border: 2px solid #B22222;
+    }
+    .category.active span {
+      color: #B22222;
+      font-weight: 700;
+    }
+    .category:active { transform: scale(0.96); }
+    
     .product-card { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); transition: transform 0.15s ease, box-shadow 0.2s; border: 1px solid #ddd; position: relative; }
     .product-image-container { height: 100px; position: relative; padding: 8px; background-color: white ; display: flex; align-items: center; justify-content: center; }
     .product-image { width: auto; height: auto; max-width: 100%; max-height: 100%; object-fit: contain; transition: transform 0.2s; display: block; margin: 0 auto; }
@@ -96,7 +107,7 @@
     .loading-spinner i { font-size: 40px; animation: spin 1s linear infinite; }
     @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     
-    /* Enhanced Search Modal Styles + صور أنيقة */
+    /* Search Modal Styles */
     .search-overlay { position: fixed; top: 0; left: 0; width: 100%; max-width: 400px; margin: 0 auto; right: 0; height: 100%; background: rgba(0,0,0,0.75); backdrop-filter: blur(6px); z-index: 2000; display: flex; align-items: flex-start; justify-content: center; transition: all 0.3s ease; }
     .search-modal { background: white; width: 90%; margin-top: 70px; border-radius: 32px; box-shadow: 0 25px 40px rgba(0,0,0,0.3); overflow: hidden; animation: slideDown 0.25s ease; max-height: 75vh; display: flex; flex-direction: column; }
     @keyframes slideDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
@@ -109,10 +120,8 @@
     .search-input:focus { border-color: #B22222; background: white; box-shadow: 0 0 0 3px rgba(178,34,34,0.1); }
     .search-results-list { overflow-y: auto; padding: 8px 16px 20px; max-height: 55vh; }
     .result-item { display: flex; align-items: center; gap: 12px; background: #fff; border-radius: 20px; padding: 8px 12px; margin-bottom: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border: 1px solid #f0f0f0; transition: all 0.2s; }
-    .result-item:hover { background: #fef6f6; transform: translateX(4px); border-color: #ffcdcd; }
-    /* صورة مصغرة في نتائج البحث */
-    .result-img { width: 48px; height: 48px; border-radius: 14px; background: #f8f9fa; display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
-    .result-img img { width: 100%; height: 100%; object-fit: contain; transition: transform 0.2s; }
+    .result-img { width: 48px; height: 48px; border-radius: 14px; background: #f8f9fa; display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; }
+    .result-img img { width: 100%; height: 100%; object-fit: contain; }
     .result-info { flex: 1; }
     .result-name { font-weight: 700; font-size: 15px; color: #212529; }
     .result-category { font-size: 11px; color: #B22222; margin-top: 4px; font-weight: 500; }
@@ -121,13 +130,12 @@
     .no-results { text-align: center; padding: 40px 20px; color: #888; font-weight: 500; }
     .search-highlight { background: #ffeb3b; color: #B22222; font-weight: bold; border-radius: 4px; padding: 0 2px; }
     
-    /* Instant scroll reveal animation for categories */
     @keyframes categoryGlow {
-      0% { box-shadow: 0 0 0 0 rgba(178,34,34,0.4); }
-      100% { box-shadow: 0 0 0 8px rgba(178,34,34,0); }
+      0% { box-shadow: 0 0 0 0 rgba(178,34,34,0.5); }
+      100% { box-shadow: 0 0 0 10px rgba(178,34,34,0); }
     }
     .category-trigger-glow {
-      animation: categoryGlow 0.6s ease-out;
+      animation: categoryGlow 0.5s ease-out;
     }
     
     @media(max-width:600px){ .products { grid-template-columns: repeat(2, 1fr); } }
@@ -185,45 +193,77 @@
     
     let allProducts = [];
     
-    const categoryMap = {
-      'crisps': { name: 'Crisps & snacks', icon: '🥔', order: 0 },
-      'chocolate': { name: 'Chocolate', icon: '🍫', order: 1 },
-      'drinks': { name: 'Drinks', icon: '🥤', order: 2 },
-      'bakery': { name: 'Bakery', icon: '🥖', order: 3 },
-      'dairy': { name: 'Dairy', icon: '🥛', order: 4 },
-      'fruits': { name: 'Fruits & veg', icon: '🍎', order: 5 },
-      'frozen': { name: 'Frozen', icon: '❄️', order: 6 },
-      'household': { name: 'Household', icon: '🧴', order: 7 }
-    };
+    // تعريف الفئات حسب الطلب المحدد مع الصور الخاصة والترتيب الأنيق (الصورة فوق + الاسم أسفل)
+    const expressiveCategoryList = [
+      { key: 'bakery', name: 'Bread & Cakes', imageUrl: 'https://i.ibb.co/8ndR3RCJ/IMG-8200.jpg' },
+      { key: 'meatfish', name: 'Meat & Fish', imageUrl: 'https://i.ibb.co/tTn0sPzf/IMG-8199.jpg' },
+      { key: 'fruits', name: 'Fruit & Vegetables', imageUrl: 'https://i.ibb.co/t5Xj97R/IMG-8206.png' },
+      { key: 'specialties', name: 'Specialties & Deli', imageUrl: 'https://i.ibb.co/9kstfXSf/IMG-8191.jpg' },
+      { key: 'snacks', name: 'Snacks & Ice Cream', imageUrl: 'https://i.ibb.co/p6PTg8rL/IMG-8192.jpg' },
+      { key: 'dairy', name: 'Dairy & Eggs', imageUrl: 'https://i.ibb.co/jk1CsRkq/IMG-8193.jpg' },
+      { key: 'readytomeal', name: 'Ready to Eat', imageUrl: 'https://i.ibb.co/b5zJkLLc/IMG-8195.jpg' },
+      { key: 'pantry', name: 'Pantry', imageUrl: 'https://i.ibb.co/n877bdfr/IMG-8196.jpg' },
+      { key: 'frozen', name: 'Frozen', imageUrl: 'https://i.ibb.co/Z66JfKqB/IMG-8194.jpg' },
+      { key: 'drinks', name: 'Drinks', imageUrl: 'https://i.ibb.co/sdb145fn/IMG-8203.jpg' },
+      { key: 'household', name: 'Home & Household', imageUrl: 'https://i.ibb.co/pvNrJx34/IMG-8204.jpg' },
+      { key: 'healthbeauty', name: 'Health & Beauty', imageUrl: 'https://i.ibb.co/vCGtqh6G/IMG-8202.jpg' },
+      { key: 'baby', name: 'Baby', imageUrl: 'https://i.ibb.co/N6zXxkZv/IMG-8205.png' },
+      { key: 'petsupply', name: 'Pet Supply', imageUrl: 'https://i.ibb.co/DPY9Rn5m/IMG-8197.png' }
+    ];
+    
+    // mapping للبيانات القادمة من Firestore ضمن category القديم لتتناسب مع الفئات الجديدة المعبرة
+    function mapLegacyCategoryToExpressive(legacyCat) {
+      const mapping = {
+        'bakery': 'bakery',
+        'crisps': 'snacks',
+        'chocolate': 'snacks',
+        'drinks': 'drinks',
+        'dairy': 'dairy',
+        'fruits': 'fruits',
+        'frozen': 'frozen',
+        'household': 'household',
+        'meatfish': 'meatfish',
+        'specialties': 'specialties',
+        'readytomeal': 'readytomeal',
+        'pantry': 'pantry',
+        'healthbeauty': 'healthbeauty',
+        'baby': 'baby',
+        'petsupply': 'petsupply'
+      };
+      return mapping[legacyCat] || legacyCat;
+    }
     
     db.collection('products').onSnapshot((snapshot) => {
       allProducts = [];
       snapshot.forEach(doc => {
-        allProducts.push({ id: doc.id, ...doc.data() });
+        let product = { id: doc.id, ...doc.data() };
+        if (product.category) {
+          product.mappedCategory = mapLegacyCategoryToExpressive(product.category);
+        } else {
+          product.mappedCategory = 'pantry';
+        }
+        allProducts.push(product);
       });
       renderMainPage();
     });
     
-    // Professional instant category navigation with smooth page scroll + slider auto-center + animation
     function scrollToCategory(categoryKey, fromClick = true) {
-      const targetContainer = document.getElementById(`${categoryKey}-container`);
+      const targetContainer = document.getElementById(`cat-${categoryKey}-container`);
       if (targetContainer) {
         targetContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
-      
       const categories = document.querySelectorAll('.category');
       let activeCatElement = null;
       categories.forEach(cat => {
-        if (cat.getAttribute('data-category') === categoryKey) {
+        if (cat.getAttribute('data-category-key') === categoryKey) {
           cat.classList.add('active');
           activeCatElement = cat;
           cat.classList.add('category-trigger-glow');
-          setTimeout(() => cat.classList.remove('category-trigger-glow'), 600);
+          setTimeout(() => cat.classList.remove('category-trigger-glow'), 500);
         } else {
           cat.classList.remove('active');
         }
       });
-      
       const categoriesSlider = document.getElementById('categoriesContainer');
       if (activeCatElement && categoriesSlider) {
         const sliderRect = categoriesSlider.getBoundingClientRect();
@@ -237,50 +277,64 @@
       const container = document.getElementById('products-container');
       const categoriesContainer = document.getElementById('categoriesContainer');
       
+      // تجميع المنتجات حسب الفئة المعربة الجديدة
       const grouped = {};
+      expressiveCategoryList.forEach(cat => { grouped[cat.key] = []; });
       allProducts.forEach(product => {
-        if (!grouped[product.category]) grouped[product.category] = [];
-        grouped[product.category].push(product);
+        const catKey = product.mappedCategory;
+        if (grouped[catKey]) grouped[catKey].push(product);
+        else grouped[catKey] = [product];
       });
       
+      // إنشاء أزرار الفئات بالصورة فوق و الاسم أسفل
       categoriesContainer.innerHTML = '';
-      const catKeysSorted = Object.keys(categoryMap).sort((a,b) => categoryMap[a].order - categoryMap[b].order);
-      catKeysSorted.forEach(catKey => {
-        if (grouped[catKey] && grouped[catKey].length > 0) {
-          const catDiv = document.createElement('div');
-          catDiv.className = 'category';
-          if (catKey === 'crisps') catDiv.classList.add('active');
-          catDiv.setAttribute('data-category', catKey);
-          catDiv.innerHTML = `${categoryMap[catKey].icon} ${categoryMap[catKey].name}`;
-          catDiv.onclick = (e) => {
-            e.preventDefault();
-            scrollToCategory(catKey, true);
-          };
-          categoriesContainer.appendChild(catDiv);
-        }
+      expressiveCategoryList.forEach(catInfo => {
+        const productsInCat = grouped[catInfo.key] || [];
+        if (productsInCat.length === 0) return; // إظهار الفئات التي تحتوي منتجات فقط
+        const catDiv = document.createElement('div');
+        catDiv.className = 'category';
+        catDiv.setAttribute('data-category-key', catInfo.key);
+        catDiv.innerHTML = `
+          <img src="${catInfo.imageUrl}" class="category-img" alt="${catInfo.name}" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1046/1046784.png'">
+          <span>${catInfo.name}</span>
+        `;
+        catDiv.onclick = (e) => {
+          e.preventDefault();
+          scrollToCategory(catInfo.key, true);
+        };
+        categoriesContainer.appendChild(catDiv);
       });
       
+      if (categoriesContainer.children.length === 0) {
+        categoriesContainer.innerHTML = '<div class="loading-spinner">No categories</div>';
+      } else {
+        // تفعيل أول فئة افتراضياً
+        const firstKey = categoriesContainer.firstChild?.getAttribute('data-category-key');
+        if (firstKey) scrollToCategory(firstKey);
+      }
+      
+      // بناء أقسام المنتجات لكل فئة
       container.innerHTML = '';
-      catKeysSorted.forEach(catKey => {
-        const products = grouped[catKey] || [];
+      expressiveCategoryList.forEach(catInfo => {
+        const products = grouped[catInfo.key] || [];
         if (products.length === 0) return;
         
         const catContainer = document.createElement('div');
         catContainer.className = 'category-container';
-        catContainer.id = `${catKey}-container`;
+        catContainer.id = `cat-${catInfo.key}-container`;
+        // عنوان القسم يحمل أيقونة بسيطة ونظيفة
         catContainer.innerHTML = `
-          <div class="category-title">${categoryMap[catKey].icon} ${categoryMap[catKey].name}</div>
-          <div class="products" id="products-${catKey}"></div>
-          <div class="view-all-wrapper"><div class="view-all-btn" data-cat="${catKey}"><span>View All</span><i class="fas fa-arrow-right"></i></div></div>
+          <div class="category-title"><i class="fas fa-tag" style="color:#B22222; margin-right:6px;"></i> ${catInfo.name}</div>
+          <div class="products" id="products-${catInfo.key}"></div>
+          <div class="view-all-wrapper"><div class="view-all-btn" data-cat="${catInfo.key}"><span>View All</span><i class="fas fa-arrow-right"></i></div></div>
         `;
         container.appendChild(catContainer);
         
-        const productsGrid = catContainer.querySelector(`#products-${catKey}`);
+        const productsGrid = catContainer.querySelector(`#products-${catInfo.key}`);
         products.forEach(product => {
           const productCard = document.createElement('div');
           productCard.className = 'product-card';
           productCard.setAttribute('data-product-id', product.id);
-          // استخدام الصورة من قاعدة البيانات أو صورة احتياطية أنيقة
           const productImageUrl = product.image && product.image.trim() !== '' ? product.image : 'https://cdn-icons-png.flaticon.com/512/1046/1046784.png';
           productCard.innerHTML = `
             <div class="product-image-container">
@@ -305,20 +359,20 @@
       document.querySelectorAll('.view-all-btn').forEach(btn => {
         btn.onclick = (e) => {
           e.stopPropagation();
-          const cat = btn.getAttribute('data-cat');
-          const catName = categoryMap[cat]?.name || 'products';
+          const catKey = btn.getAttribute('data-cat');
+          const catObj = expressiveCategoryList.find(c => c.key === catKey);
+          const catName = catObj ? catObj.name : 'products';
           alert(`✨ Explore all ${catName} products at BenEx! ✨`);
         };
       });
       
       setTimeout(() => {
-        updateActiveCategory();
-        const anyActive = document.querySelector('.category.active');
-        if (!anyActive && categoriesContainer.firstChild) {
-          const firstCat = categoriesContainer.firstChild.getAttribute('data-category');
-          if(firstCat) scrollToCategory(firstCat);
+        updateActiveCategoryFromScroll();
+        if (!document.querySelector('.category.active') && categoriesContainer.firstChild) {
+          const firstKey = categoriesContainer.firstChild.getAttribute('data-category-key');
+          if(firstKey) scrollToCategory(firstKey);
         }
-      }, 100);
+      }, 150);
     }
     
     function escapeHtml(str) {
@@ -385,7 +439,6 @@
       }
     }
     
-    // Enhanced search modal مع صور مصغرة أنيقة
     function openSearchModal() {
       const existingOverlay = document.querySelector('.search-overlay');
       if (existingOverlay) existingOverlay.remove();
@@ -399,7 +452,7 @@
             <button class="close-search"><i class="fas fa-times"></i></button>
           </div>
           <div class="search-input-wrapper">
-            <input type="text" class="search-input" placeholder="🔍 Search chips, chocolate, drinks..." autofocus>
+            <input type="text" class="search-input" placeholder="🔍 Search bread, meat, drinks..." autofocus>
           </div>
           <div class="search-results-list" id="searchResultsList">
             <div class="no-results">✨ Type something to discover delicious items ✨</div>
@@ -425,7 +478,7 @@
         }
         resultsContainer.innerHTML = '';
         matched.forEach(prod => {
-          const catInfo = categoryMap[prod.category] || { name: prod.category || 'Item', icon: '📦' };
+          const matchedCat = expressiveCategoryList.find(c => c.key === prod.mappedCategory) || { name: 'Item', icon: '📦' };
           const highlightedName = prod.name.replace(new RegExp(`(${query})`, 'gi'), match => `<span class="search-highlight">${match}</span>`);
           const resultDiv = document.createElement('div');
           resultDiv.className = 'result-item';
@@ -434,7 +487,7 @@
             <div class="result-img"><img src="${imgSrc}" alt="${escapeHtml(prod.name)}" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1046/1046784.png'"></div>
             <div class="result-info">
               <div class="result-name">${highlightedName}</div>
-              <div class="result-category"><i class="fas fa-tag"></i> ${catInfo.icon} ${catInfo.name}</div>
+              <div class="result-category"><i class="fas fa-tag"></i> ${matchedCat.name}</div>
             </div>
             <div class="result-price">${prod.price.toFixed(2)} MAD</div>
             <button class="result-add-small" data-id="${prod.id}" data-name="${escapeHtml(prod.name)}" data-price="${prod.price}"><i class="fas fa-plus"></i></button>
@@ -501,35 +554,20 @@
       else navbar.classList.remove('scrolled');
     });
     
-    let ticking = false;
-    const categoryKeys = ['crisps', 'chocolate', 'drinks', 'bakery', 'dairy', 'fruits', 'frozen', 'household'];
-    
-    function updateActiveCategory() {
-      const scrollPosition = window.scrollY + 110;
-      const categories = document.querySelectorAll('.category');
-      for (let i = 0; i < categoryKeys.length; i++) {
-        const container = document.getElementById(`${categoryKeys[i]}-container`);
+    let tickingScroll = false;
+    function updateActiveCategoryFromScroll() {
+      const scrollPosition = window.scrollY + 115;
+      for (let i = 0; i < expressiveCategoryList.length; i++) {
+        const catKey = expressiveCategoryList[i].key;
+        const container = document.getElementById(`cat-${catKey}-container`);
         if (container) {
           const containerTop = container.offsetTop;
           const containerBottom = containerTop + container.offsetHeight;
           if (scrollPosition >= containerTop && scrollPosition < containerBottom) {
-            let activeChanged = false;
-            categories.forEach(cat => {
-              if (cat.getAttribute('data-category') === categoryKeys[i]) {
-                if (!cat.classList.contains('active')) activeChanged = true;
-                cat.classList.add('active');
-              } else {
-                cat.classList.remove('active');
-              }
+            document.querySelectorAll('.category').forEach(cat => {
+              if (cat.getAttribute('data-category-key') === catKey) cat.classList.add('active');
+              else cat.classList.remove('active');
             });
-            const activeCat = document.querySelector(`.category[data-category="${categoryKeys[i]}"]`);
-            const categoriesSlider = document.getElementById('categoriesContainer');
-            if (activeCat && categoriesSlider && activeChanged) {
-              const sliderRect = categoriesSlider.getBoundingClientRect();
-              const activeRect = activeCat.getBoundingClientRect();
-              const scrollTarget = categoriesSlider.scrollLeft + (activeRect.left - sliderRect.left) - (sliderRect.width / 2) + (activeRect.width / 2);
-              categoriesSlider.scrollTo({ left: Math.max(0, scrollTarget), behavior: 'smooth' });
-            }
             break;
           }
         }
@@ -537,12 +575,12 @@
     }
     
     window.addEventListener('scroll', () => {
-      if (!ticking) {
+      if (!tickingScroll) {
         requestAnimationFrame(() => {
-          updateActiveCategory();
-          ticking = false;
+          updateActiveCategoryFromScroll();
+          tickingScroll = false;
         });
-        ticking = true;
+        tickingScroll = true;
       }
     });
     
