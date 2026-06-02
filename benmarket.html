@@ -17,79 +17,213 @@
     .nav-btn { color: #B22222; }
     .category-container { background-color: white; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid #e0e6ed; }
     .category-container:last-child { border-bottom: none; margin-bottom: 0; }
-    .category-title { font-size: 20px; font-weight: 700; padding: 16px 16px 8px 16px; color: #212529; }
+    .category-title { font-size: 20px; font-weight: 700; padding: 16px 16px 8px 16px; color: #212529; display: flex; align-items: center; gap: 8px; }
+    .category-title-img { width: 32px; height: 32px; object-fit: cover; border-radius: 50%; border: 2px solid #B22222; }
     .products { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; padding: 0 12px 12px 12px; }
     .view-all-wrapper { display: flex; justify-content: flex-end; padding: 0 16px 12px 16px; }
     .view-all-btn { background: white; border: 1.5px solid #B22222; color: #B22222; font-weight: 600; font-size: 13px; padding: 8px 20px; border-radius: 40px; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; transition: 0.2s; }
     .view-all-btn:hover { background: #B22222; color: white; }
     .navbar { position: fixed; top: 0; width: 100%; max-width: 400px; display: flex; justify-content: space-between; align-items: center; padding: 16px; background-color: transparent; z-index: 1000; transition: all 0.3s ease; }
     .navbar.scrolled { background-color: white; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); }
-    .navbar.scrolled .nav-title { display: block; }
+    .navbar.scrolled .nav-title { display: flex; }
     .nav-btn { width: 40px; height: 40px; border-radius: 50%; background-color: white; display: flex; justify-content: center; align-items: center; border: none; font-size: 16px; cursor: pointer; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); transition: 0.2s; }
-    .nav-title { display: none; font-weight: 700; position: absolute; left: 50%; transform: translateX(-50%); font-size: 18px; }
+    .nav-title { 
+      display: none; 
+      font-weight: 700; 
+      position: absolute; 
+      left: 50%; 
+      transform: translateX(-50%); 
+      font-size: 18px; 
+      align-items: center; 
+      justify-content: center;
+      gap: 8px; 
+      white-space: nowrap; 
+      background: white; 
+      padding: 6px 16px; 
+      border-radius: 40px; 
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      overflow: hidden;
+      min-width: 180px;
+    }
+    
+    /* حاوية المحتوى المتحرك */
+    .nav-content-wrapper {
+      position: relative;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    /* العنصر المتحرك */
+    .nav-slide-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      animation: slideInFromRight 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+    
+    .nav-slide-item.exit {
+      animation: slideOutToLeft 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
+    }
+    
+    @keyframes slideInFromRight {
+      from {
+        opacity: 0;
+        transform: translateX(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    
+    @keyframes slideOutToLeft {
+      from {
+        opacity: 1;
+        transform: translateX(0);
+      }
+      to {
+        opacity: 0;
+        transform: translateX(-30px);
+      }
+    }
+    
+    @keyframes scalePulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+    
+    .nav-category-img {
+      width: 28px;
+      height: 28px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 2px solid #B22222;
+    }
+    
+    .nav-category-name {
+      font-size: 16px;
+      font-weight: 600;
+      color: #B22222;
+    }
+    
     .hero-section { position: relative; height: 150px; overflow: hidden; }
     .hero-image { width: 100%; height: 100%; object-fit: cover; }
     .restaurant-info { padding: 20px 16px; background-color: white; border-radius: 0 0 16px 16px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); margin-bottom: 8px; }
     .restaurant-name { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
     .delivery-time { display: flex; align-items: center; gap: 8px; background: #f0f0f0; padding: 8px 16px; border-radius: 20px; width: fit-content; }
     .categories-section { padding: 12px 16px; background-color: white; margin-bottom: 8px; position: sticky; top: 72px; z-index: 900; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); }
-    .categories { display: flex; overflow-x: auto; gap: 16px; padding-bottom: 8px; scrollbar-width: thin; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; }
-    .categories::-webkit-scrollbar { height: 3px; }
-    .categories::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
-    .categories::-webkit-scrollbar-thumb { background: #B22222; border-radius: 10px; }
     
-    /* ---------- الأناقة الجديدة: كل فئة بصورة فوق وكتابة أسفل ---------- */
+    /* ========== SLIDER CATEGORIES ENHANCED ========== */
+    .categories {
+      display: flex;
+      overflow-x: auto;
+      gap: 20px;
+      padding: 10px 5px 2px 5px;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: thin;
+    }
+    
+    .categories::-webkit-scrollbar {
+      height: 4px;
+    }
+    .categories::-webkit-scrollbar-track {
+      background: #f0f0f0;
+      border-radius: 10px;
+    }
+    .categories::-webkit-scrollbar-thumb {
+      background: #B22222;
+      border-radius: 10px;
+    }
+    
     .category {
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      min-width: 80px;
-      background: #F8F9FA;
-      border-radius: 24px;
-      padding: 12px 8px 10px 8px;
-      transition: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      justify-content: flex-start;
+      min-width: 85px;
       cursor: pointer;
-      border: 1.5px solid #E9ECEF;
-      gap: 8px;
+      transition: transform 0.25s ease, opacity 0.2s;
       flex-shrink: 0;
-      backdrop-filter: blur(2px);
+      gap: 8px;
+      scroll-snap-align: start;
     }
+    
+    .category:active {
+      transform: scale(0.96);
+    }
+    
     .category-img {
-      width: 56px;
-      height: 56px;
+      width: 70px;
+      height: 70px;
       object-fit: cover;
       border-radius: 50%;
-      box-shadow: 0 6px 12px rgba(0,0,0,0.08);
-      transition: transform 0.2s ease, box-shadow 0.2s;
-      display: block;
-      background: white;
-      border: 2px solid white;
+      background: #fff;
+      padding: 3px;
+      border: 2px solid transparent;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.05);
+      transition: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
     }
+    
+    .category.active .category-img {
+      border-color: #B22222;
+      transform: scale(1.05);
+      box-shadow: 0 12px 24px rgba(178, 34, 34, 0.25), 0 0 0 3px rgba(178, 34, 34, 0.1);
+    }
+    
     .category span {
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
-      color: #2c3e44;
+      color: #555;
       text-align: center;
-      letter-spacing: -0.2px;
       transition: color 0.2s;
     }
-    .category.active {
-      background: linear-gradient(145deg, #fff8f8, #ffffff);
-      border-color: #B22222;
-      transform: translateY(-3px);
-      box-shadow: 0 10px 18px rgba(178,34,34,0.2);
-    }
-    .category.active .category-img {
-      transform: scale(1.02);
-      box-shadow: 0 8px 16px rgba(178,34,34,0.3);
-      border: 2px solid #B22222;
-    }
+    
     .category.active span {
       color: #B22222;
       font-weight: 700;
     }
-    .category:active { transform: scale(0.96); }
+    
+    /* شريط سفلي نشط */
+    .category::after {
+      content: '';
+      width: 0;
+      height: 3px;
+      background: #B22222;
+      border-radius: 3px;
+      transition: width 0.3s ease;
+      margin-top: 4px;
+    }
+    
+    .category.active::after {
+      width: 30px;
+    }
+    
+    @keyframes pulseGlow {
+      0% { box-shadow: 0 0 0 0 rgba(178, 34, 34, 0.4); }
+      70% { box-shadow: 0 0 0 10px rgba(178, 34, 34, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(178, 34, 34, 0); }
+    }
+    
+    @media (max-width: 600px) {
+      .category { min-width: 75px; }
+      .category-img { width: 60px; height: 60px; }
+      .categories { gap: 15px; }
+      .products { grid-template-columns: repeat(2, 1fr); }
+      .nav-title { font-size: 14px; padding: 4px 12px; min-width: 150px; }
+      .nav-category-img { width: 24px; height: 24px; }
+      .nav-category-name { font-size: 13px; }
+    }
     
     .product-card { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); transition: transform 0.15s ease, box-shadow 0.2s; border: 1px solid #ddd; position: relative; }
     .product-image-container { height: 100px; position: relative; padding: 8px; background-color: white ; display: flex; align-items: center; justify-content: center; }
@@ -107,47 +241,44 @@
     .loading-spinner i { font-size: 40px; animation: spin 1s linear infinite; }
     @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     
-    /* Search Modal Styles */
-    .search-overlay { position: fixed; top: 0; left: 0; width: 100%; max-width: 400px; margin: 0 auto; right: 0; height: 100%; background: rgba(0,0,0,0.75); backdrop-filter: blur(6px); z-index: 2000; display: flex; align-items: flex-start; justify-content: center; transition: all 0.3s ease; }
-    .search-modal { background: white; width: 90%; margin-top: 70px; border-radius: 32px; box-shadow: 0 25px 40px rgba(0,0,0,0.3); overflow: hidden; animation: slideDown 0.25s ease; max-height: 75vh; display: flex; flex-direction: column; }
-    @keyframes slideDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
-    .search-header { padding: 20px 20px 12px; border-bottom: 1px solid #eee; display: flex; align-items: center; justify-content: space-between; background: #fff; }
-    .search-header h3 { font-size: 20px; font-weight: 700; color: #B22222; display: flex; align-items: center; gap: 10px; }
-    .close-search { background: none; border: none; font-size: 24px; cursor: pointer; color: #666; transition: 0.2s; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-    .close-search:hover { background: #f0f0f0; color: #B22222; }
-    .search-input-wrapper { padding: 12px 20px; background: #fff; }
-    .search-input { width: 100%; padding: 14px 18px; border: 2px solid #e9ecef; border-radius: 50px; font-size: 16px; outline: none; transition: 0.2s; background: #f8f9fa; }
-    .search-input:focus { border-color: #B22222; background: white; box-shadow: 0 0 0 3px rgba(178,34,34,0.1); }
-    .search-results-list { overflow-y: auto; padding: 8px 16px 20px; max-height: 55vh; }
-    .result-item { display: flex; align-items: center; gap: 12px; background: #fff; border-radius: 20px; padding: 8px 12px; margin-bottom: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border: 1px solid #f0f0f0; transition: all 0.2s; }
-    .result-img { width: 48px; height: 48px; border-radius: 14px; background: #f8f9fa; display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; }
+    /* Search Modal */
+    .search-overlay { position: fixed; top: 0; left: 0; width: 100%; max-width: 400px; margin: 0 auto; right: 0; height: 100%; background: rgba(0,0,0,0.75); backdrop-filter: blur(6px); z-index: 2000; display: flex; align-items: flex-start; justify-content: center; }
+    .search-modal { background: white; width: 90%; margin-top: 70px; border-radius: 32px; max-height: 75vh; display: flex; flex-direction: column; overflow: hidden; }
+    .search-header { padding: 20px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
+    .search-header h3 { color: #B22222; }
+    .close-search { background: none; border: none; font-size: 24px; cursor: pointer; }
+    .search-input { width: 100%; padding: 14px 18px; border: 2px solid #e9ecef; border-radius: 50px; font-size: 16px; margin: 15px 20px; width: calc(100% - 40px); }
+    .search-input:focus { border-color: #B22222; outline: none; }
+    .search-results-list { overflow-y: auto; padding: 10px 20px 20px; max-height: 55vh; }
+    .result-item { display: flex; align-items: center; gap: 12px; padding: 10px; border-bottom: 1px solid #eee; }
+    .result-img { width: 50px; height: 50px; border-radius: 12px; overflow: hidden; }
     .result-img img { width: 100%; height: 100%; object-fit: contain; }
     .result-info { flex: 1; }
-    .result-name { font-weight: 700; font-size: 15px; color: #212529; }
-    .result-category { font-size: 11px; color: #B22222; margin-top: 4px; font-weight: 500; }
-    .result-price { font-weight: 700; color: #B22222; font-size: 15px; margin-left: 8px; }
-    .result-add-small { background: linear-gradient(135deg, #B22222, #8B1A1A); border: none; color: white; width: 36px; height: 36px; border-radius: 50%; font-size: 18px; font-weight: bold; cursor: pointer; margin-left: 8px; transition: 0.1s; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .no-results { text-align: center; padding: 40px 20px; color: #888; font-weight: 500; }
-    .search-highlight { background: #ffeb3b; color: #B22222; font-weight: bold; border-radius: 4px; padding: 0 2px; }
-    
+    .result-name { font-weight: 700; }
+    .result-category { font-size: 11px; color: #B22222; }
+    .result-price { font-weight: 700; color: #B22222; }
+    .result-add-small { background: #B22222; border: none; color: white; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; }
+    .search-highlight { background: #ffeb3b; border-radius: 3px; }
     @keyframes categoryGlow {
-      0% { box-shadow: 0 0 0 0 rgba(178,34,34,0.5); }
-      100% { box-shadow: 0 0 0 10px rgba(178,34,34,0); }
+      0% { box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); }
+      50% { box-shadow: 0 12px 28px rgba(178, 34, 34, 0.25); }
+      100% { box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); }
     }
-    .category-trigger-glow {
-      animation: categoryGlow 0.5s ease-out;
-    }
-    
-    @media(max-width:600px){ .products { grid-template-columns: repeat(2, 1fr); } }
+    .category-trigger-glow .category-img { animation: categoryGlow 0.5s ease-out; }
   </style>
 </head>
 <body>
   <nav class="navbar" id="navbar">
     <button class="nav-btn" id="backButton"><i class="fas fa-arrow-left"></i></button>
-    <div class="nav-title">BenEx Market</div>
-    <div style="display: flex; gap: 12px;">
-      <button class="nav-btn" id="searchButton"><i class="fas fa-search"></i></button>
+    <div class="nav-title" id="navTitle">
+      <div class="nav-content-wrapper" id="navContentWrapper">
+        <div class="nav-slide-item" id="navSlideItem">
+          <img id="navCategoryImg" class="nav-category-img" style="display: none;" alt="">
+          <span id="navCategoryName" class="nav-category-name">BenEx Market</span>
+        </div>
+      </div>
     </div>
+    <button class="nav-btn" id="searchButton"><i class="fas fa-search"></i></button>
   </nav>
 
   <div class="hero-section">
@@ -162,7 +293,7 @@
     </div>
   </div>
 
-  <div class="categories-section" id="categoriesSection">
+  <div class="categories-section">
     <div class="categories" id="categoriesContainer">
       <div class="loading-spinner"><i class="fas fa-spinner"></i> Loading...</div>
     </div>
@@ -192,8 +323,10 @@
     const db = firebase.firestore();
     
     let allProducts = [];
+    let currentCategoryKey = '';
+    let isAnimating = false;
+    let isSliderScrolling = false; // لمنع التداخل أثناء تمرير الشريط تلقائياً
     
-    // تعريف الفئات حسب الطلب المحدد مع الصور الخاصة والترتيب الأنيق (الصورة فوق + الاسم أسفل)
     const expressiveCategoryList = [
       { key: 'bakery', name: 'Bread & Cakes', imageUrl: 'https://i.ibb.co/8ndR3RCJ/IMG-8200.jpg' },
       { key: 'meatfish', name: 'Meat & Fish', imageUrl: 'https://i.ibb.co/tTn0sPzf/IMG-8199.jpg' },
@@ -211,65 +344,112 @@
       { key: 'petsupply', name: 'Pet Supply', imageUrl: 'https://i.ibb.co/DPY9Rn5m/IMG-8197.png' }
     ];
     
-    // mapping للبيانات القادمة من Firestore ضمن category القديم لتتناسب مع الفئات الجديدة المعبرة
     function mapLegacyCategoryToExpressive(legacyCat) {
       const mapping = {
-        'bakery': 'bakery',
-        'crisps': 'snacks',
-        'chocolate': 'snacks',
-        'drinks': 'drinks',
-        'dairy': 'dairy',
-        'fruits': 'fruits',
-        'frozen': 'frozen',
-        'household': 'household',
-        'meatfish': 'meatfish',
-        'specialties': 'specialties',
-        'readytomeal': 'readytomeal',
-        'pantry': 'pantry',
-        'healthbeauty': 'healthbeauty',
-        'baby': 'baby',
-        'petsupply': 'petsupply'
+        'bakery': 'bakery', 'crisps': 'snacks', 'chocolate': 'snacks',
+        'drinks': 'drinks', 'dairy': 'dairy', 'fruits': 'fruits',
+        'frozen': 'frozen', 'household': 'household', 'meatfish': 'meatfish',
+        'specialties': 'specialties', 'readytomeal': 'readytomeal',
+        'pantry': 'pantry', 'healthbeauty': 'healthbeauty',
+        'baby': 'baby', 'petsupply': 'petsupply'
       };
-      return mapping[legacyCat] || legacyCat;
+      return mapping[legacyCat] || 'pantry';
     }
     
     db.collection('products').onSnapshot((snapshot) => {
       allProducts = [];
       snapshot.forEach(doc => {
         let product = { id: doc.id, ...doc.data() };
-        if (product.category) {
-          product.mappedCategory = mapLegacyCategoryToExpressive(product.category);
-        } else {
-          product.mappedCategory = 'pantry';
-        }
+        product.mappedCategory = mapLegacyCategoryToExpressive(product.category);
         allProducts.push(product);
       });
       renderMainPage();
     });
     
-    function scrollToCategory(categoryKey, fromClick = true) {
+    // دالة تمرير شريط الفئات بحيث يصبح عنصر الفئة في منتصف الحاوية تقريباً
+    function smoothScrollSliderToCategory(categoryKey) {
+      if (isSliderScrolling) return;
+      const slider = document.getElementById('categoriesContainer');
+      const catElement = document.querySelector(`.category[data-category-key="${categoryKey}"]`);
+      if (!slider || !catElement) return;
+      
+      isSliderScrolling = true;
+      const sliderRect = slider.getBoundingClientRect();
+      const catRect = catElement.getBoundingClientRect();
+      // حساب الإزاحة لجعل الفئة في المنتصف
+      const offset = catRect.left - sliderRect.left - (sliderRect.width / 2) + (catRect.width / 2);
+      slider.scrollBy({ left: offset, behavior: 'smooth' });
+      
+      // إعادة تعيين العلم بعد انتهاء التمرير (بعد مدة كافية)
+      setTimeout(() => {
+        isSliderScrolling = false;
+      }, 500);
+    }
+    
+    // دالة تحديث الشريط العلوي بأنيميشن + تمرير الشريط السفلي
+    function updateNavbarWithAnimation(categoryKey) {
+      if (categoryKey === currentCategoryKey || isAnimating) return;
+      
+      const category = expressiveCategoryList.find(c => c.key === categoryKey);
+      if (!category) return;
+      
+      // تمرير شريط الفئات ليجعل هذه الفئة في المنتصف (كما طلب المستخدم)
+      smoothScrollSliderToCategory(categoryKey);
+      
+      const wrapper = document.getElementById('navContentWrapper');
+      const oldItem = document.getElementById('navSlideItem');
+      
+      if (!oldItem) return;
+      
+      isAnimating = true;
+      
+      oldItem.classList.add('exit');
+      
+      setTimeout(() => {
+        const newItem = document.createElement('div');
+        newItem.className = 'nav-slide-item';
+        newItem.id = 'navSlideItem';
+        newItem.innerHTML = `
+          <img src="${category.imageUrl}" class="nav-category-img" alt="">
+          <span class="nav-category-name">${category.name}</span>
+        `;
+        
+        wrapper.innerHTML = '';
+        wrapper.appendChild(newItem);
+        
+        currentCategoryKey = categoryKey;
+        isAnimating = false;
+        
+        // تحديث الـ active في شريط الفئات
+        document.querySelectorAll('.category').forEach(cat => {
+          if (cat.getAttribute('data-category-key') === categoryKey) {
+            cat.classList.add('active');
+          } else {
+            cat.classList.remove('active');
+          }
+        });
+        
+        const newImg = newItem.querySelector('.nav-category-img');
+        newImg.style.animation = 'scalePulse 0.4s ease-out';
+        setTimeout(() => {
+          newImg.style.animation = '';
+        }, 400);
+        
+      }, 250);
+    }
+    
+    // عند النقر على فئة في الشريط: نمرر إلى القسم (هذا معكوس ولكنه مفيد أيضاً)
+    function scrollToCategory(categoryKey) {
       const targetContainer = document.getElementById(`cat-${categoryKey}-container`);
       if (targetContainer) {
         targetContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
-      const categories = document.querySelectorAll('.category');
-      let activeCatElement = null;
-      categories.forEach(cat => {
-        if (cat.getAttribute('data-category-key') === categoryKey) {
-          cat.classList.add('active');
-          activeCatElement = cat;
-          cat.classList.add('category-trigger-glow');
-          setTimeout(() => cat.classList.remove('category-trigger-glow'), 500);
-        } else {
-          cat.classList.remove('active');
-        }
-      });
-      const categoriesSlider = document.getElementById('categoriesContainer');
-      if (activeCatElement && categoriesSlider) {
-        const sliderRect = categoriesSlider.getBoundingClientRect();
-        const activeRect = activeCatElement.getBoundingClientRect();
-        const scrollLeftTarget = categoriesSlider.scrollLeft + (activeRect.left - sliderRect.left) - (sliderRect.width / 2) + (activeRect.width / 2);
-        categoriesSlider.scrollTo({ left: Math.max(0, scrollLeftTarget), behavior: 'smooth' });
+      // لا نستدعي updateNavbarWithAnimation هنا لأنه سيتم تشغيلها تلقائياً عن طريق IntersectionObserver أثناء التمرير
+      // ولكن نضيف تأثير glow فقط
+      const catElement = document.querySelector(`.category[data-category-key="${categoryKey}"]`);
+      if (catElement) {
+        catElement.classList.add('category-trigger-glow');
+        setTimeout(() => catElement.classList.remove('category-trigger-glow'), 500);
       }
     }
     
@@ -277,43 +457,26 @@
       const container = document.getElementById('products-container');
       const categoriesContainer = document.getElementById('categoriesContainer');
       
-      // تجميع المنتجات حسب الفئة المعربة الجديدة
       const grouped = {};
       expressiveCategoryList.forEach(cat => { grouped[cat.key] = []; });
       allProducts.forEach(product => {
-        const catKey = product.mappedCategory;
-        if (grouped[catKey]) grouped[catKey].push(product);
-        else grouped[catKey] = [product];
+        if (grouped[product.mappedCategory]) grouped[product.mappedCategory].push(product);
       });
       
-      // إنشاء أزرار الفئات بالصورة فوق و الاسم أسفل
       categoriesContainer.innerHTML = '';
       expressiveCategoryList.forEach(catInfo => {
-        const productsInCat = grouped[catInfo.key] || [];
-        if (productsInCat.length === 0) return; // إظهار الفئات التي تحتوي منتجات فقط
+        if (!grouped[catInfo.key]?.length) return;
         const catDiv = document.createElement('div');
         catDiv.className = 'category';
         catDiv.setAttribute('data-category-key', catInfo.key);
         catDiv.innerHTML = `
-          <img src="${catInfo.imageUrl}" class="category-img" alt="${catInfo.name}" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1046/1046784.png'">
+          <img src="${catInfo.imageUrl}" class="category-img" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1046/1046784.png'">
           <span>${catInfo.name}</span>
         `;
-        catDiv.onclick = (e) => {
-          e.preventDefault();
-          scrollToCategory(catInfo.key, true);
-        };
+        catDiv.onclick = () => scrollToCategory(catInfo.key);
         categoriesContainer.appendChild(catDiv);
       });
       
-      if (categoriesContainer.children.length === 0) {
-        categoriesContainer.innerHTML = '<div class="loading-spinner">No categories</div>';
-      } else {
-        // تفعيل أول فئة افتراضياً
-        const firstKey = categoriesContainer.firstChild?.getAttribute('data-category-key');
-        if (firstKey) scrollToCategory(firstKey);
-      }
-      
-      // بناء أقسام المنتجات لكل فئة
       container.innerHTML = '';
       expressiveCategoryList.forEach(catInfo => {
         const products = grouped[catInfo.key] || [];
@@ -322,23 +485,26 @@
         const catContainer = document.createElement('div');
         catContainer.className = 'category-container';
         catContainer.id = `cat-${catInfo.key}-container`;
-        // عنوان القسم يحمل أيقونة بسيطة ونظيفة
+        catContainer.setAttribute('data-category-key', catInfo.key);
         catContainer.innerHTML = `
-          <div class="category-title"><i class="fas fa-tag" style="color:#B22222; margin-right:6px;"></i> ${catInfo.name}</div>
+          <div class="category-title">
+            <img src="${catInfo.imageUrl}" class="category-title-img" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1046/1046784.png'">
+            <span>${catInfo.name}</span>
+          </div>
           <div class="products" id="products-${catInfo.key}"></div>
-          <div class="view-all-wrapper"><div class="view-all-btn" data-cat="${catInfo.key}"><span>View All</span><i class="fas fa-arrow-right"></i></div></div>
+          <div class="view-all-wrapper"><div class="view-all-btn" data-cat="${catInfo.key}">View All <i class="fas fa-arrow-right"></i></div></div>
         `;
         container.appendChild(catContainer);
         
         const productsGrid = catContainer.querySelector(`#products-${catInfo.key}`);
-        products.forEach(product => {
+        const productsToShow = products.slice(0, 6);
+        productsToShow.forEach(product => {
+          const imgUrl = product.image || 'https://cdn-icons-png.flaticon.com/512/1046/1046784.png';
           const productCard = document.createElement('div');
           productCard.className = 'product-card';
-          productCard.setAttribute('data-product-id', product.id);
-          const productImageUrl = product.image && product.image.trim() !== '' ? product.image : 'https://cdn-icons-png.flaticon.com/512/1046/1046784.png';
           productCard.innerHTML = `
             <div class="product-image-container">
-              <img src="${productImageUrl}" class="product-image" alt="${escapeHtml(product.name)}" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1046/1046784.png'">
+              <img src="${imgUrl}" class="product-image" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1046/1046784.png'">
               <button class="add-btn" data-name="${escapeHtml(product.name)}" data-price="${product.price}" data-id="${product.id}">+</button>
             </div>
             <div class="product-info">
@@ -351,236 +517,144 @@
         });
       });
       
-      document.querySelectorAll('.add-btn').forEach(btn => {
-        btn.removeEventListener('click', addToCartHandler);
-        btn.addEventListener('click', addToCartHandler);
-      });
-      
+      document.querySelectorAll('.add-btn').forEach(btn => btn.addEventListener('click', addToCartHandler));
       document.querySelectorAll('.view-all-btn').forEach(btn => {
-        btn.onclick = (e) => {
-          e.stopPropagation();
-          const catKey = btn.getAttribute('data-cat');
-          const catObj = expressiveCategoryList.find(c => c.key === catKey);
-          const catName = catObj ? catObj.name : 'products';
-          alert(`✨ Explore all ${catName} products at BenEx! ✨`);
-        };
+        btn.onclick = () => alert(`✨ Explore all products at BenEx! ✨`);
       });
       
-      setTimeout(() => {
-        updateActiveCategoryFromScroll();
-        if (!document.querySelector('.category.active') && categoriesContainer.firstChild) {
-          const firstKey = categoriesContainer.firstChild.getAttribute('data-category-key');
-          if(firstKey) scrollToCategory(firstKey);
-        }
-      }, 150);
+      if (categoriesContainer.firstChild) {
+        const firstKey = categoriesContainer.firstChild.getAttribute('data-category-key');
+        setTimeout(() => {
+          currentCategoryKey = firstKey;
+          const firstCategory = expressiveCategoryList.find(c => c.key === firstKey);
+          if (firstCategory) {
+            const navImg = document.getElementById('navCategoryImg');
+            const navName = document.getElementById('navCategoryName');
+            navImg.src = firstCategory.imageUrl;
+            navImg.style.display = 'block';
+            navName.textContent = firstCategory.name;
+          }
+          const firstCat = document.querySelector(`.category[data-category-key="${firstKey}"]`);
+          if (firstCat) firstCat.classList.add('active');
+          // تمرير الشريط ليكون أول فئة في المنتصف
+          smoothScrollSliderToCategory(firstKey);
+        }, 100);
+      }
+      
+      setupScrollObserver();
     }
     
-    function escapeHtml(str) {
-      if (!str) return '';
-      return str.replace(/[&<>]/g, function(m) {
-        if (m === '&') return '&amp;';
-        if (m === '<') return '&lt;';
-        if (m === '>') return '&gt;';
-        return m;
-      });
+    function setupScrollObserver() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const catKey = entry.target.getAttribute('data-category-key');
+            if (catKey) {
+              // تحديث النافبار والشريط معاً
+              updateNavbarWithAnimation(catKey);
+            }
+          }
+        });
+      }, { threshold: 0.4, rootMargin: '-80px 0px -40% 0px' }); // جعل العتبة مناسبة
+      
+      document.querySelectorAll('.category-container').forEach(container => observer.observe(container));
     }
+    
+    function escapeHtml(str) { if (!str) return ''; return str.replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m])); }
     
     function addToCartHandler(e) {
       e.stopPropagation();
       const name = this.getAttribute('data-name');
       const price = parseFloat(this.getAttribute('data-price'));
-      const productId = this.getAttribute('data-id');
-      
+      const id = this.getAttribute('data-id');
       let cart = JSON.parse(localStorage.getItem('deliverooCart')) || [];
-      const existing = cart.find(item => item.id === productId);
-      if (existing) {
-        existing.quantity++;
-        existing.totalPrice = existing.quantity * existing.basePrice;
-      } else {
-        cart.push({
-          id: productId,
-          name: name,
-          basePrice: price,
-          quantity: 1,
-          totalPrice: price
-        });
-      }
+      const existing = cart.find(item => item.id === id);
+      if (existing) { existing.quantity++; existing.totalPrice = existing.quantity * existing.basePrice; }
+      else { cart.push({ id, name, basePrice: price, quantity: 1, totalPrice: price }); }
       localStorage.setItem('deliverooCart', JSON.stringify(cart));
       updateCartUI();
       
       const rect = this.getBoundingClientRect();
-      const viewCartBtn = document.getElementById('viewCartBtn');
-      if (viewCartBtn && viewCartBtn.style.display !== 'none') {
-        const flyingEl = document.createElement('div');
-        flyingEl.className = 'flying-element';
-        flyingEl.style.left = (rect.left + rect.width/2) + 'px';
-        flyingEl.style.top = (rect.top + rect.height/2) + 'px';
-        flyingEl.style.transform = 'translate(-50%, -50%)';
-        document.body.appendChild(flyingEl);
-        const basketRect = viewCartBtn.getBoundingClientRect();
-        setTimeout(() => {
-          flyingEl.style.transform = `translate(${basketRect.left - rect.left}px, ${basketRect.top - rect.top}px) scale(0.1)`;
-          flyingEl.style.opacity = '0';
-        }, 10);
-        setTimeout(() => flyingEl.remove(), 550);
-      }
+      const flying = document.createElement('div');
+      flying.className = 'flying-element';
+      flying.style.left = rect.left + rect.width/2 + 'px';
+      flying.style.top = rect.top + rect.height/2 + 'px';
+      document.body.appendChild(flying);
+      setTimeout(() => flying.remove(), 500);
     }
     
     function updateCartUI() {
       const cart = JSON.parse(localStorage.getItem('deliverooCart')) || [];
-      const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
-      const viewCartBtn = document.getElementById('viewCartBtn');
-      const cartItemCount = document.getElementById('cartItemCount');
-      if (itemCount > 0) {
-        viewCartBtn.style.display = 'flex';
-        cartItemCount.textContent = itemCount;
-      } else {
-        viewCartBtn.style.display = 'none';
-      }
+      const count = cart.reduce((s, i) => s + i.quantity, 0);
+      const btn = document.getElementById('viewCartBtn');
+      const counter = document.getElementById('cartItemCount');
+      if (count > 0) { btn.style.display = 'flex'; counter.textContent = count; }
+      else { btn.style.display = 'none'; }
     }
     
     function openSearchModal() {
-      const existingOverlay = document.querySelector('.search-overlay');
-      if (existingOverlay) existingOverlay.remove();
-      
       const overlay = document.createElement('div');
       overlay.className = 'search-overlay';
       overlay.innerHTML = `
         <div class="search-modal">
-          <div class="search-header">
-            <h3><i class="fas fa-search" style="color:#B22222"></i> Find your product</h3>
-            <button class="close-search"><i class="fas fa-times"></i></button>
-          </div>
-          <div class="search-input-wrapper">
-            <input type="text" class="search-input" placeholder="🔍 Search bread, meat, drinks..." autofocus>
-          </div>
-          <div class="search-results-list" id="searchResultsList">
-            <div class="no-results">✨ Type something to discover delicious items ✨</div>
-          </div>
+          <div class="search-header"><h3><i class="fas fa-search"></i> Search</h3><button class="close-search"><i class="fas fa-times"></i></button></div>
+          <input type="text" class="search-input" placeholder="Search products...">
+          <div class="search-results-list" id="searchResultsList"></div>
         </div>
       `;
       document.body.appendChild(overlay);
-      
-      const searchInput = overlay.querySelector('.search-input');
-      const resultsContainer = overlay.querySelector('#searchResultsList');
+      const input = overlay.querySelector('.search-input');
+      const resultsDiv = overlay.querySelector('#searchResultsList');
       const closeBtn = overlay.querySelector('.close-search');
       
-      const performSearch = () => {
-        const query = searchInput.value.trim().toLowerCase();
-        if (!query) {
-          resultsContainer.innerHTML = '<div class="no-results">🍏 Start typing to find fresh products...</div>';
-          return;
-        }
-        const matched = allProducts.filter(p => p.name.toLowerCase().includes(query) || (p.description && p.description.toLowerCase().includes(query)));
-        if (matched.length === 0) {
-          resultsContainer.innerHTML = `<div class="no-results">😞 No products found for "${escapeHtml(query)}". Try another keyword!</div>`;
-          return;
-        }
-        resultsContainer.innerHTML = '';
-        matched.forEach(prod => {
-          const matchedCat = expressiveCategoryList.find(c => c.key === prod.mappedCategory) || { name: 'Item', icon: '📦' };
-          const highlightedName = prod.name.replace(new RegExp(`(${query})`, 'gi'), match => `<span class="search-highlight">${match}</span>`);
-          const resultDiv = document.createElement('div');
-          resultDiv.className = 'result-item';
-          const imgSrc = prod.image && prod.image.trim() !== '' ? prod.image : 'https://cdn-icons-png.flaticon.com/512/1046/1046784.png';
-          resultDiv.innerHTML = `
-            <div class="result-img"><img src="${imgSrc}" alt="${escapeHtml(prod.name)}" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1046/1046784.png'"></div>
-            <div class="result-info">
-              <div class="result-name">${highlightedName}</div>
-              <div class="result-category"><i class="fas fa-tag"></i> ${matchedCat.name}</div>
-            </div>
-            <div class="result-price">${prod.price.toFixed(2)} MAD</div>
-            <button class="result-add-small" data-id="${prod.id}" data-name="${escapeHtml(prod.name)}" data-price="${prod.price}"><i class="fas fa-plus"></i></button>
-          `;
-          resultsContainer.appendChild(resultDiv);
-        });
+      const search = () => {
+        const q = input.value.toLowerCase();
+        if (!q) { resultsDiv.innerHTML = '<div style="padding:20px;text-align:center">Type to search</div>'; return; }
+        const matches = allProducts.filter(p => p.name.toLowerCase().includes(q));
+        if (!matches.length) { resultsDiv.innerHTML = '<div style="padding:20px;text-align:center">No results</div>'; return; }
+        resultsDiv.innerHTML = matches.map(p => `
+          <div class="result-item">
+            <div class="result-img"><img src="${p.image || 'https://cdn-icons-png.flaticon.com/512/1046/1046784.png'}"></div>
+            <div class="result-info"><div class="result-name">${p.name}</div><div class="result-category">${expressiveCategoryList.find(c=>c.key===p.mappedCategory)?.name || ''}</div></div>
+            <div class="result-price">${p.price.toFixed(2)} MAD</div>
+            <button class="result-add-small" data-id="${p.id}" data-name="${p.name}" data-price="${p.price}">+</button>
+          </div>
+        `).join('');
         overlay.querySelectorAll('.result-add-small').forEach(btn => {
-          btn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const id = btn.getAttribute('data-id');
-            const name = btn.getAttribute('data-name');
-            const price = parseFloat(btn.getAttribute('data-price'));
+          btn.onclick = () => {
+            const id = btn.dataset.id, name = btn.dataset.name, price = parseFloat(btn.dataset.price);
             let cart = JSON.parse(localStorage.getItem('deliverooCart')) || [];
-            const existing = cart.find(item => item.id === id);
-            if (existing) {
-              existing.quantity++;
-              existing.totalPrice = existing.quantity * existing.basePrice;
-            } else {
-              cart.push({ id, name, basePrice: price, quantity: 1, totalPrice: price });
-            }
+            const existing = cart.find(i => i.id === id);
+            if (existing) { existing.quantity++; existing.totalPrice = existing.quantity * existing.basePrice; }
+            else { cart.push({ id, name, basePrice: price, quantity: 1, totalPrice: price }); }
             localStorage.setItem('deliverooCart', JSON.stringify(cart));
             updateCartUI();
-            const rect = btn.getBoundingClientRect();
-            const flyMini = document.createElement('div');
-            flyMini.className = 'flying-element';
-            flyMini.style.left = (rect.left + rect.width/2) + 'px';
-            flyMini.style.top = (rect.top + rect.height/2) + 'px';
-            flyMini.style.transform = 'translate(-50%, -50%)';
-            document.body.appendChild(flyMini);
-            setTimeout(() => flyMini.remove(), 400);
-            btn.style.transform = 'scale(0.9)';
-            setTimeout(() => btn.style.transform = '', 120);
-          });
+            overlay.remove();
+          };
         });
       };
-      
-      searchInput.addEventListener('input', performSearch);
-      closeBtn.addEventListener('click', () => overlay.remove());
-      overlay.addEventListener('click', (e) => { if(e.target === overlay) overlay.remove(); });
-      performSearch();
+      input.addEventListener('input', search);
+      closeBtn.onclick = () => overlay.remove();
+      overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
+      search();
     }
     
     document.getElementById('backButton').onclick = () => window.history.back();
-    document.getElementById('searchButton').onclick = () => openSearchModal();
+    document.getElementById('searchButton').onclick = openSearchModal;
     document.getElementById('viewCartBtn').onclick = () => {
       const cart = JSON.parse(localStorage.getItem('deliverooCart')) || [];
-      if (cart.length === 0) {
-        alert('🛒 Your basket is empty');
-        return;
-      }
-      let msg = '🛒 Your Basket:\n\n';
-      let total = 0;
-      cart.forEach((item, i) => {
-        msg += `${i+1}. ${item.name}\n   x${item.quantity} = ${item.totalPrice.toFixed(2)} MAD\n\n`;
-        total += item.totalPrice;
-      });
-      msg += `━━━━━━━━━━━━━━━━\n💰 Total: ${total.toFixed(2)} MAD\n━━━━━━━━━━━━━━━━\n\n✅ Thank you for shopping at BenEx Market!`;
-      alert(msg);
+      if (!cart.length) { alert('Basket is empty'); return; }
+      let msg = '🛒 Your Basket:\n', total = 0;
+      cart.forEach((item, i) => { msg += `${i+1}. ${item.name} x${item.quantity} = ${item.totalPrice.toFixed(2)} MAD\n`; total += item.totalPrice; });
+      alert(msg + `\n💰 Total: ${total.toFixed(2)} MAD\n\nThank you!`);
     };
     
     window.addEventListener('scroll', () => {
       const navbar = document.getElementById('navbar');
-      if (window.scrollY > 100) navbar.classList.add('scrolled');
-      else navbar.classList.remove('scrolled');
-    });
-    
-    let tickingScroll = false;
-    function updateActiveCategoryFromScroll() {
-      const scrollPosition = window.scrollY + 115;
-      for (let i = 0; i < expressiveCategoryList.length; i++) {
-        const catKey = expressiveCategoryList[i].key;
-        const container = document.getElementById(`cat-${catKey}-container`);
-        if (container) {
-          const containerTop = container.offsetTop;
-          const containerBottom = containerTop + container.offsetHeight;
-          if (scrollPosition >= containerTop && scrollPosition < containerBottom) {
-            document.querySelectorAll('.category').forEach(cat => {
-              if (cat.getAttribute('data-category-key') === catKey) cat.classList.add('active');
-              else cat.classList.remove('active');
-            });
-            break;
-          }
-        }
-      }
-    }
-    
-    window.addEventListener('scroll', () => {
-      if (!tickingScroll) {
-        requestAnimationFrame(() => {
-          updateActiveCategoryFromScroll();
-          tickingScroll = false;
-        });
-        tickingScroll = true;
+      if (window.scrollY > 100) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
       }
     });
     
