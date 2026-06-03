@@ -144,9 +144,10 @@
       border-radius: 12px;
       overflow: hidden;
       flex-shrink: 0;
+      background: #f5f5f5;
     }
     
-    .item-image img { width: 100%; height: 100%; object-fit: cover; }
+    .item-image img { width: 100%; height: 100%; object-fit: contain; }
     
     .item-details { flex: 1; min-width: 0; }
     
@@ -163,6 +164,7 @@
       border: none;
       background: var(--bg-light);
       cursor: pointer;
+      transition: 0.2s;
     }
     
     .quantity-btn:hover { background: var(--primary-red); color: white; }
@@ -271,6 +273,7 @@
       border-radius: 8px;
       text-align: center;
       cursor: pointer;
+      transition: 0.2s;
     }
     
     .time-option.selected {
@@ -278,7 +281,6 @@
       background: rgba(139, 0, 0, 0.05);
     }
     
-    /* Payment method - only Cash on Delivery available */
     .payment-method { margin: 20px 0; }
     
     .payment-option {
@@ -294,14 +296,6 @@
       border-color: var(--primary-red);
     }
     
-    .payment-option.disabled {
-      cursor: default;
-      background-color: #f5f5f5;
-      opacity: 0.7;
-      filter: grayscale(0.1);
-    }
-    
-    /* Empty Cart Styles with Image */
     .empty-cart {
       text-align: center;
       padding: 40px 20px;
@@ -413,7 +407,7 @@
     </div>
     
     <div class="cart-container">
-      <!-- Left Side: Order Items (Love Message Card REMOVED) -->
+      <!-- Left Side: Order Items -->
       <div class="cart-items-section">
         <div class="cart-items">
           <div class="cart-header">
@@ -424,7 +418,6 @@
           </div>
           <div id="cart-items-container"></div>
         </div>
-        <!-- Love message card is completely deleted as requested -->
       </div>
       
       <!-- Right Side: Order Summary -->
@@ -472,7 +465,7 @@
           </div>
         </div>
         
-        <!-- Payment Method - ONLY CASH ON DELIVERY (no transfer option) -->
+        <!-- Payment Method - ONLY CASH ON DELIVERY -->
         <div class="payment-method">
           <h3 class="payment-title">Payment Method</h3>
           <div class="payment-option selected">
@@ -480,8 +473,6 @@
             <label for="cash" style="font-weight: 600;">Cash on Delivery</label>
             <div class="payment-icon"><i class="fas fa-money-bill-wave"></i></div>
           </div>
-       
-          
         </div>
         
         <button class="checkout-btn" id="checkout-btn">
@@ -500,7 +491,7 @@
   </div>
 
   <script>
-    // Firebase Configuration (unchanged)
+    // Firebase Configuration
     const firebaseConfig = {
       apiKey: "AIzaSyDQ8GIxHnTz2m1U6aWGyZYPKJeXJbYKSZo",
       authDomain: "flowers-products.firebaseapp.com",
@@ -515,8 +506,8 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
     
-    const CART_KEY = 'fleuristeCart';  // same key to maintain compatibility with benmarket.html
-    const WHATSAPP_NUMBER = "212642620325";  // store admin number
+    const CART_KEY = 'deliverooCart';  // Use the same key as supermarket page
+    const WHATSAPP_NUMBER = "212642620325";
     
     let cart = [];
     
@@ -544,13 +535,28 @@
     
     function getCart() {
       try {
+        // First try to get data from sessionStorage (passed from supermarket page)
+        const sessionData = sessionStorage.getItem('checkoutCartData');
+        if (sessionData) {
+          const parsedData = JSON.parse(sessionData);
+          // Clear sessionStorage after reading to avoid reuse
+          sessionStorage.removeItem('checkoutCartData');
+          return parsedData;
+        }
+        
+        // Fallback to localStorage
         const cartData = localStorage.getItem(CART_KEY);
         return cartData ? JSON.parse(cartData) : [];
-      } catch(e) { return []; }
+      } catch(e) { 
+        console.error("Error loading cart:", e);
+        return []; 
+      }
     }
     
     function saveCart() {
       localStorage.setItem(CART_KEY, JSON.stringify(cart));
+      // Also sync back to sessionStorage for consistency
+      sessionStorage.setItem('checkoutCartData', JSON.stringify(cart));
     }
     
     function renderCartItems() {
@@ -568,16 +574,22 @@
       cart.forEach((item, index) => {
         const itemDiv = document.createElement('div');
         itemDiv.className = 'item-card';
-        const pricePerUnit = item.basePrice || item.price || 0;
-        const imageUrl = item.img || 'https://via.placeholder.com/70x70/8B0000/ffffff?text=Product';
+        const pricePerUnit = item.price || item.basePrice || 0;
+        const imageUrl = item.imageUrl || item.img || 'https://cdn-icons-png.flaticon.com/512/1046/1046784.png';
+        const quantity = item.quantity || 1;
+        const itemTotal = pricePerUnit * quantity;
+        
         itemDiv.innerHTML = `
-          <div class="item-image"><img src="${imageUrl}" alt="${item.name}"></div>
+          <div class="item-image">
+            <img src="${imageUrl}" alt="${item.name}" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1046/1046784.png'">
+          </div>
           <div class="item-details">
-            <div class="item-name">${item.name}</div>
-            <div class="item-price">${pricePerUnit.toFixed(2)} MAD x ${item.quantity || 1}</div>
+            <div class="item-name">${escapeHtml(item.name)}</div>
+            <div class="item-price">${pricePerUnit.toFixed(2)} MAD x ${quantity}</div>
+            <div class="item-total" style="font-size:0.8rem; color:#666; margin-top:4px;">Total: ${itemTotal.toFixed(2)} MAD</div>
             <div class="item-controls">
               <button class="quantity-btn minus-btn" data-index="${index}"><i class="fas fa-minus"></i></button>
-              <span class="item-quantity">${item.quantity || 1}</span>
+              <span class="item-quantity">${quantity}</span>
               <button class="quantity-btn plus-btn" data-index="${index}"><i class="fas fa-plus"></i></button>
               <button class="remove-item" data-index="${index}"><i class="fas fa-times"></i> Remove</button>
             </div>
@@ -597,9 +609,15 @@
       });
     }
     
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+    
     function calculateTotals() {
       const subtotal = cart.reduce((sum, item) => {
-        const price = item.basePrice || item.price || 0;
+        const price = item.price || item.basePrice || 0;
         const qty = item.quantity || 1;
         return sum + (price * qty);
       }, 0);
@@ -616,8 +634,9 @@
     
     function updateQuantity(idx, change) {
       if (!cart[idx]) return;
-      cart[idx].quantity = (cart[idx].quantity || 1) + change;
-      if (cart[idx].quantity < 1) cart[idx].quantity = 1;
+      const newQuantity = (cart[idx].quantity || 1) + change;
+      if (newQuantity < 1) return;
+      cart[idx].quantity = newQuantity;
       saveCart();
       renderCartItems();
       updateCartDisplay();
@@ -660,15 +679,12 @@
       };
     }
     
-    // Payment is always Cash on Delivery - removed any transfer logic
     function getSelectedPaymentMethod() {
       return "Cash on Delivery";
     }
     
-    // Generate detailed order summary for dashboard and WhatsApp fallback (optional)
     function generateOrderSummaryForDashboard(orderId, totals) {
       const customer = getCustomerInfo();
-      const paymentMethod = getSelectedPaymentMethod();
       
       const summary = {
         orderId: orderId,
@@ -681,12 +697,12 @@
         deliveryTimeText: getDeliveryTimeText(),
         store: "BenMarket Supermarket",
         total: parseFloat(totals.total),
-        paymentMethod: paymentMethod,
+        paymentMethod: getSelectedPaymentMethod(),
         items: cart.map(item => ({
           name: item.name,
-          price: item.basePrice || item.price || 0,
+          price: item.price || item.basePrice || 0,
           quantity: item.quantity || 1,
-          img: item.img || "https://via.placeholder.com/60/8B0000/ffffff?text=Product"
+          imageUrl: item.imageUrl || item.img || "https://cdn-icons-png.flaticon.com/512/1046/1046784.png"
         })),
         totalItems: cart.reduce((sum, item) => sum + (item.quantity || 1), 0),
         status: "pending"
@@ -694,7 +710,6 @@
       return summary;
     }
     
-    // Save order to Firestore (dashboard.html will fetch from this collection)
     function saveOrderToFirestore(orderId, totals) {
       const customer = getCustomerInfo();
       const paymentMethod = getSelectedPaymentMethod();
@@ -715,25 +730,24 @@
         paymentMethod: paymentMethod,
         items: cart.map(item => ({
           name: item.name,
-          price: item.basePrice || item.price || 0,
+          price: item.price || item.basePrice || 0,
           quantity: item.quantity || 1,
-          img: item.img || "https://via.placeholder.com/60/8B0000/ffffff?text=Product"
+          imageUrl: item.imageUrl || item.img || "https://cdn-icons-png.flaticon.com/512/1046/1046784.png"
         })),
         totalItems: cart.reduce((sum, item) => sum + (item.quantity || 1), 0)
       };
       
       return db.collection('orders').add(orderData)
         .then((docRef) => {
-          console.log("✅ Order saved to Firebase successfully! Order ID:", docRef.id);
+          console.log("Order saved to Firebase! Order ID:", docRef.id);
           return docRef.id;
         })
         .catch((error) => {
-          console.error("❌ Firebase save error:", error);
+          console.error("Firebase save error:", error);
           throw error;
         });
     }
     
-    // Process order: validate cart, customer info, save to Firebase, clear cart, redirect to dashboard
     async function processOrder() {
       // Validation
       if (cart.length === 0) {
@@ -762,28 +776,24 @@
       const orderId = `BEN-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
       const totals = calculateTotals();
       
-      // Show loading toast
       showToast("Saving order and sending information...", 'info');
       checkoutBtn.disabled = true;
       
       try {
-        // Save order to Firestore (so dashboard.html can fetch)
         await saveOrderToFirestore(orderId, totals);
         
-        // Also save to localStorage as backup for dashboard if needed
         const orderSummary = generateOrderSummaryForDashboard(orderId, totals);
         localStorage.setItem('lastCompletedOrder', JSON.stringify(orderSummary));
         
-        // Clear cart after successful save
+        // Clear cart from both storages
         cart = [];
         saveCart();
+        sessionStorage.removeItem('checkoutCartData');
         renderCartItems();
         updateCartDisplay();
         
-        // Success message
         showToast(`Order #${orderId} placed successfully! Redirecting to dashboard...`, 'success');
         
-        // Redirect to dashboard.html after short delay
         setTimeout(() => {
           window.location.href = 'dashboard.html';
         }, 1500);
@@ -795,7 +805,6 @@
       }
     }
     
-    // Back button - return to benmarket.html main page
     backButton.addEventListener('click', () => {
       window.location.href = 'benmarket.html';
     });
@@ -803,7 +812,6 @@
     clearCartBtn.addEventListener('click', clearCart);
     checkoutBtn.addEventListener('click', processOrder);
     
-    // Delivery time selector UI
     timeOptions.forEach(opt => {
       opt.addEventListener('click', function() {
         timeOptions.forEach(o => o.classList.remove('selected'));
@@ -811,12 +819,11 @@
       });
     });
     
-    // Auto-load cart from localStorage on page load
     function init() {
       cart = getCart();
       renderCartItems();
       updateCartDisplay();
-      console.log("✅ Checkout ready (Cash on Delivery only). Store: BenMarket");
+      console.log("Checkout ready - Cart items loaded:", cart.length);
     }
     
     document.addEventListener('DOMContentLoaded', init);
