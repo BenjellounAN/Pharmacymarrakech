@@ -393,68 +393,6 @@
       .time-options { flex-direction: column; }
       .empty-cart-image { max-width: 150px; }
     }
-    
-    /* Success modal styles */
-    .success-modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.8);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 2000;
-      backdrop-filter: blur(5px);
-    }
-    
-    .success-content {
-      background: white;
-      padding: 30px;
-      border-radius: 24px;
-      text-align: center;
-      max-width: 350px;
-      animation: slideUp 0.3s ease;
-    }
-    
-    .success-content i {
-      font-size: 70px;
-      color: #27ae60;
-      margin-bottom: 20px;
-    }
-    
-    .success-content h2 {
-      color: var(--primary-red);
-      margin-bottom: 10px;
-    }
-    
-    .success-content p {
-      color: var(--text-light);
-      margin-bottom: 20px;
-    }
-    
-    .success-content button {
-      background: var(--primary-red);
-      color: white;
-      border: none;
-      padding: 12px 24px;
-      border-radius: 30px;
-      font-weight: 600;
-      cursor: pointer;
-      width: 100%;
-    }
-    
-    @keyframes slideUp {
-      from {
-        opacity: 0;
-        transform: translateY(50px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
   </style>
 </head>
 <body>
@@ -464,7 +402,7 @@
     </div>
     
     <div class="header">
-      <h1>Check Out Supermarket</h1>
+      <h1>BenMarket Supermarket</h1>
       <p>Review your order and complete your purchase</p>
     </div>
     
@@ -538,10 +476,10 @@
         </div>
         
         <button class="checkout-btn" id="checkout-btn">
-          <i class="fab fa-whatsapp"></i>Confirm Your Order via WhatsApp
+          <i class="fab fa-whatsapp"></i> Complete Order via WhatsApp
         </button>
         <p class="info-text">
-          <i class="fas fa-info-circle"></i> We'll contact you via WhatsApp to confirm your order details and delivery charges.
+          <i class="fas fa-info-circle"></i> Click the button to send order details via WhatsApp
         </p>
       </div>
     </div>
@@ -549,7 +487,7 @@
   
   <div id="toastMessage" class="toast-message">
     <i class="fas fa-spinner fa-pulse"></i>
-    <span>Processing order...</span>
+    <span>Saving order...</span>
   </div>
 
   <script>
@@ -572,7 +510,6 @@
     const WHATSAPP_NUMBER = "212642620325";
     
     let cart = [];
-    let currentOrderId = null;
     
     // DOM elements
     const cartItemsContainer = document.getElementById('cart-items-container');
@@ -594,25 +531,6 @@
       setTimeout(() => {
         toastMessage.classList.remove('show');
       }, 3000);
-    }
-    
-    function showSuccessModal(orderId) {
-      const modal = document.createElement('div');
-      modal.className = 'success-modal';
-      modal.innerHTML = `
-        <div class="success-content">
-          <i class="fas fa-check-circle"></i>
-          <h2>Order Confirmed! ✅</h2>
-          <p><strong>Order ID: ${orderId}</strong></p>
-          <p>Your order has been sent successfully.<br>We will contact you via WhatsApp shortly.</p>
-          <button id="continueShoppingBtn">Continue Shopping</button>
-        </div>
-      `;
-      document.body.appendChild(modal);
-      
-      document.getElementById('continueShoppingBtn').addEventListener('click', () => {
-        window.location.href = 'benmarket.html';
-      });
     }
     
     function getCart() {
@@ -761,22 +679,31 @@
       return "Cash on Delivery";
     }
     
-    // Save order to Firebase with all product details including REAL images
-    async function saveOrderToFirestore() {
+    // Generate WhatsApp message with ONLY customer info and order ID (NO products)
+    function generateWhatsAppMessage(totals, orderId) {
       const customer = getCustomerInfo();
       const paymentMethod = getSelectedPaymentMethod();
-      const totals = calculateTotals();
-      const orderId = `BEN-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
-      currentOrderId = orderId;
       
-      // Create items array with REAL image URLs from the cart
-      const itemsWithImages = cart.map(item => ({
-        id: item.id || `item_${Date.now()}_${Math.random()}`,
-        name: item.name,
-        price: item.price || item.basePrice || 0,
-        quantity: item.quantity || 1,
-        imageUrl: item.imageUrl || item.img || 'https://cdn-icons-png.flaticon.com/512/1046/1046784.png'
-      }));
+      let msg = `🛒 *BENMARKET SUPERMARKET - NEW ORDER* 🛒\n\n`;
+      msg += `*Order ID:* ${orderId}\n`;
+      msg += `*Date:* ${new Date().toLocaleString()}\n\n`;
+      msg += `*Customer Information:*\n`;
+      msg += `├ Name: ${customer.name}\n`;
+      msg += `├ Phone: ${customer.phone}\n`;
+      msg += `└ Address: ${customer.address}\n\n`;
+      msg += `*Delivery:* ${getDeliveryTimeText()}\n`;
+      msg += `*Payment Method: ${paymentMethod}*\n\n`;
+      msg += `*Total Amount: ${totals.total} MAD*\n\n`;
+      msg += `📱 *Please check the dashboard for complete order details with products and images.*\n\n`;
+      msg += `_Please confirm this order. Thank you!_ 🛒`;
+      
+      return msg;
+    }
+    
+    // Save order to Firebase with ALL product details including REAL images
+    function saveOrderToFirebaseAsync(orderId, totals) {
+      const customer = getCustomerInfo();
+      const paymentMethod = getSelectedPaymentMethod();
       
       const orderData = {
         orderId: orderId,
@@ -792,52 +719,29 @@
         total: parseFloat(totals.total),
         orderStatus: "pending",
         paymentMethod: paymentMethod,
-        items: itemsWithImages,
+        items: cart.map(item => ({
+          id: item.id,
+          name: item.name,
+          price: item.price || item.basePrice || 0,
+          quantity: item.quantity || 1,
+          imageUrl: item.imageUrl || item.img || "https://cdn-icons-png.flaticon.com/512/1046/1046784.png"
+        })),
         totalItems: cart.reduce((sum, item) => sum + (item.quantity || 1), 0)
       };
       
-      console.log("Saving order to Firebase with items:", itemsWithImages);
+      console.log("📦 Saving order to Firebase with items:", orderData.items);
       
-      try {
-        const docRef = await db.collection('orders').add(orderData);
-        console.log("Order saved to Firebase! Order ID:", docRef.id);
-        console.log("Items saved with images:", itemsWithImages);
-        return orderId;
-      } catch (error) {
-        console.error("Firebase save error:", error);
-        throw error;
-      }
+      db.collection('orders').add(orderData)
+        .then((docRef) => {
+          console.log("✅ Order saved to Firebase! Order ID:", docRef.id);
+          console.log("✅ Items saved with images:", orderData.items);
+        })
+        .catch((error) => {
+          console.error("❌ Firebase save error:", error);
+        });
     }
     
-    // Open WhatsApp with only customer info and order ID (no products)
-    function openWhatsApp(orderId) {
-      const customer = getCustomerInfo();
-      const deliveryTimeText = getDeliveryTimeText();
-      const totals = calculateTotals();
-      
-      // Create message with customer info and order ID only (no products)
-      const message = `🛒 *New Order Received!* 🛒\n\n` +
-                      `📋 *Order ID:* ${orderId}\n` +
-                      `━━━━━━━━━━━━━━━━━━━━\n` +
-                      `👤 *Customer Name:* ${customer.name}\n` +
-                      `📞 *Phone:* ${customer.phone}\n` +
-                      `📍 *Address:* ${customer.address}\n` +
-                      `⏰ *Delivery Time:* ${deliveryTimeText}\n` +
-                      `💳 *Payment:* Cash on Delivery\n` +
-                      `━━━━━━━━━━━━━━━━━━━━\n` +
-                      `💰 *Total Amount:* ${totals.total} MAD\n\n` +
-                      `📱 *Please check the dashboard for complete order details with products and images.*\n\n` +
-                      `✅ *Order status: Pending confirmation*`;
-      
-      // Encode message for WhatsApp URL
-      const encodedMessage = encodeURIComponent(message);
-      const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
-      
-      // Open WhatsApp in new tab
-      window.open(whatsappUrl, '_blank');
-    }
-    
-    async function processOrder() {
+    function processOrder() {
       // Validation
       if (cart.length === 0) {
         showToast("Your cart is empty! Please add items to your cart.", 'error');
@@ -862,43 +766,31 @@
         return;
       }
       
-      showToast("Saving order and sending to WhatsApp...", 'info');
-      checkoutBtn.disabled = true;
+      // Generate order ID
+      const orderId = `BEN-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+      const totals = calculateTotals();
       
-      try {
-        // Save order to Firebase with all product details including REAL images
-        const orderId = await saveOrderToFirestore();
-        
-        // Also store in localStorage for quick access
-        const orderSummary = {
-          orderId: orderId,
-          customerName: getCustomerInfo().name,
-          total: calculateTotals().total,
-          items: cart.map(item => ({
-            name: item.name,
-            price: item.price || item.basePrice || 0,
-            quantity: item.quantity || 1,
-            imageUrl: item.imageUrl || item.img || "https://cdn-icons-png.flaticon.com/512/1046/1046784.png"
-          }))
-        };
-        localStorage.setItem('lastCompletedOrder', JSON.stringify(orderSummary));
-        
-        // Open WhatsApp with customer info and order ID only
-        openWhatsApp(orderId);
-        
-        // Clear cart after successful order
-        cart = [];
-        saveCart();
-        sessionStorage.removeItem('checkoutCartData');
-        
-        // Show success modal
-        showSuccessModal(orderId);
-        
-      } catch (error) {
-        console.error("Order processing error:", error);
-        showToast("Error saving order. Please try again.", 'error');
-        checkoutBtn.disabled = false;
-      }
+      // Generate WhatsApp message with ONLY customer info and order ID
+      const message = generateWhatsAppMessage(totals, orderId);
+      const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+      
+      // Open WhatsApp
+      window.open(whatsappUrl, '_blank');
+      
+      // Save order to Firebase with ALL product details including images
+      saveOrderToFirebaseAsync(orderId, totals);
+      
+      // Show success message
+      showToast(`Order #${orderId} sent via WhatsApp! ✓`, 'success');
+      
+      // Clear cart after successful order
+      cart = [];
+      saveCart();
+      sessionStorage.removeItem('checkoutCartData');
+      renderCartItems();
+      updateCartDisplay();
+      
+      console.log("✅ Order completed:", orderId);
     }
     
     backButton.addEventListener('click', () => {
@@ -919,8 +811,8 @@
       cart = getCart();
       renderCartItems();
       updateCartDisplay();
-      console.log("Checkout ready - Cart items loaded:", cart.length);
-      console.log("Cart items with images:", cart.map(item => ({ name: item.name, imageUrl: item.imageUrl })));
+      console.log("✅ Checkout ready! Cart items loaded:", cart.length);
+      console.log("📸 Cart items with images:", cart.map(item => ({ name: item.name, imageUrl: item.imageUrl })));
     }
     
     document.addEventListener('DOMContentLoaded', init);
