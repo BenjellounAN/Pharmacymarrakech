@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Dashboard flowers</title>
+    <title>Dashboard - BenMarket</title>
 
     <!-- شعار الموقع -->
     <link rel="icon" type="image/png" href="https://i.ibb.co/Z17ftSn3/94655-B30-C7-E3-459-E-8-DBD-83-D9632-C55-CC.png">
@@ -13,7 +13,7 @@
     <meta name="theme-color" content="#8B0000">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Flowers">
+    <meta name="apple-mobile-web-app-title" content="BenMarket">
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -652,10 +652,10 @@ tr:hover {
 }
 
 .product-item img {
-  width: 50px;
-  height: 50px;
+  width: 55px;
+  height: 55px;
   border-radius: 12px;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 /* ===== NAV TABS ===== */
@@ -929,7 +929,7 @@ tbody tr {
 <!-- Login Screen -->
 <div id="loginScreen" class="login-wrapper">
   <div class="login-card">
-    <h2>🌸 Flowers Dashboard</h2>
+    <h2>📊 BenMarket Dashboard</h2>
     <div class="input-group">
       <input type="email" id="loginEmail" required>
       <label>Email</label>
@@ -958,7 +958,7 @@ const firebaseConfig = {
   storageBucket: "flowers-products.firebasestorage.app",
   messagingSenderId: "107577839256",
   appId: "1:107577839256:web:922ffa87578f10d9088aed",
-  measurementId: "G-Z4ZZSH9SHB"
+  measurementId: "G-Z4SHZZ9SHB"
 };
 
 // Initialize Firebase
@@ -1104,141 +1104,12 @@ function monitorNewOrders() {
   });
 }
 
-// Bottom Navigation Pages Content
-function showBottomPage(page) {
-  currentBottomPage = page;
-  const mainContent = document.querySelector('.main-content-area');
-  if (!mainContent) return;
-  
-  let content = '';
-  
-  switch(page) {
-    case 'overview':
-      content = `
-        <div class="bottom-page-content">
-          <div class="stats-grid" id="statsContainer"></div>
-          <div class="table-wrapper">
-            <table id="dataTable">
-              <thead id="tableHeader"></thead>
-              <tbody id="tableBody"><tr><td colspan="10" class="loading-state"><i class="fas fa-spinner fa-pulse"></i> Loading...<\/td><\/tr><\/tbody>
-            </table>
-          </div>
-          <div id="detailsPanel" class="details-panel">
-            <div class="details-header">
-              <h3><i class="fas fa-box-open"></i> <span id="detailsTitle">Order Details</span></h3>
-              <button class="close-details" id="closeDetailsBtn"><i class="fas fa-times"></i></button>
-            </div>
-            <div id="itemsContainer" class="items-grid"></div>
-          </div>
-        </div>
-      `;
-      break;
-    case 'stores':
-      content = `
-        <div class="bottom-page-content">
-          <div class="stats-grid">
-            <div class="stat-card"><div class="stat-info"><h4>Total Stores</h4><div class="stat-number">3</div></div><div class="stat-icon"><i class="fas fa-store"></i></div></div>
-            <div class="stat-card"><div class="stat-info"><h4>Active Stores</h4><div class="stat-number">2</div></div><div class="stat-icon"><i class="fas fa-check-circle"></i></div></div>
-            <div class="stat-card"><div class="stat-info"><h4>Total Revenue</h4><div class="stat-number">0 MAD</div></div><div class="stat-icon"><i class="fas fa-chart-line"></i></div></div>
-          </div>
-          <div class="table-wrapper">
-            <table>
-              <thead><tr><th>STORE NAME</th><th>LOCATION</th><th>STATUS</th><th>ORDERS</th></tr></thead>
-              <tbody>
-                <tr><td><i class="fas fa-store"></i> Fleuriste Marrakech</td><td>Marrakech, Morocco</td><td><span class="status-badge status-completed"><i class="fas fa-check"></i> Active</span></td><td>0</td></tr>
-                <tr><td><i class="fas fa-store"></i> Fleuriste Casablanca</td><td>Casablanca, Morocco</td><td><span class="status-badge status-pending"><i class="fas fa-hourglass-half"></i> Pending</span></td><td>0</td></tr>
-                <tr><td><i class="fas fa-store"></i> Fleuriste Rabat</td><td>Rabat, Morocco</td><td><span class="status-badge status-completed"><i class="fas fa-check"></i> Active</span></td><td>0</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      `;
-      break;
-    case 'statistic':
-      content = `
-        <div class="bottom-page-content">
-          <div class="stats-grid">
-            <div class="stat-card"><div class="stat-info"><h4>Total Orders</h4><div class="stat-number" id="statTotalOrders">0</div></div><div class="stat-icon"><i class="fas fa-shopping-cart"></i></div></div>
-            <div class="stat-card"><div class="stat-info"><h4>Total Revenue</h4><div class="stat-number" id="statTotalRevenue">0 MAD</div></div><div class="stat-icon"><i class="fas fa-money-bill-wave"></i></div></div>
-            <div class="stat-card"><div class="stat-info"><h4>Avg Order Value</h4><div class="stat-number" id="statAvgOrder">0 MAD</div></div><div class="stat-icon"><i class="fas fa-chart-simple"></i></div></div>
-            <div class="stat-card"><div class="stat-info"><h4>Completion Rate</h4><div class="stat-number" id="statCompletionRate">0%</div></div><div class="stat-icon"><i class="fas fa-percent"></i></div></div>
-          </div>
-          <div class="table-wrapper">
-            <table>
-              <thead><tr><th>METRIC</th><th>VALUE</th><th>PERCENTAGE</th></tr></thead>
-              <tbody>
-                <tr><td>Completed Orders</td><td id="statCompletedCount">0</td><td id="statCompletedPercent">0%</td></tr>
-                <tr><td>Pending Orders</td><td id="statPendingCount">0</td><td id="statPendingPercent">0%</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      `;
-      break;
-    case 'settings':
-      content = `
-        <div class="bottom-page-content">
-          <div class="stats-grid">
-            <div class="stat-card"><div class="stat-info"><h4>Admin Email</h4><div class="stat-number" style="font-size:1rem">${ALLOWED_EMAIL}</div></div><div class="stat-icon"><i class="fas fa-envelope"></i></div></div>
-            <div class="stat-card"><div class="stat-info"><h4>Notification Status</h4><div class="stat-number" style="font-size:1rem" id="notifStatus">Checking...</div></div><div class="stat-icon"><i class="fas fa-bell"></i></div></div>
-          </div>
-          <div class="table-wrapper">
-            <table>
-              <thead><tr><th>SETTING</th><th>VALUE</th><th>ACTION</th></tr></thead>
-              <tbody>
-                <tr><td><i class="fas fa-globe"></i> Language</td><td>Arabic / English</td><td><button class="action-btn" onclick="showToast('Language settings coming soon', 'fa-info-circle')">Change</button></td></tr>
-                <tr><td><i class="fas fa-palette"></i> Theme</td><td>Light / Dark</td><td><button class="action-btn" onclick="showToast('Theme settings coming soon', 'fa-info-circle')">Change</button></td></tr>
-                <tr><td><i class="fas fa-bell"></i> Notifications</td><td id="notifToggleText">Enabled</td><td><button class="action-btn" id="toggleNotifBtn">Toggle</button></td></tr>
-                <tr><td><i class="fas fa-database"></i> Data Refresh</td><td>Auto every 5s</td><td><button class="action-btn" onclick="location.reload()">Refresh Now</button></td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      `;
-      break;
-  }
-  
-  mainContent.innerHTML = content;
-  
-  // Re-attach event listeners for overview page if needed
-  if (page === 'overview' && window.refreshOrdersData) {
-    setTimeout(() => window.refreshOrdersData(), 100);
-  }
-  
-  // Update statistics if on statistic page
-  if (page === 'statistic' && window.allOrdersData) {
-    updateStatisticsPage(window.allOrdersData);
-  }
-}
-
-function updateStatisticsPage(orders) {
-  const totalOrders = orders.length;
-  const totalRevenue = orders.reduce((sum, o) => sum + (o.total || 0), 0);
-  const avgOrder = totalOrders > 0 ? Math.round(totalRevenue / totalOrders) : 0;
-  const completedOrders = orders.filter(o => o.status === 'completed').length;
-  const pendingOrders = orders.filter(o => o.status === 'pending').length;
-  const completionRate = totalOrders > 0 ? Math.round((completedOrders / totalOrders) * 100) : 0;
-  
-  const completedPercent = totalOrders > 0 ? Math.round((completedOrders / totalOrders) * 100) : 0;
-  const pendingPercent = totalOrders > 0 ? Math.round((pendingOrders / totalOrders) * 100) : 0;
-  
-  const totalOrdersEl = document.getElementById('statTotalOrders');
-  const totalRevenueEl = document.getElementById('statTotalRevenue');
-  const avgOrderEl = document.getElementById('statAvgOrder');
-  const completionRateEl = document.getElementById('statCompletionRate');
-  const completedCountEl = document.getElementById('statCompletedCount');
-  const pendingCountEl = document.getElementById('statPendingCount');
-  const completedPercentEl = document.getElementById('statCompletedPercent');
-  const pendingPercentEl = document.getElementById('statPendingPercent');
-  
-  if (totalOrdersEl) totalOrdersEl.innerText = totalOrders;
-  if (totalRevenueEl) totalRevenueEl.innerText = totalRevenue.toLocaleString() + ' MAD';
-  if (avgOrderEl) avgOrderEl.innerText = avgOrder.toLocaleString() + ' MAD';
-  if (completionRateEl) completionRateEl.innerText = completionRate + '%';
-  if (completedCountEl) completedCountEl.innerText = completedOrders;
-  if (pendingCountEl) pendingCountEl.innerText = pendingOrders;
-  if (completedPercentEl) completedPercentEl.innerText = completedPercent + '%';
-  if (pendingPercentEl) pendingPercentEl.innerText = pendingPercent + '%';
+// Helper function to escape HTML
+function escapeHtml(text) {
+  if (!text) return '';
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
 }
 
 function loadFullDashboard() {
@@ -1247,13 +1118,12 @@ function loadFullDashboard() {
   document.body.style.display = "block";
   document.body.innerHTML = '';
   
-  // Build dashboard HTML with bottom navigation
   document.body.innerHTML = `
     <div class="app">
       <aside class="sidebar">
         <div class="logo">
-          <i class="fas fa-seedling"></i>
-          <span>Flowers</span>
+          <i class="fas fa-store"></i>
+          <span>BenMarket</span>
         </div>
         <nav>
           <div class="nav-item active" data-page="orders">
@@ -1321,7 +1191,6 @@ function loadFullDashboard() {
         </div>
       </main>
       
-      <!-- Bottom Navigation Bar -->
       <div class="bottom-nav">
         <button class="bottom-nav-item active" data-bottom-page="overview">
           <i class="fas fa-chart-pie"></i>
@@ -1355,7 +1224,6 @@ function loadFullDashboard() {
     </div>
   `;
   
-  // Add logout modal
   const logoutModal = document.createElement('div');
   logoutModal.className = 'logout-modal';
   logoutModal.id = 'logoutModal';
@@ -1372,9 +1240,7 @@ function loadFullDashboard() {
   `;
   document.body.appendChild(logoutModal);
   
-  // Setup bottom navigation
   setupBottomNavigation();
-  
   setTimeout(() => initDashboard(logoutModal), 100);
   setTimeout(() => {
     setupPushNotifications();
@@ -1388,17 +1254,51 @@ function setupBottomNavigation() {
   
   bottomNavItems.forEach(item => {
     item.addEventListener('click', () => {
-      // Update active state
       bottomNavItems.forEach(nav => nav.classList.remove('active'));
       item.classList.add('active');
-      
       const page = item.dataset.bottomPage;
       showBottomPage(page);
     });
   });
+}
+
+function showBottomPage(page) {
+  currentBottomPage = page;
+  const mainContent = document.querySelector('.main-content-area');
+  if (!mainContent) return;
   
-  // Initialize with overview page but keep original content visible
-  // The original content is already showing overview
+  let content = '';
+  
+  switch(page) {
+    case 'overview':
+      content = `
+        <div class="bottom-page-content">
+          <div class="stats-grid" id="statsContainer"></div>
+          <div class="table-wrapper">
+            <table id="dataTable">
+              <thead id="tableHeader"></thead>
+              <tbody id="tableBody"><tr><td colspan="10" class="loading-state"><i class="fas fa-spinner fa-pulse"></i> Loading...<\/td><\/tr><\/tbody>
+            </table>
+          </div>
+          <div id="detailsPanel" class="details-panel">
+            <div class="details-header">
+              <h3><i class="fas fa-box-open"></i> <span id="detailsTitle">Order Details</span></h3>
+              <button class="close-details" id="closeDetailsBtn"><i class="fas fa-times"></i></button>
+            </div>
+            <div id="itemsContainer" class="items-grid"></div>
+          </div>
+        </div>
+      `;
+      break;
+    default:
+      content = `<div class="bottom-page-content"><p>Loading...</p></div>`;
+  }
+  
+  mainContent.innerHTML = content;
+  
+  if (page === 'overview' && window.refreshOrdersData) {
+    setTimeout(() => window.refreshOrdersData(), 100);
+  }
 }
 
 function initDashboard(logoutModal) {
@@ -1409,7 +1309,6 @@ function initDashboard(logoutModal) {
   let selectedDate = null;
   let orderToDelete = null;
   
-  // Store orders globally for statistics page
   window.allOrdersData = allOrders;
   window.refreshOrdersData = () => {
     if (currentBottomPage === 'statistic' && allOrders.length > 0) {
@@ -1417,7 +1316,6 @@ function initDashboard(logoutModal) {
     }
   };
   
-  // Logout logic
   const logoutBtn = document.getElementById('logoutBtn');
   if (logoutBtn) {
     logoutBtn.addEventListener('click', () => logoutModal.classList.add('active'));
@@ -1434,7 +1332,6 @@ function initDashboard(logoutModal) {
     if (e.target === logoutModal) logoutModal.classList.remove('active');
   });
   
-  // Flatpickr
   flatpickr("#datePicker", {
     dateFormat: "Y-m-d",
     onChange: (dates, dateStr) => {
@@ -1458,7 +1355,6 @@ function initDashboard(logoutModal) {
     });
   });
   
-  // Navigation
   document.querySelectorAll('.nav-item').forEach(nav => {
     nav.addEventListener('click', () => {
       document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
@@ -1478,7 +1374,8 @@ function initDashboard(logoutModal) {
       stores: 'Stores Overview',
       analytics: 'Analytics & Insights'
     };
-    document.getElementById('pageTitle').innerText = titles[currentPage] || 'Dashboard';
+    const titleEl = document.getElementById('pageTitle');
+    if (titleEl) titleEl.innerText = titles[currentPage] || 'Dashboard';
   }
   
   function filterByDate(order) {
@@ -1520,7 +1417,6 @@ function initDashboard(logoutModal) {
       window.allOrdersData = allOrders;
       renderCurrentPage();
       
-      // Update statistics page if active
       if (currentBottomPage === 'statistic') {
         updateStatisticsPage(allOrders);
       }
@@ -1565,7 +1461,7 @@ function initDashboard(logoutModal) {
     }
     
     const tableHeader = document.getElementById('tableHeader');
-    if (tableHeader) tableHeader.innerHTML = `<tr><th>ORDER ID</th><th>CUSTOMER</th><th>PHONE</th><th>TOTAL</th><th>DATE</th><th>STATUS</th><th>ITEMS</th><th>ACTIONS</th></td>`;
+    if (tableHeader) tableHeader.innerHTML = `<tr><th>ORDER ID</th><th>CUSTOMER</th><th>PHONE</th><th>TOTAL</th><th>DATE</th><th>STATUS</th><th>ITEMS</th><th>ACTIONS</th></tr>`;
     const tbody = document.getElementById('tableBody');
     if (!tbody) return;
     if (!filtered.length) {
@@ -1574,9 +1470,9 @@ function initDashboard(logoutModal) {
     }
     tbody.innerHTML = filtered.map(o => `
       <tr>
-        <td><strong>${o.orderId}</strong></td>
-        <td><i class="fas fa-user"></i> ${o.customer}</td>
-        <td><i class="fas fa-phone"></i> ${o.phone}</td>
+        <td><strong>${escapeHtml(o.orderId)}</strong></td>
+        <td><i class="fas fa-user"></i> ${escapeHtml(o.customer)}</td>
+        <td><i class="fas fa-phone"></i> ${escapeHtml(o.phone)}</td>
         <td>${o.total.toLocaleString()} MAD</td>
         <td>${o.date}</td>
         <td><span class="status-badge status-${o.status}"><i class="fas ${o.status === 'pending' ? 'fa-hourglass-half' : 'fa-check'}"></i> ${o.status}</span></td>
@@ -1585,7 +1481,7 @@ function initDashboard(logoutModal) {
           <button class="view-btn" onclick="window.dashboardShowDetails('${o.id}')"><i class="fas fa-eye"></i></button>
           <button class="delete-btn" onclick="window.dashboardConfirmDelete('${o.id}')"><i class="fas fa-trash-alt"></i></button>
         </td>
-      </td>
+      </tr>
     `).join('');
   }
   
@@ -1613,18 +1509,23 @@ function initDashboard(logoutModal) {
     }
     
     const tableHeader = document.getElementById('tableHeader');
-    if (tableHeader) tableHeader.innerHTML = `<tr><th>CUSTOMER</th><th>PHONE</th><th>ORDERS</th><th>TOTAL SPENT</th></tr>`;
+    if (tableHeader) tableHeader.innerHTML = `<tr><th>CUSTOMER</th><th>PHONE</th><th>ORDERS</th><th>TOTAL SPENT</th></table>`;
     const tbody = document.getElementById('tableBody');
     if (tbody) {
       tbody.innerHTML = customers.map(c => `
-        <tr><td><i class="fas fa-user-circle"></i> ${c.name}</td><td>${c.phone}</td><td>${c.orders}</td><td>${c.total.toLocaleString()} MAD</td></tr>
+        <tr>
+          <td><i class="fas fa-user-circle"></i> ${escapeHtml(c.name)}</td>
+          <td>${c.phone}</td>
+          <td>${c.orders}</td>
+          <td>${c.total.toLocaleString()} MAD</td>
+        </tr>
       `).join('');
     }
   }
   
   function renderStores() {
     let filtered = allOrders.filter(o => filterByDate(o));
-    const store = { name: "Fleuriste Marrakech", orders: filtered.length, revenue: filtered.reduce((s,o) => s + o.total, 0) };
+    const store = { name: "BenMarket Supermarket", orders: filtered.length, revenue: filtered.reduce((s,o) => s + o.total, 0) };
     
     const statsContainer = document.getElementById('statsContainer');
     if (statsContainer) {
@@ -1636,10 +1537,14 @@ function initDashboard(logoutModal) {
     }
     
     const tableHeader = document.getElementById('tableHeader');
-    if (tableHeader) tableHeader.innerHTML = `</table><th>STORE NAME</th><th>TOTAL ORDERS</th><th>TOTAL REVENUE</th></tr>`;
+    if (tableHeader) tableHeader.innerHTML = `<tr><th>STORE NAME</th><th>TOTAL ORDERS</th><th>TOTAL REVENUE</th></tr>`;
     const tbody = document.getElementById('tableBody');
     if (tbody) {
-      tbody.innerHTML = `<tr><td><i class="fas fa-store"></i> ${store.name}</td><td>${store.orders}</td><td>${store.revenue.toLocaleString()} MAD</td></tr>`;
+      tbody.innerHTML = `<tr>
+        <td><i class="fas fa-store"></i> ${store.name}</td>
+        <td>${store.orders}</td>
+        <td>${store.revenue.toLocaleString()} MAD</td>
+      </tr>`;
     }
   }
   
@@ -1673,6 +1578,34 @@ function initDashboard(logoutModal) {
     }
   }
   
+  function updateStatisticsPage(orders) {
+    const totalOrders = orders.length;
+    const totalRevenue = orders.reduce((sum, o) => sum + (o.total || 0), 0);
+    const avgOrder = totalOrders > 0 ? Math.round(totalRevenue / totalOrders) : 0;
+    const completedOrders = orders.filter(o => o.status === 'completed').length;
+    const pendingOrders = orders.filter(o => o.status === 'pending').length;
+    const completionRate = totalOrders > 0 ? Math.round((completedOrders / totalOrders) * 100) : 0;
+    
+    const totalOrdersEl = document.getElementById('statTotalOrders');
+    const totalRevenueEl = document.getElementById('statTotalRevenue');
+    const avgOrderEl = document.getElementById('statAvgOrder');
+    const completionRateEl = document.getElementById('statCompletionRate');
+    const completedCountEl = document.getElementById('statCompletedCount');
+    const pendingCountEl = document.getElementById('statPendingCount');
+    const completedPercentEl = document.getElementById('statCompletedPercent');
+    const pendingPercentEl = document.getElementById('statPendingPercent');
+    
+    if (totalOrdersEl) totalOrdersEl.innerText = totalOrders;
+    if (totalRevenueEl) totalRevenueEl.innerText = totalRevenue.toLocaleString() + ' MAD';
+    if (avgOrderEl) avgOrderEl.innerText = avgOrder.toLocaleString() + ' MAD';
+    if (completionRateEl) completionRateEl.innerText = completionRate + '%';
+    if (completedCountEl) completedCountEl.innerText = completedOrders;
+    if (pendingCountEl) pendingCountEl.innerText = pendingOrders;
+    if (completedPercentEl) completedPercentEl.innerText = totalOrders > 0 ? Math.round((completedOrders / totalOrders) * 100) + '%' : '0%';
+    if (pendingPercentEl) pendingPercentEl.innerText = totalOrders > 0 ? Math.round((pendingOrders / totalOrders) * 100) + '%' : '0%';
+  }
+  
+  // MODIFIED: This is the key function that displays product images
   window.dashboardShowDetails = function(id) {
     const order = allOrders.find(o => o.id === id);
     if (!order) return;
@@ -1681,14 +1614,24 @@ function initDashboard(logoutModal) {
     const container = document.getElementById('itemsContainer');
     if (!container) return;
     if (!order.items?.length) container.innerHTML = '<div class="empty-state">No items</div>';
-    else container.innerHTML = order.items.map(item => `
-      <div class="product-item">
-        <img src="${item.img || 'https://picsum.photos/id/104/55/55'}" onerror="this.src='https://picsum.photos/id/145/55/55'">
-        <div style="flex:1"><strong>${item.name}</strong></div>
-        <div>${item.price} MAD</div>
-        <div>Qty: ${item.quantity || 1}</div>
-      </div>
-    `).join('');
+    else {
+      container.innerHTML = order.items.map(item => {
+        // Support both imageUrl (BenMarket) and img (Fleuriste)
+        const itemImage = item.imageUrl || item.img || 'https://cdn-icons-png.flaticon.com/512/1046/1046784.png';
+        const itemName = item.name || 'Product';
+        const itemPrice = item.price || 0;
+        const itemQuantity = item.quantity || 1;
+        
+        return `
+          <div class="product-item">
+            <img src="${itemImage}" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1046/1046784.png'" style="width: 55px; height: 55px; object-fit: contain; border-radius: 12px;">
+            <div style="flex:1"><strong>${escapeHtml(itemName)}</strong></div>
+            <div>${Number(itemPrice).toFixed(2)} MAD</div>
+            <div>Qty: ${itemQuantity}</div>
+          </div>
+        `;
+      }).join('');
+    }
     const detailsPanel = document.getElementById('detailsPanel');
     if (detailsPanel) detailsPanel.classList.add('open');
   };
@@ -1729,37 +1672,8 @@ function initDashboard(logoutModal) {
   db.collection('orders').onSnapshot(() => loadOrders());
   loadOrders();
   updatePageTitle();
-  
-  // Check notification status for settings page
-  if (Notification.permission === 'granted') {
-    const notifStatus = document.getElementById('notifStatus');
-    if (notifStatus) notifStatus.innerText = 'Enabled';
-  } else {
-    const notifStatus = document.getElementById('notifStatus');
-    if (notifStatus) notifStatus.innerText = 'Disabled';
-  }
-  
-  const toggleNotifBtn = document.getElementById('toggleNotifBtn');
-  if (toggleNotifBtn) {
-    toggleNotifBtn.addEventListener('click', async () => {
-      if (Notification.permission === 'granted') {
-        showToast('Notifications are already enabled', 'fa-info-circle');
-      } else {
-        const permission = await Notification.requestPermission();
-        const notifStatus = document.getElementById('notifStatus');
-        if (permission === 'granted') {
-          if (notifStatus) notifStatus.innerText = 'Enabled';
-          showToast('Notifications enabled successfully', 'fa-check-circle');
-        } else {
-          if (notifStatus) notifStatus.innerText = 'Disabled';
-          showToast('Please enable notifications in browser settings', 'fa-exclamation-triangle');
-        }
-      }
-    });
-  }
 }
 
-// Auth state handler
 auth.onAuthStateChanged(async (user) => {
   if (user && user.email === ALLOWED_EMAIL) {
     document.getElementById("loginScreen").style.display = "none";
