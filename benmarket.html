@@ -1040,6 +1040,9 @@
       const productName = product.name;
       const productPrice = product.price;
       const productDesc = product.description || '';
+      // Store image URL permanently in the product object for later retrieval
+      if (!product.storedImageUrl) product.storedImageUrl = imgUrl;
+      
       let currentCart = JSON.parse(localStorage.getItem('deliverooCart')) || [];
       let existingItem = currentCart.find(item => item.id === productId);
       let currentQty = existingItem ? existingItem.quantity : 0;
@@ -1114,13 +1117,16 @@
           if (existing) {
             existing.quantity = quantity;
             existing.totalPrice = quantity * existing.basePrice;
+            // Ensure image URL is stored
+            existing.imageUrl = imgUrl;
           } else {
             cart.push({
               id: productId,
               name: productName,
               basePrice: productPrice,
               quantity: quantity,
-              totalPrice: quantity * productPrice
+              totalPrice: quantity * productPrice,
+              imageUrl: imgUrl
             });
           }
         } else if (existing && quantity === 0) {
@@ -1310,22 +1316,38 @@
       };
       search();
     }
+    
     document.getElementById('backButton').onclick = () => window.history.back();
     document.getElementById('searchButton').onclick = openSearchModal;
+    
+    // MODIFIED: View Basket button now sends full product data including images to scheckout.html
     document.getElementById('viewCartBtn').onclick = () => {
       const cart = JSON.parse(localStorage.getItem('deliverooCart')) || [];
       if (!cart.length) {
         alert('Basket is empty');
         return;
       }
-      let msg = '🛒 Your Basket:\n',
-        total = 0;
-      cart.forEach((item, i) => {
-        msg += `${i+1}. ${item.name} x${item.quantity} = ${item.totalPrice.toFixed(2)} MAD\n`;
-        total += item.totalPrice;
+      
+      // Enrich cart items with full product details (including images) from allProducts
+      const enrichedCart = cart.map(cartItem => {
+        const fullProduct = allProducts.find(p => p.id === cartItem.id);
+        return {
+          id: cartItem.id,
+          name: cartItem.name,
+          quantity: cartItem.quantity,
+          price: cartItem.basePrice,
+          totalPrice: cartItem.totalPrice,
+          imageUrl: cartItem.imageUrl || (fullProduct?.image || 'https://cdn-icons-png.flaticon.com/512/1046/1046784.png')
+        };
       });
-      alert(msg + `\n💰 Total: ${total.toFixed(2)} MAD\n\nThank you!`);
+      
+      // Store the enriched cart data in sessionStorage to pass to scheckout.html
+      sessionStorage.setItem('checkoutCartData', JSON.stringify(enrichedCart));
+      
+      // Redirect to checkout page
+      window.location.href = 'scheckout.html';
     };
+    
     window.addEventListener('scroll', () => {
       const navbar = document.getElementById('navbar');
       if (window.scrollY > 100) navbar.classList.add('scrolled');
