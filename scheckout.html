@@ -393,6 +393,68 @@
       .time-options { flex-direction: column; }
       .empty-cart-image { max-width: 150px; }
     }
+    
+    /* Success modal styles */
+    .success-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+      backdrop-filter: blur(5px);
+    }
+    
+    .success-content {
+      background: white;
+      padding: 30px;
+      border-radius: 24px;
+      text-align: center;
+      max-width: 350px;
+      animation: slideUp 0.3s ease;
+    }
+    
+    .success-content i {
+      font-size: 70px;
+      color: #27ae60;
+      margin-bottom: 20px;
+    }
+    
+    .success-content h2 {
+      color: var(--primary-red);
+      margin-bottom: 10px;
+    }
+    
+    .success-content p {
+      color: var(--text-light);
+      margin-bottom: 20px;
+    }
+    
+    .success-content button {
+      background: var(--primary-red);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+    }
+    
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
   </style>
 </head>
 <body>
@@ -532,6 +594,25 @@
       setTimeout(() => {
         toastMessage.classList.remove('show');
       }, 3000);
+    }
+    
+    function showSuccessModal(orderId) {
+      const modal = document.createElement('div');
+      modal.className = 'success-modal';
+      modal.innerHTML = `
+        <div class="success-content">
+          <i class="fas fa-check-circle"></i>
+          <h2>Order Confirmed! ✅</h2>
+          <p><strong>Order ID: ${orderId}</strong></p>
+          <p>Your order has been sent successfully.<br>We will contact you via WhatsApp shortly.</p>
+          <button id="continueShoppingBtn">Continue Shopping</button>
+        </div>
+      `;
+      document.body.appendChild(modal);
+      
+      document.getElementById('continueShoppingBtn').addEventListener('click', () => {
+        window.location.href = 'benmarket.html';
+      });
     }
     
     function getCart() {
@@ -680,13 +761,22 @@
       return "Cash on Delivery";
     }
     
-    // Save order to Firebase with all product details including images
+    // Save order to Firebase with all product details including REAL images
     async function saveOrderToFirestore() {
       const customer = getCustomerInfo();
       const paymentMethod = getSelectedPaymentMethod();
       const totals = calculateTotals();
       const orderId = `BEN-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
       currentOrderId = orderId;
+      
+      // Create items array with REAL image URLs from the cart
+      const itemsWithImages = cart.map(item => ({
+        id: item.id || `item_${Date.now()}_${Math.random()}`,
+        name: item.name,
+        price: item.price || item.basePrice || 0,
+        quantity: item.quantity || 1,
+        imageUrl: item.imageUrl || item.img || 'https://cdn-icons-png.flaticon.com/512/1046/1046784.png'
+      }));
       
       const orderData = {
         orderId: orderId,
@@ -702,19 +792,16 @@
         total: parseFloat(totals.total),
         orderStatus: "pending",
         paymentMethod: paymentMethod,
-        items: cart.map(item => ({
-          id: item.id,
-          name: item.name,
-          price: item.price || item.basePrice || 0,
-          quantity: item.quantity || 1,
-          imageUrl: item.imageUrl || item.img || "https://cdn-icons-png.flaticon.com/512/1046/1046784.png"
-        })),
+        items: itemsWithImages,
         totalItems: cart.reduce((sum, item) => sum + (item.quantity || 1), 0)
       };
+      
+      console.log("Saving order to Firebase with items:", itemsWithImages);
       
       try {
         const docRef = await db.collection('orders').add(orderData);
         console.log("Order saved to Firebase! Order ID:", docRef.id);
+        console.log("Items saved with images:", itemsWithImages);
         return orderId;
       } catch (error) {
         console.error("Firebase save error:", error);
@@ -739,7 +826,7 @@
                       `💳 *Payment:* Cash on Delivery\n` +
                       `━━━━━━━━━━━━━━━━━━━━\n` +
                       `💰 *Total Amount:* ${totals.total} MAD\n\n` +
-                      `📱 *Please check the dashboard for complete order details with products.*\n\n` +
+                      `📱 *Please check the dashboard for complete order details with products and images.*\n\n` +
                       `✅ *Order status: Pending confirmation*`;
       
       // Encode message for WhatsApp URL
@@ -779,13 +866,10 @@
       checkoutBtn.disabled = true;
       
       try {
-        // Save order to Firebase with all product details
+        // Save order to Firebase with all product details including REAL images
         const orderId = await saveOrderToFirestore();
         
-        // Store order ID in localStorage for dashboard
-        localStorage.setItem('lastOrderId', orderId);
-        
-        // Store complete order summary for dashboard
+        // Also store in localStorage for quick access
         const orderSummary = {
           orderId: orderId,
           customerName: getCustomerInfo().name,
@@ -806,15 +890,9 @@
         cart = [];
         saveCart();
         sessionStorage.removeItem('checkoutCartData');
-        renderCartItems();
-        updateCartDisplay();
         
-        showToast(`Order #${orderId} placed successfully! WhatsApp opened.`, 'success');
-        
-        // Redirect to dashboard after 3 seconds
-        setTimeout(() => {
-          window.location.href = 'dashboard.html';
-        }, 3000);
+        // Show success modal
+        showSuccessModal(orderId);
         
       } catch (error) {
         console.error("Order processing error:", error);
@@ -842,6 +920,7 @@
       renderCartItems();
       updateCartDisplay();
       console.log("Checkout ready - Cart items loaded:", cart.length);
+      console.log("Cart items with images:", cart.map(item => ({ name: item.name, imageUrl: item.imageUrl })));
     }
     
     document.addEventListener('DOMContentLoaded', init);
