@@ -454,52 +454,188 @@
       color: #B22222;
     }
 
+    /* ========== HERO SECTION ENLARGED & MODERN OVERLAY ========== */
     .hero-section {
       position: relative;
-      height: 150px;
+      height: 360px;
+      width: 100%;
       overflow: hidden;
+      background: #000;
     }
 
     .hero-image {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
     }
 
-    .restaurant-info {
-      padding: 20px 16px;
-      background-color: white;
-      border-radius: 0 0 16px 16px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-      margin-bottom: 8px;
+    /* الطبقة المظلمة العصرية لتسليط الضوء على النص */
+    .hero-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.5) 70%, transparent 100%);
+      padding: 24px 20px 24px 20px;
+      backdrop-filter: blur(2px);
+      z-index: 5;
     }
 
-    .restaurant-name {
-      font-size: 24px;
-      font-weight: 700;
-      margin-bottom: 12px;
+    /* حاوية اسم المتجر والوصف ووقت التوصيل بشكل عصري جداً */
+    .hero-info-card {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      animation: fadeUp 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1);
     }
 
-    .delivery-time {
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* اسم المتجر - تصميم حديث وجذاب */
+    .hero-store-name {
+      font-size: 28px;
+      font-weight: 800;
+      color: white;
+      letter-spacing: -0.5px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .hero-store-name i {
+      font-size: 28px;
+      color: #ff5e5e;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+    }
+
+    /* وصف الخدمة الجديد أسفل اسم المتجر */
+    .hero-service-description {
+      font-size: 14px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.9);
+      letter-spacing: 0.3px;
       display: flex;
       align-items: center;
       gap: 8px;
-      background: #f0f0f0;
-      padding: 8px 16px;
-      border-radius: 20px;
-      width: fit-content;
+      flex-wrap: wrap;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+      margin-top: 2px;
+      margin-bottom: 4px;
+    }
+    .hero-service-description i {
+      font-size: 14px;
+      color: #ffb347;
+    }
+    .hero-service-description span {
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(4px);
+      padding: 2px 8px;
+      border-radius: 30px;
+      font-size: 12px;
+      font-weight: 500;
     }
 
+    /* حاوية وقت التوصيل بشكل حديث - تم استبدال شعار الدراجة بصورة جديدة */
+    .hero-delivery-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(12px);
+      padding: 8px 18px;
+      border-radius: 60px;
+      width: fit-content;
+      border: 1px solid rgba(255,255,255,0.3);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      transition: all 0.2s ease;
+      margin-top: 4px;
+    }
+
+    /* الشعار الجديد للدراجة كصورة بنفس حجم الأيقونة السابقة */
+    .new-delivery-logo {
+      width: 20px;
+      height: 20px;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+      display: inline-block;
+    }
+
+    .hero-delivery-badge span {
+      font-size: 15px;
+      font-weight: 600;
+      color: white;
+      letter-spacing: 0.3px;
+    }
+
+    .hero-delivery-badge .delivery-highlight {
+      background: Transparent;
+      padding: 4px 12px;
+      border-radius: 40px;
+      font-weight: 700;
+      margin-left: 4px;
+    }
+
+    /* إخفاء قسم restaurant-info القديم لأنه تم دمجه داخل الهيرو بشكل حديث */
+    .restaurant-info {
+      display: none;
+    }
+
+    /* تحسين التباعد بعد الهيرو */
     .categories-section {
-      padding: 12px 16px;
-      background-color: white;
-      margin-bottom: 8px;
+      margin-top: 0;
       position: sticky;
       top: 72px;
       z-index: 900;
+      background: white;
+      margin-bottom: 8px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     }
 
+    /* تعديل بسيط لضمان عدم وجود تكرار */
+    .categories-section {
+      padding: 12px 16px;
+      background-color: white;
+    }
+
+    @media (max-width: 600px) {
+      .hero-section {
+        height: 320px;
+      }
+      .hero-store-name {
+        font-size: 24px;
+      }
+      .hero-service-description {
+        font-size: 12px;
+      }
+      .hero-delivery-badge {
+        padding: 6px 15px;
+      }
+      .hero-delivery-badge span {
+        font-size: 13px;
+      }
+      .new-delivery-logo {
+        width: 30px;
+        height: 30px;
+      }
+      .hero-overlay {
+        padding: 20px 16px 18px 16px;
+      }
+    }
+
+    /* باقي الأنماط الأصلية محفوظة */
     .categories {
       display: flex;
       overflow-x: auto;
@@ -554,10 +690,11 @@
       transition: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
     }
 
+    /* التعديل هنا: تغيير ظل الصورة من الأحمر إلى الرمادي */
     .category.active .category-img {
       border-color: #B22222;
       transform: scale(1.05);
-      box-shadow: 0 12px 24px rgba(178, 34, 34, 0.25), 0 0 0 3px rgba(178, 34, 34, 0.1);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25), 0 0 0 3px rgba(0, 0, 0, 0.05);
     }
 
     .category span {
@@ -796,7 +933,7 @@
       }
 
       50% {
-        box-shadow: 0 12px 28px rgba(178, 34, 34, 0.25);
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
       }
 
       100% {
@@ -824,17 +961,33 @@
     <button class="nav-btn" id="searchButton"><i class="fas fa-search"></i></button>
   </nav>
 
+  <!-- HERO SECTION مُكبّر مع معلومات المتجر ووصف الخدمة ووقت التوصيل بتصميم حديث فوق الصورة -->
   <div class="hero-section">
     <img src="https://i.ibb.co/9k4TMcqH/IMG-7911.png" alt="BenEx Market" class="hero-image">
-  </div>
-
-  <div class="restaurant-info">
-    <h1 class="restaurant-name">BenEx Market Marrakech</h1>
-    <div class="delivery-time">
-      <i class="fas fa-motorcycle delivery-icon"></i>
-      <span>15-30 min</span>
+    <div class="hero-overlay">
+      <div class="hero-info-card">
+        <div class="hero-store-name">
+          
+          <span>BenEx Market Marrakech</span>
+        </div>
+        <!-- وصف الخدمة الجديد أسفل اسم المتجر -->
+        <div class="hero-service-description">
+         
+          <span>Fast supermarket delivery in Marrakech. Order groceries, fresh fruits, vegetables, drinks, snacks, dairy products, and household essentials. Same-day delivery and express delivery available across Marrakech and surrounding areas, covering over 30 km with reliable doorstep service.
+          </span>
+        </div>
+        <div class="hero-delivery-badge">
+          <!-- استبدال شعار الدراجة بالشعار الجديد مع نفس الحجم والسلوك -->
+          <img src="https://i.ibb.co/wh5BTBg2/A9-D99595-FFF3-4983-8-B9-A-160-B925-A285-F.png" alt="delivery logo" class="new-delivery-logo">
+          
+          <span class="delivery-highlight">15-30 Min</span>
+        </div>
+      </div>
     </div>
   </div>
+
+  <!-- تم إخفاء الـ restaurant-info القديم لأنه اندمج في الهيرو -->
+  <div class="restaurant-info" style="display: none;"></div>
 
   <div class="categories-section">
     <div class="categories" id="categoriesContainer">
@@ -867,6 +1020,12 @@
     let currentCategoryKey = '';
     let isAnimating = false;
     let isSliderScrolling = false;
+    
+    // Object to track loaded product counts per category
+    let loadedCounts = {};
+    // Object to store all products per category
+    let allProductsPerCategory = {};
+    
     const expressiveCategoryList = [{
         key: 'bakery',
         name: 'Bread & Cakes',
@@ -959,8 +1118,13 @@
       };
       return mapping[legacyCat] || 'pantry';
     }
+    
     db.collection('products').onSnapshot((snapshot) => {
       allProducts = [];
+      allProductsPerCategory = {};
+      expressiveCategoryList.forEach(cat => {
+        allProductsPerCategory[cat.key] = [];
+      });
       snapshot.forEach(doc => {
         let product = {
           id: doc.id,
@@ -968,6 +1132,15 @@
         };
         product.mappedCategory = mapLegacyCategoryToExpressive(product.category);
         allProducts.push(product);
+        if (allProductsPerCategory[product.mappedCategory]) {
+          allProductsPerCategory[product.mappedCategory].push(product);
+        } else {
+          allProductsPerCategory[product.mappedCategory] = [product];
+        }
+      });
+      // Initialize loaded counts (start with 6 products per category)
+      expressiveCategoryList.forEach(cat => {
+        loadedCounts[cat.key] = 6;
       });
       renderMainPage();
     });
@@ -1040,7 +1213,6 @@
       const productName = product.name;
       const productPrice = product.price;
       const productDesc = product.description || '';
-      // Store image URL permanently in the product object for later retrieval
       if (!product.storedImageUrl) product.storedImageUrl = imgUrl;
       
       let currentCart = JSON.parse(localStorage.getItem('deliverooCart')) || [];
@@ -1117,7 +1289,6 @@
           if (existing) {
             existing.quantity = quantity;
             existing.totalPrice = quantity * existing.basePrice;
-            // Ensure image URL is stored
             existing.imageUrl = imgUrl;
           } else {
             cart.push({
@@ -1181,15 +1352,51 @@
       return card;
     }
 
+    function loadMoreProducts(categoryKey, buttonElement) {
+      const currentCount = loadedCounts[categoryKey] || 6;
+      const totalProducts = allProductsPerCategory[categoryKey]?.length || 0;
+      const newCount = Math.min(currentCount + 10, totalProducts);
+      
+      if (newCount <= currentCount) {
+        // No more products to load, hide or disable button
+        if (buttonElement) {
+          buttonElement.style.opacity = '0.5';
+          buttonElement.style.cursor = 'default';
+          buttonElement.onclick = null;
+        }
+        return;
+      }
+      
+      loadedCounts[categoryKey] = newCount;
+      
+      // Update the products grid for this category
+      const productsGrid = document.querySelector(`#products-${categoryKey}`);
+      if (productsGrid) {
+        // Clear existing products
+        productsGrid.innerHTML = '';
+        // Get products to show (up to newCount)
+        const productsToShow = allProductsPerCategory[categoryKey].slice(0, newCount);
+        productsToShow.forEach(product => {
+          productsGrid.appendChild(createProductCardNew(product));
+        });
+      }
+      
+      // Update button text based on whether there are more products
+      if (newCount >= totalProducts) {
+        if (buttonElement) {
+          buttonElement.style.opacity = '0.5';
+          buttonElement.style.cursor = 'default';
+          buttonElement.onclick = null;
+        }
+      }
+    }
+
     function renderMainPage() {
       const container = document.getElementById('products-container');
       const categoriesContainer = document.getElementById('categoriesContainer');
       const grouped = {};
       expressiveCategoryList.forEach(cat => {
-        grouped[cat.key] = [];
-      });
-      allProducts.forEach(product => {
-        if (grouped[product.mappedCategory]) grouped[product.mappedCategory].push(product);
+        grouped[cat.key] = allProductsPerCategory[cat.key] || [];
       });
       categoriesContainer.innerHTML = '';
       expressiveCategoryList.forEach(catInfo => {
@@ -1209,17 +1416,25 @@
         catContainer.className = 'category-container';
         catContainer.id = `cat-${catInfo.key}-container`;
         catContainer.setAttribute('data-category-key', catInfo.key);
-        catContainer.innerHTML = `<div class="category-title"><img src="${catInfo.imageUrl}" class="category-title-img" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1046/1046784.png'"><span>${catInfo.name}</span></div><div class="products" id="products-${catInfo.key}"></div><div class="view-all-wrapper"><div class="view-all-btn" data-cat="${catInfo.key}">View All <i class="fas fa-arrow-right"></i></div></div>`;
+        catContainer.innerHTML = `<div class="category-title"><img src="${catInfo.imageUrl}" class="category-title-img" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1046/1046784.png'"><span>${catInfo.name}</span></div><div class="products" id="products-${catInfo.key}"></div><div class="view-all-wrapper"><div class="view-all-btn" data-cat="${catInfo.key}">View More <i class="fas fa-arrow-down"></i></div></div>`;
         container.appendChild(catContainer);
         const productsGrid = catContainer.querySelector(`#products-${catInfo.key}`);
-        const productsToShow = products.slice(0, 6);
+        const currentLoaded = loadedCounts[catInfo.key] || 6;
+        const productsToShow = products.slice(0, currentLoaded);
         productsToShow.forEach(product => {
           productsGrid.appendChild(createProductCardNew(product));
         });
       });
+      
+      // Attach event listeners to View More buttons
       document.querySelectorAll('.view-all-btn').forEach(btn => {
-        btn.onclick = () => alert(`✨ Explore all products at BenEx! ✨`);
+        const category = btn.getAttribute('data-cat');
+        btn.onclick = (e) => {
+          e.stopPropagation();
+          loadMoreProducts(category, btn);
+        };
       });
+      
       if (categoriesContainer.firstChild) {
         const firstKey = categoriesContainer.firstChild.getAttribute('data-category-key');
         setTimeout(() => {
@@ -1320,15 +1535,12 @@
     document.getElementById('backButton').onclick = () => window.history.back();
     document.getElementById('searchButton').onclick = openSearchModal;
     
-    // MODIFIED: View Basket button now sends full product data including images to scheckout.html
     document.getElementById('viewCartBtn').onclick = () => {
       const cart = JSON.parse(localStorage.getItem('deliverooCart')) || [];
       if (!cart.length) {
         alert('Basket is empty');
         return;
       }
-      
-      // Enrich cart items with full product details (including images) from allProducts
       const enrichedCart = cart.map(cartItem => {
         const fullProduct = allProducts.find(p => p.id === cartItem.id);
         return {
@@ -1340,11 +1552,7 @@
           imageUrl: cartItem.imageUrl || (fullProduct?.image || 'https://cdn-icons-png.flaticon.com/512/1046/1046784.png')
         };
       });
-      
-      // Store the enriched cart data in sessionStorage to pass to scheckout.html
       sessionStorage.setItem('checkoutCartData', JSON.stringify(enrichedCart));
-      
-      // Redirect to checkout page
       window.location.href = 'scheckout.html';
     };
     
