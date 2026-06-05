@@ -90,10 +90,37 @@
       box-shadow: 0 10px 30px rgba(0, 0, 0, .08);
       border: 1px solid #ececec;
       transition: transform 0.2s ease, box-shadow 0.2s;
+      cursor: pointer;
     }
 
     .product-card-new:active {
       transform: scale(0.98);
+    }
+
+    /* تأثير تمييز المنتج عند البحث عنه */
+    .product-card-new.highlight-product {
+      animation: highlightFlash 1.5s ease-in-out;
+      box-shadow: 0 0 0 3px #B22222, 0 10px 30px rgba(0, 0, 0, 0.15);
+      transition: box-shadow 0.3s;
+    }
+
+    @keyframes highlightFlash {
+      0% {
+        box-shadow: 0 0 0 0 rgba(178, 34, 34, 0.7);
+        transform: scale(1);
+      }
+      20% {
+        box-shadow: 0 0 0 8px rgba(178, 34, 34, 0.4);
+        transform: scale(1.02);
+      }
+      40% {
+        box-shadow: 0 0 0 4px rgba(178, 34, 34, 0.6);
+        transform: scale(1.01);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(178, 34, 34, 0);
+        transform: scale(1);
+      }
     }
 
     .cart-area-new {
@@ -266,6 +293,7 @@
       max-width: 100%;
       max-height: 110px;
       object-fit: contain;
+      transition: transform 0.2s ease;
     }
 
     /* معلومات المنتج */
@@ -944,6 +972,94 @@
     .category-trigger-glow .category-img {
       animation: categoryGlow 0.5s ease-out;
     }
+
+    /* ===== NEW IMAGE MODAL STYLES (Bottom Left Magnifier) ===== */
+    .image-modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto;
+      right: 0;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 3000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      visibility: hidden;
+      opacity: 0;
+      transition: visibility 0.2s, opacity 0.2s ease;
+      cursor: pointer;
+    }
+    .image-modal-overlay.active {
+      visibility: visible;
+      opacity: 1;
+    }
+    .modal-image-container {
+      position: relative;
+      max-width: 90%;
+      max-height: 85%;
+      text-align: center;
+      animation: zoomFade 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      cursor: default;
+    }
+    @keyframes zoomFade {
+      from {
+        transform: scale(0.92);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+    .modal-full-image {
+      max-width: 100%;
+      max-height: 70vh;
+      object-fit: contain;
+      border-radius: 20px;
+      box-shadow: 0 25px 45px rgba(0,0,0,0.4);
+      background: #fafafa;
+      padding: 8px;
+    }
+    .close-modal-btn {
+      position: absolute;
+      top: -45px;
+      right: -10px;
+      background: rgba(0,0,0,0.65);
+      backdrop-filter: blur(6px);
+      border-radius: 50%;
+      width: 42px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border: 1px solid rgba(255,255,255,0.3);
+      transition: all 0.2s;
+      color: white;
+      font-size: 22px;
+    }
+    .close-modal-btn:hover {
+      background: #B22222;
+      transform: scale(1.05);
+    }
+    /* small adjustment for mobile */
+    @media (max-width: 480px) {
+      .close-modal-btn {
+        top: -38px;
+        right: -5px;
+        width: 36px;
+        height: 36px;
+        font-size: 18px;
+      }
+      .modal-full-image {
+        max-height: 65vh;
+      }
+    }
   </style>
 </head>
 
@@ -1003,6 +1119,14 @@
     <span>View Basket</span>
     <div class="cart-item-count" id="cartItemCount">0</div>
   </button>
+
+  <!-- Image Magnifier Modal (small bottom left style integrated) -->
+  <div id="imageModal" class="image-modal-overlay">
+    <div class="modal-image-container">
+      <img id="modalFullImage" class="modal-full-image" src="" alt="Product enlarged">
+      <div class="close-modal-btn" id="closeModalBtn"><i class="fas fa-times"></i></div>
+    </div>
+  </div>
 
   <script>
     const firebaseConfig = {
@@ -1207,6 +1331,86 @@
       }
     }
 
+    // =============== NEW FUNCTION: Scroll to product and highlight it ===============
+    function scrollToProduct(productId, categoryKey) {
+      // First, make sure we are on the correct category
+      const targetCategoryContainer = document.getElementById(`cat-${categoryKey}-container`);
+      if (targetCategoryContainer) {
+        targetCategoryContainer.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+      
+      // Wait for scroll to complete then find and highlight the product
+      setTimeout(() => {
+        // Find the product card with matching data attribute or by searching within the category products
+        const productCard = document.querySelector(`.product-card-new[data-product-id="${productId}"]`);
+        if (productCard) {
+          // Remove any existing highlight class
+          productCard.classList.remove('highlight-product');
+          // Force reflow to restart animation
+          void productCard.offsetWidth;
+          // Add highlight class
+          productCard.classList.add('highlight-product');
+          // Scroll to make the product visible (if needed, especially on mobile)
+          productCard.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
+          });
+          // Remove highlight after animation ends
+          setTimeout(() => {
+            productCard.classList.remove('highlight-product');
+          }, 1500);
+        } else {
+          // If not found, maybe it's not loaded yet (due to lazy loading)
+          // Try to load more products if needed or just scroll to category
+          const currentCount = loadedCounts[categoryKey] || 6;
+          const totalProducts = allProductsPerCategory[categoryKey]?.length || 0;
+          if (currentCount < totalProducts) {
+            // Trigger load more for this category to reveal the product
+            const loadMoreBtn = document.querySelector(`.view-all-btn[data-cat="${categoryKey}"]`);
+            if (loadMoreBtn) {
+              loadMoreBtn.click();
+              // After loading more, try again to find and highlight
+              setTimeout(() => {
+                const retryCard = document.querySelector(`.product-card-new[data-product-id="${productId}"]`);
+                if (retryCard) {
+                  retryCard.classList.add('highlight-product');
+                  retryCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                  setTimeout(() => retryCard.classList.remove('highlight-product'), 1500);
+                }
+              }, 500);
+            }
+          }
+        }
+      }, 300);
+    }
+
+    // =============== IMAGE MODAL HANDLERS (Bottom left magnifier style) ===============
+    function openImageModal(imageUrl) {
+      const modal = document.getElementById('imageModal');
+      const modalImg = document.getElementById('modalFullImage');
+      if (!modal || !modalImg) return;
+      modalImg.src = imageUrl || 'https://cdn-icons-png.flaticon.com/512/1046/1046784.png';
+      modal.classList.add('active');
+    }
+    function closeImageModal() {
+      const modal = document.getElementById('imageModal');
+      if (modal) modal.classList.remove('active');
+    }
+    // attach global close listeners: click on overlay, or close button
+    function bindModalEvents() {
+      const modal = document.getElementById('imageModal');
+      const closeBtn = document.getElementById('closeModalBtn');
+      if (modal) {
+        modal.addEventListener('click', function(e) {
+          if (e.target === modal) closeImageModal();
+        });
+      }
+      if (closeBtn) closeBtn.addEventListener('click', closeImageModal);
+    }
+    
     function createProductCardNew(product) {
       const imgUrl = product.image || 'https://cdn-icons-png.flaticon.com/512/1046/1046784.png';
       const productId = product.id;
@@ -1220,6 +1424,18 @@
       let currentQty = existingItem ? existingItem.quantity : 0;
       const card = document.createElement('div');
       card.className = 'product-card-new';
+      card.setAttribute('data-product-id', productId); // Add data attribute for easy selection
+      
+      // Add click on image area or card to open magnifier but not on cart buttons
+      card.addEventListener('click', (e) => {
+        // prevent if the click target is inside cart-area-new or buttons/quantity
+        let target = e.target;
+        let isCartControl = target.closest('.cart-area-new') || target.closest('.cart-control-new') || target.closest('.btn-new');
+        if (!isCartControl) {
+          openImageModal(imgUrl);
+        }
+      });
+      
       const cartArea = document.createElement('div');
       cartArea.className = 'cart-area-new';
       const cartControl = document.createElement('div');
@@ -1358,7 +1574,6 @@
       const newCount = Math.min(currentCount + 10, totalProducts);
       
       if (newCount <= currentCount) {
-        // No more products to load, hide or disable button
         if (buttonElement) {
           buttonElement.style.opacity = '0.5';
           buttonElement.style.cursor = 'default';
@@ -1368,26 +1583,18 @@
       }
       
       loadedCounts[categoryKey] = newCount;
-      
-      // Update the products grid for this category
       const productsGrid = document.querySelector(`#products-${categoryKey}`);
       if (productsGrid) {
-        // Clear existing products
         productsGrid.innerHTML = '';
-        // Get products to show (up to newCount)
         const productsToShow = allProductsPerCategory[categoryKey].slice(0, newCount);
         productsToShow.forEach(product => {
           productsGrid.appendChild(createProductCardNew(product));
         });
       }
-      
-      // Update button text based on whether there are more products
-      if (newCount >= totalProducts) {
-        if (buttonElement) {
-          buttonElement.style.opacity = '0.5';
-          buttonElement.style.cursor = 'default';
-          buttonElement.onclick = null;
-        }
+      if (newCount >= totalProducts && buttonElement) {
+        buttonElement.style.opacity = '0.5';
+        buttonElement.style.cursor = 'default';
+        buttonElement.onclick = null;
       }
     }
 
@@ -1426,7 +1633,6 @@
         });
       });
       
-      // Attach event listeners to View More buttons
       document.querySelectorAll('.view-all-btn').forEach(btn => {
         const category = btn.getAttribute('data-cat');
         btn.onclick = (e) => {
@@ -1451,6 +1657,7 @@
         }, 100);
       }
       setupScrollObserver();
+      bindModalEvents(); // ensure modal is wired
     }
 
     function setupScrollObserver() {
@@ -1481,6 +1688,7 @@
       }
     }
 
+    // Modified search modal function: adding product selection will now also scroll to product position
     function openSearchModal() {
       const overlay = document.createElement('div');
       overlay.className = 'search-overlay';
@@ -1500,9 +1708,22 @@
           resultsDiv.innerHTML = '<div style="padding:20px;text-align:center">No results</div>';
           return;
         }
-        resultsDiv.innerHTML = matches.map(p => `<div class="result-item"><div class="result-img"><img src="${p.image || 'https://cdn-icons-png.flaticon.com/512/1046/1046784.png'}"></div><div class="result-info"><div class="result-name">${p.name}</div><div class="result-category">${expressiveCategoryList.find(c=>c.key===p.mappedCategory)?.name || ''}</div></div><div class="result-price">${p.price.toFixed(2)} MAD</div><button class="result-add-small" data-id="${p.id}" data-name="${p.name}" data-price="${p.price}">+</button></div>`).join('');
+        resultsDiv.innerHTML = matches.map(p => {
+          const categoryInfo = expressiveCategoryList.find(c => c.key === p.mappedCategory);
+          return `<div class="result-item" data-product-id="${p.id}" data-category="${p.mappedCategory}">
+            <div class="result-img"><img src="${p.image || 'https://cdn-icons-png.flaticon.com/512/1046/1046784.png'}"></div>
+            <div class="result-info">
+              <div class="result-name">${p.name}</div>
+              <div class="result-category">${categoryInfo?.name || ''}</div>
+            </div>
+            <div class="result-price">${p.price.toFixed(2)} MAD</div>
+            <button class="result-add-small" data-id="${p.id}" data-name="${p.name}" data-price="${p.price}" data-category="${p.mappedCategory}">+</button>
+          </div>`;
+        }).join('');
+        
         overlay.querySelectorAll('.result-add-small').forEach(btn => {
-          btn.onclick = () => {
+          btn.onclick = (e) => {
+            e.stopPropagation();
             let cart = JSON.parse(localStorage.getItem('deliverooCart')) || [];
             const existing = cart.find(i => i.id === btn.dataset.id);
             if (existing) {
@@ -1514,14 +1735,34 @@
                 name: btn.dataset.name,
                 basePrice: parseFloat(btn.dataset.price),
                 quantity: 1,
-                totalPrice: parseFloat(btn.dataset.price)
+                totalPrice: parseFloat(btn.dataset.price),
+                imageUrl: allProducts.find(p => p.id === btn.dataset.id)?.image || ''
               });
             }
             localStorage.setItem('deliverooCart', JSON.stringify(cart));
             updateCartUI();
+            const productCategory = btn.dataset.category;
+            const productId = btn.dataset.id;
+            // Close search modal
             overlay.remove();
-            location.reload();
+            // Scroll to product position and highlight it
+            scrollToProduct(productId, productCategory);
           };
+        });
+
+        // Add click on result item itself to scroll to product without adding to cart
+        overlay.querySelectorAll('.result-item').forEach(item => {
+          item.style.cursor = 'pointer';
+          item.addEventListener('click', (e) => {
+            // Prevent if clicked on the add button
+            if (e.target.classList.contains('result-add-small') || e.target.closest('.result-add-small')) return;
+            const productId = item.getAttribute('data-product-id');
+            const productCategory = item.getAttribute('data-category');
+            if (productId && productCategory) {
+              overlay.remove();
+              scrollToProduct(productId, productCategory);
+            }
+          });
         });
       };
       input.addEventListener('input', search);
