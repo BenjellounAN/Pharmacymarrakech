@@ -1392,7 +1392,7 @@
       const modal = document.getElementById('imageModal');
       const modalImg = document.getElementById('modalFullImage');
       if (!modal || !modalImg) return;
-      modalImg.src = imageUrl || 'https://cdn-icons-png.flaticon.com/512/1046/1046784.png';
+      modalImg.src = imageUrl || 'https://i.ibb.co/Kz8n7dLf/9-A3-F562-D-211-C-45-F2-98-D0-8230-A14-A91-B1.png';
       modal.classList.add('active');
     }
     function closeImageModal() {
@@ -1412,7 +1412,7 @@
     }
     
     function createProductCardNew(product) {
-      const imgUrl = product.image || 'https://cdn-icons-png.flaticon.com/512/1046/1046784.png';
+      const imgUrl = product.image || 'https://i.ibb.co/Kz8n7dLf/9-A3-F562-D-211-C-45-F2-98-D0-8230-A14-A91-B1.png';
       const productId = product.id;
       const productName = product.name;
       const productPrice = product.price;
@@ -1465,7 +1465,7 @@
       img.src = imgUrl;
       img.alt = productName;
       img.onerror = () => {
-        img.src = 'https://cdn-icons-png.flaticon.com/512/1046/1046784.png';
+        img.src = 'https://i.ibb.co/Kz8n7dLf/9-A3-F562-D-211-C-45-F2-98-D0-8230-A14-A91-B1.png';
       };
       imageDiv.appendChild(img);
       const infoDiv = document.createElement('div');
@@ -1611,7 +1611,7 @@
         const catDiv = document.createElement('div');
         catDiv.className = 'category';
         catDiv.setAttribute('data-category-key', catInfo.key);
-        catDiv.innerHTML = `<img src="${catInfo.imageUrl}" class="category-img" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1046/1046784.png'"><span>${catInfo.name}</span>`;
+        catDiv.innerHTML = `<img src="${catInfo.imageUrl}" class="category-img" onerror="this.src='https://i.ibb.co/Kz8n7dLf/9-A3-F562-D-211-C-45-F2-98-D0-8230-A14-A91-B1.png'"><span>${catInfo.name}</span>`;
         catDiv.onclick = () => scrollToCategory(catInfo.key);
         categoriesContainer.appendChild(catDiv);
       });
@@ -1623,7 +1623,7 @@
         catContainer.className = 'category-container';
         catContainer.id = `cat-${catInfo.key}-container`;
         catContainer.setAttribute('data-category-key', catInfo.key);
-        catContainer.innerHTML = `<div class="category-title"><img src="${catInfo.imageUrl}" class="category-title-img" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1046/1046784.png'"><span>${catInfo.name}</span></div><div class="products" id="products-${catInfo.key}"></div><div class="view-all-wrapper"><div class="view-all-btn" data-cat="${catInfo.key}">View More <i class="fas fa-arrow-down"></i></div></div>`;
+        catContainer.innerHTML = `<div class="category-title"><img src="${catInfo.imageUrl}" class="category-title-img" onerror="this.src='https://i.ibb.co/Kz8n7dLf/9-A3-F562-D-211-C-45-F2-98-D0-8230-A14-A91-B1.png'"><span>${catInfo.name}</span></div><div class="products" id="products-${catInfo.key}"></div><div class="view-all-wrapper"><div class="view-all-btn" data-cat="${catInfo.key}">View More <i class="fas fa-arrow-down"></i></div></div>`;
         container.appendChild(catContainer);
         const productsGrid = catContainer.querySelector(`#products-${catInfo.key}`);
         const currentLoaded = loadedCounts[catInfo.key] || 6;
