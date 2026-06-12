@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Dashboard - BenMarket</title>
+    <title>BenMarket - لوحة التحكم</title>
 
     <!-- شعار الموقع -->
     <link rel="icon" type="image/png" href="https://i.ibb.co/HTVWmjRQ/A58-A1-EBA-3-EC9-44-B5-8-F3-B-F3-B218-F79302.png">
@@ -135,7 +135,7 @@ body {
 
 .toggle-password {
   position: absolute;
-  right: 16px;
+  left: 16px;
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
@@ -202,7 +202,7 @@ body {
   padding: 24px 16px;
   position: fixed;
   height: 100vh;
-  left: 0;
+  right: 0;
   top: 0;
   z-index: 100;
 }
@@ -273,7 +273,7 @@ body {
 /* ===== MAIN CONTENT ===== */
 .main {
   flex: 1;
-  margin-left: 260px;
+  margin-right: 260px;
   padding: 24px 32px;
   overflow: auto;
   background: #f8fafc;
@@ -285,8 +285,8 @@ body {
 .bottom-nav {
   position: fixed;
   bottom: 0;
-  left: 260px;
-  right: 0;
+  right: 260px;
+  left: 0;
   background: rgba(255, 255, 255, 0.98);
   backdrop-filter: blur(10px);
   display: none;
@@ -513,7 +513,7 @@ table {
 
 th, td {
   padding: 14px 16px;
-  text-align: left;
+  text-align: right;
 }
 
 th {
@@ -604,7 +604,7 @@ tr:hover {
 }
 
 .details-panel.open {
-  max-height: 600px;
+  max-height: 800px;
   opacity: 1;
   margin-top: 24px;
 }
@@ -634,28 +634,79 @@ tr:hover {
   transform: rotate(90deg);
 }
 
+/* ===== IMPROVED ITEMS GRID ===== */
 .items-grid {
-  padding: 20px;
+  padding: 24px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
+  max-height: 500px;
+  overflow-y: auto;
 }
 
 .product-item {
   background: #f8fafc;
-  border-radius: 14px;
-  padding: 14px;
+  border-radius: 16px;
+  padding: 16px;
   display: flex;
   align-items: center;
-  gap: 15px;
-  flex-wrap: wrap;
+  gap: 16px;
+  transition: all 0.2s;
+  border: 1px solid #eef2f7;
+}
+
+.product-item:hover {
+  transform: translateX(-4px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  border-color: #8B0000;
 }
 
 .product-item img {
-  width: 55px;
-  height: 55px;
+  width: 70px;
+  height: 70px;
   border-radius: 12px;
-  object-fit: contain;
+  object-fit: cover;
+  background: white;
+  padding: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.product-info {
+  flex: 1;
+}
+
+.product-info strong {
+  font-size: 1rem;
+  color: #0f172a;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.product-price {
+  color: #8B0000;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.product-quantity {
+  background: white;
+  padding: 6px 12px;
+  border-radius: 40px;
+  font-size: 0.85rem;
+  color: #475569;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.product-quantity i {
+  color: #8B0000;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px;
+  color: #94a3b8;
 }
 
 /* ===== NAV TABS ===== */
@@ -825,7 +876,7 @@ tr:hover {
 .toast-notification {
   position: fixed;
   bottom: 90px;
-  right: 24px;
+  left: 24px;
   background: #1e293b;
   color: white;
   padding: 14px 20px;
@@ -840,7 +891,7 @@ tr:hover {
 }
 
 @keyframes slideIn {
-  from { transform: translateX(100%); opacity: 0; }
+  from { transform: translateX(-100%); opacity: 0; }
   to { transform: translateX(0); opacity: 1; }
 }
 
@@ -868,13 +919,13 @@ tbody tr {
   }
   
   .main {
-    margin-left: 0;
+    margin-right: 0;
     padding: 16px;
     padding-bottom: 80px;
   }
   
   .bottom-nav {
-    left: 0;
+    right: 0;
     display: flex;
   }
   
@@ -897,9 +948,18 @@ tbody tr {
   
   .toast-notification {
     bottom: 80px;
-    right: 16px;
     left: 16px;
-    bottom: 80px;
+    right: 16px;
+  }
+  
+  .product-item {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .product-item img {
+    width: 80px;
+    height: 80px;
   }
 }
 
@@ -932,20 +992,20 @@ tbody tr {
     <h2>📊 BenMarket Dashboard</h2>
     <div class="input-group">
       <input type="email" id="loginEmail" required>
-      <label>Email</label>
+      <label>البريد الإلكتروني</label>
     </div>
     <div class="input-group">
       <input type="password" id="loginPassword" required>
-      <label>Password</label>
+      <label>كلمة المرور</label>
       <i class="fas fa-eye toggle-password" onclick="toggleLoginPassword()"></i>
     </div>
-    <button class="login-btn" onclick="handleLogin()">Login</button>
+    <button class="login-btn" onclick="handleLogin()">دخول</button>
     <div class="error-msg" id="loginError"></div>
   </div>
 </div>
 
 <div id="successScreen" class="success-screen">
-  <h1>Welcome Back 🔥</h1>
+  <h1>مرحباً بعودتك 🔥</h1>
   <p>تم تسجيل الدخول بنجاح</p>
 </div>
 
@@ -1128,49 +1188,49 @@ function loadFullDashboard() {
         <nav>
           <div class="nav-item active" data-page="orders">
             <i class="fas fa-shopping-cart"></i>
-            <span>Orders</span>
+            <span>الطلبات</span>
           </div>
           <div class="nav-item" data-page="customers">
             <i class="fas fa-users"></i>
-            <span>Customers</span>
+            <span>العملاء</span>
           </div>
           <div class="nav-item" data-page="stores">
             <i class="fas fa-store"></i>
-            <span>Stores</span>
+            <span>المتاجر</span>
           </div>
           <div class="nav-item" data-page="analytics">
             <i class="fas fa-chart-line"></i>
-            <span>Analytics</span>
+            <span>الإحصائيات</span>
           </div>
         </nav>
         <div class="logout-item" id="logoutBtn">
           <i class="fas fa-sign-out-alt"></i>
-          <span>Logout</span>
+          <span>تسجيل خروج</span>
         </div>
       </aside>
       
       <main class="main">
         <div class="topbar">
-          <h2 id="pageTitle">Orders Dashboard</h2>
+          <h2 id="pageTitle">لوحة الطلبات</h2>
           <div class="top-actions">
             <div class="search-bar">
               <i class="fas fa-search"></i>
-              <input type="text" id="searchInput" placeholder="Search...">
+              <input type="text" id="searchInput" placeholder="بحث...">
             </div>
             <button class="refresh-btn" id="refreshBtn">
               <i class="fas fa-sync-alt"></i>
-              Refresh
+              تحديث
             </button>
           </div>
         </div>
         
         <div class="filters">
-          <button class="filter-btn" data-filter="today">Today</button>
-          <button class="filter-btn" data-filter="yesterday">Yesterday</button>
-          <button class="filter-btn" data-filter="week">This Week</button>
-          <button class="filter-btn" data-filter="month">This Month</button>
-          <button class="filter-btn active" data-filter="all">All</button>
-          <input type="text" id="datePicker" class="date-picker-input" placeholder="Pick a date">
+          <button class="filter-btn" data-filter="today">اليوم</button>
+          <button class="filter-btn" data-filter="yesterday">أمس</button>
+          <button class="filter-btn" data-filter="week">هذا الأسبوع</button>
+          <button class="filter-btn" data-filter="month">هذا الشهر</button>
+          <button class="filter-btn active" data-filter="all">الكل</button>
+          <input type="text" id="datePicker" class="date-picker-input" placeholder="اختر تاريخ">
         </div>
         
         <div class="main-content-area">
@@ -1178,12 +1238,12 @@ function loadFullDashboard() {
           <div class="table-wrapper">
             <table id="dataTable">
               <thead id="tableHeader"></thead>
-              <tbody id="tableBody"><tr><td colspan="10" class="loading-state"><i class="fas fa-spinner fa-pulse"></i> Loading data...<\/td><\/tr><\/tbody>
+              <tbody id="tableBody"><tr><td colspan="10" class="loading-state"><i class="fas fa-spinner fa-pulse"></i> جاري تحميل البيانات...<\/td><\/tr><\/tbody>
             </table>
           </div>
           <div id="detailsPanel" class="details-panel">
             <div class="details-header">
-              <h3><i class="fas fa-box-open"></i> <span id="detailsTitle">Order Details</span></h3>
+              <h3><i class="fas fa-box-open"></i> <span id="detailsTitle">تفاصيل الطلب</span></h3>
               <button class="close-details" id="closeDetailsBtn"><i class="fas fa-times"></i></button>
             </div>
             <div id="itemsContainer" class="items-grid"></div>
@@ -1194,19 +1254,19 @@ function loadFullDashboard() {
       <div class="bottom-nav">
         <button class="bottom-nav-item active" data-bottom-page="overview">
           <i class="fas fa-chart-pie"></i>
-          <span>Overview</span>
+          <span>نظرة عامة</span>
         </button>
         <button class="bottom-nav-item" data-bottom-page="stores">
           <i class="fas fa-store"></i>
-          <span>Stores</span>
+          <span>المتاجر</span>
         </button>
         <button class="bottom-nav-item" data-bottom-page="statistic">
           <i class="fas fa-chart-line"></i>
-          <span>Statistic</span>
+          <span>إحصائيات</span>
         </button>
         <button class="bottom-nav-item" data-bottom-page="settings">
           <i class="fas fa-cog"></i>
-          <span>Settings</span>
+          <span>الإعدادات</span>
         </button>
       </div>
     </div>
@@ -1214,11 +1274,11 @@ function loadFullDashboard() {
     <div id="deleteModal" class="modal-overlay">
       <div class="modal">
         <i class="fas fa-exclamation-triangle"></i>
-        <h3>Delete Order</h3>
-        <p>Are you sure you want to delete this order? This action cannot be undone.</p>
+        <h3>حذف الطلب</h3>
+        <p>هل أنت متأكد من حذف هذا الطلب؟ لا يمكن التراجع عن هذا الإجراء.</p>
         <div class="modal-buttons">
-          <button class="modal-btn cancel" id="cancelDeleteBtn">Cancel</button>
-          <button class="modal-btn confirm" id="confirmDeleteBtn">Yes, Delete</button>
+          <button class="modal-btn cancel" id="cancelDeleteBtn">إلغاء</button>
+          <button class="modal-btn confirm" id="confirmDeleteBtn">نعم، حذف</button>
         </div>
       </div>
     </div>
@@ -1230,11 +1290,11 @@ function loadFullDashboard() {
   logoutModal.innerHTML = `
     <div class="logout-modal-content">
       <i class="fas fa-sign-out-alt"></i>
-      <h3>Logout</h3>
-      <p>Are you sure you want to logout?</p>
+      <h3>تسجيل خروج</h3>
+      <p>هل أنت متأكد من تسجيل الخروج؟</p>
       <div class="logout-modal-buttons">
-        <button class="logout-modal-btn cancel" id="cancelLogoutBtn">Cancel</button>
-        <button class="logout-modal-btn confirm" id="confirmLogoutBtn">Logout</button>
+        <button class="logout-modal-btn cancel" id="cancelLogoutBtn">إلغاء</button>
+        <button class="logout-modal-btn confirm" id="confirmLogoutBtn">تسجيل خروج</button>
       </div>
     </div>
   `;
@@ -1277,12 +1337,12 @@ function showBottomPage(page) {
           <div class="table-wrapper">
             <table id="dataTable">
               <thead id="tableHeader"></thead>
-              <tbody id="tableBody"><tr><td colspan="10" class="loading-state"><i class="fas fa-spinner fa-pulse"></i> Loading...<\/td><\/tr><\/tbody>
-            </table>
+              <tbody id="tableBody"><table><td colspan="10" class="loading-state"><i class="fas fa-spinner fa-pulse"></i> جاري التحميل...<\/td><\/tr><\/tbody>
+            60.
           </div>
           <div id="detailsPanel" class="details-panel">
             <div class="details-header">
-              <h3><i class="fas fa-box-open"></i> <span id="detailsTitle">Order Details</span></h3>
+              <h3><i class="fas fa-box-open"></i> <span id="detailsTitle">تفاصيل الطلب</span></h3>
               <button class="close-details" id="closeDetailsBtn"><i class="fas fa-times"></i></button>
             </div>
             <div id="itemsContainer" class="items-grid"></div>
@@ -1291,7 +1351,7 @@ function showBottomPage(page) {
       `;
       break;
     default:
-      content = `<div class="bottom-page-content"><p>Loading...</p></div>`;
+      content = `<div class="bottom-page-content"><p>جاري التحميل...</p></div>`;
   }
   
   mainContent.innerHTML = content;
@@ -1369,13 +1429,13 @@ function initDashboard(logoutModal) {
   
   function updatePageTitle() {
     const titles = {
-      orders: 'Orders Dashboard',
-      customers: 'Customers Management',
-      stores: 'Stores Overview',
-      analytics: 'Analytics & Insights'
+      orders: 'لوحة الطلبات',
+      customers: 'إدارة العملاء',
+      stores: 'نظرة عامة على المتاجر',
+      analytics: 'الإحصائيات والتحليلات'
     };
     const titleEl = document.getElementById('pageTitle');
-    if (titleEl) titleEl.innerText = titles[currentPage] || 'Dashboard';
+    if (titleEl) titleEl.innerText = titles[currentPage] || 'لوحة التحكم';
   }
   
   function filterByDate(order) {
@@ -1397,7 +1457,7 @@ function initDashboard(logoutModal) {
   
   async function loadOrders() {
     const tbody = document.getElementById('tableBody');
-    if (tbody) tbody.innerHTML = '<tr><td colspan="10" class="loading-state"><i class="fas fa-spinner fa-pulse"></i> Loading...<\/td><\/tr>';
+    if (tbody) tbody.innerHTML = '<tr><td colspan="10" class="loading-state"><i class="fas fa-spinner fa-pulse"></i> جاري التحميل...<\/td><\/tr>';
     try {
       const snapshot = await db.collection('orders').orderBy('createdAt', 'desc').get();
       allOrders = [];
@@ -1406,10 +1466,10 @@ function initDashboard(logoutModal) {
         allOrders.push({
           id: doc.id,
           orderId: data.orderId || doc.id.slice(0,8),
-          customer: data.customerName || data.customer || "Guest",
-          phone: data.phone || "N/A",
+          customer: data.customerName || data.customer || "زائر",
+          phone: data.phone || "غير متوفر",
           total: data.total || 0,
-          date: data.orderDate || (data.createdAt?.toDate?.()?.toLocaleDateString()) || new Date().toLocaleDateString(),
+          date: data.orderDate || (data.createdAt?.toDate?.()?.toLocaleDateString('ar-EG')) || new Date().toLocaleDateString('ar-EG'),
           status: data.orderStatus || data.status || "pending",
           items: data.items || []
         });
@@ -1421,7 +1481,7 @@ function initDashboard(logoutModal) {
         updateStatisticsPage(allOrders);
       }
     } catch(e) {
-      if (tbody) tbody.innerHTML = `<tr><td colspan="10" class="empty-state">Error: ${e.message}<\/td><\/tr>`;
+      if (tbody) tbody.innerHTML = `<tr><td colspan="10" class="empty-state">خطأ: ${e.message}<\/td><\/tr>`;
     }
   }
   
@@ -1453,19 +1513,19 @@ function initDashboard(logoutModal) {
     const statsContainer = document.getElementById('statsContainer');
     if (statsContainer) {
       statsContainer.innerHTML = `
-        <div class="stat-card"><div class="stat-info"><h4>Total Orders</h4><div class="stat-number">${filtered.length}</div></div><div class="stat-icon"><i class="fas fa-shopping-cart"></i></div></div>
-        <div class="stat-card"><div class="stat-info"><h4>Revenue</h4><div class="stat-number">${rev.toLocaleString()} MAD</div></div><div class="stat-icon"><i class="fas fa-money-bill-wave"></i></div></div>
-        <div class="stat-card"><div class="stat-info"><h4>Pending</h4><div class="stat-number">${pending}</div></div><div class="stat-icon"><i class="fas fa-clock"></i></div></div>
-        <div class="stat-card"><div class="stat-info"><h4>Completed</h4><div class="stat-number">${completed}</div></div><div class="stat-icon"><i class="fas fa-check-circle"></i></div></div>
+        <div class="stat-card"><div class="stat-info"><h4>إجمالي الطلبات</h4><div class="stat-number">${filtered.length}</div></div><div class="stat-icon"><i class="fas fa-shopping-cart"></i></div></div>
+        <div class="stat-card"><div class="stat-info"><h4>الإيرادات</h4><div class="stat-number">${rev.toLocaleString()} MAD</div></div><div class="stat-icon"><i class="fas fa-money-bill-wave"></i></div></div>
+        <div class="stat-card"><div class="stat-info"><h4>قيد الانتظار</h4><div class="stat-number">${pending}</div></div><div class="stat-icon"><i class="fas fa-clock"></i></div></div>
+        <div class="stat-card"><div class="stat-info"><h4>مكتملة</h4><div class="stat-number">${completed}</div></div><div class="stat-icon"><i class="fas fa-check-circle"></i></div></div>
       `;
     }
     
     const tableHeader = document.getElementById('tableHeader');
-    if (tableHeader) tableHeader.innerHTML = `<tr><th>ORDER ID</th><th>CUSTOMER</th><th>PHONE</th><th>TOTAL</th><th>DATE</th><th>STATUS</th><th>ITEMS</th><th>ACTIONS</th></tr>`;
+    if (tableHeader) tableHeader.innerHTML = `<tr><th>رقم الطلب</th><th>العميل</th><th>الهاتف</th><th>الإجمالي</th><th>التاريخ</th><th>الحالة</th><th>المنتجات</th><th>الإجراءات</th></tr>`;
     const tbody = document.getElementById('tableBody');
     if (!tbody) return;
     if (!filtered.length) {
-      tbody.innerHTML = '<tr><td colspan="8" class="empty-state">No orders found</td></tr>';
+      tbody.innerHTML = '</table><td colspan="8" class="empty-state">لا توجد طلبات</td><\/tr>';
       return;
     }
     tbody.innerHTML = filtered.map(o => `
@@ -1475,8 +1535,8 @@ function initDashboard(logoutModal) {
         <td><i class="fas fa-phone"></i> ${escapeHtml(o.phone)}</td>
         <td>${o.total.toLocaleString()} MAD</td>
         <td>${o.date}</td>
-        <td><span class="status-badge status-${o.status}"><i class="fas ${o.status === 'pending' ? 'fa-hourglass-half' : 'fa-check'}"></i> ${o.status}</span></td>
-        <td>${o.items?.length || 0} items</td>
+        <td><span class="status-badge status-${o.status}"><i class="fas ${o.status === 'pending' ? 'fa-hourglass-half' : 'fa-check'}"></i> ${o.status === 'pending' ? 'قيد الانتظار' : 'مكتمل'}</span></td>
+        <td>${o.items?.length || 0} منتج</td>
         <td class="action-buttons">
           <button class="view-btn" onclick="window.dashboardShowDetails('${o.id}')"><i class="fas fa-eye"></i></button>
           <button class="delete-btn" onclick="window.dashboardConfirmDelete('${o.id}')"><i class="fas fa-trash-alt"></i></button>
@@ -1501,15 +1561,15 @@ function initDashboard(logoutModal) {
     const statsContainer = document.getElementById('statsContainer');
     if (statsContainer) {
       statsContainer.innerHTML = `
-        <div class="stat-card"><div class="stat-info"><h4>Total Customers</h4><div class="stat-number">${customers.length}</div></div><div class="stat-icon"><i class="fas fa-users"></i></div></div>
-        <div class="stat-card"><div class="stat-info"><h4>Total Spent</h4><div class="stat-number">${totalSpent.toLocaleString()} MAD</div></div><div class="stat-icon"><i class="fas fa-coins"></i></div></div>
-        <div class="stat-card"><div class="stat-info"><h4>Avg per Customer</h4><div class="stat-number">${Math.round(totalSpent/customers.length) || 0} MAD</div></div><div class="stat-icon"><i class="fas fa-chart-line"></i></div></div>
-        <div class="stat-card"><div class="stat-info"><h4>Total Orders</h4><div class="stat-number">${filtered.length}</div></div><div class="stat-icon"><i class="fas fa-shopping-bag"></i></div></div>
+        <div class="stat-card"><div class="stat-info"><h4>إجمالي العملاء</h4><div class="stat-number">${customers.length}</div></div><div class="stat-icon"><i class="fas fa-users"></i></div></div>
+        <div class="stat-card"><div class="stat-info"><h4>إجمالي المشتريات</h4><div class="stat-number">${totalSpent.toLocaleString()} MAD</div></div><div class="stat-icon"><i class="fas fa-coins"></i></div></div>
+        <div class="stat-card"><div class="stat-info"><h4>متوسط الشراء</h4><div class="stat-number">${Math.round(totalSpent/customers.length) || 0} MAD</div></div><div class="stat-icon"><i class="fas fa-chart-line"></i></div></div>
+        <div class="stat-card"><div class="stat-info"><h4>إجمالي الطلبات</h4><div class="stat-number">${filtered.length}</div></div><div class="stat-icon"><i class="fas fa-shopping-bag"></i></div></div>
       `;
     }
     
     const tableHeader = document.getElementById('tableHeader');
-    if (tableHeader) tableHeader.innerHTML = `<tr><th>CUSTOMER</th><th>PHONE</th><th>ORDERS</th><th>TOTAL SPENT</th></table>`;
+    if (tableHeader) tableHeader.innerHTML = `<tr><th>العميل</th><th>الهاتف</th><th>الطلبات</th><th>إجمالي المشتريات</th></tr>`;
     const tbody = document.getElementById('tableBody');
     if (tbody) {
       tbody.innerHTML = customers.map(c => `
@@ -1530,14 +1590,14 @@ function initDashboard(logoutModal) {
     const statsContainer = document.getElementById('statsContainer');
     if (statsContainer) {
       statsContainer.innerHTML = `
-        <div class="stat-card"><div class="stat-info"><h4>Total Stores</h4><div class="stat-number">1</div></div><div class="stat-icon"><i class="fas fa-store"></i></div></div>
-        <div class="stat-card"><div class="stat-info"><h4>Total Revenue</h4><div class="stat-number">${store.revenue.toLocaleString()} MAD</div></div><div class="stat-icon"><i class="fas fa-chart-bar"></i></div></div>
-        <div class="stat-card"><div class="stat-info"><h4>Total Orders</h4><div class="stat-number">${store.orders}</div></div><div class="stat-icon"><i class="fas fa-box"></i></div></div>
+        <div class="stat-card"><div class="stat-info"><h4>إجمالي المتاجر</h4><div class="stat-number">1</div></div><div class="stat-icon"><i class="fas fa-store"></i></div></div>
+        <div class="stat-card"><div class="stat-info"><h4>إجمالي الإيرادات</h4><div class="stat-number">${store.revenue.toLocaleString()} MAD</div></div><div class="stat-icon"><i class="fas fa-chart-bar"></i></div></div>
+        <div class="stat-card"><div class="stat-info"><h4>إجمالي الطلبات</h4><div class="stat-number">${store.orders}</div></div><div class="stat-icon"><i class="fas fa-box"></i></div></div>
       `;
     }
     
     const tableHeader = document.getElementById('tableHeader');
-    if (tableHeader) tableHeader.innerHTML = `<tr><th>STORE NAME</th><th>TOTAL ORDERS</th><th>TOTAL REVENUE</th></tr>`;
+    if (tableHeader) tableHeader.innerHTML = `<tr><th>اسم المتجر</th><th>إجمالي الطلبات</th><th>إجمالي الإيرادات</th></tr>`;
     const tbody = document.getElementById('tableBody');
     if (tbody) {
       tbody.innerHTML = `<tr>
@@ -1558,22 +1618,22 @@ function initDashboard(logoutModal) {
     const statsContainer = document.getElementById('statsContainer');
     if (statsContainer) {
       statsContainer.innerHTML = `
-        <div class="stat-card"><div class="stat-info"><h4>Total Revenue</h4><div class="stat-number">${rev.toLocaleString()} MAD</div></div><div class="stat-icon"><i class="fas fa-chart-line"></i></div></div>
-        <div class="stat-card"><div class="stat-info"><h4>Average Order</h4><div class="stat-number">${avg.toLocaleString()} MAD</div></div><div class="stat-icon"><i class="fas fa-chart-simple"></i></div></div>
-        <div class="stat-card"><div class="stat-info"><h4>Completion Rate</h4><div class="stat-number">${rate}%</div></div><div class="stat-icon"><i class="fas fa-percent"></i></div></div>
-        <div class="stat-card"><div class="stat-info"><h4>Total Orders</h4><div class="stat-number">${filtered.length}</div></div><div class="stat-icon"><i class="fas fa-chart-pie"></i></div></div>
+        <div class="stat-card"><div class="stat-info"><h4>إجمالي الإيرادات</h4><div class="stat-number">${rev.toLocaleString()} MAD</div></div><div class="stat-icon"><i class="fas fa-chart-line"></i></div></div>
+        <div class="stat-card"><div class="stat-info"><h4>متوسط الطلب</h4><div class="stat-number">${avg.toLocaleString()} MAD</div></div><div class="stat-icon"><i class="fas fa-chart-simple"></i></div></div>
+        <div class="stat-card"><div class="stat-info"><h4>نسبة الإنجاز</h4><div class="stat-number">${rate}%</div></div><div class="stat-icon"><i class="fas fa-percent"></i></div></div>
+        <div class="stat-card"><div class="stat-info"><h4>إجمالي الطلبات</h4><div class="stat-number">${filtered.length}</div></div><div class="stat-icon"><i class="fas fa-chart-pie"></i></div></div>
       `;
     }
     
     const tableHeader = document.getElementById('tableHeader');
-    if (tableHeader) tableHeader.innerHTML = `<tr><th>METRIC</th><th>VALUE</th><th>INSIGHT</th></tr>`;
+    if (tableHeader) tableHeader.innerHTML = `<tr><th>المؤشر</th><th>القيمة</th><th>التحليل</th></tr>`;
     const tbody = document.getElementById('tableBody');
     if (tbody) {
       tbody.innerHTML = `
-        <tr><td>Total Revenue</td><td><strong>${rev.toLocaleString()} MAD</strong></td><td>Sales in period</td></tr>
-        <tr><td>Total Orders</td><td><strong>${filtered.length}</strong></td><td>Orders placed</td></tr>
-        <tr><td>Completed Orders</td><td><strong>${completed}</strong></td><td>Delivered</td></tr>
-        <tr><td>Average Order</td><td><strong>${avg.toLocaleString()} MAD</strong></td><td>Per transaction</td></tr>
+        <tr><td>إجمالي الإيرادات</td><td><strong>${rev.toLocaleString()} MAD</strong></td><td>المبيعات في الفترة</td></tr>
+        <tr><td>إجمالي الطلبات</td><td><strong>${filtered.length}</strong></td><td>الطلبات المقدمة</td></tr>
+        <tr><td>الطلبات المكتملة</td><td><strong>${completed}</strong></td><td>تم التوصيل</td></tr>
+        <tr>:</tr><td>متوسط الطلب</td><td><strong>${avg.toLocaleString()} MAD</strong></td><td>لكل معاملة</td></tr>
       `;
     }
   }
@@ -1605,33 +1665,45 @@ function initDashboard(logoutModal) {
     if (pendingPercentEl) pendingPercentEl.innerText = totalOrders > 0 ? Math.round((pendingOrders / totalOrders) * 100) + '%' : '0%';
   }
   
-  // MODIFIED: This is the key function that displays product images
+  // IMPROVED: Enhanced function to display order items with images
   window.dashboardShowDetails = function(id) {
     const order = allOrders.find(o => o.id === id);
     if (!order) return;
+    
     const detailsTitle = document.getElementById('detailsTitle');
-    if (detailsTitle) detailsTitle.innerHTML = `Order ${order.orderId} - ${order.customer}`;
+    if (detailsTitle) detailsTitle.innerHTML = `طلب رقم ${order.orderId} - ${order.customer}`;
+    
     const container = document.getElementById('itemsContainer');
     if (!container) return;
-    if (!order.items?.length) container.innerHTML = '<div class="empty-state">No items</div>';
-    else {
-      container.innerHTML = order.items.map(item => {
-        // Support both imageUrl (BenMarket) and img (Fleuriste)
+    
+    if (!order.items?.length) {
+      container.innerHTML = '<div class="empty-state"><i class="fas fa-box-open"></i><br>لا توجد منتجات في هذا الطلب</div>';
+    } else {
+      container.innerHTML = order.items.map((item, index) => {
+        // Support both image formats (BenMarket and Fleuriste)
         const itemImage = item.imageUrl || item.img || 'https://cdn-icons-png.flaticon.com/512/1046/1046784.png';
-        const itemName = item.name || 'Product';
+        const itemName = item.name || item.productName || 'منتج';
         const itemPrice = item.price || 0;
         const itemQuantity = item.quantity || 1;
         
         return `
-          <div class="product-item">
-            <img src="${itemImage}" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1046/1046784.png'" style="width: 55px; height: 55px; object-fit: contain; border-radius: 12px;">
-            <div style="flex:1"><strong>${escapeHtml(itemName)}</strong></div>
-            <div>${Number(itemPrice).toFixed(2)} MAD</div>
-            <div>Qty: ${itemQuantity}</div>
+          <div class="product-item" style="animation: fadeUp 0.3s ease ${index * 0.05}s both">
+            <img src="${itemImage}" 
+                 onerror="this.src='https://cdn-icons-png.flaticon.com/512/1046/1046784.png'" 
+                 alt="${escapeHtml(itemName)}">
+            <div class="product-info">
+              <strong>${escapeHtml(itemName)}</strong>
+              <div class="product-price">${Number(itemPrice).toFixed(2)} MAD</div>
+            </div>
+            <div class="product-quantity">
+              <i class="fas fa-box"></i>
+              <span>الكمية: ${itemQuantity}</span>
+            </div>
           </div>
         `;
       }).join('');
     }
+    
     const detailsPanel = document.getElementById('detailsPanel');
     if (detailsPanel) detailsPanel.classList.add('open');
   };
