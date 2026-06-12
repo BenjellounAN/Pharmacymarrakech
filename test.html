@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>اختبار الاهتزاز - BenEx Market</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <h1>🧪 اختبار الاهتزاز</h1>
+    <button onclick="testVibration()">اضغط للاهتزاز (200ms)</button>
+    <button onclick="testDoubleVibration()">اضغط للاهتزاز (طويل)</button>
+    <div id="status"></div>
+    
+    <script>
+        function showStatus(msg, isSuccess) {
+            const div = document.getElementById('status');
+            div.innerHTML = msg;
+            div.style.color = isSuccess ? 'green' : 'red';
+            div.style.fontWeight = 'bold';
+            div.style.marginTop = '20px';
+        }
+        
+        function testVibration() {
+            if (window.navigator && window.navigator.vibrate) {
+                const result = window.navigator.vibrate(200);
+                if (result) {
+                    showStatus('✅ نجح الاهتزاز! هاتفك يدعم الخاصية.', true);
+                } else {
+                    showStatus('⚠️ الاهتزاز مدعوم لكن فشل (قد تحتاج لتفاعل أولي).', false);
+                }
+            } else {
+                showStatus('❌ متصفحك لا يدعم خاصية الاهتزاز', false);
+            }
+        }
+        
+        function testDoubleVibration() {
+            if (window.navigator && window.navigator.vibrate) {
+                window.navigator.vibrate([100, 50, 100]);
+                showStatus('✅ اهتزاز طويل! يجب أن تشعر به الآن.', true);
+            } else {
+                showStatus('❌ الاهتزاز غير مدعوم', false);
+            }
+        }
+        
+        // التحقق التلقائي
+        if (window.navigator && window.navigator.vibrate) {
+            showStatus('✅ متصفحك يدعم الاهتزاز! جرب الأزرار أعلاه', true);
+        } else {
+            showStatus('⚠️ متصفحك لا يدعم الاهتزاز (افتح الموقع من هاتف Android أو iOS 16.4+)', false);
+        }
+    </script>
+</body>
+</html>
