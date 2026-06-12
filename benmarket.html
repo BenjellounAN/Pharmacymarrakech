@@ -794,6 +794,7 @@
       }
     }
 
+    /* ========== تحسينات زر View Basket مع تأثيرات ========== */
     .view-cart-btn {
       position: fixed;
       bottom: 20px;
@@ -813,7 +814,102 @@
       display: none;
       z-index: 1000;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-      transition: 0.2s;
+      transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
+    /* تأثير التموج (ripple) */
+    .view-cart-btn.ripple-effect {
+      animation: buttonRipple 0.6s ease-out;
+    }
+
+    /* تأثير النبض (pulse) */
+    .view-cart-btn.pulse-effect {
+      animation: buttonPulse 0.5s ease-in-out;
+    }
+
+    /* تأثير العدادات (counter) */
+    .cart-item-count {
+      background-color: white;
+      color: #B22222;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: bold;
+      transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
+    .cart-item-count.counter-bump {
+      transform: scale(1.3);
+      background-color: #ff4444;
+      color: white;
+    }
+
+    /* تأثير النبض للزر */
+    @keyframes buttonPulse {
+      0% {
+        transform: translateX(-50%) scale(1);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      }
+      50% {
+        transform: translateX(-50%) scale(1.08);
+        box-shadow: 0 15px 30px rgba(178, 34, 34, 0.5);
+      }
+      100% {
+        transform: translateX(-50%) scale(1);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      }
+    }
+
+    /* تأثير التموج */
+    @keyframes buttonRipple {
+      0% {
+        box-shadow: 0 0 0 0 rgba(178, 34, 34, 0.7);
+      }
+      70% {
+        box-shadow: 0 0 0 15px rgba(178, 34, 34, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(178, 34, 34, 0);
+      }
+    }
+
+    /* تأثير إضافي: اهتزاز خفيف */
+    @keyframes buttonShake {
+      0%, 100% { transform: translateX(-50%) translateX(0); }
+      25% { transform: translateX(-50%) translateX(-4px); }
+      75% { transform: translateX(-50%) translateX(4px); }
+    }
+
+    .view-cart-btn.shake-effect {
+      animation: buttonShake 0.4s ease-in-out;
+    }
+
+    /* إضافة تأثير لطيف عند التمرير على الزر */
+    .view-cart-btn:hover {
+      transform: translateX(-50%) scale(1.05);
+      background-color: #8B1A1A;
+      box-shadow: 0 10px 25px rgba(178, 34, 34, 0.4);
+    }
+
+    /* إشعار بصري جديد عند إضافة منتج (موجة ضوئية) */
+    @keyframes cartGlow {
+      0% {
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      }
+      50% {
+        box-shadow: 0 8px 30px 5px rgba(178, 34, 34, 0.8);
+      }
+      100% {
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      }
+    }
+
+    .view-cart-btn.glow-effect {
+      animation: cartGlow 0.6s ease-out;
     }
 
     .loading-spinner {
@@ -1243,6 +1339,13 @@
       return mapping[legacyCat] || 'pantry';
     }
     
+    // دالة اهتزاز الهاتف (تعمل فقط على الأجهزة المحمولة التي تدعم الاهتزاز)
+    function vibratePhone(pattern = 30) {
+      if (window.navigator && window.navigator.vibrate) {
+        window.navigator.vibrate(pattern);
+      }
+    }
+    
     db.collection('products').onSnapshot((snapshot) => {
       allProducts = [];
       allProductsPerCategory = {};
@@ -1424,7 +1527,7 @@
       let currentQty = existingItem ? existingItem.quantity : 0;
       const card = document.createElement('div');
       card.className = 'product-card-new';
-      card.setAttribute('data-product-id', productId); // Add data attribute for easy selection
+      card.setAttribute('data-product-id', productId);
       
       // Add click on image area or card to open magnifier but not on cart buttons
       card.addEventListener('click', (e) => {
@@ -1485,7 +1588,9 @@
       card.appendChild(cartArea);
       card.appendChild(imageDiv);
       card.appendChild(infoDiv);
+      
       let quantity = currentQty;
+      let oldQuantity = currentQty; // متغير لتتبع القيمة القديمة لمقارنتها
 
       function updateMinusButton() {
         const icon = minusBtn.querySelector('i');
@@ -1526,7 +1631,14 @@
       function updateUI() {
         quantityDiv.textContent = quantity;
         updateMinusButton();
+        
+        // اهتزاز الهاتف عند زيادة المنتج فقط (وليس عند النقصان)
+        if (quantity > oldQuantity) {
+          vibratePhone(30); // اهتزاز خفيف لمدة 30 ميلي ثانية
+        }
+        
         updateCartInStorage();
+        
         if (quantity > 0) {
           if (!cartControl.classList.contains('active')) {
             cartControl.classList.add('active');
@@ -1536,6 +1648,7 @@
             cartControl.classList.remove('active');
           }
         }
+        oldQuantity = quantity; // تحديث القيمة القديمة
       }
       
       plusBtn.addEventListener("click", (e) => {
@@ -1557,11 +1670,13 @@
       
       if (currentQty > 0) {
         quantity = currentQty;
+        oldQuantity = currentQty;
         quantityDiv.textContent = quantity;
         updateMinusButton();
         cartControl.classList.add('active');
       } else {
         quantity = 0;
+        oldQuantity = 0;
         quantityDiv.textContent = '0';
         cartControl.classList.remove('active');
       }
@@ -1675,17 +1790,62 @@
       document.querySelectorAll('.category-container').forEach(container => observer.observe(container));
     }
 
+    // ========== تحسين زر View Basket مع تأثيرات مميزة ==========
     function updateCartUI() {
       const cart = JSON.parse(localStorage.getItem('deliverooCart')) || [];
       const count = cart.reduce((s, i) => s + i.quantity, 0);
       const btn = document.getElementById('viewCartBtn');
       const counter = document.getElementById('cartItemCount');
+      const oldCount = parseInt(counter.textContent) || 0;
+      
       if (count > 0) {
-        btn.style.display = 'flex';
+        // إظهار الزر إذا كان مخفياً
+        if (btn.style.display !== 'flex') {
+          btn.style.display = 'flex';
+          btn.classList.add('pulse-effect');
+          setTimeout(() => btn.classList.remove('pulse-effect'), 500);
+        } else {
+          // إذا كان الزر ظاهراً بالفعل ونضيف منتج جديد
+          if (count > oldCount) {
+            // 1. تأثير النبض للزر
+            btn.classList.add('pulse-effect');
+            
+            // 2. تأثير التموج
+            btn.classList.add('ripple-effect');
+            
+            // 3. تأثير التوهج
+            btn.classList.add('glow-effect');
+            
+            // 4. تأثير اهتزاز خفيف
+            btn.classList.add('shake-effect');
+            
+            // 5. إزالة التأثيرات بعد انتهائها
+            setTimeout(() => {
+              btn.classList.remove('pulse-effect');
+              btn.classList.remove('ripple-effect');
+              btn.classList.remove('glow-effect');
+              btn.classList.remove('shake-effect');
+            }, 600);
+            
+            // 6. تأثير حركة للعداد
+            counter.classList.add('counter-bump');
+            setTimeout(() => counter.classList.remove('counter-bump'), 300);
+          }
+        }
         counter.textContent = count;
       } else {
         btn.style.display = 'none';
+        counter.textContent = '0';
       }
+    }
+    
+    // إضافة تأثير إضافي عند النقر على الزر
+    const viewCartBtnElement = document.getElementById('viewCartBtn');
+    if (viewCartBtnElement) {
+      viewCartBtnElement.addEventListener('click', function() {
+        this.classList.add('pulse-effect');
+        setTimeout(() => this.classList.remove('pulse-effect'), 300);
+      });
     }
 
     // Modified search modal function: adding product selection will now also scroll to product position
@@ -1724,6 +1884,8 @@
         overlay.querySelectorAll('.result-add-small').forEach(btn => {
           btn.onclick = (e) => {
             e.stopPropagation();
+            vibratePhone(30); // اهتزاز عند الإضافة من البحث
+            
             let cart = JSON.parse(localStorage.getItem('deliverooCart')) || [];
             const existing = cart.find(i => i.id === btn.dataset.id);
             if (existing) {
