@@ -109,14 +109,17 @@
         box-shadow: 0 0 0 0 rgba(178, 34, 34, 0.7);
         transform: scale(1);
       }
+
       20% {
         box-shadow: 0 0 0 8px rgba(178, 34, 34, 0.4);
         transform: scale(1.02);
       }
+
       40% {
         box-shadow: 0 0 0 4px rgba(178, 34, 34, 0.6);
         transform: scale(1.01);
       }
+
       100% {
         box-shadow: 0 0 0 0 rgba(178, 34, 34, 0);
         transform: scale(1);
@@ -241,12 +244,13 @@
       justify-content: center;
     }
 
-   .plus-new i {
-  position: relative;
-  left: -12px;
-  right: 2px;
-  top: 1px;
-}
+    .plus-new i {
+      position: relative;
+      left: -12px;
+      right: 2px;
+      top: 1px;
+    }
+
     .cart-control-new.active .plus-new i {
       transform: rotate(90deg);
     }
@@ -272,7 +276,7 @@
         height: 28px;
         font-size: 11px;
       }
-      
+
       .plus-new i {
         font-size: 14px;
       }
@@ -458,6 +462,7 @@
         opacity: 0;
         transform: translateY(10px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
@@ -557,7 +562,8 @@
     /* ========== HERO SECTION ENLARGED & MODERN OVERLAY (INCREASED HEIGHT) ========== */
     .hero-section {
       position: relative;
-      height: 450px; /* تم زيادة الارتفاع من 360px إلى 450px */
+      height: 450px;
+      /* تم زيادة الارتفاع من 360px إلى 450px */
       width: 100%;
       overflow: hidden;
       background: #000;
@@ -573,35 +579,21 @@
     }
 
     /* الطبقة المظلمة العصرية لتسليط الضوء على النص */
- .hero-overlay {
+    .hero-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: linear-gradient(to top,
+          rgba(255, 255, 255, 0.95) 0%,
+          rgba(255, 255, 255, 0.75) 70%,
+          transparent 100%);
+      padding: 24px 20px;
+      backdrop-filter: blur(2px);
+      z-index: 5;
+    }
 
-  position: absolute;
-
-  bottom: 0;
-
-  left: 0;
-
-  width: 100%;
-
-  background: linear-gradient(
-
-    to top,
-
-    rgba(255,255,255,0.95) 0%,
-
-    rgba(255,255,255,0.75) 70%,
-
-    transparent 100%
-
-  );
-
-  padding: 24px 20px;
-
-  backdrop-filter: blur(2px);
-
-  z-index: 5;
-
-}    /* حاوية اسم المتجر والوصف ووقت التوصيل بشكل عصري جداً */
+    /* حاوية اسم المتجر والوصف ووقت التوصيل بشكل عصري جداً */
     .hero-info-card {
       display: flex;
       flex-direction: column;
@@ -614,6 +606,7 @@
         opacity: 0;
         transform: translateY(20px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
@@ -626,7 +619,7 @@
       font-weight: 800;
       color: Black;
       letter-spacing: -0.5px;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
       display: flex;
       align-items: center;
       gap: 10px;
@@ -636,7 +629,7 @@
     .hero-store-name i {
       font-size: 28px;
       color: #ff5e5e;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
     }
 
     /* وصف الخدمة الجديد أسفل اسم المتجر - تمت إزالة الخلفية الشفافة */
@@ -649,15 +642,17 @@
       align-items: center;
       gap: 8px;
       flex-wrap: wrap;
-      text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
       margin-top: 2px;
       margin-bottom: 4px;
       /* تم إزالة background و backdrop-filter */
     }
+
     .hero-service-description i {
       font-size: 14px;
       color: #ffb347;
     }
+
     .hero-service-description span {
       /* تم إزالة الخلفية الشفافة */
       padding: 2px 8px;
@@ -676,8 +671,8 @@
       padding: 8px 18px;
       border-radius: 60px;
       width: fit-content;
-      border: 1px solid rgba(255,255,255,0.3);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
       transition: all 0.2s ease;
       margin-top: 4px;
     }
@@ -740,33 +735,40 @@
 
     @media (max-width: 600px) {
       .hero-section {
-        height: 400px; /* تم زيادة الارتفاع للشاشات الصغيرة أيضاً */
+        height: 400px;
+        /* تم زيادة الارتفاع للشاشات الصغيرة أيضاً */
       }
+
       .hero-store-name {
         font-size: 24px;
       }
+
       .hero-service-description {
         font-size: 12px;
       }
+
       .hero-delivery-badge {
         padding: 6px 15px;
       }
+
       .hero-delivery-badge span {
         font-size: 13px;
       }
+
       .new-delivery-logo {
         width: 30px;
         height: 30px;
       }
+
       .hero-overlay {
         padding: 20px 16px 18px 16px;
       }
-      
+
       .search-input-nav {
         font-size: 13px;
         padding: 8px 14px;
       }
-      
+
       .search-results-grid {
         gap: 10px;
       }
@@ -957,10 +959,12 @@
         transform: translateX(-50%) scale(1);
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
       }
+
       50% {
         transform: translateX(-50%) scale(1.08);
         box-shadow: 0 15px 30px rgba(178, 34, 34, 0.5);
       }
+
       100% {
         transform: translateX(-50%) scale(1);
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
@@ -972,9 +976,11 @@
       0% {
         box-shadow: 0 0 0 0 rgba(178, 34, 34, 0.7);
       }
+
       70% {
         box-shadow: 0 0 0 15px rgba(178, 34, 34, 0);
       }
+
       100% {
         box-shadow: 0 0 0 0 rgba(178, 34, 34, 0);
       }
@@ -982,9 +988,19 @@
 
     /* تأثير إضافي: اهتزاز خفيف */
     @keyframes buttonShake {
-      0%, 100% { transform: translateX(-50%) translateX(0); }
-      25% { transform: translateX(-50%) translateX(-4px); }
-      75% { transform: translateX(-50%) translateX(4px); }
+
+      0%,
+      100% {
+        transform: translateX(-50%) translateX(0);
+      }
+
+      25% {
+        transform: translateX(-50%) translateX(-4px);
+      }
+
+      75% {
+        transform: translateX(-50%) translateX(4px);
+      }
     }
 
     .view-cart-btn.shake-effect {
@@ -1003,9 +1019,11 @@
       0% {
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
       }
+
       50% {
         box-shadow: 0 8px 30px 5px rgba(178, 34, 34, 0.8);
       }
+
       100% {
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
       }
@@ -1075,10 +1093,12 @@
       transition: visibility 0.2s, opacity 0.2s ease;
       cursor: pointer;
     }
+
     .image-modal-overlay.active {
       visibility: visible;
       opacity: 1;
     }
+
     .modal-image-container {
       position: relative;
       max-width: 90%;
@@ -1087,30 +1107,34 @@
       animation: zoomFade 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
       cursor: default;
     }
+
     @keyframes zoomFade {
       from {
         transform: scale(0.92);
         opacity: 0;
       }
+
       to {
         transform: scale(1);
         opacity: 1;
       }
     }
+
     .modal-full-image {
       max-width: 100%;
       max-height: 70vh;
       object-fit: contain;
       border-radius: 20px;
-      box-shadow: 0 25px 45px rgba(0,0,0,0.4);
+      box-shadow: 0 25px 45px rgba(0, 0, 0, 0.4);
       background: #fafafa;
       padding: 8px;
     }
+
     .close-modal-btn {
       position: absolute;
       top: -45px;
       right: -10px;
-      background: rgba(0,0,0,0.65);
+      background: rgba(0, 0, 0, 0.65);
       backdrop-filter: blur(6px);
       border-radius: 50%;
       width: 42px;
@@ -1119,15 +1143,17 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      border: 1px solid rgba(255,255,255,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.3);
       transition: all 0.2s;
       color: white;
       font-size: 22px;
     }
+
     .close-modal-btn:hover {
       background: #B22222;
       transform: scale(1.05);
     }
+
     /* small adjustment for mobile */
     @media (max-width: 480px) {
       .close-modal-btn {
@@ -1137,6 +1163,7 @@
         height: 36px;
         font-size: 18px;
       }
+
       .modal-full-image {
         max-height: 65vh;
       }
@@ -1185,6 +1212,7 @@
         opacity: 0;
         transform: scale(0.95);
       }
+
       to {
         opacity: 1;
         transform: scale(1);
@@ -1414,25 +1442,25 @@
       .modal-product-image {
         height: 240px;
       }
-      
+
       .modal-product-title {
         font-size: 22px;
       }
-      
+
       .modal-product-price {
         font-size: 28px;
       }
-      
+
       .modal-add-to-cart {
         padding: 16px;
         font-size: 16px;
       }
-      
+
       .modal-qty-btn {
         width: 40px;
         height: 40px;
       }
-      
+
       .product-modal-content {
         width: 92%;
         max-height: 80vh;
@@ -1444,10 +1472,12 @@
       0% {
         transform: scale(1);
       }
+
       50% {
         transform: scale(1.05);
         background: #4CAF50;
       }
+
       100% {
         transform: scale(1);
         background: #B22222;
@@ -1476,7 +1506,7 @@
     <div class="hero-overlay">
       <div class="hero-info-card">
         <div class="hero-store-name">
-          <span>BenEx Market Marrakech</span>
+          <span>Delivery Grocerie Marrakech</span>
         </div>
         <!-- وصف الخدمة الجديد أسفل اسم المتجر (تمت إزالة الخلفية الشفافة) -->
         <div class="hero-service-description">
@@ -1532,11 +1562,11 @@
       <button class="modal-close-btn" id="closeModalBtnModal">
         <i class="fas fa-times"></i>
       </button>
-      
+
       <div class="modal-product-image">
         <img id="modalProductImage" src="" alt="Product image">
       </div>
-      
+
       <div class="modal-product-info">
         <span class="modal-product-category" id="modalProductCategory">Loading...</span>
         <h2 class="modal-product-title" id="modalProductTitle">Product Name</h2>
@@ -1547,7 +1577,7 @@
         <div class="modal-product-description" id="modalProductDescription">
           Product description will appear here...
         </div>
-        
+
         <div class="modal-quantity-section">
           <span class="modal-quantity-label">Quantity</span>
           <div class="modal-quantity-controls">
@@ -1565,7 +1595,7 @@
             </div>
           </div>
         </div>
-        
+
         <button class="modal-add-to-cart" id="modalAddToCartBtn">
           <i class="fas fa-shopping-cart"></i>
           Add to Basket
@@ -1593,12 +1623,10 @@
     let isSliderScrolling = false;
     let currentSearchQuery = '';
     let searchDebounceTimer = null;
-    
     // Object to track loaded product counts per category
     let loadedCounts = {};
     // Object to store all products per category
     let allProductsPerCategory = {};
-    
     const expressiveCategoryList = [{
         key: 'bakery',
         name: 'Bread & Cakes',
@@ -1691,21 +1719,18 @@
       };
       return mapping[legacyCat] || 'pantry';
     }
-    
     // دالة اهتزاز الهاتف (تعمل فقط على الأجهزة المحمولة التي تدعم الاهتزاز)
     function vibratePhone(pattern = 30) {
       if (window.navigator && window.navigator.vibrate) {
         window.navigator.vibrate(pattern);
       }
     }
-    
     // دالة لتسليط الضوء على النص المبحوث عنه
     function highlightText(text, query) {
       if (!query || !text) return text;
       const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
       return text.replace(regex, '<mark class="search-highlight">$1</mark>');
     }
-    
     db.collection('products').onSnapshot((snapshot) => {
       allProducts = [];
       allProductsPerCategory = {};
@@ -1774,7 +1799,6 @@
         setTimeout(() => catElement.classList.remove('category-trigger-glow'), 500);
       }
     }
-
     // =============== NEW FUNCTION: Scroll to product and highlight it ===============
     function scrollToProduct(productId, categoryKey) {
       // First, make sure we are on the correct category
@@ -1785,7 +1809,6 @@
           block: 'start'
         });
       }
-      
       // Wait for scroll to complete then find and highlight the product
       setTimeout(() => {
         // Find the product card with matching data attribute or by searching within the category products
@@ -1821,7 +1844,10 @@
                 const retryCard = document.querySelector(`.product-card-new[data-product-id="${productId}"]`);
                 if (retryCard) {
                   retryCard.classList.add('highlight-product');
-                  retryCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                  retryCard.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                  });
                   setTimeout(() => retryCard.classList.remove('highlight-product'), 1500);
                 }
               }, 500);
@@ -1830,7 +1856,6 @@
         }
       }, 300);
     }
-
     // =============== IMAGE MODAL HANDLERS (Bottom left magnifier style) ===============
     function openImageModal(imageUrl) {
       const modal = document.getElementById('imageModal');
@@ -1839,6 +1864,7 @@
       modalImg.src = imageUrl || 'https://i.ibb.co/Kz8n7dLf/9-A3-F562-D-211-C-45-F2-98-D0-8230-A14-A91-B1.png';
       modal.classList.add('active');
     }
+
     function closeImageModal() {
       const modal = document.getElementById('imageModal');
       if (modal) modal.classList.remove('active');
@@ -1854,11 +1880,9 @@
       }
       if (closeBtn) closeBtn.addEventListener('click', closeImageModal);
     }
-    
     // ========== MODAL FUNCTIONS WITH SYNC ==========
     let currentModalProduct = null;
     let currentModalQuantity = 1;
-    
     const productModal = document.getElementById('productModal');
     const closeModalBtnModal = document.getElementById('closeModalBtnModal');
     const modalProductImage = document.getElementById('modalProductImage');
@@ -1871,25 +1895,20 @@
     const modalMinusBtn = document.getElementById('modalMinusBtn');
     const modalPlusBtn = document.getElementById('modalPlusBtn');
     const modalAddToCartBtnElem = document.getElementById('modalAddToCartBtn');
-    
     // دالة لتحديث الكمية في البطاقة الخارجية
     function updateProductCardQuantity(productId, newQuantity) {
       const productCard = document.querySelector(`.product-card-new[data-product-id="${productId}"]`);
       if (!productCard) return;
-      
       const cartControl = productCard.querySelector('.cart-control-new');
       const quantityDiv = productCard.querySelector('.quantity-new');
       const minusBtn = productCard.querySelector('.minus-new');
-      
       if (cartControl && quantityDiv) {
         quantityDiv.textContent = newQuantity;
-        
         if (newQuantity > 0) {
           cartControl.classList.add('active');
         } else {
           cartControl.classList.remove('active');
         }
-        
         if (minusBtn) {
           const icon = minusBtn.querySelector('i');
           if (newQuantity === 1) {
@@ -1902,12 +1921,10 @@
         }
       }
     }
-    
     // دالة لحفظ الكمية في localStorage وتحديث الواجهة
     function syncQuantityToStorageAndUI(product, quantity) {
       let cart = JSON.parse(localStorage.getItem('deliverooCart')) || [];
       const existingIndex = cart.findIndex(item => item.id === product.id);
-      
       if (quantity > 0) {
         if (existingIndex !== -1) {
           cart[existingIndex].quantity = quantity;
@@ -1927,81 +1944,68 @@
           cart.splice(existingIndex, 1);
         }
       }
-      
       localStorage.setItem('deliverooCart', JSON.stringify(cart));
       updateCartUI();
       updateProductCardQuantity(product.id, quantity);
     }
-    
+
     function openProductModal(product) {
       currentModalProduct = product;
-      
       // Get current quantity from cart
       let cart = JSON.parse(localStorage.getItem('deliverooCart')) || [];
       let existingItem = cart.find(item => item.id === product.id);
       currentModalQuantity = existingItem ? existingItem.quantity : 0;
-      
       // Fill data
       const productImage = product.image || 'https://i.ibb.co/Kz8n7dLf/9-A3-F562-D-211-C-45-F2-98-D0-8230-A14-A91-B1.png';
       modalProductImage.src = productImage;
       modalProductImage.alt = product.name;
-      
       const categoryInfo = expressiveCategoryList.find(cat => cat.key === product.mappedCategory);
       modalProductCategory.textContent = categoryInfo ? categoryInfo.name : 'Products';
-      
       modalProductTitle.textContent = product.name;
       modalProductPriceSpan.textContent = product.price.toFixed(2);
       modalProductDescription.textContent = product.description || 'No description available for this product.';
-      
       updateModalQuantityDisplay();
-      
       productModal.classList.add('active');
       document.body.style.overflow = 'hidden';
     }
-    
+
     function closeProductModal() {
       productModal.classList.remove('active');
       document.body.style.overflow = '';
     }
-    
+
     function updateModalQuantityDisplay() {
       if (!currentModalProduct) return;
       modalQuantitySpan.textContent = currentModalQuantity;
       const total = currentModalProduct.price * currentModalQuantity;
       modalTotalPriceSpan.textContent = total.toFixed(2);
     }
-    
+
     function updateModalFromExternal(productId, newQuantity) {
       if (currentModalProduct && currentModalProduct.id === productId) {
         currentModalQuantity = newQuantity;
         updateModalQuantityDisplay();
       }
     }
-    
+
     function addToCartFromModal() {
       if (!currentModalProduct) return;
-      
       syncQuantityToStorageAndUI(currentModalProduct, currentModalQuantity);
-      
       modalAddToCartBtnElem.classList.add('success');
       setTimeout(() => {
         modalAddToCartBtnElem.classList.remove('success');
       }, 500);
-      
       if (window.navigator && window.navigator.vibrate) {
         window.navigator.vibrate(50);
       }
-      
       setTimeout(() => {
         closeProductModal();
       }, 600);
     }
-    
     // Modal event listeners
     if (closeModalBtnModal) {
       closeModalBtnModal.addEventListener('click', closeProductModal);
     }
-    
     if (productModal) {
       productModal.addEventListener('click', (e) => {
         if (e.target === productModal) {
@@ -2009,7 +2013,6 @@
         }
       });
     }
-    
     if (modalPlusBtn) {
       modalPlusBtn.addEventListener('click', () => {
         if (currentModalProduct) {
@@ -2023,7 +2026,6 @@
         }
       });
     }
-    
     if (modalMinusBtn) {
       modalMinusBtn.addEventListener('click', () => {
         if (currentModalProduct && currentModalQuantity > 0) {
@@ -2037,11 +2039,10 @@
         }
       });
     }
-    
     if (modalAddToCartBtnElem) {
       modalAddToCartBtnElem.addEventListener('click', addToCartFromModal);
     }
-    
+
     function createProductCardNew(product, forSearch = false, searchQuery = '') {
       const imgUrl = product.image || 'https://i.ibb.co/Kz8n7dLf/9-A3-F562-D-211-C-45-F2-98-D0-8230-A14-A91-B1.png';
       const productId = product.id;
@@ -2049,14 +2050,12 @@
       const productPrice = product.price;
       const productDesc = product.description || '';
       if (!product.storedImageUrl) product.storedImageUrl = imgUrl;
-      
       let currentCart = JSON.parse(localStorage.getItem('deliverooCart')) || [];
       let existingItem = currentCart.find(item => item.id === productId);
       let currentQty = existingItem ? existingItem.quantity : 0;
       const card = document.createElement('div');
       card.className = 'product-card-new';
       card.setAttribute('data-product-id', productId);
-      
       // Modified click event: open product modal instead of image modal
       card.addEventListener('click', (e) => {
         let target = e.target;
@@ -2065,7 +2064,6 @@
           openProductModal(product);
         }
       });
-      
       const cartArea = document.createElement('div');
       cartArea.className = 'cart-area-new';
       const cartControl = document.createElement('div');
@@ -2125,7 +2123,6 @@
       card.appendChild(cartArea);
       card.appendChild(imageDiv);
       card.appendChild(infoDiv);
-      
       let quantity = currentQty;
       let oldQuantity = currentQty;
 
@@ -2163,7 +2160,6 @@
         }
         localStorage.setItem('deliverooCart', JSON.stringify(cart));
         updateCartUI();
-        
         // تحديث الـ modal إذا كان مفتوحاً لنفس المنتج
         updateModalFromExternal(productId, quantity);
       }
@@ -2171,13 +2167,10 @@
       function updateUI() {
         quantityDiv.textContent = quantity;
         updateMinusButton();
-        
         if (quantity > oldQuantity) {
           vibratePhone(30);
         }
-        
         updateCartInStorage();
-        
         if (quantity > 0) {
           if (!cartControl.classList.contains('active')) {
             cartControl.classList.add('active');
@@ -2189,13 +2182,11 @@
         }
         oldQuantity = quantity;
       }
-      
       plusBtn.addEventListener("click", (e) => {
         e.stopPropagation();
         quantity++;
         updateUI();
       });
-      
       minusBtn.addEventListener("click", (e) => {
         e.stopPropagation();
         if (quantity === 1) {
@@ -2206,7 +2197,6 @@
           updateUI();
         }
       });
-      
       if (currentQty > 0) {
         quantity = currentQty;
         oldQuantity = currentQty;
@@ -2226,7 +2216,6 @@
       const currentCount = loadedCounts[categoryKey] || 6;
       const totalProducts = allProductsPerCategory[categoryKey]?.length || 0;
       const newCount = Math.min(currentCount + 10, totalProducts);
-      
       if (newCount <= currentCount) {
         if (buttonElement) {
           buttonElement.style.opacity = '0.5';
@@ -2235,7 +2224,6 @@
         }
         return;
       }
-      
       loadedCounts[categoryKey] = newCount;
       const productsGrid = document.querySelector(`#products-${categoryKey}`);
       if (productsGrid) {
@@ -2286,7 +2274,6 @@
           productsGrid.appendChild(createProductCardNew(product));
         });
       });
-      
       document.querySelectorAll('.view-all-btn').forEach(btn => {
         const category = btn.getAttribute('data-cat');
         btn.onclick = (e) => {
@@ -2294,7 +2281,6 @@
           loadMoreProducts(category, btn);
         };
       });
-      
       if (categoriesContainer.firstChild) {
         const firstKey = categoriesContainer.firstChild.getAttribute('data-category-key');
         setTimeout(() => {
@@ -2322,7 +2308,6 @@
       });
       document.querySelectorAll('.category-container').forEach(container => observer.observe(container));
     }
-
     // ========== تحسين زر View Basket مع تأثيرات مميزة ==========
     function updateCartUI() {
       const cart = JSON.parse(localStorage.getItem('deliverooCart')) || [];
@@ -2330,7 +2315,6 @@
       const btn = document.getElementById('viewCartBtn');
       const counter = document.getElementById('cartItemCount');
       const oldCount = parseInt(counter.textContent) || 0;
-      
       if (count > 0) {
         if (btn.style.display !== 'flex') {
           btn.style.display = 'flex';
@@ -2358,7 +2342,6 @@
         counter.textContent = '0';
       }
     }
-    
     const viewCartBtnElement = document.getElementById('viewCartBtn');
     if (viewCartBtnElement) {
       viewCartBtnElement.addEventListener('click', function() {
@@ -2366,46 +2349,39 @@
         setTimeout(() => this.classList.remove('pulse-effect'), 300);
       });
     }
-
     // ========== دالة البحث السريع المُحسّنة (مع debounce) ==========
     let searchTimeout = null;
-    
+
     function performSearch(query) {
       const searchSection = document.getElementById('searchResultsSection');
       const categoriesSection = document.getElementById('categoriesSection');
       const productsContainer = document.getElementById('products-container');
       const resultsGrid = document.getElementById('searchResultsGrid');
       const resultsCountSpan = document.querySelector('.results-count');
-      
       if (!query.trim()) {
         searchSection.classList.remove('active');
         categoriesSection.classList.remove('hide-on-search');
         productsContainer.classList.remove('hide-on-search');
         return;
       }
-      
       resultsGrid.innerHTML = '<div class="search-loading"><i class="fas fa-spinner"></i><br>Searching...</div>';
       searchSection.classList.add('active');
       categoriesSection.classList.add('hide-on-search');
       productsContainer.classList.add('hide-on-search');
-      
       const header = searchSection.querySelector('.search-results-header');
       if (!resultsCountSpan && header) {
         const countSpan = document.createElement('span');
         countSpan.className = 'results-count';
         header.appendChild(countSpan);
       }
-      
       const lowerQuery = query.toLowerCase();
-      const results = allProducts.filter(product => 
+      const results = allProducts.filter(product =>
         product.name.toLowerCase().includes(lowerQuery)
       );
-      
       const countSpanElem = searchSection.querySelector('.results-count');
       if (countSpanElem) {
         countSpanElem.textContent = `${results.length} item${results.length !== 1 ? 's' : ''}`;
       }
-      
       if (results.length === 0) {
         resultsGrid.innerHTML = `
           <div class="no-results" style="grid-column: span 2;">
@@ -2416,43 +2392,37 @@
         `;
         return;
       }
-      
       resultsGrid.innerHTML = '';
       results.forEach(product => {
         const productCard = createProductCardNew(product, true, query);
         resultsGrid.appendChild(productCard);
       });
     }
-    
+
     function debouncedSearch(query) {
       if (searchTimeout) clearTimeout(searchTimeout);
       searchTimeout = setTimeout(() => {
         performSearch(query);
       }, 300);
     }
-    
+
     function clearSearch() {
       if (searchTimeout) clearTimeout(searchTimeout);
       const searchInput = document.getElementById('navSearchInput');
       searchInput.value = '';
       currentSearchQuery = '';
-      
       const searchSection = document.getElementById('searchResultsSection');
       const categoriesSection = document.getElementById('categoriesSection');
       const productsContainer = document.getElementById('products-container');
-      
       searchSection.classList.remove('active');
       categoriesSection.classList.remove('hide-on-search');
       productsContainer.classList.remove('hide-on-search');
     }
-    
     // ========== ربط الأحداث ==========
     document.getElementById('backButton').onclick = () => window.history.back();
-    
     const shareButtonElem = document.getElementById('shareButton');
     const pageUrl = 'https://delivery-marrakech.com/benmarket';
     const shareText = 'Delivery Supermaker Grocerie Marrakech';
-    
     shareButtonElem.onclick = async () => {
       try {
         if (navigator.share) {
@@ -2476,18 +2446,15 @@
         }
       }
     };
-    
     const searchInputElem = document.getElementById('navSearchInput');
     searchInputElem.addEventListener('input', (e) => {
       currentSearchQuery = e.target.value;
       debouncedSearch(currentSearchQuery);
     });
-    
     const clearSearchBtnElem = document.getElementById('clearSearchBtn');
     if (clearSearchBtnElem) {
       clearSearchBtnElem.addEventListener('click', clearSearch);
     }
-    
     document.getElementById('viewCartBtn').onclick = () => {
       const cart = JSON.parse(localStorage.getItem('deliverooCart')) || [];
       if (!cart.length) {
@@ -2508,13 +2475,11 @@
       sessionStorage.setItem('checkoutCartData', JSON.stringify(enrichedCart));
       window.location.href = 'scheckout.html';
     };
-    
     window.addEventListener('scroll', () => {
       const navbar = document.getElementById('navbar');
       if (window.scrollY > 100) navbar.classList.add('scrolled');
       else navbar.classList.remove('scrolled');
     });
-    
     updateCartUI();
   </script>
 </body>
