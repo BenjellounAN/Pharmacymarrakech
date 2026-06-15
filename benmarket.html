@@ -554,10 +554,10 @@
       padding: 0 2px;
     }
 
-    /* ========== HERO SECTION ENLARGED & MODERN OVERLAY ========== */
+    /* ========== HERO SECTION ENLARGED & MODERN OVERLAY (INCREASED HEIGHT) ========== */
     .hero-section {
       position: relative;
-      height: 360px;
+      height: 450px; /* تم زيادة الارتفاع من 360px إلى 450px */
       width: 100%;
       overflow: hidden;
       background: #000;
@@ -572,18 +572,35 @@
     }
 
     /* الطبقة المظلمة العصرية لتسليط الضوء على النص */
-    .hero-overlay {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.5) 70%, transparent 100%);
-      padding: 24px 20px 24px 20px;
-      backdrop-filter: blur(2px);
-      z-index: 5;
-    }
+ .hero-overlay {
 
-    /* حاوية اسم المتجر والوصف ووقت التوصيل بشكل عصري جداً */
+  position: absolute;
+
+  bottom: 0;
+
+  left: 0;
+
+  width: 100%;
+
+  background: linear-gradient(
+
+    to top,
+
+    rgba(255,255,255,0.95) 0%,
+
+    rgba(255,255,255,0.75) 70%,
+
+    transparent 100%
+
+  );
+
+  padding: 24px 20px;
+
+  backdrop-filter: blur(2px);
+
+  z-index: 5;
+
+}    /* حاوية اسم المتجر والوصف ووقت التوصيل بشكل عصري جداً */
     .hero-info-card {
       display: flex;
       flex-direction: column;
@@ -606,7 +623,7 @@
     .hero-store-name {
       font-size: 28px;
       font-weight: 800;
-      color: white;
+      color: Black;
       letter-spacing: -0.5px;
       text-shadow: 0 2px 10px rgba(0,0,0,0.5);
       display: flex;
@@ -621,11 +638,11 @@
       filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
     }
 
-    /* وصف الخدمة الجديد أسفل اسم المتجر */
+    /* وصف الخدمة الجديد أسفل اسم المتجر - تمت إزالة الخلفية الشفافة */
     .hero-service-description {
       font-size: 14px;
       font-weight: 500;
-      color: rgba(255, 255, 255, 0.9);
+      color: Black;
       letter-spacing: 0.3px;
       display: flex;
       align-items: center;
@@ -634,26 +651,26 @@
       text-shadow: 0 1px 3px rgba(0,0,0,0.3);
       margin-top: 2px;
       margin-bottom: 4px;
+      /* تم إزالة background و backdrop-filter */
     }
     .hero-service-description i {
       font-size: 14px;
       color: #ffb347;
     }
     .hero-service-description span {
-      background: rgba(255,255,255,0.15);
-      backdrop-filter: blur(4px);
+      /* تم إزالة الخلفية الشفافة */
       padding: 2px 8px;
       border-radius: 30px;
       font-size: 12px;
       font-weight: 500;
     }
 
-    /* حاوية وقت التوصيل بشكل حديث - تم استبدال شعار الدراجة بصورة جديدة */
+    /* حاوية وقت التوصيل بشكل حديث */
     .hero-delivery-badge {
       display: inline-flex;
       align-items: center;
       gap: 12px;
-      background: rgba(255, 255, 255, 0.2);
+      background: black;
       backdrop-filter: blur(12px);
       padding: 8px 18px;
       border-radius: 60px;
@@ -664,7 +681,7 @@
       margin-top: 4px;
     }
 
-    /* الشعار الجديد للدراجة كصورة بنفس حجم الأيقونة السابقة */
+    /* الشعار الجديد للدراجة كصورة */
     .new-delivery-logo {
       width: 20px;
       height: 20px;
@@ -688,7 +705,7 @@
       margin-left: 4px;
     }
 
-    /* إخفاء قسم restaurant-info القديم لأنه تم دمجه داخل الهيرو بشكل حديث */
+    /* إخفاء قسم restaurant-info القديم */
     .restaurant-info {
       display: none;
     }
@@ -722,7 +739,7 @@
 
     @media (max-width: 600px) {
       .hero-section {
-        height: 320px;
+        height: 400px; /* تم زيادة الارتفاع للشاشات الصغيرة أيضاً */
       }
       .hero-store-name {
         font-size: 24px;
@@ -1454,16 +1471,15 @@
 
   <!-- HERO SECTION مُكبّر مع معلومات المتجر ووصف الخدمة ووقت التوصيل بتصميم حديث فوق الصورة -->
   <div class="hero-section">
-    <img src="https://i.ibb.co/WvNjNLz5/06631-EF9-5-B3-B-4-A45-BDAC-163741-CED90-E.png" alt="BenEx Market marrakech Delivery" class="hero-image">
+    <img src="https://i.ibb.co/QvJhMv1M/E19-B258-B-E160-4-A8-F-BB84-BAB68273-A688.png" alt="delivery Supermarket marrakech" class="hero-image">
     <div class="hero-overlay">
       <div class="hero-info-card">
         <div class="hero-store-name">
           <span>BenEx Market Marrakech</span>
         </div>
-        <!-- وصف الخدمة الجديد أسفل اسم المتجر -->
+        <!-- وصف الخدمة الجديد أسفل اسم المتجر (تمت إزالة الخلفية الشفافة) -->
         <div class="hero-service-description">
-          <span>Fast supermarket delivery in Marrakech. Order groceries, fresh fruits, vegetables, drinks, snacks, dairy products, and household essentials. Same-day delivery and express delivery available across Marrakech and surrounding areas, covering over 30 km with reliable doorstep service.
-          </span>
+          Fast supermarket delivery in Marrakech. Order groceries, fresh fruits, vegetables, drinks, snacks, dairy products, and household essentials. Same-day delivery and express delivery available across Marrakech and surrounding areas, covering over 30 km with reliable doorstep service.
         </div>
         <div class="hero-delivery-badge">
           <!-- استبدال شعار الدراجة بالشعار الجديد مع نفس الحجم والسلوك -->
@@ -1838,134 +1854,7 @@
       if (closeBtn) closeBtn.addEventListener('click', closeImageModal);
     }
     
-    // ========== STORE MANAGER - Single Source of Truth ==========
-    const QuantityStore = {
-        // تخزين الكميات
-        quantities: new Map(),
-        
-        // الحصول على كمية منتج
-        get(productId) {
-            return this.quantities.get(productId) || 0;
-        },
-        
-        // تعيين كمية منتج مع تحديث كل الواجهات
-        set(productId, newQuantity, productData = null) {
-            const oldQuantity = this.get(productId);
-            if (oldQuantity === newQuantity) return;
-            
-            // تحديث التخزين
-            this.quantities.set(productId, newQuantity);
-            
-            // تحديث localStorage
-            this.updateLocalStorage(productId, newQuantity, productData);
-            
-            // تحديث واجهة البطاقة
-            this.updateProductCard(productId, newQuantity);
-            
-            // تحديث الـ Modal إذا كان مفتوحاً
-            this.updateModalIfOpen(productId, newQuantity);
-            
-            // تحديث الـ Cart UI
-            updateCartUI();
-            
-            // اهتزاز للموبايل عند الزيادة
-            if (newQuantity > oldQuantity) {
-                vibratePhone(30);
-            }
-        },
-        
-        // زيادة الكمية بمقدار 1
-        increment(productId, productData = null) {
-            const current = this.get(productId);
-            this.set(productId, current + 1, productData);
-        },
-        
-        // إنقاص الكمية بمقدار 1
-        decrement(productId, productData = null) {
-            const current = this.get(productId);
-            if (current > 0) {
-                this.set(productId, current - 1, productData);
-            }
-        },
-        
-        // تحديث localStorage
-        updateLocalStorage(productId, quantity, productData) {
-            let cart = JSON.parse(localStorage.getItem('deliverooCart')) || [];
-            const existingIndex = cart.findIndex(item => item.id === productId);
-            
-            if (quantity > 0 && productData) {
-                if (existingIndex !== -1) {
-                    cart[existingIndex].quantity = quantity;
-                    cart[existingIndex].totalPrice = quantity * cart[existingIndex].basePrice;
-                } else {
-                    cart.push({
-                        id: productId,
-                        name: productData.name,
-                        basePrice: productData.price,
-                        quantity: quantity,
-                        totalPrice: quantity * productData.price,
-                        imageUrl: productData.image || 'https://i.ibb.co/Kz8n7dLf/9-A3-F562-D-211-C-45-F2-98-D0-8230-A14-A91-B1.png'
-                    });
-                }
-            } else if (quantity === 0 && existingIndex !== -1) {
-                cart.splice(existingIndex, 1);
-            }
-            
-            localStorage.setItem('deliverooCart', JSON.stringify(cart));
-        },
-        
-        // تحديث بطاقة المنتج
-        updateProductCard(productId, quantity) {
-            const productCard = document.querySelector(`.product-card-new[data-product-id="${productId}"]`);
-            if (!productCard) return;
-            
-            // تحديث dataset
-            productCard.dataset.quantity = quantity;
-            
-            const quantityDiv = productCard.querySelector('.quantity-new');
-            const cartControl = productCard.querySelector('.cart-control-new');
-            const minusBtn = productCard.querySelector('.minus-new');
-            
-            if (quantityDiv) quantityDiv.textContent = quantity;
-            
-            if (cartControl) {
-                if (quantity > 0) {
-                    cartControl.classList.add('active');
-                } else {
-                    cartControl.classList.remove('active');
-                }
-            }
-            
-            if (minusBtn) {
-                const icon = minusBtn.querySelector('i');
-                if (quantity === 1) {
-                    if (icon) icon.className = 'fas fa-trash-alt';
-                    minusBtn.classList.add('trash-mode');
-                } else {
-                    if (icon) icon.className = 'fas fa-minus';
-                    minusBtn.classList.remove('trash-mode');
-                }
-            }
-        },
-        
-        // تحديث الـ Modal إذا كان مفتوحاً
-        updateModalIfOpen(productId, quantity) {
-            if (currentModalProduct && currentModalProduct.id === productId) {
-                currentModalQuantity = quantity;
-                updateModalQuantityDisplay();
-            }
-        },
-        
-        // تحميل الكميات من localStorage عند بدء التشغيل
-        loadFromLocalStorage() {
-            const cart = JSON.parse(localStorage.getItem('deliverooCart')) || [];
-            cart.forEach(item => {
-                this.quantities.set(item.id, item.quantity);
-            });
-        }
-    };
-    
-    // ========== MODAL FUNCTIONS WITH STORE MANAGER ==========
+    // ========== MODAL FUNCTIONS WITH SYNC ==========
     let currentModalProduct = null;
     let currentModalQuantity = 1;
     
@@ -1982,11 +1871,74 @@
     const modalPlusBtn = document.getElementById('modalPlusBtn');
     const modalAddToCartBtnElem = document.getElementById('modalAddToCartBtn');
     
+    // دالة لتحديث الكمية في البطاقة الخارجية
+    function updateProductCardQuantity(productId, newQuantity) {
+      const productCard = document.querySelector(`.product-card-new[data-product-id="${productId}"]`);
+      if (!productCard) return;
+      
+      const cartControl = productCard.querySelector('.cart-control-new');
+      const quantityDiv = productCard.querySelector('.quantity-new');
+      const minusBtn = productCard.querySelector('.minus-new');
+      
+      if (cartControl && quantityDiv) {
+        quantityDiv.textContent = newQuantity;
+        
+        if (newQuantity > 0) {
+          cartControl.classList.add('active');
+        } else {
+          cartControl.classList.remove('active');
+        }
+        
+        if (minusBtn) {
+          const icon = minusBtn.querySelector('i');
+          if (newQuantity === 1) {
+            if (icon) icon.className = 'fas fa-trash-alt';
+            minusBtn.classList.add('trash-mode');
+          } else {
+            if (icon) icon.className = 'fas fa-minus';
+            minusBtn.classList.remove('trash-mode');
+          }
+        }
+      }
+    }
+    
+    // دالة لحفظ الكمية في localStorage وتحديث الواجهة
+    function syncQuantityToStorageAndUI(product, quantity) {
+      let cart = JSON.parse(localStorage.getItem('deliverooCart')) || [];
+      const existingIndex = cart.findIndex(item => item.id === product.id);
+      
+      if (quantity > 0) {
+        if (existingIndex !== -1) {
+          cart[existingIndex].quantity = quantity;
+          cart[existingIndex].totalPrice = quantity * cart[existingIndex].basePrice;
+        } else {
+          cart.push({
+            id: product.id,
+            name: product.name,
+            basePrice: product.price,
+            quantity: quantity,
+            totalPrice: quantity * product.price,
+            imageUrl: product.image || 'https://i.ibb.co/Kz8n7dLf/9-A3-F562-D-211-C-45-F2-98-D0-8230-A14-A91-B1.png'
+          });
+        }
+      } else {
+        if (existingIndex !== -1) {
+          cart.splice(existingIndex, 1);
+        }
+      }
+      
+      localStorage.setItem('deliverooCart', JSON.stringify(cart));
+      updateCartUI();
+      updateProductCardQuantity(product.id, quantity);
+    }
+    
     function openProductModal(product) {
       currentModalProduct = product;
       
-      // قراءة الكمية من الـ Store مباشرة (المصدر الوحيد للحقيقة)
-      currentModalQuantity = QuantityStore.get(product.id);
+      // Get current quantity from cart
+      let cart = JSON.parse(localStorage.getItem('deliverooCart')) || [];
+      let existingItem = cart.find(item => item.id === product.id);
+      currentModalQuantity = existingItem ? existingItem.quantity : 0;
       
       // Fill data
       const productImage = product.image || 'https://i.ibb.co/Kz8n7dLf/9-A3-F562-D-211-C-45-F2-98-D0-8230-A14-A91-B1.png';
@@ -2018,11 +1970,17 @@
       modalTotalPriceSpan.textContent = total.toFixed(2);
     }
     
+    function updateModalFromExternal(productId, newQuantity) {
+      if (currentModalProduct && currentModalProduct.id === productId) {
+        currentModalQuantity = newQuantity;
+        updateModalQuantityDisplay();
+      }
+    }
+    
     function addToCartFromModal() {
       if (!currentModalProduct) return;
       
-      // استخدام الـ Store Manager لتحديث الكمية
-      QuantityStore.set(currentModalProduct.id, currentModalQuantity, currentModalProduct);
+      syncQuantityToStorageAndUI(currentModalProduct, currentModalQuantity);
       
       modalAddToCartBtnElem.classList.add('success');
       setTimeout(() => {
@@ -2056,8 +2014,8 @@
         if (currentModalProduct) {
           currentModalQuantity++;
           updateModalQuantityDisplay();
-          // تحديث فوري في الـ Store Manager والبطاقة الخارجية
-          QuantityStore.set(currentModalProduct.id, currentModalQuantity, currentModalProduct);
+          // تحديث فوري في localStorage والبطاقة الخارجية
+          syncQuantityToStorageAndUI(currentModalProduct, currentModalQuantity);
           if (window.navigator && window.navigator.vibrate) {
             window.navigator.vibrate(15);
           }
@@ -2070,8 +2028,8 @@
         if (currentModalProduct && currentModalQuantity > 0) {
           currentModalQuantity--;
           updateModalQuantityDisplay();
-          // تحديث فوري في الـ Store Manager والبطاقة الخارجية
-          QuantityStore.set(currentModalProduct.id, currentModalQuantity, currentModalProduct);
+          // تحديث فوري في localStorage والبطاقة الخارجية
+          syncQuantityToStorageAndUI(currentModalProduct, currentModalQuantity);
           if (window.navigator && window.navigator.vibrate) {
             window.navigator.vibrate(15);
           }
@@ -2091,12 +2049,12 @@
       const productDesc = product.description || '';
       if (!product.storedImageUrl) product.storedImageUrl = imgUrl;
       
-      // استخدام الـ Store Manager للحصول على الكمية الحالية
-      let currentQty = QuantityStore.get(productId);
+      let currentCart = JSON.parse(localStorage.getItem('deliverooCart')) || [];
+      let existingItem = currentCart.find(item => item.id === productId);
+      let currentQty = existingItem ? existingItem.quantity : 0;
       const card = document.createElement('div');
       card.className = 'product-card-new';
       card.setAttribute('data-product-id', productId);
-      card.dataset.quantity = currentQty;
       
       // Modified click event: open product modal instead of image modal
       card.addEventListener('click', (e) => {
@@ -2167,56 +2125,99 @@
       card.appendChild(imageDiv);
       card.appendChild(infoDiv);
       
-      // أزرار التحكم في الكمية باستخدام الـ Store Manager
-      plusBtn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        QuantityStore.increment(productId, product);
-        // تحديث العرض المحلي
-        quantityDiv.textContent = QuantityStore.get(productId);
-        card.dataset.quantity = QuantityStore.get(productId);
-        const newQty = QuantityStore.get(productId);
-        if (newQty > 0) {
-          cartControl.classList.add('active');
-        } else {
-          cartControl.classList.remove('active');
-        }
-        const minusIconBtn = minusBtn.querySelector('i');
-        if (newQty === 1) {
-          if (minusIconBtn) minusIconBtn.className = 'fas fa-trash-alt';
+      let quantity = currentQty;
+      let oldQuantity = currentQty;
+
+      function updateMinusButton() {
+        const icon = minusBtn.querySelector('i');
+        if (quantity === 1) {
+          icon.className = 'fas fa-trash-alt';
           minusBtn.classList.add('trash-mode');
         } else {
-          if (minusIconBtn) minusIconBtn.className = 'fas fa-minus';
+          icon.className = 'fas fa-minus';
           minusBtn.classList.remove('trash-mode');
         }
+      }
+
+      function updateCartInStorage() {
+        let cart = JSON.parse(localStorage.getItem('deliverooCart')) || [];
+        const existing = cart.find(item => item.id === productId);
+        if (quantity > 0) {
+          if (existing) {
+            existing.quantity = quantity;
+            existing.totalPrice = quantity * existing.basePrice;
+            existing.imageUrl = imgUrl;
+          } else {
+            cart.push({
+              id: productId,
+              name: productName,
+              basePrice: productPrice,
+              quantity: quantity,
+              totalPrice: quantity * productPrice,
+              imageUrl: imgUrl
+            });
+          }
+        } else if (existing && quantity === 0) {
+          cart = cart.filter(item => item.id !== productId);
+        }
+        localStorage.setItem('deliverooCart', JSON.stringify(cart));
+        updateCartUI();
+        
+        // تحديث الـ modal إذا كان مفتوحاً لنفس المنتج
+        updateModalFromExternal(productId, quantity);
+      }
+
+      function updateUI() {
+        quantityDiv.textContent = quantity;
+        updateMinusButton();
+        
+        if (quantity > oldQuantity) {
+          vibratePhone(30);
+        }
+        
+        updateCartInStorage();
+        
+        if (quantity > 0) {
+          if (!cartControl.classList.contains('active')) {
+            cartControl.classList.add('active');
+          }
+        } else {
+          if (cartControl.classList.contains('active')) {
+            cartControl.classList.remove('active');
+          }
+        }
+        oldQuantity = quantity;
+      }
+      
+      plusBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        quantity++;
+        updateUI();
       });
       
       minusBtn.addEventListener("click", (e) => {
         e.stopPropagation();
-        const currentQtyVal = QuantityStore.get(productId);
-        if (currentQtyVal === 1) {
-          QuantityStore.set(productId, 0, product);
-        } else if (currentQtyVal > 1) {
-          QuantityStore.set(productId, currentQtyVal - 1, product);
-        }
-        // تحديث العرض المحلي
-        quantityDiv.textContent = QuantityStore.get(productId);
-        card.dataset.quantity = QuantityStore.get(productId);
-        const newQty = QuantityStore.get(productId);
-        if (newQty > 0) {
-          cartControl.classList.add('active');
-        } else {
-          cartControl.classList.remove('active');
-        }
-        const minusIconBtn = minusBtn.querySelector('i');
-        if (newQty === 1) {
-          if (minusIconBtn) minusIconBtn.className = 'fas fa-trash-alt';
-          minusBtn.classList.add('trash-mode');
-        } else {
-          if (minusIconBtn) minusIconBtn.className = 'fas fa-minus';
-          minusBtn.classList.remove('trash-mode');
+        if (quantity === 1) {
+          quantity = 0;
+          updateUI();
+        } else if (quantity > 1) {
+          quantity--;
+          updateUI();
         }
       });
       
+      if (currentQty > 0) {
+        quantity = currentQty;
+        oldQuantity = currentQty;
+        quantityDiv.textContent = quantity;
+        updateMinusButton();
+        cartControl.classList.add('active');
+      } else {
+        quantity = 0;
+        oldQuantity = 0;
+        quantityDiv.textContent = '0';
+        cartControl.classList.remove('active');
+      }
       return card;
     }
 
@@ -2513,8 +2514,6 @@
       else navbar.classList.remove('scrolled');
     });
     
-    // تهيئة الـ Store Manager من localStorage
-    QuantityStore.loadFromLocalStorage();
     updateCartUI();
   </script>
 </body>
