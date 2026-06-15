@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
   <title>BenEx Market - Admin Dashboard</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -14,11 +14,36 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Inter', sans-serif; background: #f5f5f5; overflow-x: hidden; }
     .dashboard-wrapper { min-height: 100vh; background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%); }
+    
+    /* زر القائمة للهواتف */
+    .menu-toggle {
+      display: none;
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      z-index: 1100;
+      background: #B22222;
+      color: white;
+      border: none;
+      width: 45px;
+      height: 45px;
+      border-radius: 12px;
+      font-size: 22px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      align-items: center;
+      justify-content: center;
+    }
+    
+    /* تحسين القائمة الجانبية للهواتف */
     .sidebar {
       position: fixed; left: 0; top: 0; width: 280px; height: 100vh;
       background: linear-gradient(180deg, #8B1A1A 0%, #B22222 100%);
       box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1); z-index: 1000;
+      transition: transform 0.3s ease;
+      transform: translateX(0);
     }
+    
     .sidebar-header { padding: 30px 24px; border-bottom: 1px solid rgba(255,255,255,0.2); }
     .sidebar-header h2 { color: white; font-size: 24px; display: flex; align-items: center; gap: 12px; }
     .sidebar-header p { color: rgba(255,255,255,0.8); font-size: 13px; margin-top: 8px; }
@@ -30,7 +55,67 @@
     }
     .nav-item:hover { background: rgba(255,255,255,0.15); transform: translateX(4px); }
     .nav-item.active { background: rgba(255,255,255,0.25); color: white; font-weight: 600; }
-    .main-content { margin-left: 280px; padding: 24px; min-height: 100vh; }
+    
+    /* المحتوى الرئيسي */
+    .main-content { margin-left: 280px; padding: 24px; min-height: 100vh; transition: margin-left 0.3s ease; }
+    
+    /* تحسينات للهواتف */
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: flex;
+      }
+      .sidebar {
+        transform: translateX(-100%);
+        width: 260px;
+      }
+      .sidebar.open {
+        transform: translateX(0);
+      }
+      .main-content {
+        margin-left: 0;
+        padding: 70px 16px 20px 16px;
+      }
+      .top-bar {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+        padding: 15px 20px;
+      }
+      .page-title h1 { font-size: 22px; }
+      .stats-cards { grid-template-columns: 1fr; gap: 12px; }
+      .charts-section { grid-template-columns: 1fr; gap: 16px; }
+      .product-row {
+        flex-direction: column;
+        text-align: center;
+      }
+      .product-actions {
+        width: 100%;
+        justify-content: center;
+      }
+      .product-image { width: 80px; height: 80px; }
+      .categories-grid-dash {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 12px;
+      }
+      .category-card { padding: 15px 10px; }
+      .category-card-img { width: 60px; height: 60px; }
+      .add-product-btn, .add-category-btn { font-size: 13px; padding: 10px 16px; }
+      .section-header { flex-direction: column; align-items: stretch; text-align: center; }
+      .section-header h2 { font-size: 18px; }
+      .search-bar input { max-width: 100%; }
+      .modal-content { padding: 20px; margin: 16px; width: 95%; }
+      .modal-content h3 { font-size: 20px; }
+      .stat-number { font-size: 26px; }
+    }
+    
+    @media (max-width: 480px) {
+      .categories-grid-dash {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      }
+      .product-row { padding: 12px; }
+      .edit-btn, .delete-btn { padding: 6px 12px; font-size: 12px; }
+    }
+    
     .top-bar {
       background: white; border-radius: 20px; padding: 20px 30px; margin-bottom: 30px;
       display: flex; justify-content: space-between; align-items: center;
@@ -85,7 +170,6 @@
     .edit-btn, .delete-btn { padding: 10px 16px; border: none; border-radius: 10px; cursor: pointer; font-weight: 600; }
     .edit-btn { background: #ffc107; color: #333; }
     .delete-btn { background: #dc3545; color: white; }
-    /* ---------- أناقة فئات جديدة مشابهة للمستخدم (صورة فوق + كتابة أسفل) ---------- */
     .category-card {
       background: #f8f9fa;
       border-radius: 20px;
@@ -170,7 +254,7 @@
     .charts-section { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 24px; margin-bottom: 30px; }
     .chart-card { background: white; border-radius: 20px; padding: 24px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
     .chart-card h3 { font-size: 18px; margin-bottom: 20px; color: #333; }
-    canvas { max-height: 300px; }
+    canvas { max-height: 300px; width: 100% !important; }
     .empty-state { text-align: center; padding: 60px 20px; color: #999; }
     .empty-state i { font-size: 64px; margin-bottom: 20px; color: #B22222; }
     .toast {
@@ -185,19 +269,15 @@
       from { transform: translateX(100%); opacity: 0; }
       to { transform: translateX(0); opacity: 1; }
     }
-    @media (max-width: 768px) {
-      .sidebar { transform: translateX(-100%); }
-      .sidebar.active { transform: translateX(0); }
-      .main-content { margin-left: 0; padding: 16px; }
-      .stats-cards { grid-template-columns: 1fr; }
-      .charts-section { grid-template-columns: 1fr; }
-      .product-row { flex-direction: column; text-align: center; }
-      .product-actions { width: 100%; justify-content: center; }
-    }
   </style>
 </head>
 <body>
 <div class="dashboard-wrapper">
+  <!-- زر فتح القائمة للهواتف -->
+  <button class="menu-toggle" id="menuToggle">
+    <i class="fas fa-bars"></i>
+  </button>
+  
   <div class="sidebar" id="sidebar">
     <div class="sidebar-header">
       <h2><i class="fas fa-store"></i> BenEx Market</h2>
@@ -210,7 +290,7 @@
     </div>
   </div>
 
-  <div class="main-content">
+  <div class="main-content" id="mainContent">
     <div class="top-bar">
       <div class="page-title">
         <h1>Products Dashboard</h1>
@@ -300,7 +380,7 @@
 
   let db;
   let allProducts = [];
-  let customCategories = []; // { key, name, imageUrl, icon }
+  let customCategories = [];
   let editingProductId = null;
   let categoryChart = null;
   let priceChart = null;
@@ -448,16 +528,45 @@
     const labels = Object.keys(catMap).map(k=>catMap[k].name);
     const data = Object.keys(catMap).map(k=>catCounts[k]||0);
     const ctx1 = document.getElementById('categoryChart')?.getContext('2d');
-    if(ctx1) { if(categoryChart) categoryChart.destroy(); categoryChart = new Chart(ctx1, { type:'pie', data:{ labels, datasets:[{ data, backgroundColor:'#B22222' }] }, options:{ responsive:true } }); }
+    if(ctx1) { if(categoryChart) categoryChart.destroy(); categoryChart = new Chart(ctx1, { type:'pie', data:{ labels, datasets:[{ data, backgroundColor:'#B22222' }] }, options:{ responsive:true, maintainAspectRatio:true } }); }
     const ranges = {'0-20':0,'20-40':0,'40+':0};
     allProducts.forEach(p=>{ if(p.price<20) ranges['0-20']++; else if(p.price<40) ranges['20-40']++; else ranges['40+']++; });
     const ctx2 = document.getElementById('priceChart')?.getContext('2d');
-    if(ctx2) { if(priceChart) priceChart.destroy(); priceChart = new Chart(ctx2, { type:'bar', data:{ labels:Object.keys(ranges), datasets:[{ label:'Products', data:Object.values(ranges), backgroundColor:'#B22222' }] }, options:{ responsive:true } }); }
+    if(ctx2) { if(priceChart) priceChart.destroy(); priceChart = new Chart(ctx2, { type:'bar', data:{ labels:Object.keys(ranges), datasets:[{ label:'Products', data:Object.values(ranges), backgroundColor:'#B22222' }] }, options:{ responsive:true, maintainAspectRatio:true } }); }
   }
 
   function openEditModal(id) { const p = allProducts.find(p=>p.id===id); if(p) { editingProductId=id; document.getElementById('modalTitle').textContent='Edit Product'; document.getElementById('productName').value=p.name; document.getElementById('productPrice').value=p.price; document.getElementById('productImage').value=p.image||''; document.getElementById('productDescription').value=p.description||''; document.getElementById('productCategory').value=p.category; document.getElementById('productModal').style.display='flex'; } }
   function openAddModal() { editingProductId=null; document.getElementById('modalTitle').textContent='Add New Product'; document.getElementById('productForm').reset(); document.getElementById('productModal').style.display='flex'; }
   function escapeHtml(str) { if(!str) return ''; return str.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'})[m]); }
+
+  // التحكم في القائمة للهواتف
+  const menuToggle = document.getElementById('menuToggle');
+  const sidebar = document.getElementById('sidebar');
+  const mainContent = document.getElementById('mainContent');
+  
+  if (menuToggle) {
+    menuToggle.addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+    });
+  }
+  
+  // إغلاق القائمة عند الضغط على رابط في الهواتف
+  document.querySelectorAll('.nav-item').forEach(item => {
+    item.addEventListener('click', () => {
+      if (window.innerWidth <= 768) {
+        sidebar.classList.remove('open');
+      }
+    });
+  });
+  
+  // عند النقر خارج القائمة في الهواتف - إغلاقها
+  document.addEventListener('click', (e) => {
+    if (window.innerWidth <= 768) {
+      if (!sidebar.contains(e.target) && !menuToggle.contains(e.target) && sidebar.classList.contains('open')) {
+        sidebar.classList.remove('open');
+      }
+    }
+  });
 
   document.getElementById('addProductBtn').onclick = openAddModal;
   document.getElementById('cancelModalBtn').onclick = ()=>document.getElementById('productModal').style.display='none';
@@ -488,9 +597,12 @@
     });
   });
 
-  // Category Addition Logic (صورة فوق + اسم)
+  // Category Addition Logic
   const catModal = document.getElementById('categoryModal');
-  document.getElementById('openAddCategoryBtn').onclick = () => { catModal.style.display='flex'; };
+  const openAddCategoryBtn = document.getElementById('openAddCategoryBtn');
+  if (openAddCategoryBtn) {
+    openAddCategoryBtn.onclick = () => { catModal.style.display='flex'; };
+  }
   document.getElementById('cancelCatModalBtn').onclick = () => { catModal.style.display='none'; };
   document.getElementById('categoryForm').onsubmit = (e) => {
     e.preventDefault();
