@@ -1709,26 +1709,56 @@
       }
     ];
 
+    // ==================== الدالة المعدلة فقط ====================
     function mapLegacyCategoryToExpressive(legacyCat) {
+      // تحويل إلى أحرف صغيرة وإزالة المسافات
+      const normalized = legacyCat?.toLowerCase().trim() || '';
+      
+      // قائمة بجميع الأسماء المحتملة للوجبات الخفيفة والآيس كريم
+      const snacksKeywords = [
+        'snack', 'snacks', 
+        'chocolate', 'chocolat',
+        'crisp', 'crisps', 
+        'chip', 'chips',
+        'ice-cream', 'ice cream', 'icecream',
+        'candy', 'candies',
+        'sweet', 'sweets',
+        'biscuit', 'biscuits',
+        'cookie', 'cookies',
+        'cake', 'cakes',
+        'dessert', 'desserts',
+        'pastry', 'pastries'
+      ];
+      
+      // التحقق من الكلمات المفتاحية
+      for (let keyword of snacksKeywords) {
+        if (normalized.includes(keyword)) {
+          return 'snacks';
+        }
+      }
+      
+      // التعيينات الثابتة للفئات الأخرى (نفسها كما كانت)
       const mapping = {
         'bakery': 'bakery',
-        'crisps': 'snacks',
-        'chocolate': 'snacks',
-        'drinks': 'drinks',
-        'dairy': 'dairy',
-        'fruits': 'fruits',
-        'frozen': 'frozen',
-        'household': 'household',
         'meatfish': 'meatfish',
+        'fruits': 'fruits',
         'specialties': 'specialties',
+        'dairy': 'dairy',
         'readytomeal': 'readytomeal',
         'pantry': 'pantry',
+        'frozen': 'frozen',
+        'drinks': 'drinks',
+        'household': 'household',
         'healthbeauty': 'healthbeauty',
         'baby': 'baby',
         'petsupply': 'petsupply'
       };
-      return mapping[legacyCat] || 'pantry';
+      
+      // إذا لم تجد تطابقاً، استخدم القيمة الافتراضية
+      return mapping[normalized] || 'pantry';
     }
+    // ==================== نهاية الدالة المعدلة ====================
+
     // دالة اهتزاز الهاتف (تعمل فقط على الأجهزة المحمولة التي تدعم الاهتزاز)
     function vibratePhone(pattern = 30) {
       if (window.navigator && window.navigator.vibrate) {
