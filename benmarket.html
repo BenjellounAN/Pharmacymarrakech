@@ -1759,18 +1759,153 @@
     }
     // ==================== نهاية الدالة المعدلة ====================
 
+    // =======================================================================
+    //  نظام الكمية الموحد - مصدر واحد للتحكم في الكميات
+    // =======================================================================
+    
+    // 1. تخزين الكميات في localStorage (مصدر البيانات الوحيد)
+    const STORAGE_KEY = 'deliverooCart';
+    
+    // 2. دالة للحصول على الكمية الحالية لمنتج معين
+    function getQuantity(productId) {
+      const cart = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+      const item = cart.find(item => item.id === productId);
+      return item ? item.quantity : 0;
+    }
+    
+    // 3. الدالة الوحيدة لتغيير الكمية (مصدر واحد للتغيير)
+    function setQuantity(productId, newQuantity, productData = null) {
+      // منع القيم السالبة
+      if (newQuantity < 0) newQuantity = 0;
+      
+      let cart = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+      const existingIndex = cart.findIndex(item => item.id === productId);
+      
+      if (newQuantity === 0) {
+        // حذف المنتج من السلة
+        if (existingIndex !== -1) {
+          cart.splice(existingIndex, 1);
+        }
+      } else {
+        // إضافة أو تحديث المنتج
+        if (existingIndex !== -1) {
+          cart[existingIndex].quantity = newQuantity;
+          cart[existingIndex].totalPrice = newQuantity * cart[existingIndex].basePrice;
+        } else {
+          // البحث عن المنتج من allProducts إذا لم يتم تمرير البيانات
+          let product = productData;
+          if (!product) {
+            product = allProducts.find(p => p.id === productId);
+          }
+          if (product) {
+            cart.push({
+              id: productId,
+              name: product.name,
+              basePrice: product.price,
+              quantity: newQuantity,
+              totalPrice: newQuantity * product.price,
+              imageUrl: product.image || 'https://i.ibb.co/Kz8n7dLf/9-A3-F562-D-211-C-45-F2-98-D0-8230-A14-A91-B1.png'
+            });
+          }
+        }
+      }
+      
+      // حفظ في localStorage
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
+      
+      // تحديث جميع الواجهات (البطاقات والمودال وزر السلة)
+      refreshAllInterfaces(productId, newQuantity);
+      updateCartUI();
+    }
+    
+    // 4. دالة لتحديث جميع الواجهات (مصدر واحد للتحديث)
+    function refreshAllInterfaces(productId, newQuantity) {
+      // تحديث البطاقات الخارجية
+      const cards = document.querySelectorAll(`.product-card-new[data-product-id="${productId}"]`);
+      cards.forEach(card => {
+        const quantityDiv = card.querySelector('.quantity-new');
+        const cartControl = card.querySelector('.cart-control-new');
+        const minusBtn = card.querySelector('.minus-new');
+        
+        if (quantityDiv) {
+          quantityDiv.textContent = newQuantity;
+        }
+        
+        if (cartControl) {
+          if (newQuantity > 0) {
+            cartControl.classList.add('active');
+          } else {
+            cartControl.classList.remove('active');
+          }
+        }
+        
+        if (minusBtn) {
+          const icon = minusBtn.querySelector('i');
+          if (newQuantity === 1) {
+            if (icon) icon.className = 'fas fa-trash-alt';
+            minusBtn.classList.add('trash-mode');
+          } else {
+            if (icon) icon.className = 'fas fa-minus';
+            minusBtn.classList.remove('trash-mode');
+          }
+        }
+      });
+      
+      // تحديث المودال إذا كان مفتوحاً لنفس المنتج
+      if (currentModalProduct && currentModalProduct.id === productId) {
+        currentModalQuantity = newQuantity;
+        modalQuantitySpan.textContent = newQuantity;
+        const total = currentModalProduct.price * newQuantity;
+        modalTotalPriceSpan.textContent = total.toFixed(2);
+        
+        if (newQuantity > 0) {
+          modalAddToCartBtnElem.innerHTML = `
+            <i class="fas fa-shopping-cart"></i>
+            Update Basket (${newQuantity})
+            <i class="fas fa-arrow-right"></i>
+          `;
+        } else {
+          modalAddToCartBtnElem.innerHTML = `
+            <i class="fas fa-shopping-cart"></i>
+            Add to Basket
+            <i class="fas fa-arrow-right"></i>
+          `;
+        }
+      }
+    }
+    
+    // 5. دالة لزيادة الكمية (دالة واحدة للزيادة)
+    function increaseQuantity(productId, productData = null) {
+      const currentQty = getQuantity(productId);
+      const newQty = currentQty + 1;
+      setQuantity(productId, newQty, productData);
+      vibratePhone(30);
+    }
+    
+    // 6. دالة لنقصان الكمية (دالة واحدة للنقصان)
+    function decreaseQuantity(productId, productData = null) {
+      const currentQty = getQuantity(productId);
+      if (currentQty > 0) {
+        const newQty = currentQty - 1;
+        setQuantity(productId, newQty, productData);
+        vibratePhone(20);
+      }
+    }
+
     // دالة اهتزاز الهاتف (تعمل فقط على الأجهزة المحمولة التي تدعم الاهتزاز)
     function vibratePhone(pattern = 30) {
       if (window.navigator && window.navigator.vibrate) {
         window.navigator.vibrate(pattern);
       }
     }
+    
     // دالة لتسليط الضوء على النص المبحوث عنه
     function highlightText(text, query) {
       if (!query || !text) return text;
       const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
       return text.replace(regex, '<mark class="search-highlight">$1</mark>');
     }
+    
     db.collection('products').onSnapshot((snapshot) => {
       allProducts = [];
       allProductsPerCategory = {};
@@ -1839,6 +1974,7 @@
         setTimeout(() => catElement.classList.remove('category-trigger-glow'), 500);
       }
     }
+    
     // =============== NEW FUNCTION: Scroll to product and highlight it ===============
     function scrollToProduct(productId, categoryKey) {
       // First, make sure we are on the correct category
@@ -1896,6 +2032,7 @@
         }
       }, 300);
     }
+    
     // =============== IMAGE MODAL HANDLERS (Bottom left magnifier style) ===============
     function openImageModal(imageUrl) {
       const modal = document.getElementById('imageModal');
@@ -1909,6 +2046,7 @@
       const modal = document.getElementById('imageModal');
       if (modal) modal.classList.remove('active');
     }
+    
     // attach global close listeners: click on overlay, or close button
     function bindModalEvents() {
       const modal = document.getElementById('imageModal');
@@ -1920,6 +2058,7 @@
       }
       if (closeBtn) closeBtn.addEventListener('click', closeImageModal);
     }
+    
     // ========== MODAL FUNCTIONS WITH SYNC ==========
     let currentModalProduct = null;
     let currentModalQuantity = 1;
@@ -1935,66 +2074,12 @@
     const modalMinusBtn = document.getElementById('modalMinusBtn');
     const modalPlusBtn = document.getElementById('modalPlusBtn');
     const modalAddToCartBtnElem = document.getElementById('modalAddToCartBtn');
-    // دالة لتحديث الكمية في البطاقة الخارجية
-    function updateProductCardQuantity(productId, newQuantity) {
-      const productCard = document.querySelector(`.product-card-new[data-product-id="${productId}"]`);
-      if (!productCard) return;
-      const cartControl = productCard.querySelector('.cart-control-new');
-      const quantityDiv = productCard.querySelector('.quantity-new');
-      const minusBtn = productCard.querySelector('.minus-new');
-      if (cartControl && quantityDiv) {
-        quantityDiv.textContent = newQuantity;
-        if (newQuantity > 0) {
-          cartControl.classList.add('active');
-        } else {
-          cartControl.classList.remove('active');
-        }
-        if (minusBtn) {
-          const icon = minusBtn.querySelector('i');
-          if (newQuantity === 1) {
-            if (icon) icon.className = 'fas fa-trash-alt';
-            minusBtn.classList.add('trash-mode');
-          } else {
-            if (icon) icon.className = 'fas fa-minus';
-            minusBtn.classList.remove('trash-mode');
-          }
-        }
-      }
-    }
-    // دالة لحفظ الكمية في localStorage وتحديث الواجهة
-    function syncQuantityToStorageAndUI(product, quantity) {
-      let cart = JSON.parse(localStorage.getItem('deliverooCart')) || [];
-      const existingIndex = cart.findIndex(item => item.id === product.id);
-      if (quantity > 0) {
-        if (existingIndex !== -1) {
-          cart[existingIndex].quantity = quantity;
-          cart[existingIndex].totalPrice = quantity * cart[existingIndex].basePrice;
-        } else {
-          cart.push({
-            id: product.id,
-            name: product.name,
-            basePrice: product.price,
-            quantity: quantity,
-            totalPrice: quantity * product.price,
-            imageUrl: product.image || 'https://i.ibb.co/Kz8n7dLf/9-A3-F562-D-211-C-45-F2-98-D0-8230-A14-A91-B1.png'
-          });
-        }
-      } else {
-        if (existingIndex !== -1) {
-          cart.splice(existingIndex, 1);
-        }
-      }
-      localStorage.setItem('deliverooCart', JSON.stringify(cart));
-      updateCartUI();
-      updateProductCardQuantity(product.id, quantity);
-    }
 
     function openProductModal(product) {
       currentModalProduct = product;
-      // Get current quantity from cart
-      let cart = JSON.parse(localStorage.getItem('deliverooCart')) || [];
-      let existingItem = cart.find(item => item.id === product.id);
-      currentModalQuantity = existingItem ? existingItem.quantity : 0;
+      // الحصول على الكمية من localStorage (مصدر واحد)
+      currentModalQuantity = getQuantity(product.id);
+      
       // Fill data
       const productImage = product.image || 'https://i.ibb.co/Kz8n7dLf/9-A3-F562-D-211-C-45-F2-98-D0-8230-A14-A91-B1.png';
       modalProductImage.src = productImage;
@@ -2004,7 +2089,8 @@
       modalProductTitle.textContent = product.name;
       modalProductPriceSpan.textContent = product.price.toFixed(2);
       modalProductDescription.textContent = product.description || 'No description available for this product.';
-      updateModalQuantityDisplay();
+      
+      updateModalDisplay();
       productModal.classList.add('active');
       document.body.style.overflow = 'hidden';
     }
@@ -2014,27 +2100,38 @@
       document.body.style.overflow = '';
     }
 
-    function updateModalQuantityDisplay() {
+    function updateModalDisplay() {
       if (!currentModalProduct) return;
       modalQuantitySpan.textContent = currentModalQuantity;
       const total = currentModalProduct.price * currentModalQuantity;
       modalTotalPriceSpan.textContent = total.toFixed(2);
-    }
-
-    function updateModalFromExternal(productId, newQuantity) {
-      if (currentModalProduct && currentModalProduct.id === productId) {
-        currentModalQuantity = newQuantity;
-        updateModalQuantityDisplay();
+      
+      // تحديث زر الإضافة
+      if (currentModalQuantity > 0) {
+        modalAddToCartBtnElem.innerHTML = `
+          <i class="fas fa-shopping-cart"></i>
+          Update Basket (${currentModalQuantity})
+          <i class="fas fa-arrow-right"></i>
+        `;
+      } else {
+        modalAddToCartBtnElem.innerHTML = `
+          <i class="fas fa-shopping-cart"></i>
+          Add to Basket
+          <i class="fas fa-arrow-right"></i>
+        `;
       }
     }
 
     function addToCartFromModal() {
       if (!currentModalProduct) return;
-      syncQuantityToStorageAndUI(currentModalProduct, currentModalQuantity);
+      // استخدام الدالة الموحدة setQuantity
+      setQuantity(currentModalProduct.id, currentModalQuantity, currentModalProduct);
+      
       modalAddToCartBtnElem.classList.add('success');
       setTimeout(() => {
         modalAddToCartBtnElem.classList.remove('success');
       }, 500);
+      
       if (window.navigator && window.navigator.vibrate) {
         window.navigator.vibrate(50);
       }
@@ -2042,6 +2139,7 @@
         closeProductModal();
       }, 600);
     }
+    
     // Modal event listeners
     if (closeModalBtnModal) {
       closeModalBtnModal.addEventListener('click', closeProductModal);
@@ -2057,9 +2155,9 @@
       modalPlusBtn.addEventListener('click', () => {
         if (currentModalProduct) {
           currentModalQuantity++;
-          updateModalQuantityDisplay();
-          // تحديث فوري في localStorage والبطاقة الخارجية
-          syncQuantityToStorageAndUI(currentModalProduct, currentModalQuantity);
+          // استخدام الدالة الموحدة setQuantity
+          setQuantity(currentModalProduct.id, currentModalQuantity, currentModalProduct);
+          updateModalDisplay();
           if (window.navigator && window.navigator.vibrate) {
             window.navigator.vibrate(15);
           }
@@ -2070,9 +2168,9 @@
       modalMinusBtn.addEventListener('click', () => {
         if (currentModalProduct && currentModalQuantity > 0) {
           currentModalQuantity--;
-          updateModalQuantityDisplay();
-          // تحديث فوري في localStorage والبطاقة الخارجية
-          syncQuantityToStorageAndUI(currentModalProduct, currentModalQuantity);
+          // استخدام الدالة الموحدة setQuantity
+          setQuantity(currentModalProduct.id, currentModalQuantity, currentModalProduct);
+          updateModalDisplay();
           if (window.navigator && window.navigator.vibrate) {
             window.navigator.vibrate(15);
           }
@@ -2090,9 +2188,10 @@
       const productPrice = product.price;
       const productDesc = product.description || '';
       if (!product.storedImageUrl) product.storedImageUrl = imgUrl;
-      let currentCart = JSON.parse(localStorage.getItem('deliverooCart')) || [];
-      let existingItem = currentCart.find(item => item.id === productId);
-      let currentQty = existingItem ? existingItem.quantity : 0;
+      
+      // الحصول على الكمية من localStorage (مصدر واحد)
+      let quantity = getQuantity(productId);
+      
       const card = document.createElement('div');
       card.className = 'product-card-new';
       card.setAttribute('data-product-id', productId);
@@ -2104,29 +2203,35 @@
           openProductModal(product);
         }
       });
+      
       const cartArea = document.createElement('div');
       cartArea.className = 'cart-area-new';
       const cartControl = document.createElement('div');
       cartControl.className = 'cart-control-new';
-      if (currentQty > 0) cartControl.classList.add('active');
+      if (quantity > 0) cartControl.classList.add('active');
+      
       const minusBtn = document.createElement('button');
       minusBtn.className = 'btn-new minus-new';
       const minusIcon = document.createElement('i');
-      minusIcon.className = currentQty === 1 ? 'fas fa-trash-alt' : 'fas fa-minus';
+      minusIcon.className = quantity === 1 ? 'fas fa-trash-alt' : 'fas fa-minus';
       minusBtn.appendChild(minusIcon);
-      if (currentQty === 1) minusBtn.classList.add('trash-mode');
+      if (quantity === 1) minusBtn.classList.add('trash-mode');
+      
       const quantityDiv = document.createElement('div');
       quantityDiv.className = 'quantity-new';
-      quantityDiv.textContent = currentQty || '0';
+      quantityDiv.textContent = quantity || '0';
+      
       const plusBtn = document.createElement('button');
       plusBtn.className = 'btn-new plus-new';
       const plusIcon = document.createElement('i');
       plusIcon.className = 'fas fa-plus';
       plusBtn.appendChild(plusIcon);
+      
       cartControl.appendChild(minusBtn);
       cartControl.appendChild(quantityDiv);
       cartControl.appendChild(plusBtn);
       cartArea.appendChild(cartControl);
+      
       const imageDiv = document.createElement('div');
       imageDiv.className = 'image-new';
       const img = document.createElement('img');
@@ -2136,11 +2241,13 @@
         img.src = 'https://i.ibb.co/Kz8n7dLf/9-A3-F562-D-211-C-45-F2-98-D0-8230-A14-A91-B1.png';
       };
       imageDiv.appendChild(img);
+      
       const infoDiv = document.createElement('div');
       infoDiv.className = 'info-new';
       const priceDiv = document.createElement('div');
       priceDiv.className = 'price-new';
       priceDiv.textContent = `${productPrice.toFixed(2)} MAD`;
+      
       const titleDiv = document.createElement('div');
       titleDiv.className = 'title-new';
       let displayName = productName.length > 30 ? productName.substring(0, 27) + '...' : productName;
@@ -2149,6 +2256,7 @@
       } else {
         titleDiv.textContent = displayName;
       }
+      
       const descDiv = document.createElement('div');
       descDiv.className = 'desc-new';
       let displayDesc = productDesc.length > 50 ? productDesc.substring(0, 47) + '...' : productDesc;
@@ -2157,98 +2265,26 @@
       } else {
         descDiv.textContent = displayDesc;
       }
+      
       infoDiv.appendChild(priceDiv);
       infoDiv.appendChild(titleDiv);
       if (productDesc) infoDiv.appendChild(descDiv);
+      
       card.appendChild(cartArea);
       card.appendChild(imageDiv);
       card.appendChild(infoDiv);
-      let quantity = currentQty;
-      let oldQuantity = currentQty;
 
-      function updateMinusButton() {
-        const icon = minusBtn.querySelector('i');
-        if (quantity === 1) {
-          icon.className = 'fas fa-trash-alt';
-          minusBtn.classList.add('trash-mode');
-        } else {
-          icon.className = 'fas fa-minus';
-          minusBtn.classList.remove('trash-mode');
-        }
-      }
-
-      function updateCartInStorage() {
-        let cart = JSON.parse(localStorage.getItem('deliverooCart')) || [];
-        const existing = cart.find(item => item.id === productId);
-        if (quantity > 0) {
-          if (existing) {
-            existing.quantity = quantity;
-            existing.totalPrice = quantity * existing.basePrice;
-            existing.imageUrl = imgUrl;
-          } else {
-            cart.push({
-              id: productId,
-              name: productName,
-              basePrice: productPrice,
-              quantity: quantity,
-              totalPrice: quantity * productPrice,
-              imageUrl: imgUrl
-            });
-          }
-        } else if (existing && quantity === 0) {
-          cart = cart.filter(item => item.id !== productId);
-        }
-        localStorage.setItem('deliverooCart', JSON.stringify(cart));
-        updateCartUI();
-        // تحديث الـ modal إذا كان مفتوحاً لنفس المنتج
-        updateModalFromExternal(productId, quantity);
-      }
-
-      function updateUI() {
-        quantityDiv.textContent = quantity;
-        updateMinusButton();
-        if (quantity > oldQuantity) {
-          vibratePhone(30);
-        }
-        updateCartInStorage();
-        if (quantity > 0) {
-          if (!cartControl.classList.contains('active')) {
-            cartControl.classList.add('active');
-          }
-        } else {
-          if (cartControl.classList.contains('active')) {
-            cartControl.classList.remove('active');
-          }
-        }
-        oldQuantity = quantity;
-      }
+      // أحداث الأزرار - استخدام الدوال الموحدة
       plusBtn.addEventListener("click", (e) => {
         e.stopPropagation();
-        quantity++;
-        updateUI();
+        increaseQuantity(productId, product);
       });
+      
       minusBtn.addEventListener("click", (e) => {
         e.stopPropagation();
-        if (quantity === 1) {
-          quantity = 0;
-          updateUI();
-        } else if (quantity > 1) {
-          quantity--;
-          updateUI();
-        }
+        decreaseQuantity(productId, product);
       });
-      if (currentQty > 0) {
-        quantity = currentQty;
-        oldQuantity = currentQty;
-        quantityDiv.textContent = quantity;
-        updateMinusButton();
-        cartControl.classList.add('active');
-      } else {
-        quantity = 0;
-        oldQuantity = 0;
-        quantityDiv.textContent = '0';
-        cartControl.classList.remove('active');
-      }
+      
       return card;
     }
 
@@ -2348,6 +2384,7 @@
       });
       document.querySelectorAll('.category-container').forEach(container => observer.observe(container));
     }
+    
     // ========== تحسين زر View Basket مع تأثيرات مميزة ==========
     function updateCartUI() {
       const cart = JSON.parse(localStorage.getItem('deliverooCart')) || [];
@@ -2382,6 +2419,7 @@
         counter.textContent = '0';
       }
     }
+    
     const viewCartBtnElement = document.getElementById('viewCartBtn');
     if (viewCartBtnElement) {
       viewCartBtnElement.addEventListener('click', function() {
@@ -2389,6 +2427,7 @@
         setTimeout(() => this.classList.remove('pulse-effect'), 300);
       });
     }
+    
     // ========== دالة البحث السريع المُحسّنة (مع debounce) ==========
     let searchTimeout = null;
 
@@ -2458,6 +2497,7 @@
       categoriesSection.classList.remove('hide-on-search');
       productsContainer.classList.remove('hide-on-search');
     }
+    
     // ========== ربط الأحداث ==========
     document.getElementById('backButton').onclick = () => window.history.back();
     const shareButtonElem = document.getElementById('shareButton');
