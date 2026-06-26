@@ -159,6 +159,28 @@
       border: 2px solid #B22222;
     }
 
+    /* NEW: Category description block */
+    .category-description-block {
+      padding: 0 16px 12px 16px;
+      font-size: 14px;
+      color: #444;
+      line-height: 1.6;
+      border-bottom: 1px solid #f0f0f0;
+      margin-bottom: 6px;
+    }
+
+    .category-description-block strong {
+      color: #B22222;
+      font-weight: 700;
+    }
+
+    .category-description-block .highlight {
+      background: #fce8e8;
+      padding: 0 4px;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+
     /* ========== المنتجات ========== */
     .products {
       display: grid;
@@ -1601,9 +1623,10 @@
     <img src="https://i.ibb.co/QvJhMv1M/E19-B258-B-E160-4-A8-F-BB84-BAB68273-A688.png" alt="delivery Supermarket marrakech" class="hero-image">
     <div class="hero-overlay">
       <div class="hero-info-card">
-        <div class="hero-store-name">
+        <!-- ✅ تم التعديل: استخدام H1 بدلاً من div -->
+        <h1 class="hero-store-name">
           <span>Delivery Grocerie Marrakech</span>
-        </div>
+        </h1>
         <!-- وصف الخدمة الجديد أسفل اسم المتجر (تمت إزالة الخلفية الشفافة) -->
         <div class="hero-service-description">
           Fast supermarket delivery in Marrakech. Order groceries, fresh fruits, vegetables, drinks, snacks, dairy products, and household essentials. Same-day delivery and express delivery available across Marrakech and surrounding areas, covering over 30 km with reliable doorstep service.
@@ -1635,8 +1658,233 @@
     </div>
   </div>
 
+  <!-- ✅ تم التعديل: إضافة الفئات مع H2 والعناوين في HTML مباشرة -->
   <div id="products-container" class="products-container-wrapper">
-    <div class="loading-spinner"><i class="fas fa-spinner"></i> Loading products...</div>
+    
+    <!-- فئة الفواكه والخضروات -->
+    <div class="category-container" id="cat-fruits-container" data-category-key="fruits">
+      <h2 class="category-title">
+        <img src="https://i.ibb.co/t5Xj97R/IMG-8206.png" alt="Fresh fruits and vegetables delivery in Marrakech" class="category-title-img">
+        Fruit & Vegetables
+      </h2>
+      <div class="category-description-block">
+        <p><strong>Delivery Fruits & Vegetables in Marrakech</strong><br>
+        Fresh, organic fruits and vegetables sourced daily and delivered to your home in Marrakech. Enjoy the best seasonal produce for a healthy lifestyle.</p>
+      </div>
+      <div class="products" id="products-fruits"></div>
+      <div class="view-all-wrapper">
+        <div class="view-all-btn" data-cat="fruits">View More <i class="fas fa-arrow-down"></i></div>
+      </div>
+    </div>
+
+    <!-- فئة المخبوزات -->
+    <div class="category-container" id="cat-bakery-container" data-category-key="bakery">
+      <h2 class="category-title">
+        <img src="https://i.ibb.co/8ndR3RCJ/IMG-8200.jpg" alt="Fresh bakery and bread delivery in Marrakech" class="category-title-img">
+        Bread & Cakes
+      </h2>
+      <div class="category-description-block">
+        <p><strong>Delivery Bakery in Marrakech</strong><br>
+        Freshly baked bread, cakes, and pastries delivered to your door in Marrakech. Enjoy artisan bread, delightful cakes, and sweet treats, perfect for breakfast or any occasion.</p>
+      </div>
+      <div class="products" id="products-bakery"></div>
+      <div class="view-all-wrapper">
+        <div class="view-all-btn" data-cat="bakery">View More <i class="fas fa-arrow-down"></i></div>
+      </div>
+    </div>
+
+    <!-- فئة اللحوم والأسماك -->
+    <div class="category-container" id="cat-meatfish-container" data-category-key="meatfish">
+      <h2 class="category-title">
+        <img src="https://i.ibb.co/tTn0sPzf/IMG-8199.jpg" alt="Fresh meat and fish delivery in Marrakech" class="category-title-img">
+        Meat & Fish
+      </h2>
+      <div class="category-description-block">
+        <p><strong>Delivery Meat & Fish in Marrakech</strong><br>
+        Premium quality meat and fresh fish delivered straight to your kitchen in Marrakech. Choose from a variety of cuts, poultry, and seafood for your daily meals.</p>
+      </div>
+      <div class="products" id="products-meatfish"></div>
+      <div class="view-all-wrapper">
+        <div class="view-all-btn" data-cat="meatfish">View More <i class="fas fa-arrow-down"></i></div>
+      </div>
+    </div>
+
+    <!-- فئة المأكولات الخاصة -->
+    <div class="category-container" id="cat-specialties-container" data-category-key="specialties">
+      <h2 class="category-title">
+        <img src="https://i.ibb.co/9kstfXSf/IMG-8191.jpg" alt="Specialties and deli delivery in Marrakech" class="category-title-img">
+        Specialties & Deli
+      </h2>
+      <div class="category-description-block">
+        <p><strong>Delivery Specialties & Deli in Marrakech</strong><br>
+        Discover gourmet specialties and deli items in Marrakech. From fine cheeses and cured meats to premium olives and sauces, elevate your meals with our curated selection.</p>
+      </div>
+      <div class="products" id="products-specialties"></div>
+      <div class="view-all-wrapper">
+        <div class="view-all-btn" data-cat="specialties">View More <i class="fas fa-arrow-down"></i></div>
+      </div>
+    </div>
+
+    <!-- فئة الوجبات الخفيفة -->
+    <div class="category-container" id="cat-snacks-container" data-category-key="snacks">
+      <h2 class="category-title">
+        <img src="https://i.ibb.co/p6PTg8rL/IMG-8192.jpg" alt="Snacks and ice cream delivery in Marrakech" class="category-title-img">
+        Snacks & Ice Cream
+      </h2>
+      <div class="category-description-block">
+        <p><strong>Delivery Snacks in Marrakech</strong><br>
+        Enjoy a delightful selection of snacks in Marrakech. From crispy chips and savory biscuits to sweet chocolates and refreshing ice cream. We deliver all your favorite treats, perfect for any craving or gathering, straight to your doorstep.</p>
+      </div>
+      <div class="products" id="products-snacks"></div>
+      <div class="view-all-wrapper">
+        <div class="view-all-btn" data-cat="snacks">View More <i class="fas fa-arrow-down"></i></div>
+      </div>
+    </div>
+
+    <!-- فئة الألبان -->
+    <div class="category-container" id="cat-dairy-container" data-category-key="dairy">
+      <h2 class="category-title">
+        <img src="https://i.ibb.co/prwd4SCL/20-AB1-D73-E4-E9-4240-82-BC-CC0-DEC714869.png" alt="Dairy and eggs delivery in Marrakech" class="category-title-img">
+        Dairy & Eggs
+      </h2>
+      <div class="category-description-block">
+        <p><strong>Delivery Dairy & Eggs in Marrakech</strong><br>
+        Farm-fresh dairy products and eggs delivered to your home in Marrakech. Enjoy milk, yogurt, cheese, and eggs from trusted sources for your daily nutrition.</p>
+      </div>
+      <div class="products" id="products-dairy"></div>
+      <div class="view-all-wrapper">
+        <div class="view-all-btn" data-cat="dairy">View More <i class="fas fa-arrow-down"></i></div>
+      </div>
+    </div>
+
+    <!-- فئة الوجبات الجاهزة -->
+    <div class="category-container" id="cat-readytomeal-container" data-category-key="readytomeal">
+      <h2 class="category-title">
+        <img src="https://i.ibb.co/b5zJkLLc/IMG-8195.jpg" alt="Ready to eat meals delivery in Marrakech" class="category-title-img">
+        Ready to Eat
+      </h2>
+      <div class="category-description-block">
+        <p><strong>Delivery Ready-to-Eat in Marrakech</strong><br>
+        Quick and delicious ready-to-eat meals delivered in Marrakech. Perfect for busy days, enjoy a variety of freshly prepared dishes with no cooking required.</p>
+      </div>
+      <div class="products" id="products-readytomeal"></div>
+      <div class="view-all-wrapper">
+        <div class="view-all-btn" data-cat="readytomeal">View More <i class="fas fa-arrow-down"></i></div>
+      </div>
+    </div>
+
+    <!-- فئة المؤن -->
+    <div class="category-container" id="cat-pantry-container" data-category-key="pantry">
+      <h2 class="category-title">
+        <img src="https://i.ibb.co/C5By395Z/D590-D8-A0-2509-4954-A640-12138788-B733.png" alt="Pantry essentials delivery in Marrakech" class="category-title-img">
+        Pantry
+      </h2>
+      <div class="category-description-block">
+        <p><strong>Delivery Pantry Essentials in Marrakech</strong><br>
+        Stock your pantry with essential groceries delivered in Marrakech. From rice, pasta, and canned goods to spices, cooking oil, and breakfast cereals.</p>
+      </div>
+      <div class="products" id="products-pantry"></div>
+      <div class="view-all-wrapper">
+        <div class="view-all-btn" data-cat="pantry">View More <i class="fas fa-arrow-down"></i></div>
+      </div>
+    </div>
+
+    <!-- فئة المجمدات -->
+    <div class="category-container" id="cat-frozen-container" data-category-key="frozen">
+      <h2 class="category-title">
+        <img src="https://i.ibb.co/Z66JfKqB/IMG-8194.jpg" alt="Frozen foods delivery in Marrakech" class="category-title-img">
+        Frozen
+      </h2>
+      <div class="category-description-block">
+        <p><strong>Delivery Frozen Foods in Marrakech</strong><br>
+        Convenient frozen foods delivered to your doorstep in Marrakech. Choose from a variety of frozen meals, vegetables, and desserts for any occasion.</p>
+      </div>
+      <div class="products" id="products-frozen"></div>
+      <div class="view-all-wrapper">
+        <div class="view-all-btn" data-cat="frozen">View More <i class="fas fa-arrow-down"></i></div>
+      </div>
+    </div>
+
+    <!-- فئة المشروبات -->
+    <div class="category-container" id="cat-drinks-container" data-category-key="drinks">
+      <h2 class="category-title">
+        <img src="https://i.ibb.co/7xwc8PBL/FA946-DF7-29-F1-4-F5-E-A032-49-DC446-B536-E.png" alt="Drinks and beverages delivery in Marrakech" class="category-title-img">
+        Drinks
+      </h2>
+      <div class="category-description-block">
+        <p><strong>Delivery Drinks in Marrakech</strong><br>
+        Refreshing drinks and beverages delivered to your home in Marrakech. From water, juices, and sodas to energy drinks and teas, stay hydrated with ease.</p>
+      </div>
+      <div class="products" id="products-drinks"></div>
+      <div class="view-all-wrapper">
+        <div class="view-all-btn" data-cat="drinks">View More <i class="fas fa-arrow-down"></i></div>
+      </div>
+    </div>
+
+    <!-- فئة المنزل والمطبخ -->
+    <div class="category-container" id="cat-household-container" data-category-key="household">
+      <h2 class="category-title">
+        <img src="https://i.ibb.co/wFmMhbfD/7794320-B-4-F46-4744-AF0-E-98-A1-D636-FFC5.png" alt="Household items delivery in Marrakech" class="category-title-img">
+        Home & Household
+      </h2>
+      <div class="category-description-block">
+        <p><strong>Delivery Home & Household in Marrakech</strong><br>
+        Essential household items delivered to your home in Marrakech. From cleaning products and paper goods to kitchen supplies and home care.</p>
+      </div>
+      <div class="products" id="products-household"></div>
+      <div class="view-all-wrapper">
+        <div class="view-all-btn" data-cat="household">View More <i class="fas fa-arrow-down"></i></div>
+      </div>
+    </div>
+
+    <!-- فئة الصحة والجمال -->
+    <div class="category-container" id="cat-healthbeauty-container" data-category-key="healthbeauty">
+      <h2 class="category-title">
+        <img src="https://i.ibb.co/vCGtqh6G/IMG-8202.jpg" alt="Health and beauty products delivery in Marrakech" class="category-title-img">
+        Health & Beauty
+      </h2>
+      <div class="category-description-block">
+        <p><strong>Delivery Health & Beauty in Marrakech</strong><br>
+        Health and beauty products delivered to your doorstep in Marrakech. From vitamins and supplements to skincare and personal care items.</p>
+      </div>
+      <div class="products" id="products-healthbeauty"></div>
+      <div class="view-all-wrapper">
+        <div class="view-all-btn" data-cat="healthbeauty">View More <i class="fas fa-arrow-down"></i></div>
+      </div>
+    </div>
+
+    <!-- فئة الأطفال -->
+    <div class="category-container" id="cat-baby-container" data-category-key="baby">
+      <h2 class="category-title">
+        <img src="https://i.ibb.co/N6zXxkZv/IMG-8205.png" alt="Baby products delivery in Marrakech" class="category-title-img">
+        Baby
+      </h2>
+      <div class="category-description-block">
+        <p><strong>Delivery Baby Products in Marrakech</strong><br>
+        Baby essentials delivered to your home in Marrakech. From diapers and wipes to baby food and care products for your little one.</p>
+      </div>
+      <div class="products" id="products-baby"></div>
+      <div class="view-all-wrapper">
+        <div class="view-all-btn" data-cat="baby">View More <i class="fas fa-arrow-down"></i></div>
+      </div>
+    </div>
+
+    <!-- فئة مستلزمات الحيوانات -->
+    <div class="category-container" id="cat-petsupply-container" data-category-key="petsupply">
+      <h2 class="category-title">
+        <img src="https://i.ibb.co/DPY9Rn5m/IMG-8197.png" alt="Pet supplies delivery in Marrakech" class="category-title-img">
+        Pet Supply
+      </h2>
+      <div class="category-description-block">
+        <p><strong>Delivery Pet Supplies in Marrakech</strong><br>
+        Pet food and supplies delivered to your door in Marrakech. Choose from a range of pet food, accessories, and care products for your furry friends.</p>
+      </div>
+      <div class="products" id="products-petsupply"></div>
+      <div class="view-all-wrapper">
+        <div class="view-all-btn" data-cat="petsupply">View More <i class="fas fa-arrow-down"></i></div>
+      </div>
+    </div>
+
   </div>
 
   <button class="view-cart-btn" id="viewCartBtn">
@@ -2267,6 +2515,8 @@
       modalAddToCartBtnElem.addEventListener('click', addToCartFromModal);
     }
 
+    // ✅ تم حذف دالة createCategoryDescription لأن الوصف أصبح في HTML
+
     function createProductCardNew(product, forSearch = false, searchQuery = '') {
       const imgUrl = product.image || 'https://i.ibb.co/Kz8n7dLf/9-A3-F562-D-211-C-45-F2-98-D0-8230-A14-A91-B1.png';
       const productId = product.id;
@@ -2334,7 +2584,8 @@
       priceDiv.className = 'price-new';
       priceDiv.textContent = `${productPrice.toFixed(2)} MAD`;
       
-      const titleDiv = document.createElement('div');
+      // ✅ تم التعديل: استخدام H3 بدلاً من div لعنوان المنتج
+      const titleDiv = document.createElement('h3');
       titleDiv.className = 'title-new';
       let displayName = productName.length > 30 ? productName.substring(0, 27) + '...' : productName;
       if (forSearch && searchQuery) {
@@ -2419,30 +2670,39 @@
         catDiv.onclick = () => scrollToCategory(catInfo.key);
         categoriesContainer.appendChild(catDiv);
       });
-      container.innerHTML = '';
+      
+      // ✅ تم التعديل: استخدام الـ HTML الموجود بدلاً من إنشاء كل شيء في JavaScript
+      // فقط نقوم بملء المنتجات في الـ containers الموجودة
       expressiveCategoryList.forEach(catInfo => {
         const products = grouped[catInfo.key] || [];
         if (products.length === 0) return;
-        const catContainer = document.createElement('div');
-        catContainer.className = 'category-container';
-        catContainer.id = `cat-${catInfo.key}-container`;
-        catContainer.setAttribute('data-category-key', catInfo.key);
-        catContainer.innerHTML = `<div class="category-title"><img src="${catInfo.imageUrl}" class="category-title-img" onerror="this.src='https://i.ibb.co/Kz8n7dLf/9-A3-F562-D-211-C-45-F2-98-D0-8230-A14-A91-B1.png'"><span>${catInfo.name}</span></div><div class="products" id="products-${catInfo.key}"></div><div class="view-all-wrapper"><div class="view-all-btn" data-cat="${catInfo.key}">View More <i class="fas fa-arrow-down"></i></div></div>`;
-        container.appendChild(catContainer);
+        
+        // ابحث عن container الفئة الموجود في HTML
+        const catContainer = document.getElementById(`cat-${catInfo.key}-container`);
+        if (!catContainer) return;
+        
+        // املأ المنتجات فقط
         const productsGrid = catContainer.querySelector(`#products-${catInfo.key}`);
+        if (!productsGrid) return;
+        
+        productsGrid.innerHTML = ''; // تنظيف المنتجات القديمة
         const currentLoaded = loadedCounts[catInfo.key] || 6;
         const productsToShow = products.slice(0, currentLoaded);
+        
         productsToShow.forEach(product => {
           productsGrid.appendChild(createProductCardNew(product));
         });
+        
+        // تفعيل زر View More
+        const viewAllBtn = catContainer.querySelector(`.view-all-btn[data-cat="${catInfo.key}"]`);
+        if (viewAllBtn) {
+          viewAllBtn.onclick = (e) => {
+            e.stopPropagation();
+            loadMoreProducts(catInfo.key, viewAllBtn);
+          };
+        }
       });
-      document.querySelectorAll('.view-all-btn').forEach(btn => {
-        const category = btn.getAttribute('data-cat');
-        btn.onclick = (e) => {
-          e.stopPropagation();
-          loadMoreProducts(category, btn);
-        };
-      });
+      
       if (categoriesContainer.firstChild) {
         const firstKey = categoriesContainer.firstChild.getAttribute('data-category-key');
         setTimeout(() => {
@@ -2649,5 +2909,4 @@
     updateCartUI();
   </script>
 </body>
-
 </html>
