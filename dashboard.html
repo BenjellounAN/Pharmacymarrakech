@@ -902,15 +902,42 @@ function getCategoryMap() {
 }
 
 function loadProducts() {
-  db.collection('products').onSnapshot((snapshot) => {
-    allProducts = [];
-    snapshot.forEach(doc => {
-      allProducts.push({ id: doc.id, ...doc.data() });
+  // ✅ تأكد من أن المستخدم مسجل دخوله أولاً
+  const user = auth.currentUser;
+  
+  if (!user) {
+    console.log("❌ No user logged in");
+    document.getElementById('productsGrid').innerHTML = 
+      '<div class="empty-state"><i class="fas fa-exclamation-triangle"></i><p>Please login first</p></div>';
+    return;
+  }
+  
+  // ✅ تحقق من البريد الإلكتروني
+  if (user.email !== ALLOWED_ADMIN_EMAIL) {
+    console.log("❌ Unauthorized email:", user.email);
+    document.getElementById('productsGrid').innerHTML = 
+      '<div class="empty-state"><i class="fas fa-lock"></i><p>You are not authorized to view products</p></div>';
+    return;
+  }
+  
+  console.log("✅ Authorized admin:", user.email);
+  
+  // ✅ استخدم get() بدلاً من onSnapshot
+  db.collection('products').get()
+    .then((snapshot) => {
+      allProducts = [];
+      snapshot.forEach(doc => {
+        allProducts.push({ id: doc.id, ...doc.data() });
+      });
+      console.log("✅ Products loaded:", allProducts.length);
+      renderAll();
+    })
+    .catch((error) => {
+      console.error("❌ Error loading products:", error);
+      document.getElementById('productsGrid').innerHTML = 
+        `<div class="empty-state"><i class="fas fa-exclamation-circle"></i><p>Error: ${error.message}</p></div>`;
+      showToast('Error loading products: ' + error.message, 'error');
     });
-    renderAll();
-  }, (error) => {
-    showToast('Error loading products: ' + error.message, 'error');
-  });
 }
 
 async function addProduct(productData) {
