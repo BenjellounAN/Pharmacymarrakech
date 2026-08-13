@@ -28,6 +28,235 @@
     }
 
     /* ============================================================
+           ANIMATION KEYFRAMES - PREMIUM REVEAL EFFECTS
+        ============================================================ */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(60px) scale(0.96);
+        filter: blur(4px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+      }
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-40px) scale(0.96);
+        filter: blur(3px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+      }
+    }
+
+    @keyframes fadeInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-80px) scale(0.95);
+        filter: blur(4px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+        filter: blur(0);
+      }
+    }
+
+    @keyframes fadeInRight {
+      from {
+        opacity: 0;
+        transform: translateX(80px) scale(0.95);
+        filter: blur(4px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+        filter: blur(0);
+      }
+    }
+
+    @keyframes scaleIn {
+      from {
+        opacity: 0;
+        transform: scale(0.85) rotate(-3deg);
+        filter: blur(5px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) rotate(0);
+        filter: blur(0);
+      }
+    }
+
+    @keyframes scaleInSoft {
+      from {
+        opacity: 0;
+        transform: scale(0.92);
+        filter: blur(2px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+        filter: blur(0);
+      }
+    }
+
+    @keyframes slideUpStagger {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes revealSwipe {
+      from {
+        opacity: 0;
+        clip-path: inset(0 0 100% 0);
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        clip-path: inset(0 0 0 0);
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes glowReveal {
+      0% {
+        opacity: 0;
+        filter: blur(12px) brightness(1.5);
+        transform: scale(0.92);
+      }
+      60% {
+        filter: blur(2px) brightness(1.05);
+        transform: scale(1.01);
+      }
+      100% {
+        opacity: 1;
+        filter: blur(0) brightness(1);
+        transform: scale(1);
+      }
+    }
+
+    @keyframes elasticReveal {
+      0% {
+        opacity: 0;
+        transform: scale(0.7) translateY(30px);
+      }
+      60% {
+        opacity: 1;
+        transform: scale(1.05) translateY(-5px);
+      }
+      100% {
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    /* ============================================================
+           REVEAL CLASSES - Applied by JavaScript
+        ============================================================ */
+    .reveal {
+      opacity: 0;
+      will-change: transform, opacity, filter;
+    }
+
+    .reveal-fade-up {
+      animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .reveal-fade-down {
+      animation: fadeInDown 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .reveal-fade-left {
+      animation: fadeInLeft 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .reveal-fade-right {
+      animation: fadeInRight 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .reveal-scale {
+      animation: scaleIn 1.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .reveal-scale-soft {
+      animation: scaleInSoft 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .reveal-slide-up {
+      animation: slideUpStagger 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .reveal-swipe {
+      animation: revealSwipe 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .reveal-glow {
+      animation: glowReveal 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .reveal-elastic {
+      animation: elasticReveal 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    /* ===== Stagger children ===== */
+    .stagger-children>* {
+      opacity: 0;
+      will-change: transform, opacity;
+    }
+
+    .stagger-children.reveal>*:nth-child(1) {
+      animation: fadeInUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.05s forwards;
+    }
+    .stagger-children.reveal>*:nth-child(2) {
+      animation: fadeInUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
+    }
+    .stagger-children.reveal>*:nth-child(3) {
+      animation: fadeInUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.25s forwards;
+    }
+    .stagger-children.reveal>*:nth-child(4) {
+      animation: fadeInUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.35s forwards;
+    }
+    .stagger-children.reveal>*:nth-child(5) {
+      animation: fadeInUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.45s forwards;
+    }
+    .stagger-children.reveal>*:nth-child(6) {
+      animation: fadeInUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.55s forwards;
+    }
+
+    /* ===== Delay helpers ===== */
+    .delay-1 {
+      animation-delay: 0.1s !important;
+    }
+    .delay-2 {
+      animation-delay: 0.2s !important;
+    }
+    .delay-3 {
+      animation-delay: 0.35s !important;
+    }
+    .delay-4 {
+      animation-delay: 0.5s !important;
+    }
+    .delay-5 {
+      animation-delay: 0.7s !important;
+    }
+    .delay-6 {
+      animation-delay: 0.9s !important;
+    }
+
+    /* ============================================================
            NAVBAR (transparent + glass on scroll)
         ============================================================ */
     .navbar {
@@ -800,7 +1029,6 @@
     /* =========================================
        جميع الصور
        ========================================= */
-
     .rotating-image {
       position: absolute;
       border-radius: 50%;
@@ -823,7 +1051,6 @@
        دوران مع عقارب الساعة
        تم تصغيرها بنسبة 15%
        ========================================= */
-
     .center-image {
       width: 425px;
       height: 425px;
@@ -836,6 +1063,7 @@
       from {
         transform: translate(-50%, -50%) rotate(0deg);
       }
+
       to {
         transform: translate(-50%, -50%) rotate(360deg);
       }
@@ -845,7 +1073,6 @@
        الصورة أعلى اليمين
        دوران عكس الصورة الوسطى
        ========================================= */
-
     .top-right {
       width: 240px;
       height: 240px;
@@ -858,6 +1085,7 @@
       from {
         transform: rotate(0deg);
       }
+
       to {
         transform: rotate(-360deg);
       }
@@ -868,7 +1096,6 @@
        دوران عكس الصورة الوسطى
        تم تصغيرها بنسبة 15%
        ========================================= */
-
     .bottom-right {
       width: 229.5px;
       height: 229.5px;
@@ -881,6 +1108,7 @@
       from {
         transform: rotate(0deg);
       }
+
       to {
         transform: rotate(-360deg);
       }
@@ -889,7 +1117,6 @@
     /* =========================================
        الأوصاف الثلاثة الأصلية
        ========================================= */
-
     .description {
       position: absolute;
       z-index: 2;
@@ -935,7 +1162,6 @@
     /* =========================================
        الخط الصغير أسفل الوصف
        ========================================= */
-
     .description::after {
       content: "";
       display: block;
@@ -950,7 +1176,6 @@
     /* =========================================
        الوصف الأول
        ========================================= */
-
     .description-one {
       left: 58%;
       top: 22%;
@@ -960,7 +1185,6 @@
     /* =========================================
        الوصف الثاني
        ========================================= */
-
     .description-two {
       left: 54%;
       top: 46%;
@@ -970,7 +1194,6 @@
     /* =========================================
        الوصف الثالث
        ========================================= */
-
     .description-three {
       left: 59%;
       bottom: 22%;
@@ -980,16 +1203,17 @@
     /* =========================================
        الحركة الأصلية للأوصاف
        ========================================= */
-
     @keyframes descriptionFloat {
       0% {
         opacity: 0.45;
         transform: translateY(8px);
       }
+
       50% {
         opacity: 1;
         transform: translateY(-5px);
       }
+
       100% {
         opacity: 0.45;
         transform: translateY(8px);
@@ -1001,10 +1225,12 @@
         opacity: 0.2;
         transform: scaleX(0.4);
       }
+
       50% {
         opacity: 1;
         transform: scaleX(1);
       }
+
       100% {
         opacity: 0.2;
         transform: scaleX(0.4);
@@ -1016,6 +1242,7 @@
         opacity: 0;
         transform: translateY(20px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
@@ -1026,7 +1253,6 @@
        الأوصاف الكبيرة الجديدة
        أعلى اليسار وأسفل اليسار
        ========================================= */
-
     .large-description {
       position: absolute;
       z-index: 1;
@@ -1073,7 +1299,6 @@
     /* =========================================
        الخط المتحرك للأوصاف الكبيرة
        ========================================= */
-
     .large-description::after {
       content: "";
       display: block;
@@ -1088,7 +1313,6 @@
     /* =========================================
        الوصف الكبير أعلى اليسار
        ========================================= */
-
     .large-description-top-left {
       left: 6%;
       top: 13%;
@@ -1098,7 +1322,6 @@
     /* =========================================
        الوصف الكبير أسفل اليسار
        ========================================= */
-
     .large-description-bottom-left {
       left: 6%;
       bottom: 13%;
@@ -1108,12 +1331,12 @@
     /* =========================================
        حركة الأوصاف الكبيرة
        ========================================= */
-
     @keyframes largeDescriptionEntrance {
       from {
         opacity: 0;
         transform: translateY(30px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
@@ -1125,10 +1348,12 @@
         opacity: 0.55;
         transform: translateY(8px);
       }
+
       50% {
         opacity: 1;
         transform: translateY(-7px);
       }
+
       100% {
         opacity: 0.55;
         transform: translateY(8px);
@@ -1140,10 +1365,12 @@
         opacity: 0.25;
         transform: scaleX(0.35);
       }
+
       50% {
         opacity: 1;
         transform: scaleX(1);
       }
+
       100% {
         opacity: 0.25;
         transform: scaleX(0.35);
@@ -1153,7 +1380,6 @@
     /* =========================================
        الشاشات المتوسطة
        ========================================= */
-
     @media (max-width: 1000px) {
       .center-image {
         width: 357px;
@@ -1234,7 +1460,6 @@
     /* =========================================
        الهاتف
        ========================================= */
-
     @media (max-width: 700px) {
       .gallery {
         min-height: 500px;
@@ -1313,7 +1538,6 @@
       /* =====================================
          الأوصاف الكبيرة على الهاتف
          ===================================== */
-
       .large-description {
         width: 150px;
       }
@@ -1357,7 +1581,6 @@
     /* =========================================
        الهواتف الصغيرة
        ========================================= */
-
     @media (max-width: 430px) {
       .center-image {
         width: 229.5px;
@@ -1421,7 +1644,6 @@
       /* =====================================
          الأوصاف الكبيرة للهواتف الصغيرة
          ===================================== */
-
       .large-description {
         width: 125px;
       }
@@ -1928,11 +2150,9 @@
       height: calc(100svh - 194px);
       overflow: hidden;
       background:
-        radial-gradient(
-          circle at 50% 40%,
+        radial-gradient(circle at 50% 40%,
           rgba(255, 255, 255, .35),
-          transparent 48%
-        ),
+          transparent 48%),
         #eeeae2;
     }
 
@@ -2342,9 +2562,11 @@
       0% {
         transform: translateY(-100%);
       }
+
       50% {
         transform: translateY(0);
       }
+
       100% {
         transform: translateY(100%);
       }
@@ -2989,11 +3211,9 @@
       overflow: hidden;
       text-align: center;
       background:
-        radial-gradient(
-          circle at 50% 50%,
+        radial-gradient(circle at 50% 50%,
           rgba(165, 151, 130, 0.10),
-          transparent 38%
-        ),
+          transparent 38%),
         #ffffff;
     }
 
@@ -3007,28 +3227,26 @@
       transform: translate(-50%, -50%);
       border-radius: 50%;
       background:
-        radial-gradient(
-          circle,
+        radial-gradient(circle,
           rgba(165, 151, 130, 0.12),
-          transparent 70%
-        );
+          transparent 70%);
       filter: blur(25px);
       animation: glow 7s ease-in-out infinite;
     }
 
     @keyframes glow {
+
       0%,
       100% {
         opacity: .35;
         transform:
-          translate(-50%, -50%)
-          scale(.9);
+          translate(-50%, -50%) scale(.9);
       }
+
       50% {
         opacity: .75;
         transform:
-          translate(-50%, -50%)
-          scale(1.1);
+          translate(-50%, -50%) scale(1.1);
       }
     }
 
@@ -3047,11 +3265,9 @@
     .best-sellers-title {
       margin: 0;
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(
-        68px,
-        11vw,
-        145px
-      );
+      font-size: clamp(68px,
+          11vw,
+          145px);
       line-height: .78;
       font-weight: 600;
       letter-spacing: -4px;
@@ -3059,11 +3275,7 @@
       opacity: 0;
       transform: translateY(110%);
       animation:
-        titleReveal
-        1.2s
-        cubic-bezier(.16, 1, .3, 1)
-        .2s
-        forwards;
+        titleReveal 1.2s cubic-bezier(.16, 1, .3, 1) .2s forwards;
     }
 
     @keyframes titleReveal {
@@ -3096,24 +3308,19 @@
       height: 90%;
       transform: skewX(-20deg);
       background:
-        linear-gradient(
-          90deg,
+        linear-gradient(90deg,
           transparent,
           rgba(255, 255, 255, .85),
-          transparent
-        );
+          transparent);
       animation:
-        shine
-        4.5s
-        ease-in-out
-        1.8s
-        infinite;
+        shine 4.5s ease-in-out 1.8s infinite;
     }
 
     @keyframes shine {
       0% {
         left: -35%;
       }
+
       35%,
       100% {
         left: 125%;
@@ -3132,11 +3339,7 @@
       opacity: 0;
       transform: translateY(18px);
       animation:
-        fadeUp
-        .9s
-        cubic-bezier(.2, .8, .2, 1)
-        .75s
-        forwards;
+        fadeUp .9s cubic-bezier(.2, .8, .2, 1) .75s forwards;
     }
 
     .bottom-line {
@@ -3144,12 +3347,10 @@
       height: 1px;
       margin: 30px auto 0;
       background:
-        linear-gradient(
-          90deg,
+        linear-gradient(90deg,
           transparent,
           #A59782,
-          transparent
-        );
+          transparent);
       opacity: 0;
       animation:
         fadeUp .8s ease 1s forwards;
@@ -3178,11 +3379,13 @@
     }
 
     @keyframes float {
+
       0%,
       100% {
         transform: translateY(0);
         opacity: .25;
       }
+
       50% {
         transform: translateY(-18px);
         opacity: .7;
@@ -3194,6 +3397,7 @@
         opacity: 0;
         transform: translateY(22px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
@@ -3206,11 +3410,9 @@
       }
 
       .best-sellers-title {
-        font-size: clamp(
-          58px,
-          18vw,
-          90px
-        );
+        font-size: clamp(58px,
+            18vw,
+            90px);
         letter-spacing: -2.5px;
       }
 
@@ -3223,6 +3425,23 @@
         font-size: 10px;
         line-height: 1.9;
       }
+    }
+
+    /* ---- Styles for initial hidden state (avoid FOUC) ---- */
+    .reveal-init-hidden {
+      opacity: 0;
+    }
+    .reveal-init-hidden.reveal-fade-up,
+    .reveal-init-hidden.reveal-fade-down,
+    .reveal-init-hidden.reveal-fade-left,
+    .reveal-init-hidden.reveal-fade-right,
+    .reveal-init-hidden.reveal-scale,
+    .reveal-init-hidden.reveal-scale-soft,
+    .reveal-init-hidden.reveal-slide-up,
+    .reveal-init-hidden.reveal-swipe,
+    .reveal-init-hidden.reveal-glow,
+    .reveal-init-hidden.reveal-elastic {
+      opacity: 1;
     }
   </style>
 </head>
@@ -3381,9 +3600,9 @@
            ========================================= -->
 
       <div class="large-description large-description-top-left">
-        <span class="small-label">The Collection</span>
-        <span class="large-title">Made<br>To Last</span>
-        <span class="large-text">Objects created with purpose, character and a timeless sense of beauty.</span>
+        <span class="small-label"></span>
+        <span class="large-title">CRAFTED <br>BY HAND</span>
+        <span class="large-text">Authentic Moroccan pieces, shaped by skilled hands.</span>
       </div>
 
       <!-- =========================================
@@ -3391,8 +3610,8 @@
            ========================================= -->
 
       <div class="large-description large-description-bottom-left">
-        <span class="small-label">Our Philosophy</span>
-        <span class="large-title">Crafted<br>With Soul</span>
+        <span class="small-label"></span>
+        <span class="large-title">MADE WITH <br>LOVE</span>
         <span class="large-text">Every piece carries a story, shaped by detail, balance and intention.</span>
       </div>
 
@@ -3401,29 +3620,23 @@
            ========================================= -->
 
       <div class="description description-one">
-        <span class="number">01 / Essence</span>
-        <span class="title">Timeless</span>
-        <span class="text">Designed to transcend<br>seasons and moments.</span>
+        <span class="number"></span>
+        <span class="title">TIMELESS BEAUTY</span>
+        <span class="text">Where heritage meets <br> refined contemporary living.</span>
       </div>
 
       <!-- =========================================
            الوصف الثاني
            ========================================= -->
 
-      <div class="description description-two">
-        <span class="number">02 / Craft</span>
-        <span class="title">Artisan</span>
-        <span class="text">Handmade with care<br>and a quiet precision.</span>
-      </div>
-
       <!-- =========================================
            الوصف الثالث
            ========================================= -->
 
       <div class="description description-three">
-        <span class="number">03 / Story</span>
-        <span class="title">Meaningful</span>
-        <span class="text">Every detail carries<br>a story of its own.</span>
+        <span class="number"></span>
+        <span class="title">Artisan</span>
+        <span class="text">Handmade with care<br>Every detail carries</span>
       </div>
 
     </div>
@@ -3929,20 +4142,17 @@
 
       function updateNavbarAndSticky() {
         const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-
         // Apply glass effect to navbar
         if (currentScroll > 30) {
           navbar.classList.add('scrolled');
         } else {
           navbar.classList.remove('scrolled');
         }
-
         // Show sticky bar when scrolling past the top banner
         const bannerOffsetTop = topBanner ? topBanner.offsetTop : 0;
         const navbarHeight = navbar.offsetHeight;
         const triggerPoint = bannerOffsetTop - navbarHeight + 50;
         const shouldShowSticky = currentScroll > triggerPoint && currentScroll > 100;
-
         if (shouldShowSticky && !stickyVisible) {
           stickyBar.classList.add('visible');
           navbar.classList.add('with-sticky');
@@ -3958,7 +4168,6 @@
         }
         ticking = false;
       }
-
       window.addEventListener('scroll', function() {
         if (!ticking) {
           window.requestAnimationFrame(function() {
@@ -3967,7 +4176,6 @@
           ticking = true;
         }
       });
-
       window.addEventListener('resize', function() {
         if (!ticking) {
           window.requestAnimationFrame(function() {
@@ -3976,7 +4184,6 @@
           ticking = true;
         }
       });
-
       setTimeout(updateNavbarAndSticky, 100);
     })();
   </script>
@@ -4552,57 +4759,46 @@
     document.addEventListener(
       "DOMContentLoaded",
       function() {
-
         const track =
           document.getElementById(
             "luxuryTrack"
           );
-
         const images =
           document.querySelectorAll(
             ".luxury-image"
           );
-
         const copyItems =
           document.querySelectorAll(
             ".luxury-copy-item"
           );
-
         const current =
           document.getElementById(
             "luxuryCurrent"
           );
-
         const imageNumber =
           document.getElementById(
             "luxuryImageNumber"
           );
-
         const bgWord =
           document.getElementById(
             "luxuryBgWord"
           );
-
         const progress =
           document.getElementById(
             "luxuryProgressFill"
           );
-
         const indexProgress =
           document.getElementById(
             "luxuryIndexProgress"
           );
-
         const shopButton =
           document.getElementById(
             "luxuryShopButton"
           );
-
         const frame =
           document.querySelector(
             ".luxury-image-frame"
           );
-
         const stories = [{
           number: "01",
           word: "ESSENCE",
@@ -4636,10 +4832,8 @@
           word: "PERMANENCE",
           link: "#permanence"
         }];
-
         const total =
           stories.length;
-
         let activeIndex = 0;
         let ticking = false;
 
@@ -4648,7 +4842,6 @@
             return;
           }
           activeIndex = index;
-
           images.forEach(
             function(image, i) {
               image.classList.toggle(
@@ -4657,7 +4850,6 @@
               );
             }
           );
-
           copyItems.forEach(
             function(item, i) {
               item.classList.toggle(
@@ -4666,18 +4858,14 @@
               );
             }
           );
-
           current.textContent =
             stories[index].number;
-
           imageNumber.textContent =
             stories[index].number +
             " / 08";
-
           bgWord.style.opacity = "0";
           bgWord.style.transform =
             "translate(-50%, -50%) scale(1.08)";
-
           setTimeout(
             function() {
               bgWord.textContent =
@@ -4689,14 +4877,11 @@
             },
             180
           );
-
           shopButton.href =
             stories[index].link;
-
           const percentage =
             ((index + 1) /
               total) * 100;
-
           progress.style.width =
             percentage + "%";
           indexProgress.style.height =
@@ -4711,8 +4896,7 @@
           const distance =
             track.offsetHeight -
             viewport;
-          let scrollProgress =
-            -rect.top /
+          let scrollProgress = -rect.top /
             distance;
           scrollProgress =
             Math.max(
@@ -4732,7 +4916,6 @@
               total - 1;
           }
           updateStory(index);
-
           if (window.innerWidth > 900) {
             const parallax =
               (
@@ -4750,7 +4933,6 @@
             frame.style.transform =
               "translate(-50%, -50%)";
           }
-
           bgWord.style.transform =
             "translate(-50%, calc(-50% + " +
             (
@@ -4759,7 +4941,6 @@
             ) +
             "px)) scale(1)";
         }
-
         window.addEventListener(
           "scroll",
           function() {
@@ -4776,14 +4957,12 @@
             passive: true
           }
         );
-
         window.addEventListener(
           "resize",
           function() {
             calculate();
           }
         );
-
         progress.style.width =
           "12.5%";
         indexProgress.style.height =
@@ -4791,9 +4970,272 @@
         shopButton.href =
           stories[0].link;
         calculate();
-
       }
     );
+  </script>
+
+  <!-- =========================================================
+         PREMIUM REVEAL ANIMATIONS ENGINE
+         - Intersection Observer with advanced effects
+         - Staggered animations for children
+         - Different effect types per element
+    ========================================================= -->
+  <script>
+    (function() {
+      'use strict';
+
+      // Configuration for each element: what effect to use
+      const effectMap = {
+        // Navbar elements
+        '.logo-image': 'reveal-fade-down delay-1',
+        '.menu': 'reveal-fade-left delay-1',
+        '.search': 'reveal-fade-right delay-2',
+        '.cart': 'reveal-scale-soft delay-3',
+
+        // Hero slider content
+        '.slide.active .slide-title': 'reveal-fade-up delay-2',
+        '.slide.active .btn-shop': 'reveal-elastic delay-3',
+        '.slide.active .variant-tile': 'reveal-fade-right delay-4',
+
+        // Top banner
+        '.top-banner': 'reveal-fade-down',
+
+        // Gallery - rotating images
+        '.center-image': 'reveal-scale delay-1',
+        '.top-right': 'reveal-fade-right delay-2',
+        '.bottom-right': 'reveal-fade-right delay-3',
+
+        // Gallery descriptions
+        '.large-description-top-left': 'reveal-fade-left delay-1',
+        '.large-description-bottom-left': 'reveal-fade-left delay-3',
+        '.description-one': 'reveal-fade-up delay-2',
+        '.description-three': 'reveal-fade-up delay-4',
+
+        // Best Sellers
+        '.best-sellers-section': 'reveal-fade-up',
+        '.best-sellers-title': 'reveal-swipe delay-1',
+        '.best-sellers-desc': 'reveal-fade-up delay-2',
+        '.bottom-line': 'reveal-scale-soft delay-3',
+
+        // Product Grid - each product card
+        '.product-grid-item:nth-child(1)': 'reveal-fade-up delay-1',
+        '.product-grid-item:nth-child(2)': 'reveal-fade-up delay-2',
+        '.product-grid-item:nth-child(3)': 'reveal-fade-up delay-3',
+        '.product-grid-item:nth-child(4)': 'reveal-fade-up delay-4',
+
+        // View All
+        '.view-all-wrapper': 'reveal-fade-up delay-2',
+
+        // Luxury Story
+        '.luxury-brand': 'reveal-fade-down delay-1',
+        '.luxury-counter': 'reveal-fade-down delay-2',
+        '.luxury-image-frame': 'reveal-glow delay-1',
+        '.luxury-shop': 'reveal-elastic delay-4',
+
+        // Happening Section
+        '.happening-title': 'reveal-swipe delay-1',
+        '.carousel-card:nth-child(1)': 'reveal-fade-up delay-1',
+        '.carousel-card:nth-child(2)': 'reveal-fade-up delay-2',
+        '.carousel-card:nth-child(3)': 'reveal-fade-up delay-3',
+        '.carousel-card:nth-child(4)': 'reveal-fade-up delay-4',
+      };
+
+      // Elements that should use stagger on children
+      const staggerSelectors = [
+        '.product-grid-section',
+        '.carousel-track',
+      ];
+
+      // Intersection Observer with rootMargin for提前触发
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const el = entry.target;
+
+            // Check if this is a stagger container
+            if (el.classList.contains('stagger-children')) {
+              el.classList.add('reveal');
+              // Stagger animation is handled via CSS
+            } else {
+              // Find the effect class for this element
+              const effect = el.dataset.revealEffect || 'reveal-fade-up';
+              el.classList.add(effect);
+              // Ensure opacity is set to 1 after animation starts
+              el.style.opacity = '1';
+            }
+
+            // Stop observing after revealing
+            observer.unobserve(el);
+          }
+        });
+      }, {
+        root: null,
+        rootMargin: '0px 0px -20px 0px', // Slightly earlier trigger
+        threshold: 0.05
+      });
+
+      // Apply effects to elements based on map
+      function applyReveals() {
+        // First, mark all elements that need reveals
+        Object.keys(effectMap).forEach(selector => {
+          const elements = document.querySelectorAll(selector);
+          const effectClasses = effectMap[selector];
+
+          elements.forEach(el => {
+            // Store effect in data attribute
+            el.dataset.revealEffect = effectClasses;
+            // Initially hide
+            el.style.opacity = '0';
+            // Start observing
+            observer.observe(el);
+          });
+        });
+
+        // Handle stagger containers
+        staggerSelectors.forEach(selector => {
+          const containers = document.querySelectorAll(selector);
+          containers.forEach(container => {
+            container.classList.add('stagger-children');
+            // Set children to hidden
+            container.querySelectorAll('*').forEach(child => {
+              child.style.opacity = '0';
+            });
+            observer.observe(container);
+          });
+        });
+
+        // Special handling for slider content (active slide only)
+        // The active slide content should reveal on load
+        const activeSlideTitle = document.querySelector('.slide.active .slide-title');
+        const activeSlideBtn = document.querySelector('.slide.active .btn-shop');
+        const activeSlideVariant = document.querySelector('.slide.active .variant-tile');
+
+        if (activeSlideTitle) {
+          activeSlideTitle.style.opacity = '0';
+          activeSlideTitle.dataset.revealEffect = 'reveal-fade-up delay-2';
+          observer.observe(activeSlideTitle);
+        }
+        if (activeSlideBtn) {
+          activeSlideBtn.style.opacity = '0';
+          activeSlideBtn.dataset.revealEffect = 'reveal-elastic delay-3';
+          observer.observe(activeSlideBtn);
+        }
+        if (activeSlideVariant) {
+          activeSlideVariant.style.opacity = '0';
+          activeSlideVariant.dataset.revealEffect = 'reveal-fade-right delay-4';
+          observer.observe(activeSlideVariant);
+        }
+
+        // Handle slide changes - re-observe new active slide content
+        const slides = document.querySelectorAll('.slide');
+        const slideObserver = new MutationObserver(() => {
+          slides.forEach(slide => {
+            if (slide.classList.contains('active')) {
+              const title = slide.querySelector('.slide-title');
+              const btn = slide.querySelector('.btn-shop');
+              const variant = slide.querySelector('.variant-tile');
+
+              if (title && !title.dataset.revealApplied) {
+                title.style.opacity = '0';
+                title.dataset.revealEffect = 'reveal-fade-up delay-2';
+                title.dataset.revealApplied = 'true';
+                observer.observe(title);
+              }
+              if (btn && !btn.dataset.revealApplied) {
+                btn.style.opacity = '0';
+                btn.dataset.revealEffect = 'reveal-elastic delay-3';
+                btn.dataset.revealApplied = 'true';
+                observer.observe(btn);
+              }
+              if (variant && !variant.dataset.revealApplied) {
+                variant.style.opacity = '0';
+                variant.dataset.revealEffect = 'reveal-fade-right delay-4';
+                variant.dataset.revealApplied = 'true';
+                observer.observe(variant);
+              }
+            }
+          });
+        });
+
+        // Observe slides for class changes
+        slides.forEach(slide => {
+          slideObserver.observe(slide, { attributes: true, attributeFilter: ['class'] });
+        });
+
+        // Also observe the slides wrapper for slide changes via slider script
+        const slidesWrapper = document.querySelector('.slides-wrapper');
+        if (slidesWrapper) {
+          const wrapperObserver = new MutationObserver(() => {
+            // Re-check active slide content
+            slides.forEach(slide => {
+              if (slide.classList.contains('active')) {
+                const title = slide.querySelector('.slide-title');
+                const btn = slide.querySelector('.btn-shop');
+                const variant = slide.querySelector('.variant-tile');
+
+                if (title && !title.dataset.revealApplied) {
+                  title.style.opacity = '0';
+                  title.dataset.revealEffect = 'reveal-fade-up delay-2';
+                  title.dataset.revealApplied = 'true';
+                  observer.observe(title);
+                }
+                if (btn && !btn.dataset.revealApplied) {
+                  btn.style.opacity = '0';
+                  btn.dataset.revealEffect = 'reveal-elastic delay-3';
+                  btn.dataset.revealApplied = 'true';
+                  observer.observe(btn);
+                }
+                if (variant && !variant.dataset.revealApplied) {
+                  variant.style.opacity = '0';
+                  variant.dataset.revealEffect = 'reveal-fade-right delay-4';
+                  variant.dataset.revealApplied = 'true';
+                  observer.observe(variant);
+                }
+              }
+            });
+          });
+          wrapperObserver.observe(slidesWrapper, { childList: true, subtree: true });
+        }
+      }
+
+      // Run after DOM is ready
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', applyReveals);
+      } else {
+        applyReveals();
+      }
+
+      // Also re-apply when slider changes (hack for slide transitions)
+      // We'll use a periodic check for new active slide content
+      setInterval(() => {
+        const activeSlide = document.querySelector('.slide.active');
+        if (activeSlide) {
+          const title = activeSlide.querySelector('.slide-title');
+          const btn = activeSlide.querySelector('.btn-shop');
+          const variant = activeSlide.querySelector('.variant-tile');
+
+          if (title && !title.dataset.revealApplied) {
+            title.style.opacity = '0';
+            title.dataset.revealEffect = 'reveal-fade-up delay-2';
+            title.dataset.revealApplied = 'true';
+            observer.observe(title);
+          }
+          if (btn && !btn.dataset.revealApplied) {
+            btn.style.opacity = '0';
+            btn.dataset.revealEffect = 'reveal-elastic delay-3';
+            btn.dataset.revealApplied = 'true';
+            observer.observe(btn);
+          }
+          if (variant && !variant.dataset.revealApplied) {
+            variant.style.opacity = '0';
+            variant.dataset.revealEffect = 'reveal-fade-right delay-4';
+            variant.dataset.revealApplied = 'true';
+            observer.observe(variant);
+          }
+        }
+      }, 1000);
+
+    })();
   </script>
 
 </body>
